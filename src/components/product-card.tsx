@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { ArrowUpRight, Plus, X, ShoppingBag } from 'lucide-react';
 import type { Product } from '@/lib/types';
+import { sizeLabel } from '@/lib/official-stores';
 import { formatKzt, formatDate, formatRate, discountPercent } from '@/lib/money';
 import { useStore } from './store-provider';
 const genders = { men: 'Мужские', women: 'Женские', unisex: 'Унисекс', kids: 'Детские' };
@@ -97,10 +98,10 @@ export function ProductCard({
             aria-invalid={Boolean(error)}
             aria-describedby={error ? `error-${p.id}` : undefined}
           >
-            <option value="">{p.sizes.length ? 'Размер EU' : 'Размер у продавца'}</option>
+            <option value="">{p.sizes.length ? 'Выберите размер' : 'Размер у продавца'}</option>
             {p.sizes.map((s) => (
               <option key={s} value={s}>
-                {s}
+                {sizeLabel(s)}
                 {p.sizePrices?.find((v) => v.size === s)
                   ? ` · ${formatKzt(p.sizePrices.find((v) => v.size === s)!.saleKzt)}`
                   : ''}
@@ -167,7 +168,7 @@ export function ProductCard({
         </p>
         {p.sku && <p>Артикул: {p.sku}</p>}
         {p.sourceUpdatedAt && <p>Цена источника на {formatDate(p.sourceUpdatedAt)} · Алматы</p>}
-        <p>Размеры EU: {p.sizes.join(', ') || 'уточняйте у продавца'}</p>
+        <p>Размеры: {p.sizes.map(sizeLabel).join(', ') || 'уточняйте у продавца'}</p>
         {p.demo ? (
           <p className="notice">
             Это пример интерфейса. Название и цены условные, фотография иллюстративная. Это не

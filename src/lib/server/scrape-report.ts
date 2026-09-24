@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { seaClient } from './seatable-client';
 import { pumaVariantSchema, pumaVerifiedSchema } from '../puma';
+import { retailVariantSchema, retailScrapeSchema } from '../retail-scrapes';
 export const scrapeReportSchema = z.object({
   runId: z.string().regex(/^[a-zA-Z0-9-]{1,80}$/),
   checkedAt: z.string().datetime({ offset: true }),
@@ -35,14 +36,22 @@ export const scrapeReportSchema = z.object({
           product_url: z.string().url().max(2000),
           old_price: z.number().positive(),
           sale_price: z.number().positive(),
-          currency: z.literal('USD'),
+          currency: z.enum(['USD', 'EUR']),
           checked_at: z.string().datetime({ offset: true }),
           size_price_verified: z.boolean(),
           gender: z.enum(['men', 'women', 'kids', 'unisex']).optional(),
-          variants: z.array(pumaVariantSchema).max(60).optional(),
+          variants: z
+            .array(z.union([pumaVariantSchema, retailVariantSchema]))
+            .max(60)
+            .optional(),
         })
         .refine((p) => p.sale_price < p.old_price)
-        .refine((p) => !p.size_price_verified || pumaVerifiedSchema.safeParse(p).success),
+        .refine(
+          (p) =>
+            !p.size_price_verified ||
+            pumaVerifiedSchema.safeParse(p).success ||
+            retailScrapeSchema.safeParse(p).success,
+        ),
     )
     .max(1500),
 });

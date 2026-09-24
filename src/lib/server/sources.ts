@@ -3,6 +3,7 @@ import { PartnerFeedAdapter, type SourceAdapter } from './adapters';
 import { EbayAdapter } from './ebay';
 import { FixedRetailAdapter } from './fixed-retail';
 import { PumaAdapter } from './puma';
+import { ScrapedRetailAdapter } from './scraped-retail';
 import { IntegrationError } from './http';
 const customSchema = z
   .array(
@@ -17,6 +18,9 @@ const customSchema = z
 export function getAdapters(): SourceAdapter[] {
   const sources: SourceAdapter[] = [
     new PumaAdapter(),
+    ...(['reebok', 'on', 'brooks', 'skechers', 'fila'] as const).map(
+      (id) => new ScrapedRetailAdapter(id),
+    ),
     new FixedRetailAdapter('retail-us', 'Поставщик США', 'RETAIL_US', 'US'),
     new FixedRetailAdapter('retail-eu', 'Поставщик Европы', 'RETAIL_EU', 'EU'),
     new PartnerFeedAdapter(

@@ -218,7 +218,7 @@ export function Catalog({
       </fieldset>
       <fieldset>
         <legend>
-          Размер <span className="muted">EU</span>
+          Размер <span className="muted">EU / US</span>
         </legend>
         <div className="size-grid">
           {(result.facets.sizes.length

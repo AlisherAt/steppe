@@ -55,7 +55,10 @@ export class PumaAdapter implements SourceAdapter {
     const rows = await seaClient.rows('STEPPE_Scrapes');
     const latest = rows
       .filter((r) => !String(r.id).includes(':'))
-      .sort((a, b) => String(b.checked_at).localeCompare(String(a.checked_at)))[0];
+      .sort((a, b) => String(b.checked_at).localeCompare(String(a.checked_at)))
+      .find((r) =>
+        JSON.parse(String(r.payload)).reports?.some((s: { source: string }) => s.source === 'puma'),
+      );
     if (!latest) return [];
     if (Date.now() - Date.parse(String(latest.checked_at)) > 36 * 3600000)
       throw new IntegrationError('PUMA_SCRAPE_STALE');

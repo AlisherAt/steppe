@@ -13,6 +13,13 @@ const config: NextConfig = {
       'i.ebayimg.com',
       'images.stockx.com',
       'images.puma.com',
+      'www.reebok.com',
+      'cdn.shopify.com',
+      'images.ctfassets.net',
+      'www.brooksrunning.com',
+      'www.skechers.com',
+      'images.skechers.com',
+      'www.fila.de',
       ...imageHosts,
     ].map((hostname) => ({
       protocol: 'https' as const,

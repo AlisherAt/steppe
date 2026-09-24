@@ -5,6 +5,7 @@ import { fetchText, IntegrationError, publicHttps, splitHosts } from './http';
 import type { Product, Rate } from '../types';
 import { discountPercent, toKzt } from '../money';
 import { normalizeBrand } from '../brands';
+import { officialMarketUrl } from '../official-stores';
 import { parseYml, parseCsvFeed, parseGoogleXml, type FeedFormat } from './feed-formats';
 const amount = z.string().regex(/^\d{1,9}(\.\d{1,4})?$/);
 export const feedProductSchema = z
@@ -61,8 +62,7 @@ export const feedProductSchema = z
               !!p.sourceUpdatedAt
             : p.offerKind === 'retail'
               ? p.purchaseType === 'fixed' &&
-                (!!p.warehouseCountry ||
-                  (p.market === 'US' && new URL(p.productUrl).origin === 'https://us.puma.com')) &&
+                (!!p.warehouseCountry || officialMarketUrl(p.productUrl, p.market)) &&
                 !!p.sizePrices?.length &&
                 (p.originalPrice === null ||
                   p.sizePrices.every((v) => new Decimal(p.originalPrice!).gte(v.salePrice))) &&

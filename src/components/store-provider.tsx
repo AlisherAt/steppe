@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { ArrowUpRight, Check, ShoppingBag, Trash2, X } from 'lucide-react';
 import { addToCart, cartItemKey, CART_KEY, readCart, writeCart, type CartItem } from '@/lib/cart';
 import type { Product } from '@/lib/types';
+import { sizeLabel } from '@/lib/official-stores';
 import { formatKzt } from '@/lib/money';
 type Store = {
   items: CartItem[];
@@ -208,7 +209,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                       <h3>{item.name}</h3>
                       <p>
                         {item.sourceName} ·{' '}
-                        {item.size ? `Размер EU ${item.size}` : 'Размер уточняйте в магазине'}
+                        {item.size
+                          ? `Размер ${sizeLabel(item.size)}`
+                          : 'Размер уточняйте в магазине'}
                       </p>
                       <strong>{formatKzt(item.saleKzt)}</strong>
                       {!item.demo && checked[cartItemKey(item)] === false && (

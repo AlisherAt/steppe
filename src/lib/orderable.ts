@@ -1,4 +1,5 @@
 import type { Product } from './types';
+import { officialStores } from './official-stores';
 export const EUROPE_COUNTRIES = [
   'AT',
   'BE',
@@ -38,8 +39,11 @@ export function orderableProduct(p: Product) {
     p.offerKind === 'retail' &&
     p.purchaseType === 'fixed' &&
     (p.market === 'US'
-      ? p.warehouseCountry === 'US' || p.sourceId === 'puma-us'
-      : p.market === 'EU' && EUROPE_COUNTRIES.includes(p.warehouseCountry || '')) &&
+      ? p.warehouseCountry === 'US' ||
+        (p.sourceId.endsWith('-us') && Object.hasOwn(officialStores, p.sourceId))
+      : p.market === 'EU' &&
+        (EUROPE_COUNTRIES.includes(p.warehouseCountry || '') ||
+          (p.sourceId.endsWith('-eu') && Object.hasOwn(officialStores, p.sourceId)))) &&
     !!p.sizePrices?.length &&
     p.sizes.length === p.sizePrices.length &&
     new Set(p.sizePrices.map((v) => v.size)).size === p.sizePrices.length &&

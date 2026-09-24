@@ -6,6 +6,13 @@ import { randomUUID, randomInt } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { sources, selectors } from './scraper-sources.mjs';
 import { collectPumaDetails } from './puma-details.mjs';
+import {
+  discoverRetail,
+  collectReebok,
+  collectOn,
+  collectBrooks,
+  collectFila,
+} from './retail-details.mjs';
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export async function runScraper() {
   let permissions;
@@ -55,6 +62,10 @@ export async function runScraper() {
         continue;
       }
       let context, page;
+      const sourceDeadline = Math.min(
+        deadline,
+        Date.now() + (source.id === 'puma' ? 300000 : 180000),
+      );
       try {
         const origin = new URL(source.url).origin;
         const robotsURL = origin + '/robots.txt';
@@ -113,6 +124,61 @@ export async function runScraper() {
         page.setDefaultNavigationTimeout(30000);
         const first = await page.goto(source.url, { waitUntil: 'domcontentloaded' });
         if (!first?.ok()) throw Error(`PAGE_HTTP_${first?.status() || 0}`);
+        if (['reebok', 'on', 'brooks', 'skechers', 'fila'].includes(source.id)) {
+          await pause(Math.max(crawlDelay, 3500));
+          const links = await discoverRetail(page, source);
+          if (!links.length) throw Error('NO_PRODUCT_LINKS');
+          const checkAccess = async () => {
+            if (blocked) throw Error(blocked);
+            if (
+              /access denied|verify (?:that )?you are human|unusual traffic|robot check|just a moment/i.test(
+                (await page.locator('body').innerText()).slice(0, 16000),
+              )
+            )
+              throw Error('ACCESS_CHALLENGE');
+          };
+          if (source.id === 'skechers') throw Error('SIZE_REQUEST_ROBOTS_DISALLOWED');
+          const collector = {
+            reebok: collectReebok,
+            on: collectOn,
+            brooks: collectBrooks,
+            fila: collectFila,
+          }[source.id];
+          const collected = new Map();
+          for (const url of links.slice(0, 6)) {
+            if (Date.now() + 15000 > sourceDeadline || blocked) break;
+            if (!allowed(url)) continue;
+            try {
+              await pause(Math.max(crawlDelay, 2500));
+              const r = await page.goto(url, { waitUntil: 'domcontentloaded' });
+              if (!r?.ok()) throw Error(`PAGE_HTTP_${r?.status() || 0}`);
+              await pause(2500);
+              await checkAccess();
+              const p = await collector(page, source, {
+                delay: Math.max(crawlDelay, 2000),
+                checkAccess,
+                allowed,
+                deadline: sourceDeadline,
+              });
+              collected.set(p.sku, p);
+              console.log(
+                JSON.stringify({ source: source.id, sku: p.sku, verifiedSizes: p.variants.length }),
+              );
+            } catch (error) {
+              entry.error = String(error.message).slice(0, 160);
+              console.log(JSON.stringify({ source: source.id, detailError: entry.error }));
+              await mkdir('artifacts/diagnostics', { recursive: true });
+              await page
+                .screenshot({ path: `artifacts/diagnostics/${source.id}-detail.png` })
+                .catch(() => {});
+            }
+          }
+          report.products.push(...collected.values());
+          entry.count = collected.size;
+          entry.status = entry.count ? 'partial' : 'error';
+          if (!entry.count) entry.error ||= 'NO_VERIFIED_VARIANTS';
+          continue;
+        }
         const found = new Map(),
           visited = new Set([source.url]);
         let idle = 0;
@@ -171,7 +237,7 @@ export async function runScraper() {
               throw Error('ACCESS_CHALLENGE');
           };
           for (let index = 0; index < Math.min(detailLimit, products.length); index++) {
-            if (Date.now() + 60000 > deadline || blocked) break;
+            if (Date.now() + 60000 > sourceDeadline || blocked) break;
             try {
               const candidate = products[index];
               if (!allowed(candidate.product_url)) throw Error('ROBOTS_DISALLOWED');
@@ -183,7 +249,7 @@ export async function runScraper() {
               products[index] = await collectPumaDetails(page, candidate, {
                 checkAccess,
                 delay: Math.max(crawlDelay, 2500),
-                deadline,
+                deadline: sourceDeadline,
               });
               console.log(
                 JSON.stringify({

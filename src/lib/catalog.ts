@@ -39,8 +39,8 @@ export const PAGE_SIZE = 12;
 export function facetsFor(products: Product[]): Facets {
   return {
     brands: [...new Set(products.map((p) => p.brand))].sort(),
-    sizes: [...new Set(products.flatMap((p) => p.sizes))].sort(
-      (a, b) => parseFloat(a) - parseFloat(b),
+    sizes: [...new Set(products.flatMap((p) => p.sizes))].sort((a, b) =>
+      a.localeCompare(b, 'en', { numeric: true }),
     ),
     sources: [
       ...new Map(
