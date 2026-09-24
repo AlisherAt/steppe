@@ -31,7 +31,7 @@ test('Сборщик: точные цены, SKU, изображение, про
 
 test('FILA: скрытый список размеров исключает soldout и сохраняет EUR', async ({ page }) => {
   await page.setContent(
-    `<meta itemprop="sku" content="1716266"><meta itemprop="name" content="Test"><meta itemprop="priceCurrency" content="EUR"><img src="https://www.fila.de/1716266.jpg"><div hidden><div class="size"><a class="selectSize" data-sku="1716266-43" data-size-original="43" data-price="70.95 €" data-tprice="€ 109.95">43</a></div><div class="size inactive"><a class="selectSize" data-sku="1716266-42" data-size-original="42" data-price="70.95 €" data-tprice="€ 109.95">42<span class="soldout">Ausverkauft</span></a></div></div>`,
+    `<meta itemprop="sku" content="1716266-V2"><meta itemprop="name" content="Test"><meta itemprop="priceCurrency" content="EUR"><img src="https://www.fila.de/1716266.jpg"><div hidden><div class="size"><a class="selectSize" data-sku="1716266-V2-43" data-size-original="43" data-price="70.95 €" data-tprice="€ 109.95">43</a></div><div class="size inactive"><a class="selectSize" data-sku="1716266-V2-42" data-size-original="42" data-price="70.95 €" data-tprice="€ 109.95">42<span class="soldout">Ausverkauft</span></a></div></div>`,
   );
   const p = await collectFila(page, { id: 'fila', brand: 'Fila' });
   expect(p.currency).toBe('EUR');

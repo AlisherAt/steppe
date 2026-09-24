@@ -3,6 +3,11 @@ on:
   schedule:
     - cron: '0 1,13 * * *'
   workflow_dispatch:
+    inputs:
+      sources:
+        description: 'Идентификаторы магазинов через запятую; пусто — все 15'
+        required: false
+        default: ''
 permissions:
   contents: read
 concurrency:
@@ -25,6 +30,7 @@ jobs:
       - name: Проверить сайты и собрать разрешённые карточки
         env:
           SCRAPER_PERMISSIONS_JSON: ${{ vars.SCRAPER_PERMISSIONS_JSON || '{}' }}
+          SCRAPER_SOURCE_IDS: ${{ inputs.sources || '' }}
         run: node scripts/scrape-sales.mjs
       - name: Передать результат на сайт
         env:

@@ -291,8 +291,11 @@ export async function collectFila(page, source) {
       return e?.getAttribute('content') || e?.textContent.trim();
     };
     const sku = value('sku');
-    const images = [...document.querySelectorAll('img')].filter((e) =>
-      (e.currentSrc || e.src).includes(sku),
+    // Суффикс ревизии V2 есть в артикуле, но имя опубликованного изображения
+    // использует базовый номер. Сам артикул и вариант сохраняются полностью.
+    const imageSku = sku?.replace(/-V\d+$/i, '');
+    const images = [...document.querySelectorAll('img')].filter(
+      (e) => imageSku && (e.currentSrc || e.src).includes(imageSku),
     );
     images.sort((a, b) => b.naturalWidth - a.naturalWidth);
     return {

@@ -15,6 +15,15 @@ import {
 } from './retail-details.mjs';
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export async function runScraper() {
+  const selectedIds = (process.env.SCRAPER_SOURCE_IDS || '')
+    .split(',')
+    .map((id) => id.trim())
+    .filter(Boolean);
+  if (selectedIds.some((id) => !sources.some((s) => s.id === id)))
+    throw Error('INVALID_SCRAPER_SOURCE_IDS');
+  const selectedSources = selectedIds.length
+    ? sources.filter((s) => selectedIds.includes(s.id))
+    : sources;
   let permissions;
   try {
     permissions = JSON.parse(process.env.SCRAPER_PERMISSIONS_JSON || '{}');
@@ -46,7 +55,7 @@ export async function runScraper() {
     throw Error('INVALID_SCRAPER_LIMIT');
   const deadline = Date.now() + 15 * 60_000;
   try {
-    for (const source of sources) {
+    for (const source of selectedSources) {
       const entry = {
         source: source.id,
         brand: source.brand,
@@ -196,6 +205,8 @@ export async function runScraper() {
             throw Error('ACCESS_CHALLENGE');
           const previous = found.size;
           for (const p of await extract(page, source)) found.set(`${p.sku}:${p.product_url}`, p);
+          // Проверка размеров полезнее накопления сотни необработанных кандидатов.
+          if (source.id === 'puma' && found.size >= detailLimit) break;
           idle = found.size === previous ? idle + 1 : 0;
           const more = page.locator(selectors.more).first();
           if ((await more.isVisible()) && (await more.isEnabled())) {
