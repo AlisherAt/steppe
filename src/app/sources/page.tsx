@@ -85,9 +85,6 @@ export default async function SourcesPage() {
               <span className="eyebrow">{option.kind}</span>
               <h2 style={{ fontSize: 22, marginTop: 12 }}>{option.name}</h2>
               <p>{option.detail}</p>
-              <a className="text-link" href={option.url} target="_blank" rel="noopener noreferrer">
-                Информация об источнике <ArrowUpRight size={14} />
-              </a>
             </section>
           ))}
       </div>
@@ -98,8 +95,8 @@ export default async function SourcesPage() {
           производства или склада.
         </p>
         <p>
-          По каждой модели показана минимальная доступная цена и размеры EU по этой цене. Если
-          прежняя цена неизвестна, скидка не отображается.
+          По каждой модели показана минимальная доступная цена. Для каждого размера EU показывается
+          своя цена. Если прежняя цена неизвестна, скидка не отображается.
         </p>
       </div>
       <div className="info-panel">
@@ -118,27 +115,12 @@ export default async function SourcesPage() {
       <div className="info-panel">
         <h2>Партнёрские источники</h2>
         <p>
-          Каталог рынка США получает данные через KicksDB. Дополнительные источники скидок подключаются отдельно: для Nike требуется доступ к
-          автоматическому товарному фиду после одобрения участия в программе. Для Adidas —
-          согласованный с партнёрской программой источник данных. Условия зависят от региона.
+          Каталог рынка США получает данные через KicksDB. Дополнительные источники скидок
+          подключаются отдельно: для Nike требуется доступ к автоматическому товарному фиду после
+          одобрения участия в программе. Для Adidas — согласованный с партнёрской программой
+          источник данных. Условия зависят от региона.
         </p>
-        <p>
-          <a
-            href="https://www.nike.com/help/a/nike-affiliate-program/app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Программа Nike <ArrowUpRight size={13} />
-          </a>{' '}
-          ·{' '}
-          <a
-            href="https://www.adidas.com/us/help/us-company-information/what-is-our-affiliate-program"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Программа Adidas <ArrowUpRight size={13} />
-          </a>
-        </p>
+        <p> · </p>
       </div>
       <div className="info-panel">
         <h2>Курсы валют</h2>

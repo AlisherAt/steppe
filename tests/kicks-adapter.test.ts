@@ -40,12 +40,16 @@ afterEach(() => {
   vi.clearAllMocks();
   vi.unstubAllEnvs();
 });
-it('публикует только EU размеры по минимальной цене и не придумывает старую цену', () => {
+it('публикует все EU размеры с отдельными ценами и не придумывает старую цену', () => {
   const offer = kicksOffers(products, now)[0];
   expect(offer).toMatchObject({
     salePrice: '80',
     originalPrice: null,
-    sizes: ['42'],
+    sizes: ['42', '43'],
+    sizePrices: [
+      { size: '42', salePrice: '80' },
+      { size: '43', salePrice: '100' },
+    ],
     sku: 'ABC123',
     market: 'US',
   });
@@ -59,6 +63,10 @@ it('публикует только EU размеры по минимально�
     },
   ]);
   expect(p).toMatchObject({ saleKzt: 40000, originalKzt: null, discount: 0, offerKind: 'market' });
+  expect(p.sizePrices).toEqual([
+    { size: '42', salePrice: '80', saleKzt: 40000 },
+    { size: '43', salePrice: '100', saleKzt: 50000 },
+  ]);
   expect(p.delivery).toBeUndefined();
 });
 it('исключает старые, пустые, скрытые цены и другой рынок', () => {

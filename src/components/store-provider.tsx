@@ -103,7 +103,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         prev.map((i) => {
           const p = products.find((p) => p.id === i.id);
           return p
-            ? { ...i, saleKzt: p.saleKzt, productUrl: p.productUrl, updatedAt: p.updatedAt }
+            ? {
+                ...i,
+                saleKzt: p.sizePrices?.find((v) => v.size === i.size)?.saleKzt ?? p.saleKzt,
+                productUrl: '',
+                updatedAt: p.updatedAt,
+              }
             : i;
         }),
       );
@@ -168,7 +173,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           </div>
           <p className="cart-explainer">
             Собери понравившиеся пары и оформи заказ в WhatsApp. В чат подставится список товаров с
-            размерами, ценами и ссылками. Условия и оплату согласуете в переписке.
+            размерами и ценами. Условия и оплату согласуете в переписке.
           </p>
           {storageError && (
             <p role="alert" className="notice warning">
@@ -211,15 +216,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                       )}
                       {item.demo ? (
                         <span className="demo-cart-note">Демонстрация, покупка недоступна</span>
-                      ) : checked[cartItemKey(item)] && !checking && !checkError ? (
-                        <a
-                          className="text-link"
-                          href={item.productUrl}
-                          target="_blank"
-                          rel="noopener noreferrer sponsored"
-                        >
-                          Перейти в магазин <ArrowUpRight size={16} />
-                        </a>
                       ) : null}
                     </div>
                     <button

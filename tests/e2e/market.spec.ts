@@ -52,10 +52,8 @@ test('Рынок США: текущая цена без фиктивной ск�
   await card.getByRole('button', { name: /Добавить/ }).click();
   await page.getByRole('button', { name: 'Открыть корзину, товаров: 1' }).click();
   await expect(
-    page
-      .getByRole('dialog', { name: 'Корзина 1' })
-      .getByRole('link', { name: /Перейти в магазин/ }),
-  ).toBeVisible();
+    page.getByRole('link', { name: /Перейти в магазин|В магазин|Перейти к предложению/ }),
+  ).toHaveCount(0);
   const checkout = page.getByRole('button', { name: 'Оформить в WhatsApp' });
   await expect(checkout).toBeEnabled();
   await page.route('**/api/checkout/whatsapp', (route) =>

@@ -1,4 +1,5 @@
 import 'server-only';
+import { publicProduct } from '../public-product';
 import { db, databaseConfigured, databaseProvider } from './db';
 import { seaStore } from './seatable-store';
 import { unstable_cache } from 'next/cache';
@@ -15,7 +16,7 @@ const seaCacheKey = createHash('sha256')
   .digest('hex');
 const cachedSeaProducts = unstable_cache(
   () => seaStore.liveProducts(),
-  ['seatable-live-v2', seaCacheKey],
+  ['seatable-live-v3', seaCacheKey],
   { revalidate: 60 },
 );
 const cachedSeaStatuses = unstable_cache(
@@ -23,7 +24,10 @@ const cachedSeaStatuses = unstable_cache(
   ['seatable-sources-v2', seaCacheKey],
   { revalidate: 60 },
 );
-export async function getCatalog(filters: Filters, mode: 'live' | 'demo'): Promise<CatalogResult> {
+export async function internalCatalog(
+  filters: Filters,
+  mode: 'live' | 'demo',
+): Promise<CatalogResult> {
   if (mode === 'demo') return filterCatalog(demoProducts, filters, 'demo');
   if (!databaseConfigured())
     return {
@@ -48,6 +52,10 @@ export async function getCatalog(filters: Filters, mode: 'live' | 'demo'): Promi
   });
   if (error) throw new Error('CATALOG_UNAVAILABLE');
   return { ...data, mode, page: filters.page, pages: Math.ceil(data.total / PAGE_SIZE) };
+}
+export async function getCatalog(filters: Filters, mode: 'live' | 'demo'): Promise<CatalogResult> {
+  const result = await internalCatalog(filters, mode);
+  return { ...result, products: result.products.map(publicProduct) };
 }
 export async function getSources(): Promise<SourceStatus[]> {
   const adapters = getAdapters();

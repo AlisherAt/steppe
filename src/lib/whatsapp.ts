@@ -26,9 +26,10 @@ export function whatsappOrder(
       throw new CheckoutError(
         'Некоторые товары или размеры больше недоступны. Откройте корзину заново и удалите их.',
       );
-    total += product.saleKzt;
+    const price = product.sizePrices?.find((v) => v.size === item.size)?.saleKzt ?? product.saleKzt;
+    total += price;
     const clean = (s: string) => s.replace(/[\r\n\t]+/g, ' ');
-    return `${index + 1}. ${clean(product.brand)} — ${clean(product.name)}\nРазмер: ${item.size ? `EU ${clean(item.size)}` : 'уточнить'} · 1 пара\nЦена: ${formatKzt(product.saleKzt)}\nМагазин: ${clean(product.sourceName)}\n${product.productUrl}`;
+    return `${index + 1}. ${clean(product.brand)} — ${clean(product.name)}\nРазмер: ${item.size ? `EU ${clean(item.size)}` : 'уточнить'} · 1 пара\nЦена: ${formatKzt(price)}\nКод товара: ${product.id}`;
   });
   const text = `Здравствуйте! Хочу оформить заказ в STEPPE.\n\n${lines.join('\n\n')}\n\nВсего пар: ${selection.length}\nОриентировочная сумма: ${formatKzt(total)}\n\nПодтвердите, пожалуйста, наличие, окончательную стоимость и способ оплаты.`;
   const url = `https://wa.me/${number}?text=${encodeURIComponent(text)}`;

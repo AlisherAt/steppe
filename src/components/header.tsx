@@ -11,7 +11,7 @@ export function Header() {
       <div className="topline">
         <span>Хорошие кроссовки. Хорошая цена.</span>
         <span>
-          Покупай у магазинов <ArrowUpRight size={13} />
+          Заказывай в WhatsApp <ArrowUpRight size={13} />
         </span>
       </div>
       <header className="header">

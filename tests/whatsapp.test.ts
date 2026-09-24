@@ -25,7 +25,8 @@ describe('WhatsApp orders', () => {
     expect(text).toContain('1.');
     expect(text).toContain('Модель & Special');
     expect(text).toContain('EU 42');
-    expect(text).toContain(product.productUrl);
+    expect(text).not.toContain(product.productUrl);
+    expect(text).toContain(product.id);
     expect(text).toContain('Всего пар: 1');
     expect(text).toContain('₸');
   });

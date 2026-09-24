@@ -15,6 +15,7 @@ export type Product = {
   name: string;
   imageUrl: string | null;
   productUrl: string;
+  sizePrices?: { size: string; salePrice: string; saleKzt: number }[];
   sizes: string[];
   gender: Gender;
   category: string;

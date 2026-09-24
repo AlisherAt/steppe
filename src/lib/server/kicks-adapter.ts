@@ -31,17 +31,15 @@ export function kicksOffers(products: KicksProduct[], now = Date.now()): FeedPro
     );
     if (!valid.length) return [];
     const lowest = Math.min(...valid.map((v) => v.lowest_ask!));
-    const atPrice = valid.filter((v) => v.lowest_ask === lowest);
-    const sizes = [
-      ...new Set(
-        atPrice.flatMap((v) =>
-          v.sizes
-            .filter((s) => s.type.toLowerCase() === 'eu')
-            .map((s) => s.size.replace(/^EU\s*/i, ''))
-            .filter((s) => /^\d+(?:\.\d+)?$/.test(s)),
-        ),
-      ),
-    ];
+    const bySize = new Map<string, number>();
+    for (const v of valid)
+      for (const s of v.sizes) {
+        const size = s.size.replace(/^EU\s*/i, '');
+        if (s.type.toLowerCase() !== 'eu' || !/^\d+(?:\.\d+)?$/.test(size)) continue;
+        bySize.set(size, Math.min(bySize.get(size) ?? Infinity, v.lowest_ask!));
+      }
+    const sizes = [...bySize.keys()].sort((a, b) => Number(a) - Number(b));
+    const sizePrices = sizes.map((size) => ({ size, salePrice: String(bySize.get(size)) }));
     let imageUrl: string | null = null;
     if (p.image) {
       try {
@@ -62,6 +60,7 @@ export function kicksOffers(products: KicksProduct[], now = Date.now()): FeedPro
         productUrl: p.link,
         imageUrl,
         sizes,
+        sizePrices,
         gender: ['men', 'women', 'kids'].includes(p.gender || '') ? p.gender : 'unisex',
         category: 'Кроссовки',
         available: true,
@@ -71,7 +70,7 @@ export function kicksOffers(products: KicksProduct[], now = Date.now()): FeedPro
         originalPrice: null,
         salePrice: String(lowest),
         sourceUpdatedAt: new Date(
-          Math.min(...atPrice.map((v) => Date.parse(v.updated_at))),
+          Math.min(...valid.map((v) => Date.parse(v.updated_at))),
         ).toISOString(),
       }),
     ];

@@ -24,6 +24,12 @@ const productSchema = z
     imageUrl: secureUrl.nullable(),
     productUrl: secureUrl,
     sizes: z.array(z.string()),
+    sizePrices: z
+      .array(
+        z.object({ size: z.string(), salePrice: z.string(), saleKzt: z.number().int().positive() }),
+      )
+      .max(60)
+      .optional(),
     gender: z.enum(['men', 'women', 'unisex', 'kids']),
     category: z.string(),
     offerKind: z.literal('market').optional(),

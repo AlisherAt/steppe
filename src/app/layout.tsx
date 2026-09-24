@@ -7,7 +7,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'STEPPE — цены на кроссовки рынка США',
   description:
-    'Находи кроссовки любимых брендов, сравнивай цены в тенге и покупай на сайте магазина. Демоданные отмечены отдельно.',
+    'Находи кроссовки любимых брендов, сравнивай цены в тенге и оформляй заказ в WhatsApp. Демоданные отмечены отдельно.',
   icons: { icon: '/favicon.svg' },
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -38,8 +38,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <span>Казахстан · Все цены в ₸</span>
               </div>
               <p className="footer-note">
-                STEPPE — каталог цен. Продажу и оплату выполняет магазин. Некоторые ссылки могут
-                быть партнёрскими. © {new Date().getFullYear()} STEPPE
+                STEPPE — каталог кроссовок. Условия заказа и оплату согласуйте в WhatsApp. ©{' '}
+                {new Date().getFullYear()} STEPPE
               </p>
             </footer>
           </div>

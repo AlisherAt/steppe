@@ -18,6 +18,8 @@ export function ProductCard({
   const [imageError, setImageError] = useState(false);
   const details = useRef<HTMLDialogElement>(null);
   const { add } = useStore();
+  const selectedPrice = p.sizePrices?.find((v) => v.size === size)?.saleKzt ?? p.saleKzt;
+  const pricePrefix = !size && (p.sizePrices?.length || 0) > 1 ? 'от ' : '';
   function save() {
     if (p.sizes.length && !size) {
       setError('Сначала выбери размер');
@@ -64,11 +66,14 @@ export function ProductCard({
           {p.name}
         </button>
         <div className="product-prices">
-          <strong>{formatKzt(p.saleKzt)}</strong>
+          <strong>
+            {pricePrefix}
+            {formatKzt(selectedPrice)}
+          </strong>
           {p.originalKzt !== null && <del>{formatKzt(p.originalKzt)}</del>}
         </div>
         {p.offerKind === 'market' && (
-          <p className="product-updated">Рынок США · StockX · размеры по этой цене</p>
+          <p className="product-updated">Рынок США · цена зависит от размера</p>
         )}
         <div className="size-row">
           <label className="sr-only" htmlFor={`size-${p.id}`}>
@@ -88,6 +93,9 @@ export function ProductCard({
             {p.sizes.map((s) => (
               <option key={s} value={s}>
                 {s}
+                {p.sizePrices?.find((v) => v.size === s)
+                  ? ` · ${formatKzt(p.sizePrices.find((v) => v.size === s)!.saleKzt)}`
+                  : ''}
               </option>
             ))}
           </select>
@@ -106,19 +114,6 @@ export function ProductCard({
             <span className="store-dot" />
             {p.sourceName}
           </span>
-          <a
-            href={p.productUrl}
-            target="_blank"
-            rel="noopener noreferrer sponsored"
-            aria-label={
-              p.demo
-                ? `Открыть сайт бренда ${p.sourceName}`
-                : `Купить ${p.name} на сайте ${p.sourceName}`
-            }
-          >
-            {p.demo ? 'Сайт бренда' : 'В магазин'}
-            <ArrowUpRight size={14} />
-          </a>
         </div>
         <p className="product-updated">
           {p.demo
@@ -152,7 +147,10 @@ export function ProductCard({
         </div>
         <h2 id={`title-${p.id}`}>{p.name}</h2>
         <div className="product-prices">
-          <strong>{formatKzt(p.saleKzt)}</strong>
+          <strong>
+            {pricePrefix}
+            {formatKzt(selectedPrice)}
+          </strong>
           {p.originalKzt !== null && <del>{formatKzt(p.originalKzt)}</del>}
           {p.discount > 0 && <span className="inline-discount">−{p.discount}%</span>}
         </div>
@@ -189,15 +187,9 @@ export function ProductCard({
             </p>
           </div>
         )}
-        <a
-          className="button dark"
-          href={p.productUrl}
-          target="_blank"
-          rel="noopener noreferrer sponsored"
-        >
-          {p.demo ? 'Открыть сайт бренда' : 'Перейти к предложению'}
-          <ArrowUpRight size={18} />
-        </a>
+        <button className="button dark" onClick={() => details.current?.close()}>
+          Выбрать размер в карточке
+        </button>
       </dialog>
     </article>
   );

@@ -23,6 +23,10 @@ export const feedProductSchema = z
     originalPrice: amount.nullable(),
     salePrice: amount,
     currency: z.string().regex(/^[A-Z]{3}$/),
+    sizePrices: z
+      .array(z.object({ size: z.string().min(1).max(20), salePrice: amount }))
+      .max(60)
+      .optional(),
     sizes: z.array(z.string().trim().min(1).max(20)).max(60).default([]),
     gender: z.enum(['men', 'women', 'unisex', 'kids']).default('unisex'),
     category: z.string().trim().min(1).max(80).default('Кроссовки'),
@@ -228,6 +232,9 @@ export function toProduct(
     imageUrl: p.imageUrl,
     productUrl: p.productUrl,
     sizes: p.sizes,
+    ...(p.sizePrices
+      ? { sizePrices: p.sizePrices.map((v) => ({ ...v, saleKzt: toKzt(v.salePrice, rate.value) })) }
+      : {}),
     gender: p.gender,
     category: p.category,
     originalPrice: p.originalPrice,

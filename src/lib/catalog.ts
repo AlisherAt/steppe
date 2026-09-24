@@ -55,7 +55,19 @@ export function filterCatalog(
   mode: 'live' | 'demo' = 'demo',
 ): CatalogResult {
   const f = filters;
-  const matches = products.filter(
+  const priced = products.map((p) => {
+    if (!p.sizePrices?.length) return p;
+    const eligible = p.sizePrices.filter(
+      (v) =>
+        (!f.sizes.length || f.sizes.includes(v.size)) &&
+        v.saleKzt >= f.minPrice &&
+        v.saleKzt <= f.maxPrice,
+    );
+    if (!eligible.length) return { ...p, saleKzt: -1 };
+    const best = eligible.reduce((a, b) => (a.saleKzt <= b.saleKzt ? a : b));
+    return { ...p, saleKzt: best.saleKzt, salePrice: best.salePrice };
+  });
+  const matches = priced.filter(
     (p) =>
       (!f.q ||
         `${p.brand} ${p.name} ${p.sku || ''}`

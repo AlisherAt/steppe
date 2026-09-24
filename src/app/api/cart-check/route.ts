@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { db, databaseConfigured, databaseProvider } from '@/lib/server/db';
 import { seaStore } from '@/lib/server/seatable-store';
+import { publicProduct } from '@/lib/public-product';
 import { offerVisible } from '@/lib/promotion';
 export async function POST(request: NextRequest) {
   if (Number(request.headers.get('content-length')) > 10000)
@@ -21,7 +22,10 @@ export async function POST(request: NextRequest) {
       const products = (await seaStore.liveProducts()).filter((p) =>
         parsed.data.ids.includes(p.id),
       );
-      return NextResponse.json({ products }, { headers: { 'Cache-Control': 'no-store' } });
+      return NextResponse.json(
+        { products: products.map(publicProduct) },
+        { headers: { 'Cache-Control': 'no-store' } },
+      );
     }
     const { data, error } = await db()
       .from('offers')
@@ -34,7 +38,7 @@ export async function POST(request: NextRequest) {
       {
         products: data
           .filter((p) => offerVisible({ ...p.payload, updatedAt: p.updated_at }))
-          .map((p) => p.payload),
+          .map((p) => publicProduct(p.payload)),
       },
       { headers: { 'Cache-Control': 'no-store' } },
     );
