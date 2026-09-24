@@ -218,7 +218,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                 <strong>{formatKzt(items.reduce((s, i) => s + i.saleKzt, 0))}</strong>
               </div>
               <p className="small muted">
-                Без доставки, пошлин и возможной комиссии конвертации. Окончательные условия
+                Без дополнительных сборов площадки и комиссии конвертации. Окончательные условия
                 уточняйте у продавца. Корзина хранится только в этом браузере.
               </p>
             </>

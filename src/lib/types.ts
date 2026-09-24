@@ -18,10 +18,14 @@ export type Product = {
   sizes: string[];
   gender: Gender;
   category: string;
-  originalPrice: string;
+  offerKind?: 'market';
+  market?: 'US';
+  sku?: string;
+  sourceUpdatedAt?: string;
+  originalPrice: string | null;
   salePrice: string;
   currency: string;
-  originalKzt: number;
+  originalKzt: number | null;
   saleKzt: number;
   discount: number;
   rate: Rate;

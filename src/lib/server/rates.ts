@@ -36,14 +36,14 @@ export function parseNbk(xml: string, now = new Date()): Rate[] {
   if (/<!DOCTYPE|<!ENTITY/i.test(xml) || XMLValidator.validate(xml) !== true)
     throw new IntegrationError('INVALID_RATE_XML');
   const parsed = new XMLParser({ parseTagValue: false, trimValues: true }).parse(xml);
-  const items = parsed?.rss?.channel?.item;
+  const items = parsed?.rss?.channel?.item || parsed?.rates?.item;
   if (!items) throw new IntegrationError('INVALID_RATE_XML');
   return (Array.isArray(items) ? items : [items]).map((item: Record<string, string>) => {
     const currency = z
       .string()
       .regex(/^[A-Z]{3}$/)
       .parse(item.title);
-    const parts = String(item.pubDate).match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+    const parts = String(item.pubDate || parsed?.rates?.date).match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
     if (!parts) throw new IntegrationError('INVALID_RATE_DATE');
     const asOf = `${parts[3]}-${parts[2]}-${parts[1]}T00:00:00+05:00`;
     assertFresh(asOf, now);
@@ -94,11 +94,20 @@ export async function loadRates(): Promise<Rate[]> {
       case 'nbk':
         return [
           ...parseNbk(
-            await fetchText('https://nationalbank.kz/rss/rates_all.xml', {
-              hosts: ['nationalbank.kz'],
-              attempts: 2,
-              maxBytes: 500000,
-            }),
+            await fetchText(
+              'https://nationalbank.kz/rss/get_rates.cfm?fdate=' +
+                new Intl.DateTimeFormat('ru-RU', {
+                  timeZone: 'Asia/Almaty',
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                }).format(new Date()),
+              {
+                hosts: ['nationalbank.kz'],
+                attempts: 2,
+                maxBytes: 500000,
+              },
+            ),
           ),
           nativeRate(),
         ];

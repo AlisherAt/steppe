@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { PartnerFeedAdapter, type SourceAdapter } from './adapters';
 import { EbayAdapter } from './ebay';
+import { KicksAdapter } from './kicks-adapter';
 import { IntegrationError } from './http';
 const customSchema = z
   .array(
@@ -14,24 +15,20 @@ const customSchema = z
   .max(20);
 export function getAdapters(): SourceAdapter[] {
   const sources: SourceAdapter[] = [
+    new KicksAdapter(),
     new PartnerFeedAdapter(
       'farfetch',
       'FARFETCH',
       'FARFETCH',
-      'Нужен партнёрский фид FARFETCH только для товаров с доставкой KZ. Настройки FARFETCH_FEED_* и FARFETCH_DELIVERY_POLICY_URL.',
+      'Нужен одобренный партнёрский фид FARFETCH.',
       'yml',
     ),
-    new PartnerFeedAdapter(
-      'yoox',
-      'YOOX',
-      'YOOX',
-      'Нужен разрешённый региональный фид YOOX для Казахстана. Настройки YOOX_FEED_* и YOOX_DELIVERY_POLICY_URL.',
-    ),
+    new PartnerFeedAdapter('yoox', 'YOOX', 'YOOX', 'Нужен разрешённый региональный фид YOOX.'),
     new PartnerFeedAdapter(
       'tennisnuts',
       'Tennisnuts',
       'TENNISNUTS',
-      'Доставка в Казахстан описана магазином. Для импорта нужен согласованный товарный фид; публичный API не подтверждён. Настройки TENNISNUTS_FEED_*.',
+      'Для импорта нужен согласованный товарный фид Tennisnuts.',
     ),
     new PartnerFeedAdapter(
       'nike',
@@ -70,7 +67,7 @@ export function getAdapters(): SourceAdapter[] {
       'retailer',
       'Партнёрский магазин',
       'RETAILER',
-      'Нужен разрешённый YML-фид зарубежного магазина с доставкой KZ. Настройки RETAILER_FEED_*.',
+      'Нужен разрешённый YML-фид зарубежного магазина.',
       'yml',
     ),
     new PartnerFeedAdapter(

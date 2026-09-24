@@ -58,7 +58,9 @@ export function filterCatalog(
   const matches = products.filter(
     (p) =>
       (!f.q ||
-        `${p.brand} ${p.name}`.toLocaleLowerCase('ru').includes(f.q.toLocaleLowerCase('ru'))) &&
+        `${p.brand} ${p.name} ${p.sku || ''}`
+          .toLocaleLowerCase('ru')
+          .includes(f.q.toLocaleLowerCase('ru'))) &&
       (!f.brands.length || f.brands.includes(p.brand)) &&
       (!f.sizes.length || p.sizes.some((s) => f.sizes.includes(s))) &&
       (!f.sources.length || f.sources.includes(p.sourceId)) &&

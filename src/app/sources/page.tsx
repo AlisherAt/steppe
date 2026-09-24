@@ -41,7 +41,9 @@ export default async function SourcesPage() {
                 <h2>{s.name}</h2>
                 <span className={`status-badge ${s.status}`}>{labels[s.status]}</span>
               </div>
-              <p>{s.message}</p>
+              <p>
+                {s.message.replace(/ с доставкой KZ| для Казахстана| с доставкой в Казахстан/g, '')}
+              </p>
               <dl>
                 <div>
                   <dt>Последняя попытка</dt>
@@ -76,28 +78,28 @@ export default async function SourcesPage() {
         </Link>
       </div>
       <div className="source-grid">
-        {sourceOptions.map((option) => (
-          <section className="source-card" key={option.name}>
-            <span className="eyebrow">{option.kind}</span>
-            <h2 style={{ fontSize: 22, marginTop: 12 }}>{option.name}</h2>
-            <p>{option.detail}</p>
-            <a className="text-link" href={option.url} target="_blank" rel="noopener noreferrer">
-              Информация об источнике <ArrowUpRight size={14} />
-            </a>
-          </section>
-        ))}
+        {sourceOptions
+          .filter((option) => option.name === 'KicksDB')
+          .map((option) => (
+            <section className="source-card" key={option.name}>
+              <span className="eyebrow">{option.kind}</span>
+              <h2 style={{ fontSize: 22, marginTop: 12 }}>{option.name}</h2>
+              <p>{option.detail}</p>
+              <a className="text-link" href={option.url} target="_blank" rel="noopener noreferrer">
+                Информация об источнике <ArrowUpRight size={14} />
+              </a>
+            </section>
+          ))}
       </div>
       <div className="info-panel">
-        <h2>Из-за рубежа — в Казахстан</h2>
+        <h2>Цены рынка США</h2>
         <p>
-          Для публикации нужен региональный фид с доставкой в Казахстан. У eBay доставка проверяется
-          фильтром API для каждой выборки; принимаются только новые товары продавцов с рейтингом от
-          98% и минимум 100 отзывами. Рейтинг сам по себе не гарантирует подлинность товара.
+          StockX через KicksDB: исходные цены в USD, рынок US. Это рынок цены, а не указание страны
+          производства или склада.
         </p>
         <p>
-          В карточке указано, откуда получены сведения о доставке. Окончательная доступность
-          конкретного размера и адреса, доставка и пошлины определяются магазином при оформлении. В
-          цену карточки они не включены.
+          По каждой модели показана минимальная доступная цена и размеры EU по этой цене. Если
+          прежняя цена неизвестна, скидка не отображается.
         </p>
       </div>
       <div className="info-panel">
@@ -109,14 +111,14 @@ export default async function SourcesPage() {
         </p>
         <p>
           Предложения, исчезнувшие из полного фида, скрываются. Необновлённые предложения также
-          исчезают по истечении срока актуальности — по умолчанию 36 часов. Наличие размера и
-          доставку в Казахстан всегда нужно подтвердить в магазине.
+          исчезают по истечении срока актуальности — по умолчанию 36 часов. Окончательную цену
+          выбранного размера уточняйте на площадке.
         </p>
       </div>
       <div className="info-panel">
         <h2>Партнёрские источники</h2>
         <p>
-          Сайт получает данные только из разрешённых фидов. Для Nike требуется доступ к
+          Каталог рынка США получает данные через KicksDB. Дополнительные источники скидок подключаются отдельно: для Nike требуется доступ к
           автоматическому товарному фиду после одобрения участия в программе. Для Adidas —
           согласованный с партнёрской программой источник данных. Условия зависят от региона.
         </p>

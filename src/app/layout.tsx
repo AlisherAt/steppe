@@ -5,9 +5,9 @@ import { StoreProvider } from '@/components/store-provider';
 import { Header } from '@/components/header';
 import './globals.css';
 export const metadata: Metadata = {
-  title: 'STEPPE — кроссовки со скидкой в Казахстане',
+  title: 'STEPPE — цены на кроссовки рынка США',
   description:
-    'Находи кроссовки любимых брендов, сравнивай скидки в тенге и покупай на сайте магазина. Демоданные отмечены отдельно.',
+    'Находи кроссовки любимых брендов, сравнивай цены в тенге и покупай на сайте магазина. Демоданные отмечены отдельно.',
   icons: { icon: '/favicon.svg' },
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -38,8 +38,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <span>Казахстан · Все цены в ₸</span>
               </div>
               <p className="footer-note">
-                STEPPE — сервис поиска скидок. Продажу, доставку и оплату выполняет магазин.
-                Некоторые ссылки могут быть партнёрскими. © {new Date().getFullYear()} STEPPE
+                STEPPE — каталог цен. Продажу и оплату выполняет магазин. Некоторые ссылки могут
+                быть партнёрскими. © {new Date().getFullYear()} STEPPE
               </p>
             </footer>
           </div>

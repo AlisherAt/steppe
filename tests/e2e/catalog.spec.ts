@@ -15,8 +15,8 @@ test('Бренды ведут в реальный каталог, источни
   await expect(page).toHaveURL(/mode=live.*brands=HOKA/);
   await expect(page.locator('.product-card')).toHaveCount(0);
   await page.goto('/sources');
-  await expect(page.getByRole('heading', { name: 'Из-за рубежа — в Казахстан' })).toBeVisible();
-  await expect(page.locator('.status-badge')).toHaveCount(11);
+  await expect(page.getByRole('heading', { name: 'Цены рынка США' })).toBeVisible();
+  await expect(page.locator('.status-badge')).toHaveCount(12);
   await expect(page.locator('.status-badge.ready')).toHaveCount(0);
 });
 test('Русский каталог: фильтры, размер, корзина после перезагрузки', async ({ page }) => {

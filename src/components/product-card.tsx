@@ -49,7 +49,7 @@ export function ProductCard({
             <span>Фото скоро появится</span>
           </span>
         )}
-        <span className="discount-badge">−{p.discount}%</span>
+        {p.discount > 0 && <span className="discount-badge">−{p.discount}%</span>}
         {p.demo && <span className="demo-badge">ДЕМО</span>}
         <span className="image-open">
           <ArrowUpRight size={18} />
@@ -65,8 +65,11 @@ export function ProductCard({
         </button>
         <div className="product-prices">
           <strong>{formatKzt(p.saleKzt)}</strong>
-          <del>{formatKzt(p.originalKzt)}</del>
+          {p.originalKzt !== null && <del>{formatKzt(p.originalKzt)}</del>}
         </div>
+        {p.offerKind === 'market' && (
+          <p className="product-updated">Рынок США · StockX · размеры по этой цене</p>
+        )}
         <div className="size-row">
           <label className="sr-only" htmlFor={`size-${p.id}`}>
             Размер {p.name}
@@ -128,11 +131,6 @@ export function ProductCard({
             могли измениться после проверки.
           </p>
         )}
-        {!p.demo && p.delivery && (
-          <p className="product-updated">
-            Доставка KZ · по данным {p.delivery.basis === 'ebay-filter' ? 'eBay' : 'магазина'}
-          </p>
-        )}
       </div>
       <dialog
         ref={details}
@@ -155,12 +153,14 @@ export function ProductCard({
         <h2 id={`title-${p.id}`}>{p.name}</h2>
         <div className="product-prices">
           <strong>{formatKzt(p.saleKzt)}</strong>
-          <del>{formatKzt(p.originalKzt)}</del>
-          <span className="inline-discount">−{p.discount}%</span>
+          {p.originalKzt !== null && <del>{formatKzt(p.originalKzt)}</del>}
+          {p.discount > 0 && <span className="inline-discount">−{p.discount}%</span>}
         </div>
         <p>
           {genders[p.gender]} · {p.category} · {p.sourceName}
         </p>
+        {p.sku && <p>Артикул: {p.sku}</p>}
+        {p.sourceUpdatedAt && <p>Цена источника на {formatDate(p.sourceUpdatedAt)} · Алматы</p>}
         <p>Размеры EU: {p.sizes.join(', ') || 'уточняйте у продавца'}</p>
         {p.demo ? (
           <p className="notice">
@@ -170,19 +170,7 @@ export function ProductCard({
         ) : (
           <div className="rate-details">
             <h3>Откуда цена в тенге</h3>
-            {p.delivery && (
-              <p>
-                Доставка в Казахстан указана{' '}
-                {p.delivery.basis === 'ebay-filter'
-                  ? 'в результатах eBay для KZ'
-                  : 'в региональной выгрузке магазина'}
-                . Проверено {formatDate(p.delivery.checkedAt)}.{' '}
-                <a href={p.delivery.policyUrl} target="_blank" rel="noopener noreferrer">
-                  Условия доставки
-                </a>
-                . Конкретный адрес, размер, стоимость доставки и пошлины уточняются при оформлении.
-              </p>
-            )}
+
             <p>{p.rate.source}</p>
             {p.currency !== 'KZT' && (
               <p>
@@ -194,11 +182,10 @@ export function ProductCard({
             </p>
             <p>
               Пересчитано {formatDate(p.updatedAt)} · Алматы. Исходные цены и валюта {p.currency}{' '}
-              сохранены. Скидка рассчитана в валюте магазина.
+              сохранены. {p.offerKind !== 'market' && 'Скидка рассчитана в валюте магазина.'}
             </p>
             <p>
-              Курс банка при оплате может отличаться. Доставка в Казахстан, её стоимость и пошлины
-              проверяются у продавца.
+              Курс банка при оплате может отличаться. Окончательная сумма определяется площадкой.
             </p>
           </div>
         )}

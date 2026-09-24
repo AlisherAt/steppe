@@ -21,7 +21,7 @@ export function Header() {
         </Link>
         <nav aria-label="Основная навигация">
           <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>
-            Все скидки
+            Каталог
           </Link>
           <Link href="/sources" aria-current={pathname === '/sources' ? 'page' : undefined}>
             Магазины

@@ -21,6 +21,12 @@ export function nextPromotionRefresh(products: Product[], now = Date.now()): str
 }
 export function offerVisible(p: Product, now = Date.now(), maxAge = offerMaxAgeMs()): boolean {
   const checked = Date.parse(p.updatedAt);
+  if (
+    p.sourceUpdatedAt &&
+    (now - Date.parse(p.sourceUpdatedAt) > maxAge ||
+      !Number.isFinite(Date.parse(p.sourceUpdatedAt)))
+  )
+    return false;
   if (!Number.isFinite(checked) || checked > now + 3600000) return false;
   if (p.saleStartsAt && !(Date.parse(p.saleStartsAt) <= now)) return false;
   if (p.saleEndsAt && !(Date.parse(p.saleEndsAt) > now)) return false;

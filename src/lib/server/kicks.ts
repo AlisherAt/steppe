@@ -19,6 +19,7 @@ const product = z.object({
   title: z.string().min(1),
   brand: z.string().min(1),
   sku: z.string(),
+  gender: z.string().optional(),
   product_type: z.string(),
   image: z.string().url().nullable().optional(),
   link: z.string().url(),

@@ -16,7 +16,11 @@ export const feedProductSchema = z
     imageUrl: z.string().url().max(2000).nullable().default(null),
     saleStartsAt: z.string().datetime({ offset: true }).optional(),
     saleEndsAt: z.string().datetime({ offset: true }).optional(),
-    originalPrice: amount,
+    offerKind: z.literal('market').optional(),
+    market: z.literal('US').optional(),
+    sku: z.string().max(160).optional(),
+    sourceUpdatedAt: z.string().datetime({ offset: true }).optional(),
+    originalPrice: amount.nullable(),
     salePrice: amount,
     currency: z.string().regex(/^[A-Z]{3}$/),
     sizes: z.array(z.string().trim().min(1).max(20)).max(60).default([]),
@@ -43,9 +47,15 @@ export const feedProductSchema = z
           (!p.saleStartsAt ||
             !p.saleEndsAt ||
             Date.parse(p.saleStartsAt) < Date.parse(p.saleEndsAt)) &&
-          new Decimal(p.originalPrice).gt(0) &&
           new Decimal(p.salePrice).gt(0) &&
-          new Decimal(p.salePrice).lte(p.originalPrice)
+          (p.offerKind === 'market'
+            ? p.market === 'US' &&
+              p.currency === 'USD' &&
+              p.originalPrice === null &&
+              !!p.sourceUpdatedAt
+            : p.originalPrice !== null &&
+              new Decimal(p.originalPrice).gt(0) &&
+              new Decimal(p.salePrice).lte(p.originalPrice))
         );
       } catch {
         return false;
@@ -167,6 +177,7 @@ export class AuthorizedJsonAdapter implements SourceAdapter {
     ).filter(
       (p) =>
         p.available &&
+        p.originalPrice !== null &&
         new Decimal(p.salePrice).lt(p.originalPrice) &&
         (!p.saleStartsAt || Date.parse(p.saleStartsAt) <= Date.now()) &&
         (!p.saleEndsAt || Date.parse(p.saleEndsAt) > Date.now()),
@@ -222,9 +233,12 @@ export function toProduct(
     originalPrice: p.originalPrice,
     salePrice: p.salePrice,
     currency: p.currency,
-    originalKzt: toKzt(p.originalPrice, rate.value),
+    originalKzt: p.originalPrice === null ? null : toKzt(p.originalPrice, rate.value),
     saleKzt: toKzt(p.salePrice, rate.value),
-    discount: discountPercent(p.originalPrice, p.salePrice),
+    discount: p.originalPrice === null ? 0 : discountPercent(p.originalPrice, p.salePrice),
+    ...(p.offerKind
+      ? { offerKind: p.offerKind, market: p.market, sku: p.sku, sourceUpdatedAt: p.sourceUpdatedAt }
+      : {}),
     rate,
     ...(p.saleStartsAt ? { saleStartsAt: p.saleStartsAt } : {}),
     ...(p.saleEndsAt ? { saleEndsAt: p.saleEndsAt } : {}),

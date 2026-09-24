@@ -26,10 +26,14 @@ const productSchema = z
     sizes: z.array(z.string()),
     gender: z.enum(['men', 'women', 'unisex', 'kids']),
     category: z.string(),
-    originalPrice: z.string(),
+    offerKind: z.literal('market').optional(),
+    market: z.literal('US').optional(),
+    sku: z.string().optional(),
+    sourceUpdatedAt: iso.optional(),
+    originalPrice: z.string().nullable(),
     salePrice: z.string(),
     currency: z.string(),
-    originalKzt: z.number().int().positive(),
+    originalKzt: z.number().int().positive().nullable(),
     saleKzt: z.number().int().positive(),
     discount: z.number().int().min(0).max(100),
     demo: z.literal(false),
@@ -44,16 +48,21 @@ const productSchema = z
       asOf: iso,
       fetchedAt: iso,
     }),
-    delivery: z.object({
-      country: z.literal('KZ'),
-      basis: z.enum(['merchant-feed', 'ebay-filter']),
-      checkedAt: iso,
-      policyUrl: secureUrl,
-    }),
+    delivery: z
+      .object({
+        country: z.literal('KZ'),
+        basis: z.enum(['merchant-feed', 'ebay-filter']),
+        checkedAt: iso,
+        policyUrl: secureUrl,
+      })
+      .optional(),
   })
   .refine(
     (p) =>
-      p.saleKzt <= p.originalKzt && feedProductSchema.safeParse({ ...p, id: p.externalId }).success,
+      (p.offerKind === 'market'
+        ? p.market === 'US' && p.originalKzt === null && p.discount === 0
+        : !!p.delivery && p.originalKzt !== null && p.saleKzt <= p.originalKzt) &&
+      feedProductSchema.safeParse({ ...p, id: p.externalId }).success,
   );
 export type SeaSource = { _id: string; id: string; name: string; paused: boolean };
 export type SeaRun = {

@@ -338,10 +338,10 @@ export function Catalog({
           <h1>
             Большой стиль.
             <br />
-            <span>Меньше цена.</span>
+            <span>Больше выбора.</span>
           </h1>
           <p>
-            Скидки на кроссовки любимых брендов.
+            Кроссовки любимых брендов с рынка США.
             <br />В одном месте. В тенге. Для твоего ритма.
           </p>
           <a href="#catalog" className="hero-link">
@@ -488,7 +488,7 @@ export function Catalog({
                   : `${result.total} ${mode === 'demo' ? 'демопримеров' : 'предложений'}`}
               </span>
               <span className="results-caption">
-                {mode === 'demo' ? 'Иллюстрации · условные цены' : 'Только актуальные скидки'}
+                {mode === 'demo' ? 'Иллюстрации · условные цены' : 'Актуальные предложения'}
               </span>
             </div>
             {error ? (

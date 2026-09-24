@@ -59,6 +59,7 @@ beforeAll(async () => {
   await database.exec(
     readFileSync('supabase/migrations/202609240004_promotion_schedule.sql', 'utf8'),
   );
+  await database.exec(readFileSync('supabase/migrations/202609240005_us_market.sql', 'utf8'));
 });
 afterAll(async () => {
   await database.close();
@@ -184,6 +185,26 @@ describe('Postgres — настоящая миграция и RPC', () => {
         )
       ).rows[0].next_refresh_at,
     ).toBeNull();
+  });
+  it('публикует рыночную цену США без старой цены и без доставки', async () => {
+    const p = {
+      ...makeProduct('market'),
+      sourceUpdatedAt: new Date().toISOString(),
+      offerKind: 'market' as const,
+      market: 'US' as const,
+      currency: 'USD',
+      originalPrice: null,
+      originalKzt: null,
+      discount: 0,
+      delivery: undefined,
+    };
+    await commit([p]);
+    expect((await catalog()).products[0]).toMatchObject({
+      originalPrice: null,
+      discount: 0,
+      market: 'US',
+    });
+    await commit([]);
   });
   it('аноним не может читать таблицы и запускать обновление', async () => {
     const permissions = await database.query<{ table_access: boolean; function_access: boolean }>(
