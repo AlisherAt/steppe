@@ -46,7 +46,10 @@ export class PumaAdapter implements SourceAdapter {
   configurationMessage =
     'Автоматическая проверка официального магазина США: наличие и цена выбранного размера.';
   configured() {
-    return Boolean(process.env.SEATABLE_API_TOKEN && process.env.DATABASE_PROVIDER === 'seatable');
+    return Boolean(
+      process.env.SEATABLE_API_TOKEN &&
+      (process.env.DATABASE_PROVIDER || 'seatable') === 'seatable',
+    );
   }
   async fetchProducts() {
     const rows = await seaClient.rows('STEPPE_Scrapes');
