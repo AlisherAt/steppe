@@ -34,6 +34,9 @@ export function Header() {
           </Link>
         </nav>
         <div className="header-right">
+          <Link href="/login" className="account-link">
+            Аккаунт
+          </Link>
           <span className="location">
             <MapPin size={16} /> Казахстан · ₸
           </span>
