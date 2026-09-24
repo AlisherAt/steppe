@@ -1,0 +1,38 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+import { db, databaseConfigured } from '@/lib/server/db';
+export async function POST(request: NextRequest) {
+  if (Number(request.headers.get('content-length')) > 10000)
+    return NextResponse.json({ error: 'Запрос слишком большой' }, { status: 413 });
+  try {
+    const text = await request.text();
+    if (text.length > 10000)
+      return NextResponse.json({ error: 'Запрос слишком большой' }, { status: 413 });
+    const parsed = z
+      .object({ ids: z.array(z.string().regex(/^[a-f0-9]{64}$/)).max(50) })
+      .safeParse(JSON.parse(text));
+    if (!parsed.success)
+      return NextResponse.json({ error: 'Некорректная корзина' }, { status: 400 });
+    if (!databaseConfigured())
+      return NextResponse.json({ error: 'Каталог не подключён' }, { status: 503 });
+    const { data, error } = await db()
+      .from('offers')
+      .select('payload,sources!inner(paused)')
+      .in('id', parsed.data.ids)
+      .eq('active', true)
+      .eq('sources.paused', false)
+      .gt(
+        'updated_at',
+        new Date(
+          Date.now() - Number(process.env.OFFER_MAX_AGE_HOURS || 36) * 3600000,
+        ).toISOString(),
+      );
+    if (error) throw error;
+    return NextResponse.json(
+      { products: data.map((p) => p.payload) },
+      { headers: { 'Cache-Control': 'no-store' } },
+    );
+  } catch {
+    return NextResponse.json({ error: 'Не удалось проверить товары' }, { status: 503 });
+  }
+}

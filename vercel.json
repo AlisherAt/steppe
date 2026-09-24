@@ -1,0 +1,4 @@
+{
+  "framework": "nextjs",
+  "functions": { "src/app/api/cron/refresh/route.ts": { "maxDuration": 300 } }
+}
