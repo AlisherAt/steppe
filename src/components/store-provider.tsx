@@ -32,6 +32,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [checking, setChecking] = useState(false);
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [checkError, setCheckError] = useState(false);
+  const [ordering, setOrdering] = useState(false);
+  const [orderError, setOrderError] = useState('');
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     try {
@@ -72,6 +74,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setToast('Пара добавлена в корзину');
   }, []);
   async function openCart() {
+    setOrderError('');
     dialog.current?.showModal();
     setChecked({});
     setCheckError(false);
@@ -110,6 +113,26 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       setChecking(false);
     }
   }
+  async function checkout() {
+    setOrdering(true);
+    setOrderError('');
+    try {
+      const response = await fetch('/api/checkout/whatsapp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: items.map(({ id, size }) => ({ id, size })) }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Не удалось оформить заказ.');
+      const url = new URL(data.url);
+      if (url.origin !== 'https://wa.me') throw new Error('Не удалось открыть WhatsApp.');
+      window.location.assign(url.href);
+    } catch (e) {
+      setOrderError(e instanceof Error ? e.message : 'Не удалось открыть WhatsApp.');
+    } finally {
+      setOrdering(false);
+    }
+  }
   return (
     <Context.Provider value={{ items, add, openCart }}>
       {children}
@@ -144,8 +167,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             </button>
           </div>
           <p className="cart-explainer">
-            Сохрани понравившиеся пары в одном месте. Покупка и оплата — отдельно на сайте каждого
-            магазина.
+            Собери понравившиеся пары и оформи заказ в WhatsApp. В чат подставится список товаров с
+            размерами, ценами и ссылками. Условия и оплату согласуете в переписке.
           </p>
           {storageError && (
             <p role="alert" className="notice warning">
@@ -201,6 +224,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                     </div>
                     <button
                       className="icon-button remove-button"
+                      disabled={ordering}
                       onClick={() =>
                         setItems((prev) => prev.filter((i) => cartItemKey(i) !== cartItemKey(item)))
                       }
@@ -220,6 +244,30 @@ export function StoreProvider({ children }: { children: ReactNode }) {
               <p className="small muted">
                 Без дополнительных сборов площадки и комиссии конвертации. Окончательные условия
                 уточняйте у продавца. Корзина хранится только в этом браузере.
+              </p>
+              <button
+                className="button dark whatsapp-checkout"
+                onClick={checkout}
+                disabled={
+                  ordering ||
+                  checking ||
+                  checkError ||
+                  items.some((i) => i.demo || !checked[cartItemKey(i)])
+                }
+              >
+                {ordering ? 'Готовим заказ…' : 'Оформить в WhatsApp'} <ArrowUpRight size={18} />
+              </button>
+              {items.some((i) => i.demo) && (
+                <p className="small muted">Удалите демотовары, чтобы оформить заказ.</p>
+              )}
+              {orderError && (
+                <p role="alert" className="error-text">
+                  {orderError}
+                </p>
+              )}
+              <p className="small muted">
+                Откроется WhatsApp. Проверьте список и нажмите «Отправить» в чате. На сайте деньги
+                не списываются.
               </p>
             </>
           )}

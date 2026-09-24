@@ -2268,3 +2268,13 @@ legend {
     font-size: 12px;
   }
 }
+
+.whatsapp-checkout {
+  width: 100%;
+  justify-content: center;
+  margin: 16px 0 8px;
+}
+.whatsapp-checkout:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

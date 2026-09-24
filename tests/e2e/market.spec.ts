@@ -56,4 +56,28 @@ test('Рынок США: текущая цена без фиктивной ск�
       .getByRole('dialog', { name: 'Корзина 1' })
       .getByRole('link', { name: /Перейти в магазин/ }),
   ).toBeVisible();
+  const checkout = page.getByRole('button', { name: 'Оформить в WhatsApp' });
+  await expect(checkout).toBeEnabled();
+  await page.route('**/api/checkout/whatsapp', (route) =>
+    route.fulfill({
+      status: 503,
+      json: { error: 'Не удалось проверить товары. Попробуйте ещё раз.' },
+    }),
+  );
+  await checkout.click();
+  await expect(page.getByRole('dialog').getByRole('alert')).toContainText(
+    'Не удалось проверить товары',
+  );
+  await page.unroute('**/api/checkout/whatsapp');
+  const target = 'https://wa.me/77001234567?text=' + encodeURIComponent('Тестовый список: EU 42');
+  await page.route('**/api/checkout/whatsapp', (route) => {
+    expect(route.request().postDataJSON()).toEqual({ items: [{ id: product.id, size: '42' }] });
+    return route.fulfill({ json: { url: target } });
+  });
+  // Перехватываем переход: тест не обращается к WhatsApp и не отправляет сообщения.
+  await page.route('https://wa.me/**', (route) =>
+    route.fulfill({ contentType: 'text/html', body: '<h1>WhatsApp test</h1>' }),
+  );
+  await checkout.click();
+  await expect(page).toHaveURL(target);
 });
