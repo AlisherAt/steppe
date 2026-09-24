@@ -23,21 +23,29 @@ export async function extract(page, source) {
           '[itemprop="sku"], [data-testid="product-sku"], .product-sku',
         );
         const img = card.querySelector('img');
+        const href = card.querySelector('a[href]')?.href;
+        // Nike публикует Style ID последним сегментом ссылки выбранного цвета.
+        let nikeSku = '';
+        if (s.sourceId === 'nike' && href) {
+          const segment = new URL(href).pathname.split('/').filter(Boolean).pop();
+          if (/^[A-Z0-9]{6}-\d{3}$/.test(segment || '')) nikeSku = segment;
+        }
         return {
           sku:
             card.getAttribute('data-product-sku') ||
             card.getAttribute('data-style-color') ||
             sku?.getAttribute('content') ||
-            sku?.textContent?.trim(),
+            sku?.textContent?.trim() ||
+            nikeSku,
           name: card.querySelector(s.name)?.textContent?.trim(),
           image: img?.currentSrc || img?.src,
-          url: card.querySelector('a[href]')?.href,
+          url: href,
           text: card.textContent,
           old: texts(s.old),
           sale: texts(s.sale),
         };
       }),
-    selectors,
+    { ...selectors, sourceId: source.id },
   );
   const result = [];
   for (const row of raw) {

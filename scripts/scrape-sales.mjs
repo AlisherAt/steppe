@@ -43,6 +43,7 @@ export async function runScraper() {
         count: 0,
       };
       report.reports.push(entry);
+      console.log(JSON.stringify({ source: source.id, event: 'starting' }));
       // Значение — ссылка/номер согласования с владельцем, не автоматическое разрешение.
       if (Date.now() > deadline) {
         entry.status = 'time_limit';
@@ -86,7 +87,8 @@ export async function runScraper() {
             req.resourceType() === 'document' &&
             !allowed(req.url())
           ) {
-            blocked = 'NAVIGATION_DISALLOWED';
+            // Внешний iframe аналитики не является переходом каталога.
+            if (!req.frame().parentFrame()) blocked = 'NAVIGATION_DISALLOWED';
             await route.abort();
             return;
           }
@@ -95,8 +97,10 @@ export async function runScraper() {
         context.on('response', (r) => {
           if (
             new URL(r.url()).origin === origin &&
-            ['document', 'xhr', 'fetch'].includes(r.request().resourceType()) &&
-            [401, 403, 429].includes(r.status())
+            (r.status() === 429 ||
+              (r.request().resourceType() === 'document' &&
+                !r.request().frame().parentFrame() &&
+                [401, 403].includes(r.status())))
           )
             blocked = `ACCESS_HTTP_${r.status()}`;
         });
@@ -160,6 +164,14 @@ export async function runScraper() {
       } finally {
         await context?.close();
         await save();
+        console.log(
+          JSON.stringify({
+            source: entry.source,
+            status: entry.status,
+            count: entry.count,
+            error: entry.error,
+          }),
+        );
       }
     }
   } finally {
