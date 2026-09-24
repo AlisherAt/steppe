@@ -57,7 +57,14 @@ test('Реальный каталог отделён от демо, неверн
   await expect(page.locator('.product-card')).toHaveCount(0);
   expect((await request.get('/api/catalog?minPrice=100&maxPrice=1')).status()).toBe(400);
   expect((await request.get('/api/catalog?mode=bogus')).status()).toBe(400);
-  expect((await request.post('/api/cron/refresh')).status()).toBe(503);
+  expect((await request.post('/api/cron/refresh')).status()).toBe(401);
+  expect(
+    (
+      await request.post('/api/cron/refresh', {
+        headers: { Authorization: 'Bearer steppe-test-only-not-a-production-secret' },
+      })
+    ).status(),
+  ).toBe(503);
 });
 test('Мобильный интерфейс без горизонтального скролла, фильтры работают', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });

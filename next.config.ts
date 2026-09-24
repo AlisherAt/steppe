@@ -4,6 +4,7 @@ const imageHosts = (process.env.PRODUCT_IMAGE_HOSTS || '')
   .map((s) => s.trim())
   .filter(Boolean);
 const config: NextConfig = {
+  distDir: process.env.STEPPE_E2E === 'true' ? '.next-e2e' : '.next',
   devIndicators: false,
   turbopack: { root: process.cwd() },
   images: {
