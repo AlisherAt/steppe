@@ -126,7 +126,7 @@ export function ProductCard({
         <p className="product-updated">
           {p.demo
             ? 'Условная цена · фото для иллюстрации'
-            : `Проверено ${formatDate(p.updatedAt)} · Алматы`}
+            : `Проверено ${formatDate(p.sourceUpdatedAt || p.updatedAt)} · Алматы`}
         </p>
         {!p.demo && p.saleEndsAt && (
           <p className="product-updated">

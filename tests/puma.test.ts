@@ -71,3 +71,17 @@ it('Puma: отчёт принимает только полное подтвер
       .success,
   ).toBe(false);
 });
+
+it('Puma: фильтр скидки учитывает цену выбранного размера', async () => {
+  const { filterCatalog } = await import('../src/lib/catalog');
+  const { defaultFilters } = await import('../src/lib/types');
+  const product = toProduct(pumaFeedProduct(row)!, { id: 'puma-us', name: 'Puma US' }, [
+    { currency: 'USD', value: '500', source: 'test', asOf: date, fetchedAt: date },
+  ]);
+  expect(
+    filterCatalog([product], { ...defaultFilters, sizes: ['39'], minDiscount: 30 }, 'live').total,
+  ).toBe(1);
+  expect(
+    filterCatalog([product], { ...defaultFilters, sizes: ['40'], minDiscount: 30 }, 'live').total,
+  ).toBe(0);
+});

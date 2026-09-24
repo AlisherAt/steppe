@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { discountPercent } from './money';
 import {
   defaultFilters,
   type Filters,
@@ -65,7 +66,12 @@ export function filterCatalog(
     );
     if (!eligible.length) return { ...p, saleKzt: -1 };
     const best = eligible.reduce((a, b) => (a.saleKzt <= b.saleKzt ? a : b));
-    return { ...p, saleKzt: best.saleKzt, salePrice: best.salePrice };
+    return {
+      ...p,
+      saleKzt: best.saleKzt,
+      salePrice: best.salePrice,
+      discount: p.originalPrice ? discountPercent(p.originalPrice, best.salePrice) : 0,
+    };
   });
   const matches = priced.filter(
     (p) =>
