@@ -14,7 +14,8 @@
     "test:e2e": "playwright test",
     "check:rates": "tsx scripts/check-rates.ts",
     "seatable:setup": "tsx scripts/seatable-setup.ts --create",
-    "seatable:check": "tsx scripts/seatable-setup.ts"
+    "seatable:check": "tsx scripts/seatable-setup.ts",
+    "check:kicks": "tsx scripts/check-kicks.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.0",
