@@ -36,7 +36,8 @@ export async function extract(page, source) {
             card.getAttribute('data-style-color') ||
             sku?.getAttribute('content') ||
             sku?.textContent?.trim() ||
-            nikeSku,
+            nikeSku ||
+            (s.sourceId === 'puma' ? card.getAttribute('data-product-id') : ''),
           name: card.querySelector(s.name)?.textContent?.trim(),
           image: img?.currentSrc || img?.src,
           url: href,
@@ -45,7 +46,13 @@ export async function extract(page, source) {
           sale: texts(s.sale),
         };
       }),
-    { ...selectors, sourceId: source.id },
+    {
+      ...selectors,
+      ...(source.id === 'puma'
+        ? { old: '[data-test-id="price"].line-through', sale: '[data-test-id="sale-price"]' }
+        : {}),
+      sourceId: source.id,
+    },
   );
   const result = [];
   for (const row of raw) {

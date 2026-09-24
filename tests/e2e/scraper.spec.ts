@@ -34,3 +34,21 @@ test('Nike: Style ID из ссылки и reduced означает новую ц
   expect(products).toHaveLength(1);
   expect(products[0]).toMatchObject({ sku: 'AB1234-001', old_price: 155, sale_price: 87.97 });
 });
+
+test('Puma: артикул цвета и явная скидка без применения промокода', async ({ page }) => {
+  await page.setContent(
+    `<li data-test-id="product-list-item" data-product-id="402666_01"><a href="https://us.puma.com/us/en/pd/test/402666?swatch=01"></a><img src="https://images.puma.com/test.jpg"><h2>ST Miler Retro</h2><h3>Men's Sneakers</h3><span data-test-id="sale-price">$44.99</span><span data-test-id="price" class="line-through">$65.00</span><p>EXTRA 30% OFF WITH CODE</p></li>`,
+  );
+  const products = await extract(page, {
+    id: 'puma',
+    brand: 'Puma',
+    url: 'https://us.puma.com/us/en/sale/all-sale',
+  });
+  expect(products).toHaveLength(1);
+  expect(products[0]).toMatchObject({
+    sku: '402666_01',
+    name: 'ST Miler Retro',
+    old_price: 65,
+    sale_price: 44.99,
+  });
+});
