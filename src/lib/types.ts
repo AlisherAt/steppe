@@ -25,6 +25,8 @@ export type Product = {
   saleKzt: number;
   discount: number;
   rate: Rate;
+  saleStartsAt?: string;
+  saleEndsAt?: string;
   updatedAt: string;
   firstSeenAt: string;
   demo: boolean;
@@ -41,6 +43,7 @@ export type SourceStatus = {
   status: 'ready' | 'needs_configuration' | 'paused' | 'error';
   lastSuccess: string | null;
   lastAttempt: string | null;
+  nextRefreshAt?: string | null;
   message: string;
   offerCount: number;
 };

@@ -4,6 +4,7 @@ import { seaStore } from './seatable-store';
 import { unstable_cache } from 'next/cache';
 import { createHash } from 'node:crypto';
 import { getAdapters } from './sources';
+import { offerVisible } from '../promotion';
 import { demoProducts } from '../demo';
 import { filterCatalog, PAGE_SIZE } from '../catalog';
 import type { CatalogResult, Filters, SourceStatus } from '../types';
@@ -14,12 +15,12 @@ const seaCacheKey = createHash('sha256')
   .digest('hex');
 const cachedSeaProducts = unstable_cache(
   () => seaStore.liveProducts(),
-  ['seatable-live-v1', seaCacheKey],
+  ['seatable-live-v2', seaCacheKey],
   { revalidate: 60 },
 );
 const cachedSeaStatuses = unstable_cache(
   () => seaStore.sourceStatuses(),
-  ['seatable-sources-v1', seaCacheKey],
+  ['seatable-sources-v2', seaCacheKey],
   { revalidate: 60 },
 );
 export async function getCatalog(filters: Filters, mode: 'live' | 'demo'): Promise<CatalogResult> {
@@ -34,10 +35,8 @@ export async function getCatalog(filters: Filters, mode: 'live' | 'demo'): Promi
       pages: 0,
     };
   if (databaseProvider() === 'seatable') {
-    const maxAge =
-      Math.min(168, Math.max(1, Number(process.env.OFFER_MAX_AGE_HOURS || 36))) * 3600000;
     return filterCatalog(
-      (await cachedSeaProducts()).filter((p) => Date.now() - Date.parse(p.updatedAt) <= maxAge),
+      (await cachedSeaProducts()).filter((p) => offerVisible(p)),
       filters,
       'live',
     );
@@ -67,13 +66,20 @@ export async function getSources(): Promise<SourceStatus[]> {
       ? { data: await cachedSeaStatuses(), error: null }
       : await db()
           .from('sources')
-          .select('id,name,paused,last_success_at,last_attempt_at,last_error,offer_count');
+          .select(
+            'id,name,paused,last_success_at,last_attempt_at,last_error,offer_count,next_refresh_at',
+          );
   if (error) throw new Error('SOURCE_STATUS_UNAVAILABLE');
   return defaults.map((s) => {
     const row = data.find((d) => d.id === s.id);
     const adapter = adapters.find((a) => a.id === s.id)!;
     if (!row) return s;
+    const nextRefreshAt =
+      row.next_refresh_at && Date.parse(row.next_refresh_at) > Date.now()
+        ? row.next_refresh_at
+        : null;
     const overdue =
+      !nextRefreshAt &&
       row.last_success_at &&
       Date.now() - Date.parse(row.last_success_at) >
         Number(process.env.OFFER_MAX_AGE_HOURS || 36) * 3600000;
@@ -90,6 +96,7 @@ export async function getSources(): Promise<SourceStatus[]> {
               : 'needs_configuration',
       lastSuccess: row.last_success_at,
       lastAttempt: row.last_attempt_at,
+      nextRefreshAt,
       offerCount: row.offer_count,
       message: row.paused
         ? 'Обновление источника приостановлено.'
@@ -99,9 +106,13 @@ export async function getSources(): Promise<SourceStatus[]> {
             ? 'Данные устарели. Проверьте расписание и доступ к источнику; старые предложения скрыты.'
             : row.last_error
               ? 'Последняя проверка не удалась. Повторим по расписанию.'
-              : row.last_success_at
-                ? 'Данные получены из подключённого источника.'
-                : 'Фид настроен. Ожидается первая успешная проверка.',
+              : nextRefreshAt
+                ? 'Запросы отложены до ' +
+                  new Date(nextRefreshAt).toLocaleString('ru-RU', { timeZone: 'Asia/Almaty' }) +
+                  ' (Казахстан): срок акции указан источником. Цена и наличие в период паузы не перепроверяются.'
+                : row.last_success_at
+                  ? 'Данные получены из подключённого источника.'
+                  : 'Фид настроен. Ожидается первая успешная проверка.',
     };
   });
 }

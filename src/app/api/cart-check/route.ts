@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { db, databaseConfigured, databaseProvider } from '@/lib/server/db';
 import { seaStore } from '@/lib/server/seatable-store';
+import { offerVisible } from '@/lib/promotion';
 export async function POST(request: NextRequest) {
   if (Number(request.headers.get('content-length')) > 10000)
     return NextResponse.json({ error: 'Запрос слишком большой' }, { status: 413 });
@@ -24,19 +25,17 @@ export async function POST(request: NextRequest) {
     }
     const { data, error } = await db()
       .from('offers')
-      .select('payload,sources!inner(paused)')
+      .select('payload,updated_at,sources!inner(paused)')
       .in('id', parsed.data.ids)
       .eq('active', true)
-      .eq('sources.paused', false)
-      .gt(
-        'updated_at',
-        new Date(
-          Date.now() - Number(process.env.OFFER_MAX_AGE_HOURS || 36) * 3600000,
-        ).toISOString(),
-      );
+      .eq('sources.paused', false);
     if (error) throw error;
     return NextResponse.json(
-      { products: data.map((p) => p.payload) },
+      {
+        products: data
+          .filter((p) => offerVisible({ ...p.payload, updatedAt: p.updated_at }))
+          .map((p) => p.payload),
+      },
       { headers: { 'Cache-Control': 'no-store' } },
     );
   } catch {

@@ -4,6 +4,7 @@ import type { Product, Rate } from '../types';
 import { feedProductSchema, type SourceAdapter } from './adapters';
 import { seaClient, type SeaRow, type SeaTransport } from './seatable-client';
 import { IntegrationError } from './http';
+import { offerVisible, nextPromotionRefresh } from '../promotion';
 const iso = z.string().datetime({ offset: true });
 const secureUrl = z
   .string()
@@ -32,6 +33,8 @@ const productSchema = z
     saleKzt: z.number().int().positive(),
     discount: z.number().int().min(0).max(100),
     demo: z.literal(false),
+    saleStartsAt: iso.optional(),
+    saleEndsAt: iso.optional(),
     updatedAt: iso,
     firstSeenAt: iso,
     rate: z.object({
@@ -167,32 +170,21 @@ export class SeaTableStore {
   }
   async liveProducts(now = new Date()) {
     const { sources, runs, offers } = await this.state();
-    const maxAge =
-      Math.min(168, Math.max(1, Number(process.env.OFFER_MAX_AGE_HOURS || 36))) * 3600000;
     return sources.flatMap((source) => {
       const run = latestRun(runs, source.id, true);
-      if (
-        source.paused ||
-        !run ||
-        !run.finished_at ||
-        now.getTime() - Date.parse(run.finished_at) > maxAge
-      )
-        return [];
-      return decodeSnapshot(run, offers).filter(
-        (p) =>
-          now.getTime() - Date.parse(p.updatedAt) <= maxAge &&
-          Date.parse(p.updatedAt) <= now.getTime() + 3600000,
-      );
+      if (source.paused || !run || !run.finished_at) return [];
+      return decodeSnapshot(run, offers).filter((p) => offerVisible(p, now.getTime()));
     });
   }
   async sourceStatuses() {
-    const [sources, runs] = await Promise.all([this.sources(), this.runs()]);
+    const { sources, runs, offers } = await this.state();
     return sources.map((s) => {
       const last = latestRun(runs, s.id),
         success = latestRun(runs, s.id, true);
       const hung = last?.status === 'running' && Date.now() - Date.parse(last.started_at) > 360000;
       return {
         ...s,
+        next_refresh_at: success ? nextPromotionRefresh(decodeSnapshot(success, offers)) : null,
         last_attempt_at: last?.started_at || null,
         last_success_at: success?.finished_at || null,
         last_error: last?.status === 'error' ? last.error : hung ? 'INTERRUPTED_REFRESH' : null,

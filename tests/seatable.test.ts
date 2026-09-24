@@ -66,6 +66,25 @@ const product = (id = 'one', salePrice = '60') =>
     [nativeRate()],
   );
 describe('SeaTable — целые снимки и отсутствие SQL-транзакций', () => {
+  it('сохраняет недельную акцию после 36 часов и скрывает точно в конце', async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-09-24T10:00:00Z'));
+    const store = new SeaTableStore(new MemorySea());
+    const end = '2026-10-01T10:00:00Z';
+    await store.commit(
+      await store.start('nike'),
+      [{ ...product(), saleEndsAt: end }],
+      [nativeRate()],
+    );
+    vi.advanceTimersByTime(6 * 86400000);
+    expect(await store.liveProducts()).toHaveLength(1);
+    expect((await store.sourceStatuses())[0].next_refresh_at).toBe(new Date(end).toISOString());
+    expect((await store.liveProducts())[0].updatedAt).toBe('2026-09-24T10:00:00.000Z');
+    vi.advanceTimersByTime(86400000);
+    expect(await store.liveProducts()).toHaveLength(0);
+    expect((await store.sourceStatuses())[0].next_refresh_at).toBeNull();
+  });
+
   it('публикует полный снимок, сохраняет исходную цену и обновляет размеры/цены', async () => {
     const memory = new MemorySea(),
       store = new SeaTableStore(memory);

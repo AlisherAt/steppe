@@ -35,7 +35,8 @@ jobs:
             const failed = data.results.filter(r => r.status === 'error');
             const updated = data.results.filter(r => r.status === 'success').length;
             const waiting = data.results.filter(r => r.status === 'needs_configuration').length;
-            console.log(`Обновлено магазинов: ${updated}; ожидают подключения фидов: ${waiting}.`);
+            const deferred = data.results.filter(r => r.status === 'deferred').length;
+            console.log(`Обновлено магазинов: ${updated}; отложено до конца акции: ${deferred}; ожидают подключения фидов: ${waiting}.`);
             if (failed.length) throw new Error('Некоторые магазины не обновлены.');
           })().catch(error => { console.error(error.message); process.exitCode = 1; });
           NODE

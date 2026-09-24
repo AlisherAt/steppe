@@ -14,6 +14,8 @@ export const feedProductSchema = z
     name: z.string().trim().min(1).max(180),
     productUrl: z.string().url().max(2000),
     imageUrl: z.string().url().max(2000).nullable().default(null),
+    saleStartsAt: z.string().datetime({ offset: true }).optional(),
+    saleEndsAt: z.string().datetime({ offset: true }).optional(),
     originalPrice: amount,
     salePrice: amount,
     currency: z.string().regex(/^[A-Z]{3}$/),
@@ -38,6 +40,9 @@ export const feedProductSchema = z
     (p) => {
       try {
         return (
+          (!p.saleStartsAt ||
+            !p.saleEndsAt ||
+            Date.parse(p.saleStartsAt) < Date.parse(p.saleEndsAt)) &&
           new Decimal(p.originalPrice).gt(0) &&
           new Decimal(p.salePrice).gt(0) &&
           new Decimal(p.salePrice).lte(p.originalPrice)
@@ -85,6 +90,8 @@ export function deduplicate(products: FeedProduct[]): FeedProduct[] {
         existing.originalPrice !== product.originalPrice ||
         existing.name !== product.name ||
         normalizeProductUrl(existing.productUrl) !== canonical ||
+        existing.saleStartsAt !== product.saleStartsAt ||
+        existing.saleEndsAt !== product.saleEndsAt ||
         existing.available !== product.available
       )
         throw new IntegrationError('CONFLICTING_DUPLICATE');
@@ -157,7 +164,13 @@ export class AuthorizedJsonAdapter implements SourceAdapter {
             policyUrl,
           },
         })),
-    ).filter((p) => p.available && new Decimal(p.salePrice).lt(p.originalPrice));
+    ).filter(
+      (p) =>
+        p.available &&
+        new Decimal(p.salePrice).lt(p.originalPrice) &&
+        (!p.saleStartsAt || Date.parse(p.saleStartsAt) <= Date.now()) &&
+        (!p.saleEndsAt || Date.parse(p.saleEndsAt) > Date.now()),
+    );
   }
 }
 export class PartnerFeedAdapter extends AuthorizedJsonAdapter {
@@ -213,6 +226,8 @@ export function toProduct(
     saleKzt: toKzt(p.salePrice, rate.value),
     discount: discountPercent(p.originalPrice, p.salePrice),
     rate,
+    ...(p.saleStartsAt ? { saleStartsAt: p.saleStartsAt } : {}),
+    ...(p.saleEndsAt ? { saleEndsAt: p.saleEndsAt } : {}),
     updatedAt: now.toISOString(),
     firstSeenAt: now.toISOString(),
     demo: false,

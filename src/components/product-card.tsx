@@ -122,6 +122,12 @@ export function ProductCard({
             ? 'Условная цена · фото для иллюстрации'
             : `Проверено ${formatDate(p.updatedAt)} · Алматы`}
         </p>
+        {!p.demo && p.saleEndsAt && (
+          <p className="product-updated">
+            Акция до {formatDate(p.saleEndsAt)} · Алматы. Срок указан магазином; цена и наличие
+            могли измениться после проверки.
+          </p>
+        )}
         {!p.demo && p.delivery && (
           <p className="product-updated">
             Доставка KZ · по данным {p.delivery.basis === 'ebay-filter' ? 'eBay' : 'магазина'}

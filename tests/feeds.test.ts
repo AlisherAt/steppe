@@ -20,6 +20,19 @@ afterEach(() => {
   vi.clearAllMocks();
 });
 describe('Бренды и полные партнёрские фиды', () => {
+  it('сохраняет срок Google-акции и отклоняет неоднозначные даты', () => {
+    const period =
+      '<g:sale_price_effective_date>2026-09-24T09:00:00Z/2026-10-01T10:00:00Z</g:sale_price_effective_date>';
+    expect(parseGoogleXml(google(period), { now })[0]).toMatchObject({
+      saleStartsAt: '2026-09-24T09:00:00Z',
+      saleEndsAt: '2026-10-01T10:00:00Z',
+    });
+    expect(() => parseGoogleXml(google(period.replaceAll('Z', '')), { now })).toThrow(
+      'INVALID_SALE_PERIOD',
+    );
+    expect(parseGoogleXml(google(period), { now: new Date('2026-10-01T10:00:00Z') })).toEqual([]);
+  });
+
   it('распознаёт марки и сохраняет новые без изменения кода', () => {
     expect(brandNames).toHaveLength(78);
     expect(normalizeBrand(' HOKA ONE ONE ')).toBe('HOKA');

@@ -25,15 +25,20 @@ export async function refreshSources() {
     if (registryError) throw new IntegrationError('SOURCE_REGISTRY_WRITE_FAILED');
     const { data: sources, error } = await client
       .from('sources')
-      .select('id,paused,last_attempt_at');
+      .select('id,paused,last_attempt_at,next_refresh_at');
     if (error) throw new IntegrationError('SOURCES_UNAVAILABLE');
     adapters.sort(
       (a, b) =>
         Date.parse(sources.find((s) => s.id === a.id)?.last_attempt_at || '1970-01-01') -
         Date.parse(sources.find((s) => s.id === b.id)?.last_attempt_at || '1970-01-01'),
     );
+    const planningTime = Date.now();
+    const deferred = (id: string) => {
+      const value = sources.find((s) => s.id === id)?.next_refresh_at;
+      return value && Date.parse(value) > planningTime ? value : null;
+    };
     const enabled = adapters.filter(
-      (a) => a.configured() && sources.some((s) => s.id === a.id && !s.paused),
+      (a) => !deferred(a.id) && a.configured() && sources.some((s) => s.id === a.id && !s.paused),
     );
     let rateError: string | null = null;
     const rates = enabled.length
@@ -46,6 +51,8 @@ export async function refreshSources() {
       if (sources.find((s) => s.id === adapter.id)?.paused)
         return { source: adapter.id, status: 'paused' };
       if (!adapter.configured()) return { source: adapter.id, status: 'needs_configuration' };
+      const nextRefreshAt = deferred(adapter.id);
+      if (nextRefreshAt) return { source: adapter.id, status: 'deferred', nextRefreshAt };
       if (Date.now() > deadline)
         return { source: adapter.id, status: 'error', code: 'REFRESH_BUDGET_EXHAUSTED' };
       const startedAt = new Date().toISOString();

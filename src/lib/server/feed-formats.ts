@@ -153,12 +153,19 @@ function googleRows(rows: Row[], options: ParseOptions): unknown[] {
     if (!p.sale_price) return [];
     if (!sale || !old || sale[2] !== old[2]) throw new IntegrationError('INVALID_FEED_PRICE');
     if (!discount(old[1], sale[1])) return [];
+    let saleStartsAt: string | undefined, saleEndsAt: string | undefined;
     if (p.sale_price_effective_date) {
       const [start, end] = str(p.sale_price_effective_date).split('/');
       const now = (options.now || new Date()).getTime();
-      if (!Number.isFinite(Date.parse(start)) || !Number.isFinite(Date.parse(end)))
+      if (
+        !z.string().datetime({ offset: true }).safeParse(start).success ||
+        !z.string().datetime({ offset: true }).safeParse(end).success ||
+        Date.parse(start) >= Date.parse(end)
+      )
         throw new IntegrationError('INVALID_SALE_PERIOD');
       if (now < Date.parse(start) || now >= Date.parse(end)) return [];
+      saleStartsAt = start;
+      saleEndsAt = end;
     }
     const system = str(p.size_system).toUpperCase();
     return [
@@ -171,6 +178,8 @@ function googleRows(rows: Row[], options: ParseOptions): unknown[] {
         originalPrice: old[1],
         salePrice: sale[1],
         currency: sale[2],
+        ...(saleStartsAt ? { saleStartsAt } : {}),
+        ...(saleEndsAt ? { saleEndsAt } : {}),
         sizes: sizes(p.size, system === 'EU' || (!system && Boolean(options.euSizes))),
         gender: gender(p.gender),
         category: 'Кроссовки',

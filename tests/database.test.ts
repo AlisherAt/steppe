@@ -56,6 +56,9 @@ beforeAll(async () => {
   await database.exec(readFileSync('supabase/migrations/202609240001_initial.sql', 'utf8'));
   await database.exec(readFileSync('supabase/migrations/202609240002_partner_sources.sql', 'utf8'));
   await database.exec(readFileSync('supabase/migrations/202609240003_delivery_kz.sql', 'utf8'));
+  await database.exec(
+    readFileSync('supabase/migrations/202609240004_promotion_schedule.sql', 'utf8'),
+  );
 });
 afterAll(async () => {
   await database.close();
@@ -157,6 +160,30 @@ describe('Postgres — настоящая миграция и RPC', () => {
         )
       ).rows[0].offer_count,
     ).toBe(0);
+  });
+  it('сохраняет срок в транзакции и скрывает истёкшую акцию', async () => {
+    const end = new Date(Date.now() + 7 * 86400000).toISOString();
+    await commit([{ ...makeProduct('promotion'), saleEndsAt: end }]);
+    const row = (
+      await database.query<{ next_refresh_at: Date }>(
+        "select next_refresh_at from sources where id='nike'",
+      )
+    ).rows[0];
+    expect(new Date(row.next_refresh_at).toISOString()).toBe(end);
+    await database.exec("update offers set updated_at=now()-interval '40 hours'");
+    expect((await catalog()).total).toBe(1);
+    await database.exec(
+      "update offers set payload=jsonb_set(payload,'{saleEndsAt}',to_jsonb(now()-interval '1 second'))",
+    );
+    expect((await catalog()).total).toBe(0);
+    await commit([]);
+    expect(
+      (
+        await database.query<{ next_refresh_at: null }>(
+          "select next_refresh_at from sources where id='nike'",
+        )
+      ).rows[0].next_refresh_at,
+    ).toBeNull();
   });
   it('аноним не может читать таблицы и запускать обновление', async () => {
     const permissions = await database.query<{ table_access: boolean; function_access: boolean }>(
