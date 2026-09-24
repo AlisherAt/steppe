@@ -38,7 +38,7 @@ export function orderableProduct(p: Product) {
     p.offerKind === 'retail' &&
     p.purchaseType === 'fixed' &&
     (p.market === 'US'
-      ? p.warehouseCountry === 'US'
+      ? p.warehouseCountry === 'US' || p.sourceId === 'puma-us'
       : p.market === 'EU' && EUROPE_COUNTRIES.includes(p.warehouseCountry || '')) &&
     !!p.sizePrices?.length &&
     p.sizes.length === p.sizePrices.length &&

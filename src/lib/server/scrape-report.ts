@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { seaClient } from './seatable-client';
+import { pumaVariantSchema, pumaVerifiedSchema } from '../puma';
 export const scrapeReportSchema = z.object({
   runId: z.string().regex(/^[a-zA-Z0-9-]{1,80}$/),
   checkedAt: z.string().datetime({ offset: true }),
@@ -36,9 +37,12 @@ export const scrapeReportSchema = z.object({
           sale_price: z.number().positive(),
           currency: z.literal('USD'),
           checked_at: z.string().datetime({ offset: true }),
-          size_price_verified: z.literal(false),
+          size_price_verified: z.boolean(),
+          gender: z.enum(['men', 'women', 'kids', 'unisex']).optional(),
+          variants: z.array(pumaVariantSchema).max(60).optional(),
         })
-        .refine((p) => p.sale_price < p.old_price),
+        .refine((p) => p.sale_price < p.old_price)
+        .refine((p) => !p.size_price_verified || pumaVerifiedSchema.safeParse(p).success),
     )
     .max(1500),
 });
@@ -65,7 +69,12 @@ export async function storeScrapeReport(report: z.infer<typeof scrapeReportSchem
     {
       id: report.runId,
       checked_at: report.checkedAt,
-      payload: JSON.stringify({ ...report, products: [], collectedCount: report.products.length }),
+      payload: JSON.stringify({
+        ...report,
+        products: [],
+        collectedCount: report.products.length,
+        verifiedCount: report.products.filter((p) => p.size_price_verified).length,
+      }),
     },
   ]);
   const expired = rows.filter(
@@ -85,12 +94,16 @@ export async function scrapeSummary() {
     .sort((a, b) => String(b.checked_at).localeCompare(String(a.checked_at)))[0];
   if (!latest) return null;
   const parsed = scrapeReportSchema
-    .extend({ collectedCount: z.number().int().min(0).max(1500).optional() })
+    .extend({
+      collectedCount: z.number().int().min(0).max(1500).optional(),
+      verifiedCount: z.number().int().min(0).max(100).optional(),
+    })
     .safeParse(JSON.parse(String(latest.payload)));
   if (!parsed.success) return null;
   return {
     checkedAt: parsed.data.checkedAt,
     collected: parsed.data.collectedCount ?? parsed.data.products.length,
+    verified: parsed.data.verifiedCount ?? 0,
     sources: parsed.data.reports.length,
     waiting: parsed.data.reports.filter((r) => r.status === 'needs_permission').length,
     failed: parsed.data.reports.filter((r) => r.status === 'error').length,

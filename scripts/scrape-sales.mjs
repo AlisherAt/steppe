@@ -5,6 +5,7 @@ import { mkdir, writeFile, rename } from 'node:fs/promises';
 import { randomUUID, randomInt } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { sources, selectors } from './scraper-sources.mjs';
+import { collectPumaDetails } from './puma-details.mjs';
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export async function runScraper() {
   let permissions;
@@ -31,6 +32,9 @@ export async function runScraper() {
   };
   let browser;
   const maxSteps = Number(process.env.SCRAPER_MAX_STEPS || 20);
+  const detailLimit = Number(process.env.PUMA_DETAIL_LIMIT || 12);
+  if (!Number.isInteger(detailLimit) || detailLimit < 1 || detailLimit > 30)
+    throw Error('INVALID_PUMA_DETAIL_LIMIT');
   if (!Number.isInteger(maxSteps) || maxSteps < 1 || maxSteps > 60)
     throw Error('INVALID_SCRAPER_LIMIT');
   const deadline = Date.now() + 15 * 60_000;
@@ -50,7 +54,7 @@ export async function runScraper() {
         await save();
         continue;
       }
-      let context;
+      let context, page;
       try {
         const origin = new URL(source.url).origin;
         const robotsURL = origin + '/robots.txt';
@@ -104,7 +108,7 @@ export async function runScraper() {
           )
             blocked = `ACCESS_HTTP_${r.status()}`;
         });
-        const page = await context.newPage();
+        page = await context.newPage();
         page.setDefaultTimeout(8000);
         page.setDefaultNavigationTimeout(30000);
         const first = await page.goto(source.url, { waitUntil: 'domcontentloaded' });
@@ -155,12 +159,63 @@ export async function runScraper() {
           break;
         }
         const products = [...found.values()].slice(0, 100);
+        if (source.id === 'puma') {
+          const checkAccess = async () => {
+            if (blocked) throw Error(blocked);
+            const text = (await page.locator('body').innerText()).slice(0, 16000);
+            if (
+              /access denied|verify (?:that )?you are human|unusual traffic|robot check|just a moment/i.test(
+                text,
+              )
+            )
+              throw Error('ACCESS_CHALLENGE');
+          };
+          for (let index = 0; index < Math.min(detailLimit, products.length); index++) {
+            if (Date.now() + 60000 > deadline || blocked) break;
+            try {
+              const candidate = products[index];
+              if (!allowed(candidate.product_url)) throw Error('ROBOTS_DISALLOWED');
+              await pause(Math.max(crawlDelay, 2500));
+              const response = await page.goto(candidate.product_url, {
+                waitUntil: 'domcontentloaded',
+              });
+              if (!response?.ok()) throw Error(`PAGE_HTTP_${response?.status() || 0}`);
+              products[index] = await collectPumaDetails(page, candidate, {
+                checkAccess,
+                delay: Math.max(crawlDelay, 2500),
+                deadline,
+              });
+              console.log(
+                JSON.stringify({
+                  source: 'puma',
+                  sku: candidate.sku,
+                  verifiedSizes: products[index].variants.length,
+                }),
+              );
+            } catch (error) {
+              console.log(
+                JSON.stringify({
+                  source: 'puma',
+                  sku: products[index].sku,
+                  detailError: String(error.message).slice(0, 160),
+                }),
+              );
+              await mkdir('artifacts/diagnostics', { recursive: true });
+              await page
+                .screenshot({ path: `artifacts/diagnostics/puma-${index}.png` })
+                .catch(() => {});
+              if (blocked) break;
+            }
+          }
+        }
         report.products.push(...products);
         entry.count = products.length;
         if (!entry.count) entry.status = 'no_valid_products';
       } catch (error) {
         entry.status = 'error';
         entry.error = String(error.message).slice(0, 200);
+        await mkdir('artifacts/diagnostics', { recursive: true });
+        await page?.screenshot({ path: `artifacts/diagnostics/${source.id}.png` }).catch(() => {});
       } finally {
         await context?.close();
         await save();

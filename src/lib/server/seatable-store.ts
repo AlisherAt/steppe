@@ -70,7 +70,8 @@ const productSchema = z
       (p.offerKind === 'market'
         ? p.market === 'US' && p.originalKzt === null && p.discount === 0
         : p.offerKind === 'retail'
-          ? p.purchaseType === 'fixed' && p.originalKzt === null && p.discount === 0
+          ? p.purchaseType === 'fixed' &&
+            (p.originalKzt === null ? p.discount === 0 : p.saleKzt <= p.originalKzt)
           : !!p.delivery && p.originalKzt !== null && p.saleKzt <= p.originalKzt) &&
       feedProductSchema.safeParse({ ...p, id: p.externalId }).success,
   );

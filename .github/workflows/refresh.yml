@@ -36,7 +36,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: scraper-report
-          path: artifacts/scraper.json
+          path: |
+            artifacts/scraper.json
+            artifacts/diagnostics/
           if-no-files-found: warn
           retention-days: 7
       - name: Запросить обновление на Vercel

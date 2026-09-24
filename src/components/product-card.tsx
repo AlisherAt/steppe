@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { ArrowUpRight, Plus, X, ShoppingBag } from 'lucide-react';
 import type { Product } from '@/lib/types';
-import { formatKzt, formatDate, formatRate } from '@/lib/money';
+import { formatKzt, formatDate, formatRate, discountPercent } from '@/lib/money';
 import { useStore } from './store-provider';
 const genders = { men: 'Мужские', women: 'Женские', unisex: 'Унисекс', kids: 'Детские' };
 export function ProductCard({
@@ -19,7 +19,9 @@ export function ProductCard({
   const details = useRef<HTMLDialogElement>(null);
   const { add } = useStore();
   const selectedPrice = p.sizePrices?.find((v) => v.size === size)?.saleKzt ?? p.saleKzt;
-  const pricePrefix = !size && (p.sizePrices?.length || 0) > 1 ? 'от ' : '';
+  const selectedSourcePrice = p.sizePrices?.find((v) => v.size === size)?.salePrice ?? p.salePrice;
+  const discount = p.originalPrice ? discountPercent(p.originalPrice, selectedSourcePrice) : 0;
+  const pricePrefix = !size && new Set(p.sizePrices?.map((v) => v.saleKzt)).size > 1 ? 'от ' : '';
   function save() {
     if (p.sizes.length && !size) {
       setError('Сначала выбери размер');
@@ -51,7 +53,7 @@ export function ProductCard({
             <span>Фото скоро появится</span>
           </span>
         )}
-        {p.discount > 0 && <span className="discount-badge">−{p.discount}%</span>}
+        {discount > 0 && <span className="discount-badge">−{discount}%</span>}
         {p.demo && <span className="demo-badge">ДЕМО</span>}
         <span className="image-open">
           <ArrowUpRight size={18} />
@@ -74,7 +76,8 @@ export function ProductCard({
         </div>
         {p.offerKind === 'retail' && (
           <p className="product-updated">
-            Покупка без торгов · отгрузка {p.warehouseCountry} · цена выбранного размера
+            Покупка без торгов · магазин {p.market === 'US' ? 'США' : 'Европы'} · цена выбранного
+            размера
           </p>
         )}
         {p.offerKind === 'market' && (

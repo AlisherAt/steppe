@@ -8,7 +8,13 @@ const config: NextConfig = {
   devIndicators: false,
   turbopack: { root: process.cwd() },
   images: {
-    remotePatterns: ['images.unsplash.com', 'i.ebayimg.com', 'images.stockx.com', ...imageHosts].map((hostname) => ({
+    remotePatterns: [
+      'images.unsplash.com',
+      'i.ebayimg.com',
+      'images.stockx.com',
+      'images.puma.com',
+      ...imageHosts,
+    ].map((hostname) => ({
       protocol: 'https' as const,
       hostname,
     })),

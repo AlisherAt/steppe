@@ -61,9 +61,11 @@ export const feedProductSchema = z
               !!p.sourceUpdatedAt
             : p.offerKind === 'retail'
               ? p.purchaseType === 'fixed' &&
-                !!p.warehouseCountry &&
+                (!!p.warehouseCountry ||
+                  (p.market === 'US' && new URL(p.productUrl).origin === 'https://us.puma.com')) &&
                 !!p.sizePrices?.length &&
-                p.originalPrice === null &&
+                (p.originalPrice === null ||
+                  p.sizePrices.every((v) => new Decimal(p.originalPrice!).gte(v.salePrice))) &&
                 p.sizes.length === p.sizePrices.length &&
                 p.sizePrices.every((v) => p.sizes.includes(v.size) && Number(v.salePrice) > 0)
               : p.originalPrice !== null &&

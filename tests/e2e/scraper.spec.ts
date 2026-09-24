@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { collectPumaDetails } from '../../scripts/puma-details.mjs';
 import { extract, price } from '../../scripts/scraper-extract.mjs';
 test('Сборщик: точные цены, SKU, изображение, пропуск неполной карточки', async ({ page }) => {
   await page.setContent(
@@ -51,4 +52,20 @@ test('Puma: артикул цвета и явная скидка без прим
     old_price: 65,
     sale_price: 44.99,
   });
+});
+
+test('Puma PDP: проверяет цену каждого выбранного размера и исключает отсутствующий', async ({
+  page,
+}) => {
+  await page.setContent(
+    `<main>Style: 402666_01 <span id="stock"></span><div id="size-picker"><label data-size="0200" data-disabled="false"><input type="radio" name="size" onchange="document.querySelector('#stock').textContent='IN STOCK'; document.querySelector('#sale').textContent='$44.99'"><span data-content="size-value">7</span></label><label data-size="0210" data-disabled="false"><input type="radio" name="size" onchange="document.querySelector('#stock').textContent='IN STOCK'; document.querySelector('#sale').textContent='$49.99'"><span data-content="size-value">7.5</span></label><label data-size="0220" data-disabled="true"><input type="radio" disabled><span data-content="size-value">8</span></label></div><span id="sale" data-test-id="item-sale-price-pdp">$44.99</span><span data-test-id="item-price-pdp">$65.00</span><button data-test-id="add-to-cart-button">Add to Cart</button><button data-test-id="size-guide-btn" onclick="document.querySelector('#guide').hidden=false">Size guide</button><div id="guide" hidden><table class="chart"><thead><tr><th>US</th><th>DE</th></tr></thead><tbody><tr><td>7</td><td>39</td></tr><tr><td>7.5</td><td>40</td></tr><tr><td>8</td><td>40.5</td></tr></tbody></table><button onclick="document.querySelector('#guide').hidden=true">Close</button></div></main><script type="application/ld+json">{"@type":"Product","name":"Test Men's Sneakers","model":"402666","offers":{"priceCurrency":"USD"},"image":["https://images.puma.com/test.jpg"]}</script>`,
+  );
+  const result = await collectPumaDetails(page, { sku: '402666_01' }, { delay: 0 });
+  expect(
+    result.variants.map((v: { sizeEU: string; salePrice: string }) => [v.sizeEU, v.salePrice]),
+  ).toEqual([
+    ['39', '44.99'],
+    ['40', '49.99'],
+  ]);
+  expect(result.size_price_verified).toBe(true);
 });

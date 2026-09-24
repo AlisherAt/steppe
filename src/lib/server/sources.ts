@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { PartnerFeedAdapter, type SourceAdapter } from './adapters';
 import { EbayAdapter } from './ebay';
 import { FixedRetailAdapter } from './fixed-retail';
+import { PumaAdapter } from './puma';
 import { IntegrationError } from './http';
 const customSchema = z
   .array(
@@ -15,6 +16,7 @@ const customSchema = z
   .max(20);
 export function getAdapters(): SourceAdapter[] {
   const sources: SourceAdapter[] = [
+    new PumaAdapter(),
     new FixedRetailAdapter('retail-us', 'Поставщик США', 'RETAIL_US', 'US'),
     new FixedRetailAdapter('retail-eu', 'Поставщик Европы', 'RETAIL_EU', 'EU'),
     new PartnerFeedAdapter(
