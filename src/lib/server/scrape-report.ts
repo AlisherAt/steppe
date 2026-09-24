@@ -55,7 +55,18 @@ export const scrapeReportSchema = z.object({
     )
     .max(1500),
 });
-export async function storeScrapeReport(report: z.infer<typeof scrapeReportSchema>) {
+export function scrapeObservedAt(report: {
+  checkedAt: string;
+  products: { checked_at: string }[];
+}) {
+  // Старые сборщики ставили время начала. Учитываем фактическое время наблюдений,
+  // чтобы закончившийся позже сбор не проигрывал промежуточному ручному отчёту.
+  return new Date(
+    Math.max(Date.parse(report.checkedAt), ...report.products.map((p) => Date.parse(p.checked_at))),
+  ).toISOString();
+}
+export async function storeScrapeReport(input: z.infer<typeof scrapeReportSchema>) {
+  const report = { ...input, checkedAt: scrapeObservedAt(input) };
   const rows = await seaClient.rows('STEPPE_Scrapes');
   if (rows.some((r) => r.id === report.runId)) return;
   // Карточки хранятся отдельными строками, чтобы не переполнить поле long-text.

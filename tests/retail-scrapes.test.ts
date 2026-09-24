@@ -2,11 +2,25 @@ import { expect, it } from 'vitest';
 import { retailScrapeProduct } from '../src/lib/server/scraped-retail';
 import { toProduct } from '../src/lib/server/adapters';
 import { orderableProduct } from '../src/lib/orderable';
-import { scrapeReportSchema } from '../src/lib/server/scrape-report';
+import { scrapeReportSchema, scrapeObservedAt } from '../src/lib/server/scrape-report';
 import { whatsappOrder } from '../src/lib/whatsapp';
 import { officialMarketUrl } from '../src/lib/official-stores';
 import { reebokVariants } from '../scripts/retail-details.mjs';
 const date = new Date().toISOString();
+it('Завершившийся долгий сбор сортируется по времени наблюдения, а не запуска', () => {
+  expect(
+    scrapeObservedAt({
+      checkedAt: '2026-09-24T10:00:00Z',
+      products: [{ checked_at: '2026-09-24T10:12:00Z' }],
+    }),
+  ).toBe('2026-09-24T10:12:00.000Z');
+  expect(
+    scrapeObservedAt({
+      checkedAt: '2026-09-24T10:15:00Z',
+      products: [{ checked_at: '2026-09-24T10:12:00Z' }],
+    }),
+  ).toBe('2026-09-24T10:15:00.000Z');
+});
 const row = {
   source: 'reebok',
   brand: 'Reebok',

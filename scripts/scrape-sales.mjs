@@ -297,6 +297,7 @@ export async function runScraper() {
     }
   } finally {
     await browser?.close();
+    report.checkedAt = new Date().toISOString();
     await save();
   }
   console.log(
