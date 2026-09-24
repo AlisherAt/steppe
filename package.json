@@ -12,7 +12,9 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "check:rates": "tsx scripts/check-rates.ts"
+    "check:rates": "tsx scripts/check-rates.ts",
+    "seatable:setup": "tsx scripts/seatable-setup.ts --create",
+    "seatable:check": "tsx scripts/seatable-setup.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.0",

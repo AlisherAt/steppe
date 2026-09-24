@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { db, databaseConfigured } from '@/lib/server/db';
+import { db, databaseConfigured, databaseProvider } from '@/lib/server/db';
+import { seaStore } from '@/lib/server/seatable-store';
 export async function POST(request: NextRequest) {
   if (Number(request.headers.get('content-length')) > 10000)
     return NextResponse.json({ error: 'Запрос слишком большой' }, { status: 413 });
@@ -15,6 +16,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Некорректная корзина' }, { status: 400 });
     if (!databaseConfigured())
       return NextResponse.json({ error: 'Каталог не подключён' }, { status: 503 });
+    if (databaseProvider() === 'seatable') {
+      const products = (await seaStore.liveProducts()).filter((p) =>
+        parsed.data.ids.includes(p.id),
+      );
+      return NextResponse.json({ products }, { headers: { 'Cache-Control': 'no-store' } });
+    }
     const { data, error } = await db()
       .from('offers')
       .select('payload,sources!inner(paused)')

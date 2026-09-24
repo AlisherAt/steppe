@@ -1,11 +1,13 @@
 import 'server-only';
 import { randomUUID } from 'node:crypto';
-import { db } from './db';
+import { db, databaseProvider } from './db';
+import { refreshSeaTable } from './seatable-refresh';
 import { toProduct } from './adapters';
 import { getAdapters } from './sources';
 import { loadRates, nativeRate } from './rates';
 import { IntegrationError, safeCode } from './http';
 export async function refreshSources() {
+  if (databaseProvider() === 'seatable') return refreshSeaTable();
   const client = db();
   const adapters = getAdapters();
   const deadline = Date.now() + 220_000;

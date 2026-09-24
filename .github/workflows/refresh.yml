@@ -1,0 +1,41 @@
+name: Обновить каталог STEPPE
+on:
+  schedule:
+    - cron: '0 1,13 * * *'
+  workflow_dispatch:
+permissions: {}
+concurrency:
+  group: steppe-catalog-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - name: Запросить обновление на Vercel
+        env:
+          SITE_URL: ${{ vars.STEPPE_SITE_URL || 'https://steppe-gray.vercel.app' }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        shell: bash
+        run: |
+          node <<'NODE'
+          (async () => {
+            const secret = process.env.CRON_SECRET;
+            if (!secret || secret.length < 32) throw new Error('Добавьте CRON_SECRET в GitHub Actions Secrets и Vercel.');
+            const url = new URL('/api/cron/refresh', process.env.SITE_URL);
+            if (url.protocol !== 'https:') throw new Error('SITE_URL должен использовать HTTPS.');
+            const response = await fetch(url, {
+              method: 'POST', redirect: 'error',
+              headers: { Authorization: `Bearer ${secret}` },
+              signal: AbortSignal.timeout(310000),
+            });
+            if (!response.ok) throw new Error(`Обновление вернуло HTTP ${response.status}. Проверьте Vercel и страницу источников.`);
+            const data = await response.json();
+            if (!Array.isArray(data.results)) throw new Error('Нет результатов проверки магазинов.');
+            const failed = data.results.filter(r => r.status === 'error');
+            const updated = data.results.filter(r => r.status === 'success').length;
+            const waiting = data.results.filter(r => r.status === 'needs_configuration').length;
+            console.log(`Обновлено магазинов: ${updated}; ожидают подключения фидов: ${waiting}.`);
+            if (failed.length) throw new Error('Некоторые магазины не обновлены.');
+          })().catch(error => { console.error(error.message); process.exitCode = 1; });
+          NODE

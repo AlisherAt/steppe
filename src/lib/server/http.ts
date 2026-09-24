@@ -52,7 +52,7 @@ export async function fetchText(
     maxBytes?: number;
     attempts?: number;
     headers?: Record<string, string>;
-    method?: 'GET' | 'POST';
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
     body?: string;
   },
 ): Promise<string> {
