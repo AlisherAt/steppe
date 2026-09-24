@@ -7,3 +7,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Рабочий процесс проекта
+
+Всегда соблюдай правило [.cursor/rules/git-push.mdc](.cursor/rules/git-push.mdc): после завершения изменений и необходимых проверок создай коммит и выполни `git push` в `origin`. Пользователь заранее разрешил это; повторное подтверждение не требуется.
