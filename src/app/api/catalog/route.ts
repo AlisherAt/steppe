@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { filtersSchema } from '@/lib/catalog';
 import { getCatalog } from '@/lib/server/repository';
+import { demoEnabled } from '@/lib/catalog-mode';
 export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
@@ -12,9 +13,12 @@ export async function GET(request: NextRequest) {
       { status: 400 },
     );
   try {
-    return NextResponse.json(await getCatalog(filters.data, mode as 'live' | 'demo'), {
-      headers: { 'Cache-Control': 'no-store' },
-    });
+    return NextResponse.json(
+      await getCatalog(filters.data, mode === 'demo' && demoEnabled() ? 'demo' : 'live'),
+      {
+        headers: { 'Cache-Control': 'no-store' },
+      },
+    );
   } catch {
     console.error(JSON.stringify({ event: 'catalog_read_failed' }));
     return NextResponse.json(

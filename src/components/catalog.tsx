@@ -20,6 +20,7 @@ import { defaultFilters, type CatalogResult, type Filters } from '@/lib/types';
 import { filterParams, filtersSchema } from '@/lib/catalog';
 import { ProductCard } from './product-card';
 import { brandNames } from '@/lib/brands';
+import { demoEnabled } from '@/lib/catalog-mode';
 export function Catalog({
   initial,
   initialMode,
@@ -48,14 +49,14 @@ export function Catalog({
     const params = new URLSearchParams(location.search);
     const parsed = filtersSchema.safeParse(Object.fromEntries(params));
     if (parsed.success) setFilters(parsed.data);
-    if (params.get('mode') === 'live' || params.get('mode') === 'demo')
+    if (params.get('mode') === 'live' || (demoEnabled() && params.get('mode') === 'demo'))
       setMode(params.get('mode') as 'live' | 'demo');
     setHydrated(true);
     const pop = () => {
       const p = new URLSearchParams(location.search);
       const f = filtersSchema.safeParse(Object.fromEntries(p));
       if (f.success) setFilters(f.data);
-      setMode(p.get('mode') === 'demo' ? 'demo' : 'live');
+      setMode(demoEnabled() && p.get('mode') === 'demo' ? 'demo' : 'live');
     };
     window.addEventListener('popstate', pop);
     return () => window.removeEventListener('popstate', pop);
@@ -396,28 +397,30 @@ export function Catalog({
               Лови свою пару<span className="heading-dot">.</span>
             </h2>
           </div>
-          <div className="catalog-mode" aria-label="Режим каталога">
-            <button
-              aria-pressed={mode === 'live'}
-              className={mode === 'live' ? 'selected' : ''}
-              onClick={() => {
-                setMode('live');
-                setFilters(defaultFilters);
-              }}
-            >
-              Предложения
-            </button>
-            <button
-              aria-pressed={mode === 'demo'}
-              className={mode === 'demo' ? 'selected' : ''}
-              onClick={() => {
-                setMode('demo');
-                setFilters(defaultFilters);
-              }}
-            >
-              Демокаталог
-            </button>
-          </div>
+          {demoEnabled() && (
+            <div className="catalog-mode" aria-label="Режим каталога">
+              <button
+                aria-pressed={mode === 'live'}
+                className={mode === 'live' ? 'selected' : ''}
+                onClick={() => {
+                  setMode('live');
+                  setFilters(defaultFilters);
+                }}
+              >
+                Предложения
+              </button>
+              <button
+                aria-pressed={mode === 'demo'}
+                className={mode === 'demo' ? 'selected' : ''}
+                onClick={() => {
+                  setMode('demo');
+                  setFilters(defaultFilters);
+                }}
+              >
+                Демокаталог
+              </button>
+            </div>
+          )}
         </div>
         {mode === 'demo' && (
           <div className="demo-notice">
@@ -516,19 +519,19 @@ export function Catalog({
                 </h3>
                 <p>
                   {mode === 'live' && !activeCount && !filters.q
-                    ? 'Магазины ещё не передали актуальные предложения. Посмотри статус подключения или попробуй демокаталог.'
+                    ? 'Сейчас нет актуальных предложений. Посмотри статус обновления источников.'
                     : 'Попробуй другой размер, бренд или чуть более широкий диапазон цен.'}
                 </p>
                 <div className="empty-actions">
                   <button
                     className="button dark"
                     onClick={() =>
-                      mode === 'live' && !activeCount && !filters.q
+                      demoEnabled() && mode === 'live' && !activeCount && !filters.q
                         ? setMode('demo')
                         : setFilters(defaultFilters)
                     }
                   >
-                    {mode === 'live' && !activeCount && !filters.q
+                    {demoEnabled() && mode === 'live' && !activeCount && !filters.q
                       ? 'Посмотреть демокаталог'
                       : 'Сбросить фильтры'}
                     <ArrowRight size={17} />
