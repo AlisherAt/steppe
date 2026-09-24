@@ -1,3 +1,4 @@
+import { orderableProduct } from '../orderable';
 import { db, databaseConfigured, databaseProvider } from './db';
 import { seaStore } from './seatable-store';
 import { offerVisible } from '../promotion';
@@ -5,7 +6,7 @@ import type { Product } from '../types';
 export async function cartProducts(ids: string[]): Promise<Product[]> {
   if (!databaseConfigured()) throw new Error('CATALOG_NOT_CONFIGURED');
   if (databaseProvider() === 'seatable')
-    return (await seaStore.liveProducts()).filter((p) => ids.includes(p.id));
+    return (await seaStore.liveProducts()).filter((p) => ids.includes(p.id) && orderableProduct(p));
   const { data, error } = await db()
     .from('offers')
     .select('payload,updated_at,sources!inner(paused)')
@@ -15,5 +16,6 @@ export async function cartProducts(ids: string[]): Promise<Product[]> {
   if (error) throw error;
   return data
     .filter((p) => offerVisible({ ...p.payload, updatedAt: p.updated_at }))
-    .map((p) => p.payload as Product);
+    .map((p) => p.payload as Product)
+    .filter(orderableProduct);
 }

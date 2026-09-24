@@ -3,6 +3,11 @@ import { fetchText, IntegrationError } from './http';
 export type SeaRow = Record<string, unknown> & { _id: string };
 type Column = { name: string; type: string };
 export const seaSchema: Record<string, Column[]> = {
+  STEPPE_Scrapes: [
+    { name: 'id', type: 'text' },
+    { name: 'checked_at', type: 'text' },
+    { name: 'payload', type: 'long-text' },
+  ],
   STEPPE_Users: ['id', 'username', 'password_hash', 'created_at'].map((name) => ({
     name,
     type: 'text',

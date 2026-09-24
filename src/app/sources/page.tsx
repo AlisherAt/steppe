@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { getSources } from '@/lib/server/repository';
 import { formatDate } from '@/lib/money';
 import { sourceOptions } from '@/lib/source-options';
+import { scrapeSummary } from '@/lib/server/scrape-report';
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Магазины и источники — STEPPE' };
 const labels = {
@@ -13,6 +14,7 @@ const labels = {
 };
 export default async function SourcesPage() {
   const sources = await getSources().catch(() => null);
+  const scrape = await scrapeSummary().catch(() => null);
   return (
     <main id="main-content" className="page-content">
       <Link className="text-link" href="/">
@@ -29,6 +31,22 @@ export default async function SourcesPage() {
           Демонстрационные карточки не входят в реальные предложения.
         </p>
       </div>
+      <section className="info-panel">
+        <h2>Проверка сайтов брендов</h2>
+        <p>
+          Расписание: 06:00 и 18:00 по Алматы. Данные без подтверждённых размеров и наличия не
+          публикуются как предложения для заказа.
+        </p>
+        {scrape ? (
+          <p>
+            Последняя проверка: {formatDate(scrape.checkedAt)} · источников: {scrape.sources}.
+            Ожидают разрешения: {scrape.waiting}; ошибки или ограничения доступа: {scrape.failed};
+            карточек на проверке: {scrape.collected}.
+          </p>
+        ) : (
+          <p>Отчёт пока недоступен.</p>
+        )}
+      </section>
       {!sources ? (
         <p role="alert" className="notice warning">
           Не удалось получить статус магазинов. Обновите страницу через несколько секунд.
@@ -78,21 +96,20 @@ export default async function SourcesPage() {
         </Link>
       </div>
       <div className="source-grid">
-        {sourceOptions
-          .filter((option) => option.name === 'KicksDB')
-          .map((option) => (
-            <section className="source-card" key={option.name}>
-              <span className="eyebrow">{option.kind}</span>
-              <h2 style={{ fontSize: 22, marginTop: 12 }}>{option.name}</h2>
-              <p>{option.detail}</p>
-            </section>
-          ))}
+        {sourceOptions.map((option) => (
+          <section className="source-card" key={option.name}>
+            <span className="eyebrow">{option.kind}</span>
+            <h2 style={{ fontSize: 22, marginTop: 12 }}>{option.name}</h2>
+            <p>{option.detail}</p>
+          </section>
+        ))}
       </div>
       <div className="info-panel">
-        <h2>Цены рынка США</h2>
+        <h2>Покупка по фиксированной цене</h2>
         <p>
-          StockX через KicksDB: исходные цены в USD, рынок US. Это рынок цены, а не указание страны
-          производства или склада.
+          Принимаем предложения с покупкой без торгов, наличием каждого размера и подтверждённой
+          страной отгрузки в США или Европе. Импорт StockX отключён: рыночная котировка не
+          подтверждает стоимость выкупа.
         </p>
         <p>
           По каждой модели показана минимальная доступная цена. Для каждого размера EU показывается
@@ -115,12 +132,11 @@ export default async function SourcesPage() {
       <div className="info-panel">
         <h2>Партнёрские источники</h2>
         <p>
-          Каталог рынка США получает данные через KicksDB. Дополнительные источники скидок
-          подключаются отдельно: для Nike требуется доступ к автоматическому товарному фиду после
-          одобрения участия в программе. Для Adidas — согласованный с партнёрской программой
+          Новый каталог требует разрешённых товарных фидов поставщиков. Дополнительные источники
+          скидок подключаются отдельно: для Nike требуется доступ к автоматическому товарному фиду
+          после одобрения участия в программе. Для Adidas — согласованный с партнёрской программой
           источник данных. Условия зависят от региона.
         </p>
-        <p> · </p>
       </div>
       <div className="info-panel">
         <h2>Курсы валют</h2>

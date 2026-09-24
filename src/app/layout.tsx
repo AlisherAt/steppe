@@ -5,7 +5,7 @@ import { StoreProvider } from '@/components/store-provider';
 import { Header } from '@/components/header';
 import './globals.css';
 export const metadata: Metadata = {
-  title: 'STEPPE — цены на кроссовки рынка США',
+  title: 'STEPPE — цены на кроссовки магазинов США и Европы',
   description:
     'Находи кроссовки любимых брендов, сравнивай цены в тенге и оформляй заказ в WhatsApp. Демоданные отмечены отдельно.',
   icons: { icon: '/favicon.svg' },

@@ -32,8 +32,10 @@ const productSchema = z
       .optional(),
     gender: z.enum(['men', 'women', 'unisex', 'kids']),
     category: z.string(),
-    offerKind: z.literal('market').optional(),
-    market: z.literal('US').optional(),
+    offerKind: z.enum(['market', 'retail']).optional(),
+    purchaseType: z.literal('fixed').optional(),
+    warehouseCountry: z.string().length(2).optional(),
+    market: z.enum(['US', 'EU']).optional(),
     sku: z.string().optional(),
     sourceUpdatedAt: iso.optional(),
     originalPrice: z.string().nullable(),
@@ -67,7 +69,9 @@ const productSchema = z
     (p) =>
       (p.offerKind === 'market'
         ? p.market === 'US' && p.originalKzt === null && p.discount === 0
-        : !!p.delivery && p.originalKzt !== null && p.saleKzt <= p.originalKzt) &&
+        : p.offerKind === 'retail'
+          ? p.purchaseType === 'fixed' && p.originalKzt === null && p.discount === 0
+          : !!p.delivery && p.originalKzt !== null && p.saleKzt <= p.originalKzt) &&
       feedProductSchema.safeParse({ ...p, id: p.externalId }).success,
   );
 export type SeaSource = { _id: string; id: string; name: string; paused: boolean };

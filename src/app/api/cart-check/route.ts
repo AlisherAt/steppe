@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { db, databaseConfigured, databaseProvider } from '@/lib/server/db';
 import { seaStore } from '@/lib/server/seatable-store';
+import { orderableProduct } from '@/lib/orderable';
 import { publicProduct } from '@/lib/public-product';
 import { offerVisible } from '@/lib/promotion';
 export async function POST(request: NextRequest) {
@@ -19,8 +20,8 @@ export async function POST(request: NextRequest) {
     if (!databaseConfigured())
       return NextResponse.json({ error: 'Каталог не подключён' }, { status: 503 });
     if (databaseProvider() === 'seatable') {
-      const products = (await seaStore.liveProducts()).filter((p) =>
-        parsed.data.ids.includes(p.id),
+      const products = (await seaStore.liveProducts()).filter(
+        (p) => parsed.data.ids.includes(p.id) && orderableProduct(p),
       );
       return NextResponse.json(
         { products: products.map(publicProduct) },
@@ -38,6 +39,7 @@ export async function POST(request: NextRequest) {
       {
         products: data
           .filter((p) => offerVisible({ ...p.payload, updatedAt: p.updated_at }))
+          .filter((p) => orderableProduct(p.payload))
           .map((p) => publicProduct(p.payload)),
       },
       { headers: { 'Cache-Control': 'no-store' } },

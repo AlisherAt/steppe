@@ -8,6 +8,10 @@ import { defaultFilters } from '../src/lib/types';
 const p = {
   ...demoProducts[0],
   demo: false,
+  offerKind: 'retail' as const,
+  purchaseType: 'fixed' as const,
+  warehouseCountry: 'US',
+  market: 'US' as const,
   sizes: ['42', '43'],
   saleKzt: 40000,
   sizePrices: [

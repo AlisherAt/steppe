@@ -7,7 +7,10 @@ test('Рынок США: текущая цена без фиктивной ск�
     demo: false,
     sourceId: 'kicks-stockx',
     sourceName: 'StockX · США',
-    offerKind: 'market',
+    offerKind: 'retail',
+    purchaseType: 'fixed',
+    warehouseCountry: 'US',
+    sizePrices: [{ size: '42', salePrice: '80', saleKzt: 40000 }],
     market: 'US',
     sku: 'TEST-US-42',
     originalPrice: null,
@@ -46,7 +49,7 @@ test('Рынок США: текущая цена без фиктивной ск�
   await expect(card).toHaveCount(1);
   await expect(card.locator('del')).toHaveCount(0);
   await expect(card.locator('.discount-badge')).toHaveCount(0);
-  await expect(card).toContainText('Рынок США');
+  await expect(card).toContainText('Покупка без торгов');
   await expect(card).not.toContainText('Доставка');
   await card.locator('select').selectOption('42');
   await card.getByRole('button', { name: /Добавить/ }).click();

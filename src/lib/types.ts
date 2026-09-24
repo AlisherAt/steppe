@@ -19,8 +19,10 @@ export type Product = {
   sizes: string[];
   gender: Gender;
   category: string;
-  offerKind?: 'market';
-  market?: 'US';
+  offerKind?: 'market' | 'retail';
+  purchaseType?: 'fixed';
+  warehouseCountry?: string;
+  market?: 'US' | 'EU';
   sku?: string;
   sourceUpdatedAt?: string;
   originalPrice: string | null;

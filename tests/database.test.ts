@@ -60,6 +60,7 @@ beforeAll(async () => {
     readFileSync('supabase/migrations/202609240004_promotion_schedule.sql', 'utf8'),
   );
   await database.exec(readFileSync('supabase/migrations/202609240005_us_market.sql', 'utf8'));
+  await database.exec(readFileSync('supabase/migrations/202609240006_fixed_retail.sql', 'utf8'));
 });
 afterAll(async () => {
   await database.close();

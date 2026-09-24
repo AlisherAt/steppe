@@ -16,8 +16,10 @@ export const feedProductSchema = z
     imageUrl: z.string().url().max(2000).nullable().default(null),
     saleStartsAt: z.string().datetime({ offset: true }).optional(),
     saleEndsAt: z.string().datetime({ offset: true }).optional(),
-    offerKind: z.literal('market').optional(),
-    market: z.literal('US').optional(),
+    offerKind: z.enum(['market', 'retail']).optional(),
+    purchaseType: z.literal('fixed').optional(),
+    warehouseCountry: z.string().length(2).optional(),
+    market: z.enum(['US', 'EU']).optional(),
     sku: z.string().max(160).optional(),
     sourceUpdatedAt: z.string().datetime({ offset: true }).optional(),
     originalPrice: amount.nullable(),
@@ -57,9 +59,16 @@ export const feedProductSchema = z
               p.currency === 'USD' &&
               p.originalPrice === null &&
               !!p.sourceUpdatedAt
-            : p.originalPrice !== null &&
-              new Decimal(p.originalPrice).gt(0) &&
-              new Decimal(p.salePrice).lte(p.originalPrice))
+            : p.offerKind === 'retail'
+              ? p.purchaseType === 'fixed' &&
+                !!p.warehouseCountry &&
+                !!p.sizePrices?.length &&
+                p.originalPrice === null &&
+                p.sizes.length === p.sizePrices.length &&
+                p.sizePrices.every((v) => p.sizes.includes(v.size) && Number(v.salePrice) > 0)
+              : p.originalPrice !== null &&
+                new Decimal(p.originalPrice).gt(0) &&
+                new Decimal(p.salePrice).lte(p.originalPrice))
         );
       } catch {
         return false;
@@ -232,6 +241,9 @@ export function toProduct(
     imageUrl: p.imageUrl,
     productUrl: p.productUrl,
     sizes: p.sizes,
+    ...(p.purchaseType
+      ? { purchaseType: p.purchaseType, warehouseCountry: p.warehouseCountry }
+      : {}),
     ...(p.sizePrices
       ? { sizePrices: p.sizePrices.map((v) => ({ ...v, saleKzt: toKzt(v.salePrice, rate.value) })) }
       : {}),

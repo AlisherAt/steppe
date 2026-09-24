@@ -3,16 +3,44 @@ on:
   schedule:
     - cron: '0 1,13 * * *'
   workflow_dispatch:
-permissions: {}
+permissions:
+  contents: read
 concurrency:
   group: steppe-catalog-refresh
   cancel-in-progress: false
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 7
+    timeout-minutes: 30
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Установить браузер для разрешённых источников
+        if: ${{ vars.SCRAPER_PERMISSIONS_JSON != '' && vars.SCRAPER_PERMISSIONS_JSON != '{}' }}
+        run: npx playwright install --with-deps chromium
+      - name: Проверить сайты и собрать разрешённые карточки
+        env:
+          SCRAPER_PERMISSIONS_JSON: ${{ vars.SCRAPER_PERMISSIONS_JSON || '{}' }}
+        run: node scripts/scrape-sales.mjs
+      - name: Передать результат на сайт
+        env:
+          STEPPE_SITE_URL: ${{ vars.STEPPE_SITE_URL || 'https://steppe-gray.vercel.app' }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: node scripts/upload-scrape-report.mjs
+      - name: Сохранить отчёт проверки
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scraper-report
+          path: artifacts/scraper.json
+          if-no-files-found: warn
+          retention-days: 7
       - name: Запросить обновление на Vercel
+        if: always()
         env:
           SITE_URL: ${{ vars.STEPPE_SITE_URL || 'https://steppe-gray.vercel.app' }}
           CRON_SECRET: ${{ secrets.CRON_SECRET }}

@@ -1,4 +1,5 @@
 import 'server-only';
+import { orderableProduct } from '../orderable';
 import { publicProduct } from '../public-product';
 import { db, databaseConfigured, databaseProvider } from './db';
 import { seaStore } from './seatable-store';
@@ -7,7 +8,7 @@ import { createHash } from 'node:crypto';
 import { getAdapters } from './sources';
 import { offerVisible } from '../promotion';
 import { demoProducts } from '../demo';
-import { filterCatalog, PAGE_SIZE } from '../catalog';
+import { filterCatalog } from '../catalog';
 import type { CatalogResult, Filters, SourceStatus } from '../types';
 const seaCacheKey = createHash('sha256')
   .update(
@@ -16,7 +17,7 @@ const seaCacheKey = createHash('sha256')
   .digest('hex');
 const cachedSeaProducts = unstable_cache(
   () => seaStore.liveProducts(),
-  ['seatable-live-v3', seaCacheKey],
+  ['seatable-live-v4', seaCacheKey],
   { revalidate: 60 },
 );
 const cachedSeaStatuses = unstable_cache(
@@ -40,18 +41,29 @@ export async function internalCatalog(
     };
   if (databaseProvider() === 'seatable') {
     return filterCatalog(
-      (await cachedSeaProducts()).filter((p) => offerVisible(p)),
+      (await cachedSeaProducts()).filter((p) => offerVisible(p) && orderableProduct(p)),
       filters,
       'live',
     );
   }
-  const { data, error } = await db().rpc('search_catalog', {
-    filters,
-    page_size: PAGE_SIZE,
-    max_age_hours: Number(process.env.OFFER_MAX_AGE_HOURS || 36),
-  });
-  if (error) throw new Error('CATALOG_UNAVAILABLE');
-  return { ...data, mode, page: filters.page, pages: Math.ceil(data.total / PAGE_SIZE) };
+  const products = [];
+  for (let offset = 0; offset < 10000; offset += 500) {
+    const { data, error } = await db()
+      .from('offers')
+      .select('payload,updated_at,sources!inner(paused)')
+      .eq('active', true)
+      .eq('sources.paused', false)
+      .order('id')
+      .range(offset, offset + 499);
+    if (error) throw new Error('CATALOG_UNAVAILABLE');
+    products.push(
+      ...data
+        .map((row) => ({ ...row.payload, updatedAt: row.updated_at }))
+        .filter((p) => orderableProduct(p) && offerVisible(p)),
+    );
+    if (data.length < 500) return filterCatalog(products, filters, 'live');
+  }
+  throw new Error('CATALOG_ROW_LIMIT');
 }
 export async function getCatalog(filters: Filters, mode: 'live' | 'demo'): Promise<CatalogResult> {
   const result = await internalCatalog(filters, mode);

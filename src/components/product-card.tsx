@@ -72,6 +72,11 @@ export function ProductCard({
           </strong>
           {p.originalKzt !== null && <del>{formatKzt(p.originalKzt)}</del>}
         </div>
+        {p.offerKind === 'retail' && (
+          <p className="product-updated">
+            Покупка без торгов · отгрузка {p.warehouseCountry} · цена выбранного размера
+          </p>
+        )}
         {p.offerKind === 'market' && (
           <p className="product-updated">Рынок США · цена зависит от размера</p>
         )}

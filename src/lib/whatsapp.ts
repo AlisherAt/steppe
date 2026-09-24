@@ -1,3 +1,4 @@
+import { orderableProduct } from './orderable';
 import type { Product } from './types';
 import { formatKzt } from './money';
 export function whatsappPhone(value: string) {
@@ -21,7 +22,7 @@ export function whatsappOrder(
     const key = JSON.stringify([item.id, item.size]);
     if (keys.has(key)) throw new CheckoutError('В корзине повторяются товары. Откройте её заново.');
     keys.add(key);
-    const product = products.find((p) => p.id === item.id && !p.demo);
+    const product = products.find((p) => p.id === item.id && !p.demo && orderableProduct(p));
     if (!product || (product.sizes.length ? !product.sizes.includes(item.size) : item.size !== ''))
       throw new CheckoutError(
         'Некоторые товары или размеры больше недоступны. Откройте корзину заново и удалите их.',
