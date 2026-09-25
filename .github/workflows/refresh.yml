@@ -1,7 +1,5 @@
 name: Обновить каталог STEPPE
 on:
-  schedule:
-    - cron: '0 1,13 * * *'
   workflow_dispatch:
     inputs:
       sources:

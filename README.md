@@ -74,13 +74,13 @@ npm run dev
 3. Перенесите серверные переменные из `.env.local` в Vercel Environment Variables для Production. Реальные `.env` файлы исключены из Git.
 4. Укажите точные домены картинок в `PRODUCT_IMAGE_HOSTS`. Они попадают в Next Image allowlist на этапе сборки, поэтому после изменения нужен новый deploy.
 5. Включите **Fluid Compute**, лимит функции обновления — 300 секунд (задан в коде и vercel.json). Выполните Deploy. Проверьте `/`, `/brands`, `/sources`, `/about` и `/api/catalog?mode=live`.
-6. Настройте GitHub Actions по [инструкции SeaTable](docs/seatable.md) и выполните контрольное обновление. Для Supabase можно использовать расписание ниже.
+6. Настройте [локальный планировщик Windows](docs/local-scheduler.md): сбор в 10:00 и 21:00 по времени компьютера, отправка в SeaTable через Vercel. GitHub Actions остаётся для ручной диагностики. Для Supabase можно использовать расписание ниже.
 
-Встроенный Vercel Cron не включён в `vercel.json`. По [документации Vercel](https://vercel.com/docs/cron-jobs/usage-and-pricing), частые задачи ограничены на Hobby; расписание выполняет GitHub Actions (или Supabase Cron для альтернативного провайдера). Для коммерческого применения отдельно проверьте условия выбранного тарифа Vercel.
+Встроенный Vercel Cron не включён в `vercel.json`. По [документации Vercel](https://vercel.com/docs/cron-jobs/usage-and-pricing), частые задачи ограничены на Hobby; основное расписание выполняет Планировщик Windows (или Supabase Cron для альтернативного провайдера). Для коммерческого применения отдельно проверьте условия выбранного тарифа Vercel.
 
 ## Обновления дважды в день
 
-**SeaTable:** используйте .github/workflows/refresh.yml и [инструкцию настройки GitHub Actions](docs/seatable.md). Дальнейшие шаги этого раздела относятся только к **Supabase**.
+**SeaTable:** используйте [локальный планировщик Windows](docs/local-scheduler.md). Автоматическое расписание GitHub Actions отключено; workflow можно запускать вручную. Дальнейшие шаги этого раздела относятся только к **Supabase**.
 
 1. В Supabase включите расширения **pg_cron**, **pg_net** и **Vault** (Dashboard → Database → Extensions; Vault также доступен отдельным разделом).
 2. Через интерфейс Vault добавьте секреты `steppe_site_url` (production URL без завершающего `/`) и `steppe_cron_secret` (то же значение, что `CRON_SECRET` в Vercel).
