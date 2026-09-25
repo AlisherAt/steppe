@@ -6,6 +6,8 @@ import { randomUUID, randomInt } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { sources, selectors } from './scraper-sources.mjs';
 import { collectPumaDetails } from './puma-details.mjs';
+import { collectAdidasDetails } from './adidas-details.mjs';
+import { extractPython } from './python-parsers.mjs';
 import {
   discoverRetail,
   collectReebok,
@@ -49,6 +51,9 @@ export async function runScraper() {
   let browser;
   const maxSteps = Number(process.env.SCRAPER_MAX_STEPS || 20);
   const detailLimit = Number(process.env.PUMA_DETAIL_LIMIT || 12);
+  const adidasLimit = Number(process.env.ADIDAS_DETAIL_LIMIT || 6);
+  if (!Number.isInteger(adidasLimit) || adidasLimit < 1 || adidasLimit > 20)
+    throw Error('INVALID_ADIDAS_DETAIL_LIMIT');
   if (!Number.isInteger(detailLimit) || detailLimit < 1 || detailLimit > 30)
     throw Error('INVALID_PUMA_DETAIL_LIMIT');
   if (!Number.isInteger(maxSteps) || maxSteps < 1 || maxSteps > 60)
@@ -107,6 +112,16 @@ export async function runScraper() {
         await context.route('**/*', async (route) => {
           const req = route.request();
           if (
+            source.id === 'adidas' &&
+            ['xhr', 'fetch'].includes(req.resourceType()) &&
+            new URL(req.url()).origin === origin &&
+            !allowed(req.url())
+          ) {
+            blocked = 'ADIDAS_REQUEST_ROBOTS_DISALLOWED';
+            await route.abort();
+            return;
+          }
+          if (
             req.isNavigationRequest() &&
             req.resourceType() === 'document' &&
             !allowed(req.url())
@@ -146,7 +161,12 @@ export async function runScraper() {
             )
               throw Error('ACCESS_CHALLENGE');
           };
-          if (source.id === 'skechers') throw Error('SIZE_REQUEST_ROBOTS_DISALLOWED');
+          if (source.id === 'skechers') {
+            const candidates = await extractPython(page, source);
+            report.products.push(...candidates.filter((p) => p.sku));
+            entry.count = candidates.filter((p) => p.sku).length;
+            throw Error('SIZE_REQUEST_ROBOTS_DISALLOWED');
+          }
           const collector = {
             reebok: collectReebok,
             on: collectOn,
@@ -192,7 +212,7 @@ export async function runScraper() {
           visited = new Set([source.url]);
         let idle = 0;
         entry.status = 'partial';
-        for (let step = 0; step < maxSteps && Date.now() < deadline; step++) {
+        for (let step = 0; step < maxSteps && Date.now() < sourceDeadline; step++) {
           await pause(Math.max(crawlDelay, randomInt(2500, 5001)));
           if (blocked) throw Error(blocked);
           const bodyText = (await page.locator('body').innerText()).slice(0, 12000);
@@ -204,9 +224,16 @@ export async function runScraper() {
           )
             throw Error('ACCESS_CHALLENGE');
           const previous = found.size;
-          for (const p of await extract(page, source)) found.set(`${p.sku}:${p.product_url}`, p);
+          for (const p of [
+            ...(await extractPython(page, source)),
+            ...(await extract(page, source)),
+          ])
+            found.set(`${p.sku}:${p.product_url}`, p);
           // Проверка размеров полезнее накопления сотни необработанных кандидатов.
           if (source.id === 'puma' && found.size >= detailLimit) break;
+          if (source.id === 'adidas' && found.size >= adidasLimit) break;
+          if (process.env.PYTHON_SALE_PARSERS === '1' && source.id !== 'puma' && found.size >= 6)
+            break;
           idle = found.size === previous ? idle + 1 : 0;
           const more = page.locator(selectors.more).first();
           if ((await more.isVisible()) && (await more.isEnabled())) {
@@ -236,7 +263,8 @@ export async function runScraper() {
           break;
         }
         const products = [...found.values()].slice(0, 100);
-        if (source.id === 'puma') {
+        if (source.id === 'puma' || source.id === 'adidas') {
+          const limit = source.id === 'adidas' ? adidasLimit : detailLimit;
           const checkAccess = async () => {
             if (blocked) throw Error(blocked);
             const text = (await page.locator('body').innerText()).slice(0, 16000);
@@ -247,7 +275,7 @@ export async function runScraper() {
             )
               throw Error('ACCESS_CHALLENGE');
           };
-          for (let index = 0; index < Math.min(detailLimit, products.length); index++) {
+          for (let index = 0; index < Math.min(limit, products.length); index++) {
             if (Date.now() + 60000 > sourceDeadline || blocked) break;
             try {
               const candidate = products[index];
@@ -257,37 +285,77 @@ export async function runScraper() {
                 waitUntil: 'domcontentloaded',
               });
               if (!response?.ok()) throw Error(`PAGE_HTTP_${response?.status() || 0}`);
-              products[index] = await collectPumaDetails(page, candidate, {
+              const collector = source.id === 'adidas' ? collectAdidasDetails : collectPumaDetails;
+              products[index] = await collector(page, candidate, {
                 checkAccess,
                 delay: Math.max(crawlDelay, 2500),
                 deadline: sourceDeadline,
               });
               console.log(
                 JSON.stringify({
-                  source: 'puma',
+                  source: source.id,
                   sku: candidate.sku,
                   verifiedSizes: products[index].variants.length,
                 }),
               );
             } catch (error) {
+              if (/HTTP_40[13]|HTTP_429|ACCESS_|DISALLOWED/.test(String(error.message)))
+                blocked = String(error.message).slice(0, 160);
               console.log(
                 JSON.stringify({
-                  source: 'puma',
+                  source: source.id,
                   sku: products[index].sku,
                   detailError: String(error.message).slice(0, 160),
                 }),
               );
               await mkdir('artifacts/diagnostics', { recursive: true });
               await page
-                .screenshot({ path: `artifacts/diagnostics/puma-${index}.png` })
+                .screenshot({ path: `artifacts/diagnostics/${source.id}-${index}.png` })
                 .catch(() => {});
               if (blocked) break;
             }
           }
         }
-        report.products.push(...products);
-        entry.count = products.length;
-        if (!entry.count) entry.status = 'no_valid_products';
+        if (process.env.PYTHON_SALE_PARSERS === '1' && source.id !== 'puma') {
+          for (const candidate of products.slice(0, 6)) {
+            if (candidate.size_price_verified || Date.now() + 20000 > sourceDeadline || blocked)
+              continue;
+            try {
+              if (!allowed(candidate.product_url)) continue;
+              await pause(Math.max(crawlDelay, 2500));
+              const response = await page.goto(candidate.product_url, {
+                waitUntil: 'domcontentloaded',
+              });
+              if (!response?.ok()) throw Error(`PAGE_HTTP_${response?.status() || 0}`);
+              await pause(Math.max(crawlDelay, 1500));
+              if (
+                blocked ||
+                /access denied|verify (?:that )?you are human|unusual traffic|robot check|just a moment/i.test(
+                  (await page.locator('body').innerText()).slice(0, 16000),
+                )
+              )
+                throw Error(blocked || 'ACCESS_CHALLENGE');
+              const detail = await extractPython(page, source, candidate);
+              if (detail.sku && candidate.sku && detail.sku !== candidate.sku)
+                throw Error('DETAIL_SKU_MISMATCH');
+              candidate.sku ||= detail.sku;
+              candidate.size_candidates = detail.size_candidates;
+            } catch (error) {
+              entry.error = String(error.message).slice(0, 160);
+              if (/HTTP_40[13]|HTTP_429|ACCESS_|DISALLOWED/.test(entry.error)) {
+                blocked = entry.error;
+                break;
+              }
+            }
+          }
+        }
+        report.products.push(...products.filter((p) => p.sku));
+        entry.count = products.filter((p) => p.sku).length;
+        if (blocked) {
+          entry.status = 'error';
+          entry.error = blocked;
+        }
+        if (!entry.count && !blocked) entry.status = 'no_valid_products';
       } catch (error) {
         entry.status = 'error';
         entry.error = String(error.message).slice(0, 200);

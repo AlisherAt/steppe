@@ -13,6 +13,7 @@ const config: NextConfig = {
       'i.ebayimg.com',
       'images.stockx.com',
       'images.puma.com',
+      'assets.adidas.com',
       'www.reebok.com',
       'cdn.shopify.com',
       'images.ctfassets.net',

@@ -18,7 +18,7 @@ const customSchema = z
 export function getAdapters(): SourceAdapter[] {
   const sources: SourceAdapter[] = [
     new PumaAdapter(),
-    ...(['reebok', 'on', 'brooks', 'skechers', 'fila'] as const).map(
+    ...(['adidas', 'reebok', 'on', 'brooks', 'skechers', 'fila'] as const).map(
       (id) => new ScrapedRetailAdapter(id),
     ),
     new FixedRetailAdapter('retail-us', 'Поставщик США', 'RETAIL_US', 'US'),
@@ -42,12 +42,6 @@ export function getAdapters(): SourceAdapter[] {
       'Nike',
       'NIKE',
       'Нужен разрешённый партнёрский фид Nike и настройки NIKE_FEED_*.',
-    ),
-    new PartnerFeedAdapter(
-      'adidas',
-      'Adidas',
-      'ADIDAS',
-      'Нужен разрешённый партнёрский фид Adidas и настройки ADIDAS_FEED_*.',
     ),
     new PartnerFeedAdapter(
       'admitad',

@@ -39,6 +39,7 @@ export const scrapeReportSchema = z.object({
           currency: z.enum(['USD', 'EUR']),
           checked_at: z.string().datetime({ offset: true }),
           size_price_verified: z.boolean(),
+          size_candidates: z.array(z.string().min(1).max(40)).max(60).optional(),
           gender: z.enum(['men', 'women', 'kids', 'unisex']).optional(),
           variants: z
             .array(z.union([pumaVariantSchema, retailVariantSchema]))

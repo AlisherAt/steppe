@@ -9,3 +9,5 @@ playwright-report/
 *.tsbuildinfo
 .vercel/
 artifacts/
+__pycache__/
+*.pyc

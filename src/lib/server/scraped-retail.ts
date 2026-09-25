@@ -40,9 +40,12 @@ export class ScrapedRetailAdapter implements SourceAdapter {
   id: string;
   name: string;
   configurationMessage = 'Проверка официального магазина: цены и наличие вариантов.';
-  constructor(private source: 'reebok' | 'on' | 'brooks' | 'skechers' | 'fila') {
+  constructor(private source: 'adidas' | 'reebok' | 'on' | 'brooks' | 'skechers' | 'fila') {
     this.id = retailStoreId(source);
     this.name = `${officialStores[retailStoreId(source)].brand} ${source === 'fila' ? 'EU' : 'US'}`;
+    if (source === 'adidas')
+      this.configurationMessage =
+        'Прямой сбор adidas US по расписанию. При HTTP 403 нужен допуск сборщика со стороны adidas. Публикуются только подтверждённые цены и размеры.';
     if (source === 'skechers')
       this.configurationMessage =
         'Skechers запрещает запросы выбора размеров в robots.txt. Нужен разрешённый фид вариантов или изменение доступа со стороны магазина.';

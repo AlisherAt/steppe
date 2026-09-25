@@ -24,6 +24,15 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: scripts/python-sale/requirements.txt
+      - name: Установить зависимости предоставленных Python-парсеров
+        run: python -m pip install -r scripts/python-sale/requirements.txt
+      - name: Проверить Python-парсеры без обращения к магазинам
+        run: python -m unittest discover -s scripts/python-sale -p 'test_*.py'
       - name: Установить браузер для разрешённых источников
         if: ${{ vars.SCRAPER_PERMISSIONS_JSON != '' && vars.SCRAPER_PERMISSIONS_JSON != '{}' }}
         run: npx playwright install --with-deps chromium
@@ -31,6 +40,7 @@ jobs:
         env:
           SCRAPER_PERMISSIONS_JSON: ${{ vars.SCRAPER_PERMISSIONS_JSON || '{}' }}
           SCRAPER_SOURCE_IDS: ${{ inputs.sources || '' }}
+          PYTHON_SALE_PARSERS: '1'
         run: node scripts/scrape-sales.mjs
       - name: Передать результат на сайт
         env:

@@ -26,6 +26,10 @@ export async function extract(page, source) {
         const href = card.querySelector('a[href]')?.href;
         // Nike публикует Style ID последним сегментом ссылки выбранного цвета.
         let nikeSku = '';
+        const adidasSku =
+          s.sourceId === 'adidas' && href
+            ? /\/([A-Z0-9]{6})\.html$/.exec(new URL(href).pathname)?.[1]
+            : '';
         if (s.sourceId === 'nike' && href) {
           const segment = new URL(href).pathname.split('/').filter(Boolean).pop();
           if (/^[A-Z0-9]{6}-\d{3}$/.test(segment || '')) nikeSku = segment;
@@ -37,6 +41,7 @@ export async function extract(page, source) {
             sku?.getAttribute('content') ||
             sku?.textContent?.trim() ||
             nikeSku ||
+            adidasSku ||
             (s.sourceId === 'puma' ? card.getAttribute('data-product-id') : ''),
           name: card.querySelector(s.name)?.textContent?.trim(),
           image: img?.currentSrc || img?.src,

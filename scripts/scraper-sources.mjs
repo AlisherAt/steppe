@@ -1,6 +1,6 @@
 export const sources = [
   ['nike', 'Nike', 'https://www.nike.com/w/sale-shoes-3yaepzy7ok'],
-  ['adidas', 'adidas', 'https://www.adidas.com/us/men-shoes-sale'],
+  ['adidas', 'Adidas', 'https://www.adidas.com/us/shoes-sale'],
   ['puma', 'Puma', 'https://us.puma.com/us/en/sale/all-sale'],
   ['reebok', 'Reebok', 'https://www.reebok.com/collections/sale'],
   ['newbalance', 'New Balance', 'https://www.newbalance.com/sale/'],

@@ -51,6 +51,32 @@ const row = {
     },
   ],
 };
+it('adidas: принимается только официальный US товар с совпадающим SKU и вариантами', () => {
+  const adidas = {
+    ...row,
+    source: 'adidas',
+    brand: 'Adidas',
+    sku: 'AB1234',
+    product_url: 'https://www.adidas.com/us/test-shoes/AB1234.html',
+    image_url: 'https://assets.adidas.com/test.jpg',
+  };
+  const feed = retailScrapeProduct(adidas)!;
+  expect(feed?.sizePrices).toHaveLength(2);
+  const p = toProduct(feed, { id: 'adidas-us', name: 'Adidas US' }, [
+    { currency: 'USD', value: '500', source: 'test', asOf: date, fetchedAt: date },
+  ]);
+  expect(orderableProduct(p)).toBe(true);
+  expect(p.sizePrices?.map((v) => v.saleKzt)).toEqual([49995, 54995]);
+  for (const patch of [
+    { sku: 'XY1234' },
+    { product_url: 'https://www.adidas.com/uk/test-shoes/AB1234.html' },
+    { image_url: 'https://assets.adidas.com.evil.example/test.jpg' },
+    { size_price_verified: false },
+    { variants: [] },
+    { currency: 'EUR' },
+  ])
+    expect(retailScrapeProduct({ ...adidas, ...patch })).toBeNull();
+});
 it('Официальные магазины: цены разных размеров сохраняются в тенге и WhatsApp', () => {
   const feed = retailScrapeProduct(row)!;
   const p = toProduct(feed, { id: 'reebok-us', name: 'Reebok US' }, [
