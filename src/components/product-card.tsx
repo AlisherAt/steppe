@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { ArrowUpRight, Plus, X, ShoppingBag } from 'lucide-react';
 import type { Product } from '@/lib/types';
 import { sizeLabel } from '@/lib/official-stores';
-import { formatKzt, formatDate, formatRate, discountPercent } from '@/lib/money';
+import { formatKzt, formatDate, discountPercent } from '@/lib/money';
 import { useStore } from './store-provider';
 const genders = { men: 'Мужские', women: 'Женские', unisex: 'Унисекс', kids: 'Детские' };
 export function ProductCard({
@@ -124,11 +124,7 @@ export function ProductCard({
             {p.sourceName}
           </span>
         </div>
-        <p className="product-updated">
-          {p.demo
-            ? 'Условная цена · фото для иллюстрации'
-            : `Проверено ${formatDate(p.sourceUpdatedAt || p.updatedAt)} · Алматы`}
-        </p>
+        {p.demo && <p className="product-updated">Условная цена · фото для иллюстрации</p>}
         {!p.demo && p.saleEndsAt && (
           <p className="product-updated">
             Акция до {formatDate(p.saleEndsAt)} · Алматы. Срок указан магазином; цена и наличие
@@ -166,35 +162,11 @@ export function ProductCard({
         <p>
           {genders[p.gender]} · {p.category} · {p.sourceName}
         </p>
-        {p.sku && <p>Артикул: {p.sku}</p>}
-        {p.sourceUpdatedAt && <p>Цена источника на {formatDate(p.sourceUpdatedAt)} · Алматы</p>}
-        <p>Размеры: {p.sizes.map(sizeLabel).join(', ') || 'уточняйте у продавца'}</p>
-        {p.demo ? (
+        {p.demo && (
           <p className="notice">
             Это пример интерфейса. Название и цены условные, фотография иллюстративная. Это не
             предложение о продаже.
           </p>
-        ) : (
-          <div className="rate-details">
-            <h3>Откуда цена в тенге</h3>
-
-            <p>{p.rate.source}</p>
-            {p.currency !== 'KZT' && (
-              <p>
-                1 {p.currency} = {formatRate(p.rate.value)}
-              </p>
-            )}
-            <p>
-              Курс на {formatDate(p.rate.asOf)}. Получен {formatDate(p.rate.fetchedAt)}.
-            </p>
-            <p>
-              Пересчитано {formatDate(p.updatedAt)} · Алматы. Исходные цены и валюта {p.currency}{' '}
-              сохранены. {p.offerKind !== 'market' && 'Скидка рассчитана в валюте магазина.'}
-            </p>
-            <p>
-              Курс банка при оплате может отличаться. Окончательная сумма определяется площадкой.
-            </p>
-          </div>
         )}
         <button className="button dark" onClick={() => details.current?.close()}>
           Выбрать размер в карточке
