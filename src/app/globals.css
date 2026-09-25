@@ -1845,6 +1845,16 @@ legend,
   font-size: 16px;
   min-height: 48px;
 }
+.product-description {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.product-info > .product-description {
+  min-height: 3em;
+}
 .product-meta,
 .product-meta span:first-child {
   font-size: 12px;

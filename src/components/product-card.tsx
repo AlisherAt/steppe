@@ -6,6 +6,7 @@ import type { Product } from '@/lib/types';
 import { sizeLabel } from '@/lib/official-stores';
 import { formatKzt, formatDate, discountPercent } from '@/lib/money';
 import { useStore } from './store-provider';
+import { productDescription } from '@/lib/product-description';
 const genders = { men: 'Мужские', women: 'Женские', unisex: 'Унисекс', kids: 'Детские' };
 export function ProductCard({
   product: p,
@@ -19,6 +20,7 @@ export function ProductCard({
   const [imageError, setImageError] = useState(false);
   const details = useRef<HTMLDialogElement>(null);
   const { add } = useStore();
+  const description = productDescription(p);
   const selectedPrice = p.sizePrices?.find((v) => v.size === size)?.saleKzt ?? p.saleKzt;
   const discount =
     p.originalKzt !== null && p.originalKzt > selectedPrice
@@ -70,6 +72,7 @@ export function ProductCard({
         <button className="product-name" onClick={() => details.current?.showModal()}>
           {p.name}
         </button>
+        <p className="product-description">{description}</p>
         <div className="product-prices">
           <strong>
             {pricePrefix}
@@ -155,6 +158,7 @@ export function ProductCard({
           </button>
         </div>
         <h2 id={`title-${p.id}`}>{p.name}</h2>
+        <p className="product-description">{description}</p>
         <div className="product-prices">
           <strong>
             {pricePrefix}
