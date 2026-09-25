@@ -3,7 +3,7 @@ import { parseYml, parseGoogleXml, parseCsvFeed, feedDate } from '../src/lib/ser
 import { brandNames, normalizeBrand, brandInTitle } from '../src/lib/brands';
 import { PartnerFeedAdapter } from '../src/lib/server/adapters';
 import { EbayAdapter, parseEbayResults } from '../src/lib/server/ebay';
-import { getAdapters } from '../src/lib/server/sources';
+import { getAllAdapters as getAdapters } from '../src/lib/server/sources';
 import { fetchText } from '../src/lib/server/http';
 vi.mock('../src/lib/server/http', async (importOriginal) => ({
   ...(await importOriginal<object>()),

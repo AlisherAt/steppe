@@ -4,19 +4,19 @@ test('Бренды ведут в реальный каталог, источни
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/brands');
-  await expect(page.locator('.brand-tile')).toHaveCount(78);
-  await page.getByRole('textbox', { name: 'Поиск бренда' }).fill('hoka');
+  await expect(page.locator('.brand-tile')).toHaveCount(2);
+  await page.getByRole('textbox', { name: 'Поиск бренда' }).fill('puma');
   await expect(page.locator('.brand-tile')).toHaveCount(1);
   await expect(page.locator('.brand-tile')).toContainText('Пока нет предложений');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
   );
   await page.locator('.brand-tile').click();
-  await expect(page).toHaveURL(/mode=live.*brands=HOKA/);
+  await expect(page).toHaveURL(/mode=live.*brands=Puma/);
   await expect(page.locator('.product-card')).toHaveCount(0);
   await page.goto('/sources');
-  await expect(page.getByRole('heading', { name: 'Цены рынка США' })).toBeVisible();
-  await expect(page.locator('.status-badge')).toHaveCount(12);
+  await expect(page.getByRole('heading', { name: 'Наш ассортимент' })).toBeVisible();
+  await expect(page.locator('.status-badge')).toHaveCount(2);
   await expect(page.locator('.status-badge.ready')).toHaveCount(0);
 });
 test('Русский каталог: фильтры, размер, корзина после перезагрузки', async ({ page }) => {

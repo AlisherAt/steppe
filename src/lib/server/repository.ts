@@ -1,5 +1,6 @@
 import 'server-only';
 import { orderableProduct } from '../orderable';
+import { isCatalogBrand } from '../catalog-policy';
 import { publicProduct } from '../public-product';
 import { db, databaseConfigured, databaseProvider } from './db';
 import { seaStore } from './seatable-store';
@@ -44,7 +45,7 @@ export async function internalCatalog(
   if (databaseProvider() === 'seatable') {
     return filterCatalog(
       (await manualProducts.combine(await cachedSeaProducts())).products
-        .filter((p) => offerVisible(p) && orderableProduct(p))
+        .filter((p) => isCatalogBrand(p.brand) && offerVisible(p) && orderableProduct(p))
         .map(withSellingPrices),
       filters,
       'live',
@@ -63,7 +64,7 @@ export async function internalCatalog(
     products.push(
       ...data
         .map((row) => ({ ...row.payload, updatedAt: row.updated_at }))
-        .filter((p) => orderableProduct(p) && offerVisible(p))
+        .filter((p) => isCatalogBrand(p.brand) && orderableProduct(p) && offerVisible(p))
         .map(withSellingPrices),
     );
     if (data.length < 500) return filterCatalog(products, filters, 'live');

@@ -49,7 +49,7 @@ async function main() {
     delete env.SCRAPER_SOURCE_IDS;
     state.stage = 'browser_setup';
     await save();
-    await log({ event: 'started', connection: 'direct', sources: 'all' });
+    await log({ event: 'started', connection: 'direct', sources: ['puma', 'reebok'] });
     const runChild = (args, timeoutMs) =>
       new Promise((resolveRun, reject) => {
         const child = spawn(process.execPath, args, {

@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { getSources } from '@/lib/server/repository';
 import { formatDate } from '@/lib/money';
-import { sourceOptions } from '@/lib/source-options';
 import { scrapeSummary } from '@/lib/server/scrape-report';
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Магазины и источники — STEPPE' };
@@ -34,7 +33,7 @@ export default async function SourcesPage() {
       <section className="info-panel">
         <h2>Проверка сайтов брендов</h2>
         <p>
-          Расписание: 06:00 и 18:00 по Алматы. Данные без подтверждённых размеров и наличия не
+          Расписание: 10:00 и 21:00 по Москве. Данные без подтверждённых размеров и наличия не
           публикуются как предложения для заказа.
         </p>
         {scrape ? (
@@ -81,11 +80,10 @@ export default async function SourcesPage() {
         </div>
       )}
       <div className="info-panel">
-        <h2>Альтернативы сайтам брендов</h2>
+        <h2>Наш ассортимент</h2>
         <p>
-          Мультибрендовые магазины и партнёрские сети позволяют получать разные марки из одного
-          источника. Регистрация и разрешение на данные нужны один раз, затем загрузки выполняются
-          по расписанию.
+          В каталоге представлены только Puma и Reebok. Собираем скидки официальных магазинов США и
+          проверяем доступность каждого размера.
         </p>
         <p>
           Реально подключённые магазины отмечены выше по результату последней загрузки. Возможность
@@ -94,15 +92,6 @@ export default async function SourcesPage() {
         <Link href="/brands">
           Открыть справочник брендов <ArrowUpRight size={14} />
         </Link>
-      </div>
-      <div className="source-grid">
-        {sourceOptions.map((option) => (
-          <section className="source-card" key={option.name}>
-            <span className="eyebrow">{option.kind}</span>
-            <h2 style={{ fontSize: 22, marginTop: 12 }}>{option.name}</h2>
-            <p>{option.detail}</p>
-          </section>
-        ))}
       </div>
       <div className="info-panel">
         <h2>Покупка по фиксированной цене</h2>
@@ -120,23 +109,14 @@ export default async function SourcesPage() {
       <div className="info-panel">
         <h2>Как обновляется каталог</h2>
         <p>
-          После подключения источников автоматическая проверка запланирована на 06:00 и 18:00 по
-          времени Алматы. Фактическое время последней проверки отображается выше. При временном сбое
-          предусмотрены повторные попытки.
+          Автоматическая проверка запланирована на 10:00 и 21:00 по времени Москвы. Фактическое
+          время последней проверки отображается выше. При временном сбое предусмотрены повторные
+          попытки.
         </p>
         <p>
           Предложения, исчезнувшие из полного фида, скрываются. Необновлённые предложения также
           исчезают по истечении срока актуальности — по умолчанию 36 часов. Окончательную цену
           выбранного размера уточняйте на площадке.
-        </p>
-      </div>
-      <div className="info-panel">
-        <h2>Партнёрские источники</h2>
-        <p>
-          Новый каталог требует разрешённых товарных фидов поставщиков. Дополнительные источники
-          скидок подключаются отдельно: для Nike требуется доступ к автоматическому товарному фиду
-          после одобрения участия в программе. Для Adidas — согласованный с партнёрской программой
-          источник данных. Условия зависят от региона.
         </p>
       </div>
       <div className="info-panel">

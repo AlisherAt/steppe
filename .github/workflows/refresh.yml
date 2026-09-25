@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       sources:
-        description: 'Идентификаторы магазинов через запятую; пусто — все 15'
+        description: 'puma,reebok; пусто — оба магазина'
         required: false
         default: ''
 permissions:

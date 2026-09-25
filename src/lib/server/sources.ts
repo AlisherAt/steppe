@@ -5,6 +5,7 @@ import { FixedRetailAdapter } from './fixed-retail';
 import { PumaAdapter } from './puma';
 import { ScrapedRetailAdapter } from './scraped-retail';
 import { IntegrationError } from './http';
+import { catalogSourceIds } from '../catalog-policy';
 const customSchema = z
   .array(
     z.object({
@@ -15,7 +16,7 @@ const customSchema = z
     }),
   )
   .max(20);
-export function getAdapters(): SourceAdapter[] {
+export function getAllAdapters(): SourceAdapter[] {
   const sources: SourceAdapter[] = [
     new PumaAdapter(),
     ...(['adidas', 'reebok', 'on', 'brooks', 'skechers', 'fila'] as const).map(
@@ -114,4 +115,7 @@ export function getAdapters(): SourceAdapter[] {
       s.name = process.env[`${prefix}_STORE_NAME`]!.slice(0, 80);
   }
   return sources;
+}
+export function getAdapters(): SourceAdapter[] {
+  return getAllAdapters().filter((source) => catalogSourceIds.includes(source.id));
 }

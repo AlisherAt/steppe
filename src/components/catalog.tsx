@@ -19,7 +19,7 @@ import {
 import { defaultFilters, type CatalogResult, type Filters } from '@/lib/types';
 import { filterParams, filtersSchema } from '@/lib/catalog';
 import { ProductCard } from './product-card';
-import { brandNames } from '@/lib/brands';
+import { catalogBrands as brandNames } from '@/lib/catalog-policy';
 import { demoEnabled } from '@/lib/catalog-mode';
 export function Catalog({
   initial,
@@ -38,6 +38,7 @@ export function Catalog({
   const [hydrated, setHydrated] = useState(false);
   const [brandQuery, setBrandQuery] = useState('');
   const visibleBrands = [...new Set([...result.facets.brands, ...filters.brands, ...brandNames])]
+    .filter((b) => mode === 'demo' || brandNames.includes(b))
     .filter((b) => b.toLocaleLowerCase('ru').includes(brandQuery.toLocaleLowerCase('ru')))
     .sort(
       (a, b) =>
@@ -289,8 +290,8 @@ export function Catalog({
         {(result.facets.sources.length
           ? result.facets.sources
           : [
-              { id: 'nike', name: 'Nike' },
-              { id: 'adidas', name: 'Adidas' },
+              { id: 'puma-us', name: 'Puma US' },
+              { id: 'reebok-us', name: 'Reebok US' },
             ]
         ).map((s) => (
           <label className="check-label" key={s.id}>
@@ -342,7 +343,7 @@ export function Catalog({
             <span>Больше выбора.</span>
           </h1>
           <p>
-            Кроссовки любимых брендов с магазинов США и Европы.
+            Кроссовки Puma и Reebok из магазинов США.
             <br />В одном месте. В тенге. Для твоего ритма.
           </p>
           <a href="#catalog" className="hero-link">
@@ -351,8 +352,11 @@ export function Catalog({
         </div>
         <div className="hero-visual">
           <Image
-            src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1100&q=90"
-            alt="Красный кроссовок Nike — иллюстрация"
+            src={
+              initial.products.find((p) => brandNames.includes(p.brand) && p.imageUrl)?.imageUrl ||
+              'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1000,h_1000/global/312060/14/sv01/fnd/PNA/fmt/png'
+            }
+            alt="Кроссовки из коллекции Puma и Reebok"
             fill
             priority
             sizes="(max-width: 700px) 100vw, 48vw"

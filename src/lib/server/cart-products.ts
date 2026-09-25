@@ -1,4 +1,5 @@
 import { orderableProduct } from '../orderable';
+import { isCatalogBrand } from '../catalog-policy';
 import { db, databaseConfigured, databaseProvider } from './db';
 import { seaStore } from './seatable-store';
 import { manualProducts } from './manual-products';
@@ -9,7 +10,10 @@ export async function cartProducts(ids: string[]): Promise<Product[]> {
   if (!databaseConfigured()) throw new Error('CATALOG_NOT_CONFIGURED');
   if (databaseProvider() === 'seatable')
     return (await manualProducts.combine(await seaStore.liveProducts())).products
-      .filter((p) => ids.includes(p.id) && orderableProduct(p) && offerVisible(p))
+      .filter(
+        (p) =>
+          isCatalogBrand(p.brand) && ids.includes(p.id) && orderableProduct(p) && offerVisible(p),
+      )
       .map(withSellingPrices);
   const { data, error } = await db()
     .from('offers')
@@ -22,5 +26,6 @@ export async function cartProducts(ids: string[]): Promise<Product[]> {
     .filter((p) => offerVisible({ ...p.payload, updatedAt: p.updated_at }))
     .map((p) => p.payload as Product)
     .filter(orderableProduct)
+    .filter((p) => isCatalogBrand(p.brand))
     .map(withSellingPrices);
 }

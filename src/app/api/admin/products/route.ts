@@ -7,6 +7,7 @@ import { seaStore } from '@/lib/server/seatable-store';
 import { withSellingPrices } from '@/lib/selling-price';
 import { offerVisible } from '@/lib/promotion';
 import { AuthError } from '@/lib/server/auth';
+import { isCatalogBrand } from '@/lib/catalog-policy';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export async function GET(req: NextRequest) {
@@ -46,7 +47,10 @@ export async function POST(req: NextRequest) {
       await manualProducts.discard(id);
       return adminJson({ discarded: true });
     }
-    const product = await manualProducts.publish(publishSchema.parse(body));
+    const input = publishSchema.parse(body);
+    if (!isCatalogBrand(input.brand))
+      throw new AuthError(400, 'В каталоге доступны только Puma и Reebok.');
+    const product = await manualProducts.publish(input);
     return adminJson({ published: true, id: product.id });
   } catch (error) {
     return adminError(error);

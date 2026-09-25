@@ -19,11 +19,12 @@ export async function runScraper() {
     .split(',')
     .map((id) => id.trim())
     .filter(Boolean);
-  if (selectedIds.some((id) => !sources.some((s) => s.id === id)))
+  const activeSources = sources.filter((s) => ['puma', 'reebok'].includes(s.id));
+  if (selectedIds.some((id) => !activeSources.some((s) => s.id === id)))
     throw Error('INVALID_SCRAPER_SOURCE_IDS');
   const selectedSources = selectedIds.length
-    ? sources.filter((s) => selectedIds.includes(s.id))
-    : sources;
+    ? activeSources.filter((s) => selectedIds.includes(s.id))
+    : activeSources;
   let permissions;
   try {
     permissions = JSON.parse(process.env.SCRAPER_PERMISSIONS_JSON || '{}');

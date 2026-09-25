@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Search, ArrowUpRight } from 'lucide-react';
-import { brandNames } from '@/lib/brands';
+import { catalogBrands as brandNames } from '@/lib/catalog-policy';
 export function BrandDirectory({ available, error }: { available: string[]; error: boolean }) {
   const [query, setQuery] = useState('');
   const brands = [...new Set([...brandNames, ...available])]
@@ -14,7 +14,7 @@ export function BrandDirectory({ available, error }: { available: string[]; erro
         <Search size={20} />
         <input
           aria-label="Поиск бренда"
-          placeholder="Например, New Balance или ASICS"
+          placeholder="Puma или Reebok"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />

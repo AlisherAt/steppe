@@ -3,7 +3,6 @@ import { ArrowLeft } from 'lucide-react';
 import { BrandDirectory } from '@/components/brand-directory';
 import { getCatalog } from '@/lib/server/repository';
 import { defaultFilters } from '@/lib/types';
-import { brandNames } from '@/lib/brands';
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Все бренды кроссовок — STEPPE' };
 export default async function BrandsPage() {
@@ -15,7 +14,7 @@ export default async function BrandsPage() {
       </Link>
       <div className="page-heading">
         <span className="eyebrow" style={{ marginTop: 30 }}>
-          ТВОЙ СТИЛЬ НЕ ОГРАНИЧЕН ДВУМЯ БРЕНДАМИ
+          PUMA И REEBOK
         </span>
         <h1>
           Больше брендов.
@@ -23,8 +22,8 @@ export default async function BrandsPage() {
           Больше твоего.
         </h1>
         <p>
-          В справочнике уже {brandNames.length} марок: от повседневных силуэтов до беговых и
-          трейловых кроссовок. Новые бренды из разрешённых фидов добавляются автоматически.
+          Кроссовки Puma и Reebok: повседневные модели, бег и тренировки. Подтверждённые скидки и
+          доступные размеры в одном каталоге.
         </p>
         <p className="small muted">
           Это справочник для поиска, а не список официальных партнёров. Предложения появляются
