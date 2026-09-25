@@ -3,6 +3,7 @@ import { timingSafeEqual } from 'node:crypto';
 import { databaseConfigured } from '@/lib/server/db';
 import { refreshSources } from '@/lib/server/refresh';
 import { safeCode } from '@/lib/server/http';
+import { revalidateTag } from 'next/cache';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 300;
@@ -18,6 +19,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'База данных не подключена.' }, { status: 503 });
   try {
     const result = await refreshSources();
+    // После публикации посетитель должен сразу получить новый снимок каталога.
+    revalidateTag('steppe:catalog', { expire: 0 });
+    revalidateTag('steppe:sources', { expire: 0 });
     return NextResponse.json(result, {
       status: 'results' in result && result.results?.some((r) => r.status === 'error') ? 502 : 200,
       headers: { 'Cache-Control': 'no-store' },

@@ -20,12 +20,12 @@ const seaCacheKey = createHash('sha256')
 const cachedSeaProducts = unstable_cache(
   () => seaStore.liveProducts(),
   ['seatable-live-v4', seaCacheKey],
-  { revalidate: 60 },
+  { revalidate: 60, tags: ['steppe:catalog'] },
 );
 const cachedSeaStatuses = unstable_cache(
   () => seaStore.sourceStatuses(),
   ['seatable-sources-v2', seaCacheKey],
-  { revalidate: 60 },
+  { revalidate: 60, tags: ['steppe:sources'] },
 );
 export async function internalCatalog(
   filters: Filters,
