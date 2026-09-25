@@ -77,21 +77,26 @@ export async function sizeMap(page, gender = 'unisex') {
       );
     }
     if (!tables.length) throw Error('PUMA_AMBIGUOUS_SIZE_GUIDE');
-    const maps = tables.map((table) => {
-      const headers = [...table.rows[0].cells].map((e) => e.textContent.trim());
-      const us = headers.indexOf('US'),
-        eu = headers.includes('EU') ? headers.indexOf('EU') : headers.indexOf('DE');
-      const result = {};
-      for (const row of [...table.rows].slice(1)) {
-        const cells = [...row.cells].map((e) => e.textContent.trim());
-        if (!/^\d+(\.\d+)?$/.test(cells[us] || '') || !/^\d+(\.\d+)?$/.test(cells[eu] || ''))
-          continue;
-        if (result[cells[us]] && result[cells[us]] !== cells[eu])
-          throw Error('PUMA_AMBIGUOUS_SIZE_GUIDE');
-        result[cells[us]] = cells[eu];
-      }
-      return result;
-    });
+    const maps = tables
+      .map((table) => {
+        const headers = [...table.rows[0].cells].map((e) => e.textContent.trim());
+        const us = headers.indexOf('US'),
+          eu = headers.includes('EU') ? headers.indexOf('EU') : headers.indexOf('DE');
+        const result = {};
+        for (const row of [...table.rows].slice(1)) {
+          const cells = [...row.cells].map((e) => e.textContent.trim());
+          if (!/^\d+(\.\d+)?$/.test(cells[us] || '') || !/^\d+(\.\d+)?$/.test(cells[eu] || ''))
+            continue;
+          if (result[cells[us]] && result[cells[us]] !== cells[eu])
+            throw Error('PUMA_AMBIGUOUS_SIZE_GUIDE');
+          result[cells[us]] = cells[eu];
+        }
+        return result;
+      })
+      .filter((map) => Object.keys(map).length > 0);
+    // Общая справка иногда вкладывает таблицу одежды в секцию Men's Shoes.
+    // Буквенные размеры одежды не являются вторым вариантом обувной сетки.
+    if (!maps.length) throw Error('PUMA_AMBIGUOUS_SIZE_GUIDE');
     if (
       maps.some(
         (m) =>

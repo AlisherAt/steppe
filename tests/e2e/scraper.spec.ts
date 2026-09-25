@@ -162,4 +162,9 @@ test('Puma: общая размерная справка выбирает пол
   expect(await sizeMap(page, 'men')).toEqual({ '9': '42' });
   expect(await sizeMap(page, 'women')).toEqual({ '9': '40.5' });
   await expect(sizeMap(page, 'unisex')).rejects.toThrow('PUMA_AMBIGUOUS_SIZE_GUIDE');
+  await page.setContent(
+    table('Men', '42') +
+      `<div class="size-chart-section"><div class="sizeheading">Men's Shoes</div><table><tr><th>US</th><th>DE</th></tr><tr><td>S</td><td>44</td></tr></table></div>`,
+  );
+  expect(await sizeMap(page, 'men')).toEqual({ '9': '42' });
 });
