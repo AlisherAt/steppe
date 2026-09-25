@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowUpRight, Link2, Plus, Trash2, RotateCcw, Check, Package } from 'lucide-react';
 import type { Product } from '@/lib/types';
 import { formatDate, formatKzt } from '@/lib/money';
+import { localSizeLabel } from '@/lib/size-guide';
 import './admin.css';
 
 type Draft = { draftId: string; product: Product; selling: Product; from?: string };
@@ -324,7 +325,9 @@ export default function AdminPage() {
                         )
                       }
                     />
-                    {v.size || 'Цена со страницы'}
+                    {v.size
+                      ? `${localSizeLabel(draft.product, v.size)} (${v.size})`
+                      : 'Цена со страницы'}
                   </span>
                   <span>{formatKzt(v.saleKzt)}</span>
                   <strong>{formatKzt(draft.selling.sizePrices![index].saleKzt)}</strong>
@@ -453,7 +456,9 @@ export default function AdminPage() {
                     {entry.stale ? ' · Цена устарела' : ''}
                   </p>
                   <h3>{entry.product.name}</h3>
-                  <small>{entry.product.sizes.join(' · ')}</small>
+                  <small>
+                    {entry.product.sizes.map((s) => localSizeLabel(entry.product, s)).join(' · ')}
+                  </small>
                 </div>
                 <strong>{formatKzt(entry.selling.saleKzt)}</strong>
                 <button

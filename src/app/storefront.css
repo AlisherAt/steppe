@@ -412,7 +412,11 @@ html {
 }
 .gender-options button,
 .discount-options button,
+.size-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
 .size-grid button {
+  overflow-wrap: anywhere;
   border-radius: 8px;
   min-height: 36px;
   transition:
@@ -728,7 +732,7 @@ dialog::backdrop {
   display: none;
 }
 .mobile-filter-content .size-grid {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 .mobile-filter-content button,
 .mobile-filter-content .check-label {

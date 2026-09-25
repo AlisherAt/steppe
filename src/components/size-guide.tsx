@@ -3,8 +3,7 @@
 import { useId, useRef } from 'react';
 import { Check, Ruler, X } from 'lucide-react';
 import type { Product } from '@/lib/types';
-import { sizeGuideRows } from '@/lib/size-guide';
-import { sizeLabel } from '@/lib/official-stores';
+import { sizeGuideRows, localSizeLabel } from '@/lib/size-guide';
 
 const number = (value?: number) => (value === undefined ? '—' : String(value).replace('.', ','));
 
@@ -19,8 +18,8 @@ export function SizeGuide({
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const id = useId();
-  const rows = sizeGuideRows(product);
-  const hasConversions = rows.some((r) => r.cm !== undefined);
+  const rows = sizeGuideRows(product).sort((a, b) => (a.eu ?? Infinity) - (b.eu ?? Infinity));
+  const hasConversions = rows.some((r) => r.eu !== undefined);
   return (
     <>
       <button
@@ -60,8 +59,9 @@ export function SizeGuide({
           <p className="size-guide-note">
             <strong>RU ≈</strong> — приблизительный ориентир (EU − 1), а не отдельный стандарт KZ.{' '}
             <strong>CM</strong> — маркировка в сантиметрах из таблицы бренда, не измеренная длина
-            стельки. M — мужская сетка US, W — женская. У отдельных моделей посадка и сетка могут
-            отличаться.
+            стельки. M — мужская сетка US, W — женская, K — детская. Детские размеры переводятся с
+            учётом возрастной группы модели; RU для них не рассчитывается. У отдельных моделей
+            посадка и сетка могут отличаться.
           </p>
         ) : (
           <p className="size-guide-note">
@@ -103,7 +103,7 @@ export function SizeGuide({
                     <td>
                       <button
                         type="button"
-                        aria-label={`Выбрать ${sizeLabel(row.native)}`}
+                        aria-label={`Выбрать ${localSizeLabel(product, row.native)}`}
                         aria-pressed={row.native === selected}
                         onClick={() => {
                           onSelect(row.native);
@@ -117,7 +117,7 @@ export function SizeGuide({
                         ) : (
                           'Выбрать'
                         )}
-                        <small>{sizeLabel(row.native)}</small>
+                        <small>{localSizeLabel(product, row.native)}</small>
                       </button>
                     </td>
                   </tr>
@@ -128,7 +128,7 @@ export function SizeGuide({
         ) : (
           <p>Магазин пока не передал доступные размеры.</p>
         )}
-        {hasConversions && rows.some((r) => r.cm === undefined) && (
+        {hasConversions && rows.some((r) => r.eu === undefined || r.cm === undefined) && (
           <p className="size-guide-note">
             Прочерк означает, что соответствие не подтверждено. Исходный размер указан на кнопке
             выбора.

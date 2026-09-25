@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { ArrowUpRight, Check, ShoppingBag, Trash2, X } from 'lucide-react';
 import { addToCart, cartItemKey, CART_KEY, readCart, writeCart, type CartItem } from '@/lib/cart';
 import type { Product } from '@/lib/types';
-import { sizeLabel } from '@/lib/official-stores';
+import { localSizeLabel } from '@/lib/size-guide';
 import { formatKzt } from '@/lib/money';
 import { orderPhone, orderPhoneLabel } from '@/lib/store-contact';
 type Store = {
@@ -110,6 +110,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                 saleKzt: p.sizePrices?.find((v) => v.size === i.size)?.saleKzt ?? p.saleKzt,
                 productUrl: '',
                 updatedAt: p.updatedAt,
+                brand: p.brand,
+                gender: p.gender,
+                name: p.name,
               }
             : i;
         }),
@@ -212,7 +215,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                       <p>
                         {item.sourceName} ·{' '}
                         {item.size
-                          ? `Размер ${sizeLabel(item.size)}`
+                          ? `Размер ${localSizeLabel(item, item.size)}`
                           : 'Размер уточняйте в магазине'}
                       </p>
                       <strong>{formatKzt(item.saleKzt)}</strong>

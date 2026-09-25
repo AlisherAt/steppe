@@ -1,7 +1,29 @@
 import { describe, expect, it } from 'vitest';
-import { sizeGuideRows } from '../src/lib/size-guide';
+import { sizeGuideRows, localSizeLabel, matchesSize } from '../src/lib/size-guide';
 
 describe('размеры для покупателей в Казахстане', () => {
+  it('переводит размеры модели со скриншота по сетке Big Kids', () => {
+    const p = {
+      brand: 'Reebok',
+      gender: 'kids' as const,
+      name: 'Club C Double Shoes - Big Kids',
+      sizes: ['US K 3.5', 'US K 5'],
+    };
+    expect(sizeGuideRows(p).map((r) => r.eu)).toEqual([34.5, 36.5]);
+    expect(localSizeLabel(p, 'US K 3.5')).toBe('EU 34,5');
+    expect(matchesSize(p, 'US K 3.5', ['34.5'])).toBe(true);
+    expect(matchesSize(p, 'US K 5', ['34.5'])).toBe(false);
+  });
+  it('различает малыша, Little Kids и Big Kids с одинаковым US', () => {
+    const base = { brand: 'Reebok', gender: 'kids' as const, sizes: ['US K 3.5', 'US K 5'] };
+    expect(sizeGuideRows({ ...base, name: 'Shoes - Baby & Toddler' }).map((r) => r.eu)).toEqual([
+      19, 21,
+    ]);
+    expect(sizeGuideRows({ ...base, name: 'Shoes - Little Kids' }).map((r) => r.eu)).toEqual([
+      34.5, 36.5,
+    ]);
+    expect(sizeGuideRows(base).map((r) => r.eu)).toEqual([undefined, undefined]);
+  });
   it('сохраняет исходный EU Puma и различает мужскую и женскую US', () => {
     const sizes = ['42', 'EU 38,5'];
     expect(sizeGuideRows({ brand: 'Puma', gender: 'men', sizes })[0]).toEqual({
@@ -32,8 +54,11 @@ describe('размеры для покупателей в Казахстане',
     expect(sizeGuideRows({ brand: 'Puma', gender: 'men', sizes: ['US M 12'] })[0].eu).toBe(46);
     expect(sizeGuideRows({ brand: 'Reebok', gender: 'men', sizes: ['US M 12'] })[0].eu).toBe(45.5);
     expect(
-      sizeGuideRows({ brand: 'Reebok', gender: 'women', sizes: ['US W 11.5'] })[0].eu,
+      sizeGuideRows({ brand: 'Reebok', gender: 'women', sizes: ['US W 11.25'] })[0].eu,
     ).toBeUndefined();
+    expect(
+      sizeGuideRows({ brand: 'Reebok', gender: 'women', sizes: ['US W 11.5'] })[0],
+    ).toMatchObject({ eu: 43, cm: undefined });
   });
   it('не преобразует детские, широкие, неизвестные размеры или чужой бренд', () => {
     expect(sizeGuideRows({ brand: 'Reebok', gender: 'kids', sizes: ['US K 4', 'US 4'] })).toEqual([

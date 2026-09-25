@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { discountPercent } from './money';
+import { localSizeKey, matchesSize } from './size-guide';
 import {
   defaultFilters,
   type Filters,
@@ -39,8 +40,8 @@ export const PAGE_SIZE = 12;
 export function facetsFor(products: Product[]): Facets {
   return {
     brands: [...new Set(products.map((p) => p.brand))].sort(),
-    sizes: [...new Set(products.flatMap((p) => p.sizes))].sort((a, b) =>
-      a.localeCompare(b, 'en', { numeric: true }),
+    sizes: [...new Set(products.flatMap((p) => p.sizes.map((s) => localSizeKey(p, s))))].sort(
+      (a, b) => a.localeCompare(b, 'en', { numeric: true }),
     ),
     sources: [
       ...new Map(
@@ -60,7 +61,7 @@ export function filterCatalog(
     if (!p.sizePrices?.length) return p;
     const eligible = p.sizePrices.filter(
       (v) =>
-        (!f.sizes.length || f.sizes.includes(v.size)) &&
+        (!f.sizes.length || matchesSize(p, v.size, f.sizes)) &&
         v.saleKzt >= f.minPrice &&
         v.saleKzt <= f.maxPrice,
     );
@@ -80,7 +81,7 @@ export function filterCatalog(
           .toLocaleLowerCase('ru')
           .includes(f.q.toLocaleLowerCase('ru'))) &&
       (!f.brands.length || f.brands.includes(p.brand)) &&
-      (!f.sizes.length || p.sizes.some((s) => f.sizes.includes(s))) &&
+      (!f.sizes.length || p.sizes.some((s) => matchesSize(p, s, f.sizes))) &&
       (!f.sources.length || f.sources.includes(p.sourceId)) &&
       (!f.gender || p.gender === f.gender) &&
       (!f.category || p.category === f.category) &&

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Plus, X, ShoppingBag, Check } from 'lucide-react';
 import type { Product } from '@/lib/types';
-import { sizeLabel } from '@/lib/official-stores';
+import { localSizeKey, localSizeLabel } from '@/lib/size-guide';
 import { formatKzt, formatDate, discountPercent } from '@/lib/money';
 import { useStore } from './store-provider';
 import { productDescription } from '@/lib/product-description';
@@ -122,14 +122,18 @@ export function ProductCard({
             aria-describedby={error ? `error-${p.id}` : undefined}
           >
             <option value="">{p.sizes.length ? 'Выберите размер' : 'Размер у продавца'}</option>
-            {p.sizes.map((s) => (
-              <option key={s} value={s}>
-                {sizeLabel(s)}
-                {p.sizePrices?.find((v) => v.size === s)
-                  ? ` · ${formatKzt(p.sizePrices.find((v) => v.size === s)!.saleKzt)}`
-                  : ''}
-              </option>
-            ))}
+            {[...p.sizes]
+              .sort((a, b) =>
+                localSizeKey(p, a).localeCompare(localSizeKey(p, b), 'en', { numeric: true }),
+              )
+              .map((s) => (
+                <option key={s} value={s}>
+                  {localSizeLabel(p, s)}
+                  {p.sizePrices?.find((v) => v.size === s)
+                    ? ` · ${formatKzt(p.sizePrices.find((v) => v.size === s)!.saleKzt)}`
+                    : ''}
+                </option>
+              ))}
           </select>
           <button
             className={`add-button ${added ? 'is-added' : ''}`}

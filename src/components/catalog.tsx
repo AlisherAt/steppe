@@ -23,6 +23,7 @@ import { ProductCard } from './product-card';
 import { catalogBrands as brandNames } from '@/lib/catalog-policy';
 import { demoEnabled } from '@/lib/catalog-mode';
 import { formatKzt } from '@/lib/money';
+import { sizeFilterLabel } from '@/lib/size-guide';
 export function Catalog({
   initial,
   initialMode,
@@ -242,7 +243,7 @@ export function Catalog({
       </fieldset>
       <fieldset>
         <legend>
-          Размер <span className="muted">EU / US</span>
+          Размер <span className="muted">EU</span>
         </legend>
         <div className="size-grid">
           {(result.facets.sizes.length
@@ -255,11 +256,14 @@ export function Catalog({
               className={filters.sizes.includes(size) ? 'selected' : ''}
               onClick={() => toggle('sizes', size)}
             >
-              {size}
+              {sizeFilterLabel(size)}
             </button>
           ))}
         </div>
-        <p className="filter-hint">Сверяй размерную сетку магазина</p>
+        <p className="filter-hint">
+          Размеры переведены в EU по сетке бренда. US остаётся только там, где соответствие не
+          определено.
+        </p>
       </fieldset>
       <fieldset>
         <legend>Цена, ₸</legend>
