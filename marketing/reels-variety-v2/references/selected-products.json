@@ -1,0 +1,48 @@
+{
+  "catalog": "https://steppe-gray.vercel.app/",
+  "products": [
+    {
+      "id": "4b729830fe71095581274b70a1f69c24cd33ed7152f084b7187082dbfeab3bfd",
+      "brand": "Puma",
+      "name": "Fuse 4.0 Women's Training Shoes",
+      "sku": "311744_05",
+      "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/311744/05/sv01/fnd/PNA/fmt/png/Fuse-4.0-Women's-Training-Shoes"
+    },
+    {
+      "id": "8b1eda163e63b0ecd39d935d2985cbb046f31f37a411dfbb63a0157109b61d26",
+      "brand": "Reebok",
+      "name": "Women's Classic AZ Shoes",
+      "sku": "100245685",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100245685_SLC_eCom.jpg?v=1767705773"
+    },
+    {
+      "id": "900f25f09aaf20a98f0dc09cc9d2c8f90c90b8eaa9a1ce4eb62a620ab35a195d",
+      "brand": "Puma",
+      "name": "Velocity NITRO™ 4 Men's Road Running Shoes",
+      "sku": "311140_25",
+      "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/311140/25/sv01/fnd/PNA/fmt/png/Velocity-NITRO™-4-Men's-Road-Running-Shoes"
+    },
+    {
+      "id": "8b4fb652bd9e5d9c50f295a7b506822a5a0a78ef1b34029f459b55f2f973a182",
+      "brand": "Reebok",
+      "name": "Club C LTD Shoes",
+      "sku": "10023264256304",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/Club_C_LTD_Shoes_Painted_White_reebokpinnacle_2000294322053_1_3777920a-154f-413e-8171-43e054f47313.jpg?v=1787231169"
+    },
+    {
+      "id": "2a7572a20ed77fcf60a22b2dc9dd4cc2ae93d435bb72e7c978f11cd6803cc5c1",
+      "brand": "Reebok",
+      "name": "Club C Grounds UK Shoes",
+      "sku": "100256877",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100256877_SLC_eCom.jpg?v=1764594758"
+    },
+    {
+      "id": "14ba2d4f91190d4ee220f29cc7902c757cefc2b67e05a6735da176224d0c30c5",
+      "brand": "Reebok",
+      "name": "Classic Leather 1983 Vintage Shoes",
+      "sku": "100245042",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100245042_SLC_eCom.jpg?v=1768915117"
+    }
+  ],
+  "checkedAt": "2026-09-25T19:28:39.0398775Z"
+}
