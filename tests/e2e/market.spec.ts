@@ -45,6 +45,11 @@ test('Рынок США: текущая цена без фиктивной ск�
     route.fulfill({ json: { products: [product] } }),
   );
   await page.goto('/?mode=live');
+  const navigation = page.getByRole('navigation', { name: 'Основная навигация' });
+  await expect(navigation.getByRole('link', { name: 'Бренды', exact: true })).toHaveCount(0);
+  await expect(navigation.getByRole('link', { name: 'Как это работает', exact: true })).toHaveCount(
+    0,
+  );
   const card = page.locator('.product-card');
   await expect(card).toHaveCount(1);
   await expect(card.locator('del')).toHaveCount(0);
@@ -59,6 +64,7 @@ test('Рынок США: текущая цена без фиктивной ск�
   ).toHaveCount(0);
   const checkout = page.getByRole('button', { name: 'Оформить в WhatsApp' });
   await expect(checkout).toBeEnabled();
+  await expect(page.getByRole('dialog')).toContainText('+7 707 922 3074');
   await page.route('**/api/checkout/whatsapp', (route) =>
     route.fulfill({
       status: 503,
@@ -70,7 +76,7 @@ test('Рынок США: текущая цена без фиктивной ск�
     'Не удалось проверить товары',
   );
   await page.unroute('**/api/checkout/whatsapp');
-  const target = 'https://wa.me/77001234567?text=' + encodeURIComponent('Тестовый список: EU 42');
+  const target = 'https://wa.me/77079223074?text=' + encodeURIComponent('Тестовый список: EU 42');
   await page.route('**/api/checkout/whatsapp', (route) => {
     expect(route.request().postDataJSON()).toEqual({ items: [{ id: product.id, size: '42' }] });
     return route.fulfill({ json: { url: target } });

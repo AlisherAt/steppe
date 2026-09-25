@@ -14,6 +14,7 @@ import { addToCart, cartItemKey, CART_KEY, readCart, writeCart, type CartItem } 
 import type { Product } from '@/lib/types';
 import { sizeLabel } from '@/lib/official-stores';
 import { formatKzt } from '@/lib/money';
+import { orderPhone, orderPhoneLabel } from '@/lib/store-contact';
 type Store = {
   items: CartItem[];
   add: (product: Product, size: string) => void;
@@ -131,7 +132,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'Не удалось оформить заказ.');
       const url = new URL(data.url);
-      if (url.origin !== 'https://wa.me') throw new Error('Не удалось открыть WhatsApp.');
+      if (url.origin !== 'https://wa.me' || url.pathname !== `/${orderPhone}`)
+        throw new Error('Не удалось открыть WhatsApp.');
       window.location.assign(url.href);
     } catch (e) {
       setOrderError(e instanceof Error ? e.message : 'Не удалось открыть WhatsApp.');
@@ -265,8 +267,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                 </p>
               )}
               <p className="small muted">
-                Откроется WhatsApp. Проверьте список и нажмите «Отправить» в чате. На сайте деньги
-                не списываются.
+                Откроется WhatsApp на номер {orderPhoneLabel}. Проверьте список и нажмите
+                «Отправить» в чате. На сайте деньги не списываются.
               </p>
             </>
           )}

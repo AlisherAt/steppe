@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { cartProducts } from '@/lib/server/cart-products';
-import { CheckoutError, whatsappOrder, whatsappPhone } from '@/lib/whatsapp';
+import { CheckoutError, whatsappOrder } from '@/lib/whatsapp';
+import { orderPhone } from '@/lib/store-contact';
 export const runtime = 'nodejs';
 const json = (body: unknown, status = 200) =>
   NextResponse.json(body, { status, headers: { 'Cache-Control': 'no-store' } });
@@ -11,8 +12,6 @@ export async function POST(req: NextRequest) {
     !req.headers.get('content-type')?.startsWith('application/json')
   )
     return json({ error: 'Недопустимый запрос.' }, 403);
-  if (!whatsappPhone(process.env.WHATSAPP_ORDER_PHONE || ''))
-    return json({ error: 'Оформление в WhatsApp пока не настроено. Попробуйте позже.' }, 503);
   try {
     const text = await req.text();
     if (text.length > 10000) return json({ error: 'Слишком большая корзина.' }, 413);
@@ -33,7 +32,7 @@ export async function POST(req: NextRequest) {
     if (!parsed.success) return json({ error: 'Некорректная корзина.' }, 400);
     const products = await cartProducts([...new Set(parsed.data.items.map((i) => i.id))]);
     return json({
-      url: whatsappOrder(process.env.WHATSAPP_ORDER_PHONE!, parsed.data.items, products),
+      url: whatsappOrder(orderPhone, parsed.data.items, products),
     });
   } catch (e) {
     if (e instanceof CheckoutError) return json({ error: e.message }, 409);

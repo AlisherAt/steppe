@@ -26,12 +26,6 @@ export function Header() {
           <Link href="/sources" aria-current={pathname === '/sources' ? 'page' : undefined}>
             Магазины
           </Link>
-          <Link href="/brands" aria-current={pathname === '/brands' ? 'page' : undefined}>
-            Бренды
-          </Link>
-          <Link href="/about" aria-current={pathname === '/about' ? 'page' : undefined}>
-            Как это работает
-          </Link>
         </nav>
         <div className="header-right">
           <Link href="/login" className="account-link">
