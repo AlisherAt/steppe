@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next';
+import { productImageHosts } from './src/lib/manual-source';
 const imageHosts = (process.env.PRODUCT_IMAGE_HOSTS || '')
   .split(',')
   .map((s) => s.trim())
@@ -8,21 +9,7 @@ const config: NextConfig = {
   devIndicators: false,
   turbopack: { root: process.cwd() },
   images: {
-    remotePatterns: [
-      'images.unsplash.com',
-      'i.ebayimg.com',
-      'images.stockx.com',
-      'images.puma.com',
-      'assets.adidas.com',
-      'www.reebok.com',
-      'cdn.shopify.com',
-      'images.ctfassets.net',
-      'www.brooksrunning.com',
-      'www.skechers.com',
-      'images.skechers.com',
-      'www.fila.de',
-      ...imageHosts,
-    ].map((hostname) => ({
+    remotePatterns: [...new Set([...productImageHosts, ...imageHosts])].map((hostname) => ({
       protocol: 'https' as const,
       hostname,
     })),

@@ -40,9 +40,11 @@ export function orderableProduct(p: Product) {
     p.purchaseType === 'fixed' &&
     (p.market === 'US'
       ? p.warehouseCountry === 'US' ||
+        p.sourceId === 'manual-us' ||
         (p.sourceId.endsWith('-us') && Object.hasOwn(officialStores, p.sourceId))
       : p.market === 'EU' &&
         (EUROPE_COUNTRIES.includes(p.warehouseCountry || '') ||
+          p.sourceId === 'manual-eu' ||
           (p.sourceId.endsWith('-eu') && Object.hasOwn(officialStores, p.sourceId)))) &&
     !!p.sizePrices?.length &&
     p.sizes.length === p.sizePrices.length &&

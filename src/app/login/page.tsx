@@ -2,7 +2,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import Link from 'next/link';
 export default function LoginPage() {
-  const [user, setUser] = useState<{ username: string } | null>(null);
+  const [user, setUser] = useState<{ username: string; isAdmin?: boolean } | null>(null);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [register, setRegister] = useState(false);
@@ -63,6 +63,11 @@ export default function LoginPage() {
                 ? 'Вы вошли в аккаунт. Корзина сохраняется в этом браузере.'
                 : 'Сохраняй свой ритм. Находи свою пару.'}
             </p>
+            {user?.isAdmin && (
+              <Link href="/admin" className="button dark">
+                Управление товарами
+              </Link>
+            )}
             <form onSubmit={submit}>
               {!user && (
                 <>

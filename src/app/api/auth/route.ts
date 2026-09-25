@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth, AuthError, credentials } from '@/lib/server/auth';
+import { administrator } from '@/lib/server/admin-access';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 const cookie = process.env.NODE_ENV === 'production' ? '__Host-steppe_session' : 'steppe_session';
@@ -7,7 +8,10 @@ const json = (body: unknown, status = 200) =>
   NextResponse.json(body, { status, headers: { 'Cache-Control': 'no-store' } });
 export async function GET(req: NextRequest) {
   try {
-    return json({ user: await auth.user(req.cookies.get(cookie)?.value) });
+    const user = await auth.user(req.cookies.get(cookie)?.value);
+    return json({
+      user: user ? { ...user, isAdmin: Boolean(await administrator(user.username)) } : null,
+    });
   } catch {
     return json({ error: 'Вход временно недоступен. Попробуйте позже.' }, 503);
   }
@@ -58,7 +62,9 @@ export async function POST(req: NextRequest) {
       body.action === 'register',
     );
     await auth.logout(req.cookies.get(cookie)?.value);
-    const res = json({ user: result.user });
+    const res = json({
+      user: { ...result.user, isAdmin: Boolean(await administrator(result.user.username)) },
+    });
     res.cookies.set(cookie, result.token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

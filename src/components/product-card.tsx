@@ -20,8 +20,10 @@ export function ProductCard({
   const details = useRef<HTMLDialogElement>(null);
   const { add } = useStore();
   const selectedPrice = p.sizePrices?.find((v) => v.size === size)?.saleKzt ?? p.saleKzt;
-  const selectedSourcePrice = p.sizePrices?.find((v) => v.size === size)?.salePrice ?? p.salePrice;
-  const discount = p.originalPrice ? discountPercent(p.originalPrice, selectedSourcePrice) : 0;
+  const discount =
+    p.originalKzt !== null && p.originalKzt > selectedPrice
+      ? discountPercent(String(p.originalKzt), String(selectedPrice))
+      : 0;
   const pricePrefix = !size && new Set(p.sizePrices?.map((v) => v.saleKzt)).size > 1 ? 'от ' : '';
   function save() {
     if (p.sizes.length && !size) {
@@ -73,7 +75,9 @@ export function ProductCard({
             {pricePrefix}
             {formatKzt(selectedPrice)}
           </strong>
-          {p.originalKzt !== null && <del>{formatKzt(p.originalKzt)}</del>}
+          {p.originalKzt !== null && p.originalKzt > selectedPrice && (
+            <del>{formatKzt(p.originalKzt)}</del>
+          )}
         </div>
         {p.offerKind === 'retail' && (
           <p className="product-updated">
@@ -156,8 +160,10 @@ export function ProductCard({
             {pricePrefix}
             {formatKzt(selectedPrice)}
           </strong>
-          {p.originalKzt !== null && <del>{formatKzt(p.originalKzt)}</del>}
-          {p.discount > 0 && <span className="inline-discount">−{p.discount}%</span>}
+          {p.originalKzt !== null && p.originalKzt > selectedPrice && (
+            <del>{formatKzt(p.originalKzt)}</del>
+          )}
+          {discount > 0 && <span className="inline-discount">−{discount}%</span>}
         </div>
         <p>
           {genders[p.gender]} · {p.category} · {p.sourceName}

@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { db, databaseConfigured, databaseProvider } from '@/lib/server/db';
-import { seaStore } from '@/lib/server/seatable-store';
-import { orderableProduct } from '@/lib/orderable';
+import { databaseConfigured } from '@/lib/server/db';
 import { publicProduct } from '@/lib/public-product';
-import { offerVisible } from '@/lib/promotion';
+import { cartProducts } from '@/lib/server/cart-products';
 export async function POST(request: NextRequest) {
   if (Number(request.headers.get('content-length')) > 10000)
     return NextResponse.json({ error: 'Запрос слишком большой' }, { status: 413 });
@@ -19,29 +17,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Некорректная корзина' }, { status: 400 });
     if (!databaseConfigured())
       return NextResponse.json({ error: 'Каталог не подключён' }, { status: 503 });
-    if (databaseProvider() === 'seatable') {
-      const products = (await seaStore.liveProducts()).filter(
-        (p) => parsed.data.ids.includes(p.id) && orderableProduct(p),
-      );
-      return NextResponse.json(
-        { products: products.map(publicProduct) },
-        { headers: { 'Cache-Control': 'no-store' } },
-      );
-    }
-    const { data, error } = await db()
-      .from('offers')
-      .select('payload,updated_at,sources!inner(paused)')
-      .in('id', parsed.data.ids)
-      .eq('active', true)
-      .eq('sources.paused', false);
-    if (error) throw error;
+    const products = await cartProducts(parsed.data.ids);
     return NextResponse.json(
-      {
-        products: data
-          .filter((p) => offerVisible({ ...p.payload, updatedAt: p.updated_at }))
-          .filter((p) => orderableProduct(p.payload))
-          .map((p) => publicProduct(p.payload)),
-      },
+      { products: products.map(publicProduct) },
       { headers: { 'Cache-Control': 'no-store' } },
     );
   } catch {

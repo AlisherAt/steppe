@@ -15,7 +15,8 @@
     "check:rates": "tsx scripts/check-rates.ts",
     "seatable:setup": "tsx scripts/seatable-setup.ts --create",
     "seatable:check": "tsx scripts/seatable-setup.ts",
-    "check:kicks": "tsx scripts/check-kicks.ts"
+    "check:kicks": "tsx scripts/check-kicks.ts",
+    "admin:grant": "tsx scripts/admin-grant.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.0",
@@ -26,6 +27,7 @@
     "next": "^16.2.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "robots-parser": "^3.0.1",
     "server-only": "^0.0.1",
     "zod": "^4.3.6"
   },
@@ -37,7 +39,6 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "prettier": "^3.9.9",
-    "robots-parser": "^3.0.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vitest": "^4.1.11"
