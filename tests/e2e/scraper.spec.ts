@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { collectPumaDetails } from '../../scripts/puma-details.mjs';
+import { collectPumaDetails, sizeMap } from '../../scripts/puma-details.mjs';
+import { pumaListing } from '../../scripts/sale-catalog.mjs';
 import { extract, price } from '../../scripts/scraper-extract.mjs';
 import {
   collectFila,
@@ -127,4 +128,38 @@ test('Puma PDP: проверяет цену каждого выбранного 
     ['40', '49.99'],
   ]);
   expect(result.size_price_verified).toBe(true);
+});
+
+test('Puma: исходный HTML последней страницы сохраняет карточки, заменённые JavaScript магазина', async ({
+  page,
+}) => {
+  await page.setContent(
+    '<main><li data-test-id="product-list-item" data-product-id="111111_01">Другая страница</li></main>',
+  );
+  const result = await pumaListing(
+    page,
+    `<main><li data-test-id="product-list-item" data-product-id="377838_01"><a href="/us/en/pd/test-shoes/377838?swatch=01"></a><h2>Voyage</h2><h3>Men's Shoes</h3><img src="https://images.puma.com/test.jpg"></li></main>`,
+    { url: 'https://us.puma.com/us/en/sale/all-sale' },
+  );
+  expect(result.items).toHaveLength(1);
+  expect(result.items[0].sku).toBe('377838_01');
+  expect(result.items[0]).not.toHaveProperty('sale_price');
+  expect(result.next).toBeUndefined();
+});
+test('Puma: таблица размеров с заголовками в tbody без thead', async ({ page }) => {
+  await page.setContent(
+    '<table><tbody><tr><td><b>US</b></td><td><b>DE</b></td></tr><tr><td>9</td><td>42</td></tr></tbody></table><table hidden><thead><tr><th>US</th><th>DE</th></tr></thead></table>',
+  );
+  expect(await sizeMap(page)).toEqual({ '9': '42' });
+});
+
+test('Puma: общая размерная справка выбирает пол и допускает одинаковый повтор таблицы', async ({
+  page,
+}) => {
+  const table = (gender: string, eu: string) =>
+    `<div class="size-chart-section"><div class="sizeheading">${gender}'s Shoes</div><table><tr><th>US</th><th>DE</th></tr><tr><td>9</td><td>${eu}</td></tr></table></div>`;
+  await page.setContent(table('Men', '42') + table('Men', '42') + table('Women', '40.5'));
+  expect(await sizeMap(page, 'men')).toEqual({ '9': '42' });
+  expect(await sizeMap(page, 'women')).toEqual({ '9': '40.5' });
+  await expect(sizeMap(page, 'unisex')).rejects.toThrow('PUMA_AMBIGUOUS_SIZE_GUIDE');
 });

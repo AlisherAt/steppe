@@ -5,17 +5,12 @@ import { mkdir, writeFile, rename } from 'node:fs/promises';
 import { randomUUID, randomInt } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { sources, selectors } from './scraper-sources.mjs';
-import { collectPumaDetails } from './puma-details.mjs';
 import { collectAdidasDetails } from './adidas-details.mjs';
+import { collectSaleCatalog } from './sale-catalog.mjs';
+import { collectReebokPublicFeed } from './reebok-feed.mjs';
 import { extractPython } from './python-parsers.mjs';
 import { loadScraperProxy, fetchRobots, safeScraperError } from './scraper-proxy.mjs';
-import {
-  discoverRetail,
-  collectReebok,
-  collectOn,
-  collectBrooks,
-  collectFila,
-} from './retail-details.mjs';
+import { discoverRetail, collectOn, collectBrooks, collectFila } from './retail-details.mjs';
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export async function runScraper() {
   const proxy = await loadScraperProxy();
@@ -53,15 +48,12 @@ export async function runScraper() {
   };
   let browser;
   const maxSteps = Number(process.env.SCRAPER_MAX_STEPS || 20);
-  const detailLimit = Number(process.env.PUMA_DETAIL_LIMIT || 12);
   const adidasLimit = Number(process.env.ADIDAS_DETAIL_LIMIT || 6);
   if (!Number.isInteger(adidasLimit) || adidasLimit < 1 || adidasLimit > 20)
     throw Error('INVALID_ADIDAS_DETAIL_LIMIT');
-  if (!Number.isInteger(detailLimit) || detailLimit < 1 || detailLimit > 30)
-    throw Error('INVALID_PUMA_DETAIL_LIMIT');
   if (!Number.isInteger(maxSteps) || maxSteps < 1 || maxSteps > 60)
     throw Error('INVALID_SCRAPER_LIMIT');
-  const deadline = Date.now() + 15 * 60_000;
+  const deadline = Date.now() + 110 * 60_000;
   try {
     for (const source of selectedSources) {
       const entry = {
@@ -81,7 +73,7 @@ export async function runScraper() {
       let context, page;
       const sourceDeadline = Math.min(
         deadline,
-        Date.now() + (source.id === 'puma' ? 300000 : 180000),
+        Date.now() + (['puma', 'reebok'].includes(source.id) ? 45 * 60_000 : 180000),
       );
       try {
         const origin = new URL(source.url).origin;
@@ -112,6 +104,13 @@ export async function runScraper() {
         let blocked = '';
         await context.route('**/*', async (route) => {
           const req = route.request();
+          if (
+            ['puma', 'reebok'].includes(source.id) &&
+            ['image', 'media', 'font'].includes(req.resourceType())
+          ) {
+            await route.abort();
+            return;
+          }
           if (
             source.id === 'adidas' &&
             ['xhr', 'fetch'].includes(req.resourceType()) &&
@@ -149,7 +148,50 @@ export async function runScraper() {
         page.setDefaultNavigationTimeout(30000);
         const first = await page.goto(source.url, { waitUntil: 'domcontentloaded' });
         if (!first?.ok()) throw Error(`PAGE_HTTP_${first?.status() || 0}`);
-        if (['reebok', 'on', 'brooks', 'skechers', 'fila'].includes(source.id)) {
+        if (['puma', 'reebok'].includes(source.id)) {
+          const checkAccess = async () => {
+            if (blocked) throw Error(blocked);
+            if (
+              /access denied|verify (?:that )?you are human|unusual traffic|robot check|just a moment|verifying your browser|checking your browser/i.test(
+                (await page.locator('body').innerText()).slice(0, 16000),
+              )
+            )
+              throw Error('ACCESS_CHALLENGE');
+          };
+          const baseCount = report.products.length;
+          const collect = source.id === 'reebok' ? collectReebokPublicFeed : collectSaleCatalog;
+          const result = await collect(page, source, {
+            allowed,
+            checkAccess,
+            delay: Math.max(crawlDelay, 1500),
+            deadline: sourceDeadline,
+            initialHtml: await first.text(),
+            checkpoint: async (products, progress) => {
+              report.products.splice(baseCount, report.products.length - baseCount, ...products);
+              entry.count = products.length;
+              entry.status = 'partial';
+              Object.assign(entry, progress);
+              await save();
+            },
+          });
+          report.products.splice(baseCount, report.products.length - baseCount, ...result.products);
+          entry.count = result.products.length;
+          entry.status = result.complete
+            ? 'finished_observed_pages'
+            : result.products.length
+              ? 'partial'
+              : 'error';
+          if (!result.complete) entry.error = 'INCOMPLETE_COLLECTION';
+          Object.assign(entry, {
+            expected: result.expected,
+            observed: result.observed,
+            candidates: result.candidates,
+            attempted: result.attempted,
+            errors: result.errors,
+          });
+          continue;
+        }
+        if (['on', 'brooks', 'skechers', 'fila'].includes(source.id)) {
           await pause(Math.max(crawlDelay, 3500));
           const links = await discoverRetail(page, source);
           if (!links.length) throw Error('NO_PRODUCT_LINKS');
@@ -169,7 +211,6 @@ export async function runScraper() {
             throw Error('SIZE_REQUEST_ROBOTS_DISALLOWED');
           }
           const collector = {
-            reebok: collectReebok,
             on: collectOn,
             brooks: collectBrooks,
             fila: collectFila,
@@ -231,7 +272,6 @@ export async function runScraper() {
           ])
             found.set(`${p.sku}:${p.product_url}`, p);
           // Проверка размеров полезнее накопления сотни необработанных кандидатов.
-          if (source.id === 'puma' && found.size >= detailLimit) break;
           if (source.id === 'adidas' && found.size >= adidasLimit) break;
           if (process.env.PYTHON_SALE_PARSERS === '1' && source.id !== 'puma' && found.size >= 6)
             break;
@@ -264,8 +304,8 @@ export async function runScraper() {
           break;
         }
         const products = [...found.values()].slice(0, 100);
-        if (source.id === 'puma' || source.id === 'adidas') {
-          const limit = source.id === 'adidas' ? adidasLimit : detailLimit;
+        if (source.id === 'adidas') {
+          const limit = adidasLimit;
           const checkAccess = async () => {
             if (blocked) throw Error(blocked);
             const text = (await page.locator('body').innerText()).slice(0, 16000);
@@ -286,8 +326,7 @@ export async function runScraper() {
                 waitUntil: 'domcontentloaded',
               });
               if (!response?.ok()) throw Error(`PAGE_HTTP_${response?.status() || 0}`);
-              const collector = source.id === 'adidas' ? collectAdidasDetails : collectPumaDetails;
-              products[index] = await collector(page, candidate, {
+              products[index] = await collectAdidasDetails(page, candidate, {
                 checkAccess,
                 delay: Math.max(crawlDelay, 2500),
                 deadline: sourceDeadline,

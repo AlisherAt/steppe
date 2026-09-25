@@ -110,7 +110,7 @@ async function main() {
     );
     state.stage = 'scraping';
     await save();
-    await runChild(['scripts/scrape-sales.mjs'], 21 * 60_000);
+    await runChild(['scripts/scrape-sales.mjs'], 115 * 60_000);
     const raw = await readFile(resolve(root, 'artifacts/scraper.json'), 'utf8');
     const report = JSON.parse(raw);
     if (

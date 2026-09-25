@@ -19,7 +19,7 @@ export const scrapeReportSchema = z.object({
           'no_valid_products',
           'error',
         ]),
-        count: z.number().int().min(0).max(100),
+        count: z.number().int().min(0).max(1500),
         error: z.string().max(200).optional(),
       }),
     )
@@ -117,7 +117,7 @@ export async function scrapeSummary() {
   const parsed = scrapeReportSchema
     .extend({
       collectedCount: z.number().int().min(0).max(1500).optional(),
-      verifiedCount: z.number().int().min(0).max(100).optional(),
+      verifiedCount: z.number().int().min(0).max(1500).optional(),
     })
     .safeParse(JSON.parse(String(latest.payload)));
   if (!parsed.success) return null;

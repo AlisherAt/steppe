@@ -12,7 +12,7 @@ $triggers = @(
     New-ScheduledTaskTrigger -Daily -At '10:00'
     New-ScheduledTaskTrigger -Daily -At '21:00'
 )
-$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -RunOnlyIfNetworkAvailable -MultipleInstances IgnoreNew -ExecutionTimeLimit (New-TimeSpan -Minutes 40) -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
+$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -RunOnlyIfNetworkAvailable -MultipleInstances IgnoreNew -ExecutionTimeLimit (New-TimeSpan -Minutes 125) -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
 $userId = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 $principal = New-ScheduledTaskPrincipal -UserId $userId -LogonType Interactive -RunLevel Limited
 Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $triggers -Settings $settings -Principal $principal -Description 'STEPPE catalog: daily 10:00 and 21:00, Windows local time. Public scraping, upload, refresh.' -Force | Out-Null

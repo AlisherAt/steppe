@@ -1,8 +1,12 @@
 export const sources = [
   ['nike', 'Nike', 'https://www.nike.com/w/sale-shoes-3yaepzy7ok'],
   ['adidas', 'Adidas', 'https://www.adidas.com/us/shoes-sale'],
-  ['puma', 'Puma', 'https://us.puma.com/us/en/sale/all-sale'],
-  ['reebok', 'Reebok', 'https://www.reebok.com/collections/sale'],
+  [
+    'puma',
+    'Puma',
+    'https://us.puma.com/us/en/sale/all-sale?filter_gender=%3E{men;women}&filter_product_division=%3E{shoes}&filter_sport_type=%3E{running;training}',
+  ],
+  ['reebok', 'Reebok', 'https://www.reebok.com/collections/sale?current=1'],
   ['newbalance', 'New Balance', 'https://www.newbalance.com/sale/'],
   ['asics', 'ASICS', 'https://www.asics.com/us/en-us/sale/c/aa60000000/'],
   ['converse', 'Converse', 'https://www.converse.com/shop/sale-shoes'],
