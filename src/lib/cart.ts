@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { Product } from './types';
+import { roundCustomerPrice } from './selling-price';
 export const CART_KEY = 'steppe.cart.v1';
 const httpsUrl = z
   .string()
@@ -45,7 +46,11 @@ export function readCart(storage: Pick<Storage, 'getItem'>): CartItem[] {
   try {
     const value = JSON.parse(storage.getItem(CART_KEY) || 'null');
     if (value?.version !== 1) return [];
-    return z.array(itemSchema).max(50).parse(value.items);
+    return z
+      .array(itemSchema)
+      .max(50)
+      .parse(value.items)
+      .map((item) => (item.demo ? item : { ...item, saleKzt: roundCustomerPrice(item.saleKzt) }));
   } catch {
     return [];
   }

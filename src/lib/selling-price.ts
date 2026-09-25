@@ -1,15 +1,21 @@
 import Decimal from 'decimal.js';
 import type { Product } from './types';
 
+export const CUSTOMER_PRICE_STEP = 500;
+
+// Округляем уже рассчитанную цену, без повторного начисления наценки.
+export function roundCustomerPrice(amount: number | Decimal): number {
+  const price = new Decimal(amount);
+  if (!price.isFinite() || price.lte(0)) throw Error('INVALID_COST');
+  const rounded = price.div(CUSTOMER_PRICE_STEP).ceil().mul(CUSTOMER_PRICE_STEP);
+  if (rounded.gt(Number.MAX_SAFE_INTEGER)) throw Error('INVALID_COST');
+  return rounded.toNumber();
+}
+
 export function sellingPrice(costKzt: number): number {
   if (!Number.isSafeInteger(costKzt) || costKzt <= 0) throw Error('INVALID_COST');
   const cost = new Decimal(costKzt);
-  const result = (cost.lt(20000) ? cost.plus(3000) : cost.mul('1.12')).toDecimalPlaces(
-    0,
-    Decimal.ROUND_HALF_UP,
-  );
-  if (result.gt(Number.MAX_SAFE_INTEGER)) throw Error('INVALID_COST');
-  return result.toNumber();
+  return roundCustomerPrice(cost.lt(20000) ? cost.plus(3000) : cost.mul('1.12'));
 }
 
 export function withSellingPrices(p: Product): Product {

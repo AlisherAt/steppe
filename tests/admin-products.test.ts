@@ -66,9 +66,9 @@ const input = (draftId: string) => ({
 });
 
 describe('selling prices', () => {
-  it('applies the threshold and rounds whole tenge', () => {
+  it('applies the threshold then rounds upward to 500 tenge', () => {
     expect([15000, 19999, 20000, 25000, 20004, 20005].map(sellingPrice)).toEqual([
-      18000, 22999, 22400, 28000, 22404, 22406,
+      18000, 23000, 22500, 28000, 22500, 22500,
     ]);
     for (const cost of [0, -1, NaN, Infinity, 15.2, Number.MAX_SAFE_INTEGER])
       expect(() => sellingPrice(cost)).toThrow();
@@ -174,7 +174,7 @@ describe('manual publication and deletion', () => {
     expect(result.name).toBe('Моя модель');
     expect(result.sizes).toEqual(['EU 42']);
     expect(result.saleKzt).toBe(30000);
-    expect(withSellingPrices(result).saleKzt).toBe(33600);
+    expect(withSellingPrices(result).saleKzt).toBe(34000);
   });
 });
 describe('link import', () => {
