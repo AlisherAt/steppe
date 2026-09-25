@@ -14,6 +14,8 @@ test('Доступность новых страниц брендов и маг�
 test('Контраст, подписи, семантика каталога и фокус корзины', async ({ page }) => {
   await page.goto('/?mode=demo');
   await expect(page.locator('.product-card')).toHaveCount(8);
+  // Проверяем контраст после завершения появления текста, а не на промежуточной прозрачности.
+  await expect(page.locator('.hero-footnote')).toHaveCSS('opacity', '1');
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
     .analyze();

@@ -15,12 +15,14 @@ import {
   MoveUpRight,
   ChevronLeft,
   ChevronRight,
+  Sparkles,
 } from 'lucide-react';
 import { defaultFilters, type CatalogResult, type Filters } from '@/lib/types';
 import { filterParams, filtersSchema } from '@/lib/catalog';
 import { ProductCard } from './product-card';
 import { catalogBrands as brandNames } from '@/lib/catalog-policy';
 import { demoEnabled } from '@/lib/catalog-mode';
+import { formatKzt } from '@/lib/money';
 export function Catalog({
   initial,
   initialMode,
@@ -37,6 +39,7 @@ export function Catalog({
   const [mobileFilters, setMobileFilters] = useState(false);
   const [hydrated, setHydrated] = useState(false);
   const [brandQuery, setBrandQuery] = useState('');
+  const [heroImageFailed, setHeroImageFailed] = useState(false);
   const visibleBrands = [...new Set([...result.facets.brands, ...filters.brands, ...brandNames])]
     .filter((b) => mode === 'demo' || brandNames.includes(b))
     .filter((b) => b.toLocaleLowerCase('ru').includes(brandQuery.toLocaleLowerCase('ru')))
@@ -46,6 +49,21 @@ export function Catalog({
         a.localeCompare(b),
     );
   const section = useRef<HTMLElement>(null);
+  const filterDialog = useRef<HTMLDialogElement>(null);
+  const heroProduct = initial.products.find((p) => brandNames.includes(p.brand) && p.imageUrl);
+  useEffect(() => {
+    const dialog = filterDialog.current;
+    if (mobileFilters && dialog && !dialog.open) dialog.showModal();
+    else if (!mobileFilters && dialog?.open) dialog.close();
+  }, [mobileFilters]);
+  useEffect(() => {
+    const desktop = matchMedia('(min-width: 761px)');
+    const close = () => {
+      if (desktop.matches) setMobileFilters(false);
+    };
+    desktop.addEventListener('change', close);
+    return () => desktop.removeEventListener('change', close);
+  }, []);
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const parsed = filtersSchema.safeParse(Object.fromEntries(params));
@@ -132,6 +150,11 @@ export function Catalog({
   }, [mode]);
   function update<K extends keyof Filters>(key: K, value: Filters[K]) {
     setFilters((prev) => ({ ...prev, [key]: value, page: key === 'page' ? Number(value) : 1 }));
+  }
+  function scrollToCatalog() {
+    section.current?.scrollIntoView({
+      behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    });
   }
   function toggle(key: 'brands' | 'sizes' | 'sources', value: string) {
     update(
@@ -331,72 +354,84 @@ export function Catalog({
     </>
   );
   return (
-    <main id="main-content">
+    <main id="main-content" className="storefront">
       <section className="hero">
         <div className="hero-copy">
           <span className="eyebrow">
-            <span className="tiny-star">✳</span> ТВОЯ СЛЕДУЮЩАЯ ПАРА — ЗДЕСЬ
+            <span className="hero-status-dot" /> PUMA + REEBOK / США → КАЗАХСТАН
           </span>
           <h1>
-            Большой стиль.
+            Твой ритм.
             <br />
-            <span>Больше выбора.</span>
+            <span>Твоя пара.</span>
           </h1>
           <p>
-            Кроссовки Puma и Reebok из магазинов США.
-            <br />В одном месте. В тенге. Для твоего ритма.
+            На пробежку, тренировку и просто по своим делам.
+            <br />
+            Находи свою пару по приятной цене.
           </p>
           <a href="#catalog" className="hero-link">
-            Найти свою пару <ArrowDown size={18} />
+            Смотреть кроссовки <ArrowUpRight size={20} />
           </a>
+          <div className="hero-footnote">
+            <span>01 / 02</span> Два бренда. Сотни способов быть собой.
+          </div>
         </div>
         <div className="hero-visual">
-          <Image
-            src={
-              initial.products.find((p) => brandNames.includes(p.brand) && p.imageUrl)?.imageUrl ||
-              'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1000,h_1000/global/312060/14/sv01/fnd/PNA/fmt/png'
-            }
-            alt="Кроссовки из коллекции Puma и Reebok"
-            fill
-            priority
-            sizes="(max-width: 700px) 100vw, 48vw"
-          />
-          <div className="hero-image-label">
-            БОЛЬШЕ ДВИЖЕНИЯ.
-            <br />
-            БОЛЬШЕ ТЕБЯ.
-          </div>
-          <span className="hero-sticker">
-            НАЙДИ
-            <br />
-            СВОЮ
-            <br />
-            <strong>ПАРУ ↗</strong>
+          <span className="hero-outline" aria-hidden="true">
+            STEPPE
           </span>
-          <span className="hero-photo-note">Фотография для вдохновения</span>
+          <span className="hero-orbit" aria-hidden="true" />
+          {heroProduct?.imageUrl && !heroImageFailed && (
+            <Image
+              src={heroProduct.imageUrl}
+              alt="Кроссовки из коллекции Puma и Reebok"
+              fill
+              priority
+              sizes="(max-width: 700px) 100vw, 48vw"
+              onError={() => setHeroImageFailed(true)}
+            />
+          )}
+          <div className="hero-image-label">
+            <Sparkles size={16} /> ВЫБИРАЙ СВОЙ РИТМ
+          </div>
+          <span className="hero-sticker" aria-hidden="true">
+            ХОРОШИЙ
+            <br />
+            <strong>ХОД ↗</strong>
+          </span>
+          {heroProduct && (
+            <a className="hero-product-note" href="#catalog">
+              <span>
+                {heroProduct.brand} / {heroProduct.name}
+              </span>
+              <strong>от {formatKzt(heroProduct.saleKzt)}</strong>
+              <ArrowDown size={18} />
+            </a>
+          )}
         </div>
       </section>
       <div className="benefits">
         <span>
           <Search size={17} />
-          Все находки в одном месте
+          Puma + Reebok
         </span>
         <span>
           <Clock3 size={17} />
-          Проверка дважды в день*
+          Обновления дважды в день
         </span>
         <span>
           <ShieldCheck size={17} />
-          Покупка на сайте магазина
+          Заказ через WhatsApp
         </span>
         <Link href="/sources">
-          * После подключения источников <ArrowUpRight size={13} />
+          Как обновляем каталог <ArrowUpRight size={13} />
         </Link>
       </div>
       <section id="catalog" ref={section} className="catalog-section">
         <div className="catalog-heading">
           <div>
-            <span className="eyebrow">МЕНЬШЕ ТРАТЬ. БОЛЬШЕ НОСИ.</span>
+            <span className="eyebrow">ТВОЯ СЛЕДУЮЩАЯ НАХОДКА</span>
             <h2>
               Лови свою пару<span className="heading-dot">.</span>
             </h2>
@@ -426,6 +461,37 @@ export function Catalog({
             </div>
           )}
         </div>
+        <div className="quick-filters" aria-label="Быстрые фильтры">
+          <div className="brand-switch" aria-label="Бренд">
+            <button aria-pressed={!filters.brands.length} onClick={() => update('brands', [])}>
+              Все пары
+            </button>
+            {brandNames.map((brand) => (
+              <button
+                key={brand}
+                aria-pressed={filters.brands.length === 1 && filters.brands[0] === brand}
+                onClick={() => update('brands', [brand])}
+              >
+                {brand}
+                <ArrowUpRight size={14} />
+              </button>
+            ))}
+          </div>
+          <button
+            className="budget-chip"
+            aria-pressed={filters.maxPrice === 30000}
+            onClick={() =>
+              setFilters((f) => ({
+                ...f,
+                minPrice: 0,
+                maxPrice: f.maxPrice === 30000 ? 1000000 : 30000,
+                page: 1,
+              }))
+            }
+          >
+            До 30 000 ₸ <Sparkles size={15} />
+          </button>
+        </div>
         {mode === 'demo' && (
           <div className="demo-notice">
             <span className="demo-pill">ДЕМО</span>
@@ -440,7 +506,7 @@ export function Catalog({
             <Search size={20} />
             <input
               aria-label="Поиск кроссовок"
-              placeholder="Бренд, модель или настроение…"
+              placeholder="Найди модель: Nano, NITRO, Classic…"
               value={filters.q}
               onChange={(e) => update('q', e.target.value)}
               maxLength={100}
@@ -459,6 +525,7 @@ export function Catalog({
             className="mobile-filter-button"
             onClick={() => setMobileFilters(!mobileFilters)}
             aria-expanded={mobileFilters}
+            aria-controls="mobile-filters"
           >
             <SlidersHorizontal size={18} />
             Фильтры{activeCount ? ` (${activeCount})` : ''}
@@ -478,14 +545,8 @@ export function Catalog({
           </label>
         </div>
         <div className="catalog-layout">
-          <aside
-            className={`filters ${mobileFilters ? 'mobile-open' : ''}`}
-            aria-label="Фильтры каталога"
-          >
+          <aside className="filters" aria-label="Фильтры каталога">
             {controls}
-            <button className="button dark mobile-apply" onClick={() => setMobileFilters(false)}>
-              Показать результаты
-            </button>
           </aside>
           <div className="catalog-results" aria-busy={loading}>
             <div className="results-heading">
@@ -571,7 +632,7 @@ export function Catalog({
                   aria-label="Следующая страница"
                   onClick={() => {
                     update('page', filters.page + 1);
-                    section.current?.scrollIntoView({ behavior: 'smooth' });
+                    scrollToCatalog();
                   }}
                 >
                   <ChevronRight />
@@ -586,6 +647,42 @@ export function Catalog({
           </div>
         </div>
       </section>
+      <dialog
+        id="mobile-filters"
+        ref={filterDialog}
+        className="filter-dialog"
+        aria-labelledby="mobile-filters-title"
+        onClose={() => setMobileFilters(false)}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) setMobileFilters(false);
+        }}
+      >
+        <div className="dialog-header">
+          <h2 id="mobile-filters-title">Твоя идеальная пара</h2>
+          <button
+            className="icon-button"
+            aria-label="Закрыть фильтры"
+            onClick={() => setMobileFilters(false)}
+          >
+            <X size={22} />
+          </button>
+        </div>
+        <div className="mobile-filter-content">{controls}</div>
+        <div className="filter-dialog-footer">
+          <button className="filter-clear" onClick={() => setFilters(defaultFilters)}>
+            Сбросить все
+          </button>
+          <button
+            className="button dark"
+            onClick={() => {
+              setMobileFilters(false);
+              scrollToCatalog();
+            }}
+          >
+            Показать результаты <ArrowRight size={18} />
+          </button>
+        </div>
+      </dialog>
     </main>
   );
 }

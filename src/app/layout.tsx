@@ -4,6 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { StoreProvider } from '@/components/store-provider';
 import { Header } from '@/components/header';
 import './globals.css';
+import './storefront.css';
 export const metadata: Metadata = {
   title: 'STEPPE — цены на кроссовки магазинов США и Европы',
   description:
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru">
+    <html lang="ru" data-scroll-behavior="smooth">
       <body>
         <StoreProvider>
           <a className="skip-link" href="#main-content">

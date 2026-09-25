@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
-import { ArrowUpRight, Plus, X, ShoppingBag } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight, Plus, X, ShoppingBag, Check } from 'lucide-react';
 import type { Product } from '@/lib/types';
 import { sizeLabel } from '@/lib/official-stores';
 import { formatKzt, formatDate, discountPercent } from '@/lib/money';
@@ -18,6 +18,12 @@ export function ProductCard({
   const [size, setSize] = useState('');
   const [error, setError] = useState('');
   const [imageError, setImageError] = useState(false);
+  const [added, setAdded] = useState(false);
+  useEffect(() => {
+    if (!added) return;
+    const timer = setTimeout(() => setAdded(false), 1800);
+    return () => clearTimeout(timer);
+  }, [added]);
   const details = useRef<HTMLDialogElement>(null);
   const { add } = useStore();
   const description = productDescription(p);
@@ -33,6 +39,7 @@ export function ProductCard({
       return;
     }
     add(p, size);
+    setAdded(true);
     setError('');
   }
   return (
@@ -115,9 +122,13 @@ export function ProductCard({
               </option>
             ))}
           </select>
-          <button className="add-button" onClick={save} aria-label={`Добавить ${p.name} в корзину`}>
-            <Plus size={19} />
-            <span>В корзину</span>
+          <button
+            className={`add-button ${added ? 'is-added' : ''}`}
+            onClick={save}
+            aria-label={`Добавить ${p.name} в корзину`}
+          >
+            {added ? <Check size={19} /> : <Plus size={19} />}
+            <span>{added ? 'Добавлено' : 'В корзину'}</span>
           </button>
         </div>
         {error && (
