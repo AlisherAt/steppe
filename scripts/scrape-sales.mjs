@@ -8,6 +8,7 @@ import { sources, selectors } from './scraper-sources.mjs';
 import { collectPumaDetails } from './puma-details.mjs';
 import { collectAdidasDetails } from './adidas-details.mjs';
 import { extractPython } from './python-parsers.mjs';
+import { loadScraperProxy, fetchRobots, safeScraperError } from './scraper-proxy.mjs';
 import {
   discoverRetail,
   collectReebok,
@@ -17,6 +18,8 @@ import {
 } from './retail-details.mjs';
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export async function runScraper() {
+  const proxy = await loadScraperProxy();
+  const errorText = (error) => safeScraperError(error, proxy);
   const selectedIds = (process.env.SCRAPER_SOURCE_IDS || '')
     .split(',')
     .map((id) => id.trim())
@@ -83,13 +86,10 @@ export async function runScraper() {
       try {
         const origin = new URL(source.url).origin;
         const robotsURL = origin + '/robots.txt';
-        const response = await fetch(robotsURL, {
-          headers: { 'User-Agent': 'SteppeSaleCollector/1.0' },
-          redirect: 'error',
-          signal: AbortSignal.timeout(15000),
-        });
-        if (!response.ok && response.status !== 404) throw Error(`ROBOTS_HTTP_${response.status}`);
-        const body = response.status === 404 ? '' : await response.text();
+        const response = await fetchRobots(robotsURL, proxy);
+        if ((response.status < 200 || response.status >= 300) && response.status !== 404)
+          throw Error(`ROBOTS_HTTP_${response.status}`);
+        const body = response.body;
         if (body.length > 1_000_000 || /^\s*</.test(body)) throw Error('INVALID_ROBOTS');
         const robots = robotsParser(robotsURL, body);
         const allowed = (url) =>
@@ -104,6 +104,7 @@ export async function runScraper() {
         browser ||= await chromium.launch({ headless: true });
         // Не маскируем автоматизацию и не используем stealth/CAPTCHA-сервисы.
         context = await browser.newContext({
+          ...(proxy ? { proxy } : {}),
           locale: 'en-US',
           viewport: { width: 1440, height: 1000 },
           serviceWorkers: 'block',
@@ -155,7 +156,7 @@ export async function runScraper() {
           const checkAccess = async () => {
             if (blocked) throw Error(blocked);
             if (
-              /access denied|verify (?:that )?you are human|unusual traffic|robot check|just a moment/i.test(
+              /access denied|verify (?:that )?you are human|unusual traffic|robot check|just a moment|verifying your browser|checking your browser/i.test(
                 (await page.locator('body').innerText()).slice(0, 16000),
               )
             )
@@ -194,7 +195,7 @@ export async function runScraper() {
                 JSON.stringify({ source: source.id, sku: p.sku, verifiedSizes: p.variants.length }),
               );
             } catch (error) {
-              entry.error = String(error.message).slice(0, 160);
+              entry.error = errorText(error);
               console.log(JSON.stringify({ source: source.id, detailError: entry.error }));
               await mkdir('artifacts/diagnostics', { recursive: true });
               await page
@@ -217,7 +218,7 @@ export async function runScraper() {
           if (blocked) throw Error(blocked);
           const bodyText = (await page.locator('body').innerText()).slice(0, 12000);
           if (
-            /access denied|verify (?:that )?you are human|unusual traffic|robot check|just a moment/i.test(
+            /access denied|verify (?:that )?you are human|unusual traffic|robot check|just a moment|verifying your browser|checking your browser/i.test(
               bodyText,
             ) ||
             (await page.locator('iframe[src*="captcha"]:visible, [id*="captcha"]:visible').count())
@@ -269,7 +270,7 @@ export async function runScraper() {
             if (blocked) throw Error(blocked);
             const text = (await page.locator('body').innerText()).slice(0, 16000);
             if (
-              /access denied|verify (?:that )?you are human|unusual traffic|robot check|just a moment/i.test(
+              /access denied|verify (?:that )?you are human|unusual traffic|robot check|just a moment|verifying your browser|checking your browser/i.test(
                 text,
               )
             )
@@ -300,12 +301,12 @@ export async function runScraper() {
               );
             } catch (error) {
               if (/HTTP_40[13]|HTTP_429|ACCESS_|DISALLOWED/.test(String(error.message)))
-                blocked = String(error.message).slice(0, 160);
+                blocked = errorText(error);
               console.log(
                 JSON.stringify({
                   source: source.id,
                   sku: products[index].sku,
-                  detailError: String(error.message).slice(0, 160),
+                  detailError: errorText(error),
                 }),
               );
               await mkdir('artifacts/diagnostics', { recursive: true });
@@ -330,7 +331,7 @@ export async function runScraper() {
               await pause(Math.max(crawlDelay, 1500));
               if (
                 blocked ||
-                /access denied|verify (?:that )?you are human|unusual traffic|robot check|just a moment/i.test(
+                /access denied|verify (?:that )?you are human|unusual traffic|robot check|just a moment|verifying your browser|checking your browser/i.test(
                   (await page.locator('body').innerText()).slice(0, 16000),
                 )
               )
@@ -341,7 +342,7 @@ export async function runScraper() {
               candidate.sku ||= detail.sku;
               candidate.size_candidates = detail.size_candidates;
             } catch (error) {
-              entry.error = String(error.message).slice(0, 160);
+              entry.error = errorText(error);
               if (/HTTP_40[13]|HTTP_429|ACCESS_|DISALLOWED/.test(entry.error)) {
                 blocked = entry.error;
                 break;
@@ -358,7 +359,7 @@ export async function runScraper() {
         if (!entry.count && !blocked) entry.status = 'no_valid_products';
       } catch (error) {
         entry.status = 'error';
-        entry.error = String(error.message).slice(0, 200);
+        entry.error = errorText(error);
         await mkdir('artifacts/diagnostics', { recursive: true });
         await page?.screenshot({ path: `artifacts/diagnostics/${source.id}.png` }).catch(() => {});
       } finally {

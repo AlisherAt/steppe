@@ -41,6 +41,7 @@ jobs:
           SCRAPER_PERMISSIONS_JSON: ${{ vars.SCRAPER_PERMISSIONS_JSON || '{}' }}
           SCRAPER_SOURCE_IDS: ${{ inputs.sources || '' }}
           PYTHON_SALE_PARSERS: '1'
+          SCRAPER_PROXY_URL: ${{ secrets.SCRAPER_PROXY_URL }}
         run: node scripts/scrape-sales.mjs
       - name: Передать результат на сайт
         env:

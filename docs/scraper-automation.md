@@ -19,6 +19,28 @@ GitHub Actions → «Обновить каталог STEPPE» запускает
 
 ## Проверка
 
+### Подключение прокси
+
+Сборщик поддерживает `SCRAPER_PROXY_URL`: `http://host:port`,
+`http://user:password@host:port`, `https://host:port` или `socks5://host:port`.
+Спецсимволы в логине/пароле должны быть URL-encoded. Проверка TLS остаётся включённой.
+Это настройка Playwright, не системные `HTTP_PROXY`/`HTTPS_PROXY`.
+
+Для локального списка задайте `SCRAPER_PROXY_FILE` (один адрес на строку)
+и `SCRAPER_PROXY_INDEX` (с нуля, после удаления повторов). Нельзя задавать файл и URL
+одновременно. `node scripts/check-scraper-proxies.mjs` проверяет весь файл на доступ
+к `https://example.com/` и сохраняет индексы результатов в `artifacts/proxy-check.json`.
+Проверка HTTPS не подтверждает страну IP, доступ к магазинам или постоянную работоспособность.
+Список храните вне репозитория либо в игнорируемой папке `artifacts/`.
+
+В GitHub Actions используется Secret `SCRAPER_PROXY_URL` с проверенным адресом.
+Пустой Secret сохраняет прямое подключение. Прокси применяется к robots.txt и
+браузеру сборщика; запросы загрузки отчёта, SeaTable и секреты STEPPE через него не идут.
+Один адрес используется на весь запуск: при CAPTCHA/403/429 прокси не меняется,
+а недоступность настроенного прокси не приводит к скрытому прямому подключению.
+Локальные команды автоматически `.env.local` не читают: задайте переменные в оболочке
+или используйте `node --env-file=.env.local scripts/scrape-sales.mjs`.
+
 `node scripts/scrape-sales.mjs` — выполнить проверку всех сайтов и сохранить artifacts/scraper.json.
 
 `node scripts/upload-scrape-report.mjs` — передать отчёт (CRON_SECRET должен быть в окружении).
