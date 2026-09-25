@@ -7,6 +7,7 @@ import { sizeLabel } from '@/lib/official-stores';
 import { formatKzt, formatDate, discountPercent } from '@/lib/money';
 import { useStore } from './store-provider';
 import { productDescription } from '@/lib/product-description';
+import { SizeGuide } from './size-guide';
 const genders = { men: 'Мужские', women: 'Женские', unisex: 'Унисекс', kids: 'Детские' };
 export function ProductCard({
   product: p,
@@ -98,6 +99,14 @@ export function ProductCard({
         {p.offerKind === 'market' && (
           <p className="product-updated">Рынок США · цена зависит от размера</p>
         )}
+        <SizeGuide
+          product={p}
+          selected={size}
+          onSelect={(value) => {
+            setSize(value);
+            setError('');
+          }}
+        />
         <div className="size-row">
           <label className="sr-only" htmlFor={`size-${p.id}`}>
             Размер {p.name}

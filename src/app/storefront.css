@@ -1194,3 +1194,154 @@ dialog::backdrop {
     scroll-behavior: auto !important;
   }
 }
+
+/* Помощник размеров: исходный вариант остаётся ключом заказа. */
+.size-guide-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 0;
+  margin: 4px 0;
+  border: 0;
+  background: transparent;
+  color: #414b3c;
+  font-size: 12px;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.size-guide-trigger:hover {
+  color: #161e11;
+}
+.size-guide-dialog {
+  width: min(620px, calc(100vw - 24px));
+  max-height: calc(100dvh - 32px);
+  padding: 26px;
+  border: 1px solid #d8ddcf;
+  border-radius: 24px;
+  background: #fbfcf7;
+  color: #20251e;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.size-guide-dialog .dialog-header {
+  gap: 12px;
+}
+.size-guide-dialog .eyebrow {
+  font-size: 10px;
+  line-height: 1.6;
+}
+.size-guide-dialog h2 {
+  font-size: clamp(24px, 5vw, 32px);
+  letter-spacing: -1px;
+  line-height: 1.12;
+  margin: 16px 0 8px;
+}
+.size-guide-dialog p {
+  font-size: 13px;
+  line-height: 1.6;
+}
+.size-guide-model {
+  color: #535d4c;
+  margin: 0 0 16px;
+}
+.size-guide-note {
+  background: #edf0e5;
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+.size-guide-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+  margin-top: 18px;
+}
+.size-guide-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.size-guide-table caption {
+  text-align: left;
+  padding: 0 0 10px;
+  font-size: 12px;
+  color: #535d4c;
+}
+.size-guide-table th {
+  background: #232b20;
+  color: #fff;
+  padding: 10px 8px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.size-guide-table td {
+  padding: 8px;
+  border-bottom: 1px solid #dfe3d6;
+}
+.size-guide-table tr.is-selected {
+  background: #e0f0b6;
+}
+.size-guide-table button {
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 1px solid #c1cbb4;
+  border-radius: 9px;
+  background: #f2f6e7;
+  color: #283321;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+}
+.size-guide-table button:hover,
+.size-guide-table button[aria-pressed='true'] {
+  background: #d2ed98;
+  border-color: #738955;
+}
+.size-guide-table button svg {
+  vertical-align: middle;
+}
+.size-guide-table button small {
+  display: block;
+  font-size: 10px;
+  margin-top: 2px;
+}
+.size-guide-measure {
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid #d8ddcf;
+  border-radius: 12px;
+}
+.size-guide-measure summary {
+  cursor: pointer;
+  font-weight: 650;
+  font-size: 13px;
+}
+.size-guide-measure ol {
+  padding-left: 20px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.size-guide-measure li + li {
+  margin-top: 8px;
+}
+.size-guide-dialog .size-guide-caption {
+  color: #535d4c;
+  font-size: 11px;
+  margin-bottom: 0;
+}
+@media (max-width: 480px) {
+  .size-guide-dialog {
+    padding: 18px 14px;
+    border-radius: 18px;
+  }
+  .size-guide-table th,
+  .size-guide-table td {
+    padding: 8px 5px;
+  }
+  .size-guide-table button {
+    padding: 6px;
+  }
+}
