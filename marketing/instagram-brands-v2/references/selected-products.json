@@ -1,0 +1,24 @@
+{
+  "products": [
+    {
+      "id": "ff583738e473c1b03a9c98bb28ccf1a857579b7e2207b5832cecf72f261fcf1c",
+      "brand": "Puma",
+      "name": "Velocity NITRO™ 4 Men's Road Running Shoes",
+      "gender": "men",
+      "sku": "311140_17",
+      "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/311140/17/sv01/fnd/PNA/fmt/png/Velocity-NITRO™-4-Men's-Road-Running-Shoes",
+      "sizeCount": 12
+    },
+    {
+      "id": "2a7572a20ed77fcf60a22b2dc9dd4cc2ae93d435bb72e7c978f11cd6803cc5c1",
+      "brand": "Reebok",
+      "name": "Club C Grounds UK Shoes",
+      "gender": "women",
+      "sku": "100256877",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100256877_SLC_eCom.jpg?v=1764594758",
+      "sizeCount": 5
+    }
+  ],
+  "catalog": "https://steppe-gray.vercel.app/",
+  "checkedAt": "2026-09-25T18:40:42.0058835Z"
+}
