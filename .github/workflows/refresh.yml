@@ -1,5 +1,8 @@
 name: Обновить каталог STEPPE
 on:
+  schedule:
+    # 10:00 и 21:00 Москва (UTC+3), одновременно с задачей Windows.
+    - cron: '0 7,18 * * *'
   workflow_dispatch:
     inputs:
       sources:

@@ -2,6 +2,7 @@ import { pumaVerifiedSchema } from '../puma';
 import { feedProductSchema, type FeedProduct, type SourceAdapter } from './adapters';
 import { seaClient } from './seatable-client';
 import { IntegrationError } from './http';
+import { selectScrapeSnapshot } from './scrape-snapshot';
 
 export function pumaFeedProduct(raw: unknown, now = Date.now()): FeedProduct | null {
   const parsed = pumaVerifiedSchema.safeParse(raw);
@@ -53,27 +54,8 @@ export class PumaAdapter implements SourceAdapter {
   }
   async fetchProducts() {
     const rows = await seaClient.rows('STEPPE_Scrapes');
-    const latest = rows
-      .filter((r) => !String(r.id).includes(':'))
-      .sort((a, b) => String(b.checked_at).localeCompare(String(a.checked_at)))
-      .find((r) =>
-        JSON.parse(String(r.payload)).reports?.some((s: { source: string }) => s.source === 'puma'),
-      );
-    if (!latest) return [];
-    if (Date.now() - Date.parse(String(latest.checked_at)) > 36 * 3600000)
-      throw new IntegrationError('PUMA_SCRAPE_STALE');
-    const header = JSON.parse(String(latest.payload));
-    const status = header.reports?.find((r: { source: string }) => r.source === 'puma');
-    if (!status || ['error', 'needs_permission', 'time_limit'].includes(status.status))
-      throw new IntegrationError('PUMA_SCRAPE_FAILED');
-    const result = rows
-      .filter((r) => String(r.id).startsWith(`${latest.id}:`))
-      .flatMap((r) => {
-        const p = pumaFeedProduct(JSON.parse(String(r.payload)));
-        return p ? [p] : [];
-      });
-    if (new Set(result.map((p) => p.id)).size !== result.length)
-      throw new IntegrationError('PUMA_DUPLICATE_PRODUCT');
-    return result;
+    const products = selectScrapeSnapshot(rows, 'puma', pumaFeedProduct);
+    if (!products) throw new IntegrationError('PUMA_SCRAPE_UNAVAILABLE');
+    return products;
   }
 }

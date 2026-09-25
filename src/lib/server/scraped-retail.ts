@@ -3,6 +3,7 @@ import { officialStores, retailStoreId } from '../official-stores';
 import { feedProductSchema, type FeedProduct, type SourceAdapter } from './adapters';
 import { seaClient } from './seatable-client';
 import { IntegrationError } from './http';
+import { selectScrapeSnapshot } from './scrape-snapshot';
 export function retailScrapeProduct(raw: unknown, now = Date.now()): FeedProduct | null {
   const parsed = retailScrapeSchema.safeParse(raw);
   if (!parsed.success) return null;
@@ -59,32 +60,8 @@ export class ScrapedRetailAdapter implements SourceAdapter {
   }
   async fetchProducts() {
     const rows = await seaClient.rows('STEPPE_Scrapes');
-    const latest = rows
-      .filter((r) => !String(r.id).includes(':'))
-      .sort((a, b) => String(b.checked_at).localeCompare(String(a.checked_at)))
-      .find((r) =>
-        JSON.parse(String(r.payload)).reports?.some(
-          (s: { source: string }) => s.source === this.source,
-        ),
-      );
-    if (!latest) return [];
-    const header = JSON.parse(String(latest.payload)),
-      status = header.reports.find((s: { source: string }) => s.source === this.source);
-    if (
-      Date.now() - Date.parse(String(latest.checked_at)) > 36 * 3600000 ||
-      ['error', 'needs_permission', 'time_limit'].includes(status.status)
-    )
-      throw new IntegrationError('RETAIL_SCRAPE_UNAVAILABLE');
-    const products = rows
-      .filter((r) => String(r.id).startsWith(`${latest.id}:`))
-      .flatMap((r) => {
-        const raw = JSON.parse(String(r.payload));
-        if (raw.source !== this.source) return [];
-        const p = retailScrapeProduct(raw);
-        return p ? [p] : [];
-      });
-    if (new Set(products.map((p) => p.id)).size !== products.length)
-      throw new IntegrationError('DUPLICATE_RETAIL_SCRAPE');
+    const products = selectScrapeSnapshot(rows, this.source, retailScrapeProduct);
+    if (!products) throw new IntegrationError('RETAIL_SCRAPE_UNAVAILABLE');
     return products;
   }
 }
