@@ -1,0 +1,224 @@
+{
+  "checkedAt": "2026-09-26T06:42:45.103Z",
+  "products": [
+    {
+      "id": "5b66e0a515ba74ea0d3f6ca5e7720044263de9416a58984bdf0b11cd489d89fc",
+      "externalId": "",
+      "sourceId": "puma-us",
+      "sourceName": "Puma US",
+      "brand": "Puma",
+      "name": "Star Vital Women's Shoes",
+      "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/194331/26/sv01/fnd/PNA/fmt/png/Star-Vital-Women's-Shoes",
+      "productUrl": "",
+      "sizes": [
+        "35.5"
+      ],
+      "sizePrices": [
+        {
+          "size": "35.5",
+          "salePrice": "55.99",
+          "saleKzt": 28000
+        }
+      ],
+      "gender": "women",
+      "category": "Кроссовки",
+      "offerKind": "retail",
+      "purchaseType": "fixed",
+      "market": "US",
+      "sku": "194331_26",
+      "sourceUpdatedAt": "2026-09-25T21:57:00.875Z",
+      "originalPrice": "68.00",
+      "salePrice": "55.99",
+      "currency": "USD",
+      "originalKzt": 34000,
+      "saleKzt": 28000,
+      "discount": 17,
+      "demo": false,
+      "updatedAt": "2026-09-25T21:57:35.932Z",
+      "firstSeenAt": "2026-09-25T21:57:35.932Z",
+      "rate": {
+        "currency": "USD",
+        "value": "441.880000000000",
+        "source": "Национальный Банк Казахстана",
+        "asOf": "2026-09-25T19:00:00.000Z",
+        "fetchedAt": "2026-09-25T21:57:32.732Z"
+      }
+    },
+    {
+      "id": "0fdbb464603ef10d1e511a9a35469c5401b3de39d0ddf1a9abf00ff675c0e1a8",
+      "externalId": "",
+      "sourceId": "puma-us",
+      "sourceName": "Puma US",
+      "brand": "Puma",
+      "name": "Softride Harli Hybrid Skins Women's Running Shoes",
+      "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/311102/01/sv01/fnd/PNA/fmt/png/Softride-Harli-Hybrid-Skins-Women's-Running-Shoes",
+      "productUrl": "",
+      "sizes": [
+        "37.5",
+        "38.5",
+        "40",
+        "40.5",
+        "41",
+        "42.5"
+      ],
+      "sizePrices": [
+        {
+          "size": "37.5",
+          "salePrice": "44.99",
+          "saleKzt": 23000
+        },
+        {
+          "size": "38.5",
+          "salePrice": "44.99",
+          "saleKzt": 23000
+        },
+        {
+          "size": "40",
+          "salePrice": "44.99",
+          "saleKzt": 23000
+        },
+        {
+          "size": "40.5",
+          "salePrice": "44.99",
+          "saleKzt": 23000
+        },
+        {
+          "size": "41",
+          "salePrice": "44.99",
+          "saleKzt": 23000
+        },
+        {
+          "size": "42.5",
+          "salePrice": "44.99",
+          "saleKzt": 23000
+        }
+      ],
+      "gender": "women",
+      "category": "Кроссовки",
+      "offerKind": "retail",
+      "purchaseType": "fixed",
+      "market": "US",
+      "sku": "311102_01",
+      "sourceUpdatedAt": "2026-09-25T21:52:48.143Z",
+      "originalPrice": "63.00",
+      "salePrice": "44.99",
+      "currency": "USD",
+      "originalKzt": 31500,
+      "saleKzt": 23000,
+      "discount": 28,
+      "demo": false,
+      "updatedAt": "2026-09-25T21:57:35.931Z",
+      "firstSeenAt": "2026-09-25T21:57:35.931Z",
+      "rate": {
+        "currency": "USD",
+        "value": "441.880000000000",
+        "source": "Национальный Банк Казахстана",
+        "asOf": "2026-09-25T19:00:00.000Z",
+        "fetchedAt": "2026-09-25T21:57:32.732Z"
+      }
+    },
+    {
+      "id": "b832ae36aec6c179aaf1335a69e5de216d101390e1c337eba42930c8b22da285",
+      "externalId": "",
+      "sourceId": "puma-us",
+      "sourceName": "Puma US",
+      "brand": "Puma",
+      "name": "Softride Harli Metallic Women's Sneakers",
+      "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/311955/03/sv01/fnd/PNA/fmt/png/Softride-Harli-Metallic-Women's-Sneakers",
+      "productUrl": "",
+      "sizes": [
+        "35.5",
+        "36",
+        "37",
+        "37.5",
+        "38",
+        "38.5",
+        "39",
+        "40",
+        "40.5",
+        "41",
+        "42.5"
+      ],
+      "sizePrices": [
+        {
+          "size": "35.5",
+          "salePrice": "50.99",
+          "saleKzt": 25500
+        },
+        {
+          "size": "36",
+          "salePrice": "50.99",
+          "saleKzt": 25500
+        },
+        {
+          "size": "37",
+          "salePrice": "50.99",
+          "saleKzt": 25500
+        },
+        {
+          "size": "37.5",
+          "salePrice": "50.99",
+          "saleKzt": 25500
+        },
+        {
+          "size": "38",
+          "salePrice": "50.99",
+          "saleKzt": 25500
+        },
+        {
+          "size": "38.5",
+          "salePrice": "50.99",
+          "saleKzt": 25500
+        },
+        {
+          "size": "39",
+          "salePrice": "50.99",
+          "saleKzt": 25500
+        },
+        {
+          "size": "40",
+          "salePrice": "50.99",
+          "saleKzt": 25500
+        },
+        {
+          "size": "40.5",
+          "salePrice": "50.99",
+          "saleKzt": 25500
+        },
+        {
+          "size": "41",
+          "salePrice": "50.99",
+          "saleKzt": 25500
+        },
+        {
+          "size": "42.5",
+          "salePrice": "50.99",
+          "saleKzt": 25500
+        }
+      ],
+      "gender": "women",
+      "category": "Кроссовки",
+      "offerKind": "retail",
+      "purchaseType": "fixed",
+      "market": "US",
+      "sku": "311955_03",
+      "sourceUpdatedAt": "2026-09-25T21:46:10.849Z",
+      "originalPrice": "68.00",
+      "salePrice": "50.99",
+      "currency": "USD",
+      "originalKzt": 34000,
+      "saleKzt": 25500,
+      "discount": 25,
+      "demo": false,
+      "updatedAt": "2026-09-25T21:57:35.928Z",
+      "firstSeenAt": "2026-09-25T13:10:16.973Z",
+      "rate": {
+        "currency": "USD",
+        "value": "441.880000000000",
+        "source": "Национальный Банк Казахстана",
+        "asOf": "2026-09-25T19:00:00.000Z",
+        "fetchedAt": "2026-09-25T21:57:32.732Z"
+      }
+    }
+  ]
+}
