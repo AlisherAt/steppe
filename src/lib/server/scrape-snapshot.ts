@@ -1,5 +1,6 @@
 import type { SeaRow } from './seatable-client';
 import { IntegrationError } from './http';
+import { scrapeChunkFormat, unpackScrapeProducts } from './scrape-chunks';
 
 // Выбираем один проверенный снимок магазина. Не объединяем старые размеры
 // с новыми и не обновляем время наблюдения при повторном импорте.
@@ -27,9 +28,18 @@ export function selectScrapeSnapshot<T extends { id: string; sourceUpdatedAt?: s
       ? data.reports.find((r: { source: string }) => r?.source === source)?.status
       : null;
     if (!['partial', 'finished_observed_pages'].includes(status)) continue;
-    const products = decoded.flatMap((item) => {
-      if (!String(item.row.id).startsWith(`${id}:`) || item.data?.source !== source) return [];
-      const product = convert(item.data, now);
+    const ownRows = decoded.filter((item) => String(item.row.id).startsWith(`${id}:`));
+    const rawProducts =
+      data.storageFormat === scrapeChunkFormat
+        ? unpackScrapeProducts(
+            ownRows.map((item) => ({ id: String(item.row.id), data: item.data })),
+            data.chunkCount,
+            data.checksum,
+          )
+        : ownRows.map((item) => item.data);
+    const products = rawProducts.flatMap((raw) => {
+      if (!raw || typeof raw !== 'object' || !('source' in raw) || raw.source !== source) return [];
+      const product = convert(raw, now);
       return product ? [product] : [];
     });
     if (!products.length) continue;

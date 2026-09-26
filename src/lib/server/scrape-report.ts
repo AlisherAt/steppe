@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { seaClient } from './seatable-client';
 import { pumaVariantSchema, pumaVerifiedSchema } from '../puma';
 import { retailVariantSchema, retailScrapeSchema } from '../retail-scrapes';
+import { packScrapeProducts, scrapeProductsHash, scrapeChunkFormat } from './scrape-chunks';
 export const scrapeReportSchema = z.object({
   runId: z.string().regex(/^[a-zA-Z0-9-]{1,80}$/),
   checkedAt: z.string().datetime({ offset: true }),
@@ -70,7 +71,8 @@ export async function storeScrapeReport(input: z.infer<typeof scrapeReportSchema
   const report = { ...input, checkedAt: scrapeObservedAt(input) };
   const rows = await seaClient.rows('STEPPE_Scrapes');
   if (rows.some((r) => r.id === report.runId)) return;
-  // Карточки хранятся отдельными строками, чтобы не переполнить поле long-text.
+  // Компактные блоки экономят строки и API-вызовы, не превышая лимит Long Text.
+  const chunks = packScrapeProducts(report.products);
   const prefix = `${report.runId}:`;
   const partial = rows.filter((r) => String(r.id).startsWith(prefix));
   if (partial.length)
@@ -80,10 +82,10 @@ export async function storeScrapeReport(input: z.infer<typeof scrapeReportSchema
     );
   await seaClient.append(
     'STEPPE_Scrapes',
-    report.products.map((product, index) => ({
+    chunks.map((payload, index) => ({
       id: `${prefix}${index}`,
       checked_at: report.checkedAt,
-      payload: JSON.stringify(product),
+      payload,
     })),
   );
   await seaClient.append('STEPPE_Scrapes', [
@@ -93,6 +95,9 @@ export async function storeScrapeReport(input: z.infer<typeof scrapeReportSchema
       payload: JSON.stringify({
         ...report,
         products: [],
+        storageFormat: scrapeChunkFormat,
+        chunkCount: chunks.length,
+        checksum: scrapeProductsHash(report.products),
         collectedCount: report.products.length,
         verifiedCount: report.products.filter((p) => p.size_price_verified).length,
       }),
