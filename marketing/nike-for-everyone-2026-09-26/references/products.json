@@ -1,0 +1,49 @@
+{
+  "source": "Изображения, приложенные пользователем",
+  "products": [
+    {
+      "file": "ava-x.png",
+      "name": "Nike Ava X",
+      "category": "Мужские",
+      "crop": [
+        65,
+        125,
+        355,
+        235
+      ]
+    },
+    {
+      "file": "jordan-sixty.png",
+      "name": "Jordan Sixty Plus Low",
+      "category": "Женские",
+      "crop": [
+        84,
+        133,
+        360,
+        235
+      ]
+    },
+    {
+      "file": "book-2.png",
+      "name": "Nike Book 2 «The Phoenix»",
+      "category": "Баскетбольные, унисекс",
+      "crop": [
+        60,
+        125,
+        350,
+        235
+      ]
+    },
+    {
+      "file": "dn8-kids.png",
+      "name": "Nike Air Max Dn8",
+      "category": "Детские",
+      "crop": [
+        64,
+        120,
+        350,
+        220
+      ]
+    }
+  ]
+}
