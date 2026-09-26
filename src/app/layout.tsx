@@ -33,9 +33,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link href="/about">
                   О проекте <ArrowUpRight size={14} />
                 </Link>
-                <Link href="/sources">
-                  Источники и обновления <ArrowUpRight size={14} />
-                </Link>
                 <span>Казахстан · Все цены в ₸</span>
               </div>
               <p className="footer-note">

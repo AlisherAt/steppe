@@ -68,14 +68,14 @@ export function Catalog({
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const parsed = filtersSchema.safeParse(Object.fromEntries(params));
-    if (parsed.success) setFilters(parsed.data);
+    if (parsed.success) setFilters({ ...parsed.data, sources: [] });
     if (params.get('mode') === 'live' || (demoEnabled() && params.get('mode') === 'demo'))
       setMode(params.get('mode') as 'live' | 'demo');
     setHydrated(true);
     const pop = () => {
       const p = new URLSearchParams(location.search);
       const f = filtersSchema.safeParse(Object.fromEntries(p));
-      if (f.success) setFilters(f.data);
+      if (f.success) setFilters({ ...f.data, sources: [] });
       setMode(demoEnabled() && p.get('mode') === 'demo' ? 'demo' : 'live');
     };
     window.addEventListener('popstate', pop);
@@ -157,7 +157,7 @@ export function Catalog({
       behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
     });
   }
-  function toggle(key: 'brands' | 'sizes' | 'sources', value: string) {
+  function toggle(key: 'brands' | 'sizes', value: string) {
     update(
       key,
       filters[key].includes(value)
@@ -168,7 +168,6 @@ export function Catalog({
   const activeCount =
     filters.brands.length +
     filters.sizes.length +
-    filters.sources.length +
     Number(Boolean(filters.gender)) +
     Number(Boolean(filters.category)) +
     Number(filters.minDiscount > 0) +
@@ -296,26 +295,6 @@ export function Catalog({
         </div>
       </fieldset>
       <fieldset>
-        <legend>Магазин</legend>
-        {(result.facets.sources.length
-          ? result.facets.sources
-          : [
-              { id: 'puma-us', name: 'Puma US' },
-              { id: 'reebok-us', name: 'Reebok US' },
-              { id: 'nike-us', name: 'Nike US' },
-            ]
-        ).map((s) => (
-          <label className="check-label" key={s.id}>
-            <input
-              type="checkbox"
-              checked={filters.sources.includes(s.id)}
-              onChange={() => toggle('sources', s.id)}
-            />
-            <span>{s.name}</span>
-          </label>
-        ))}
-      </fieldset>
-      <fieldset>
         <legend>Назначение</legend>
         <select
           aria-label="Назначение"
@@ -412,9 +391,6 @@ export function Catalog({
           <ShieldCheck size={17} />
           Заказ через WhatsApp
         </span>
-        <Link href="/sources">
-          Как обновляем каталог <ArrowUpRight size={13} />
-        </Link>
       </div>
       <section id="catalog" ref={section} className="catalog-section">
         <div className="catalog-heading">
@@ -484,9 +460,6 @@ export function Catalog({
           <div className="demo-notice">
             <span className="demo-pill">ДЕМО</span>
             <p>Знакомься с каталогом. Эти товары и цены — примеры, они недоступны для покупки.</p>
-            <Link href="/sources">
-              Статус магазинов <ArrowUpRight size={15} />
-            </Link>
           </div>
         )}
         <div className="catalog-toolbar">
@@ -589,9 +562,6 @@ export function Catalog({
                       : 'Сбросить фильтры'}
                     <ArrowRight size={17} />
                   </button>
-                  <Link href="/sources" className="text-link">
-                    Магазины <ArrowUpRight size={16} />
-                  </Link>
                 </div>
               </div>
             ) : (
