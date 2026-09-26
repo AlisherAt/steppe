@@ -1,3 +1,4 @@
+import { reebokMedia } from './product-media.mjs';
 import { sneakerName } from './sale-catalog.mjs';
 
 const amount = (v) =>
@@ -65,6 +66,7 @@ export function reebokPublicProduct(p, currency, now = new Date().toISOString())
     sku,
     name: p.title,
     image_url: image,
+    ...reebokMedia(p),
     product_url: `https://www.reebok.com/products/${p.handle}`,
     currency: 'USD',
     gender,

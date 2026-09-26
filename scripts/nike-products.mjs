@@ -1,3 +1,4 @@
+import { nikeMedia } from './product-media.mjs';
 import { nikeEuSize } from '../src/lib/nike-sizes.mjs';
 export const nikeSaleUrl = 'https://www.nike.com/w/sale-shoes-3yaepzy7ok';
 export function nikeProductUrl(value) {
@@ -132,6 +133,7 @@ export function verifiedNikeProduct(snapshot, url, checkedAt = new Date().toISOS
     sku: p.styleColor,
     name,
     image_url: image,
+    ...nikeMedia(p),
     product_url: url,
     old_price: p.prices.initialPrice,
     sale_price: p.prices.currentPrice,

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { matchesCollection } from './product-collections';
 import { discountPercent } from './money';
 import { localSizeKey, matchesSize } from './size-guide';
 import {
@@ -29,6 +30,7 @@ export const filtersSchema = z
     sources: list,
     gender: z.enum(['', 'men', 'women', 'unisex', 'kids']).default(''),
     category: z.string().max(80).default(''),
+    collection: z.enum(['', 'daily', 'running', 'training', 'monochrome']).default(''),
     minPrice: z.coerce.number().int().min(0).max(1000000).default(0),
     maxPrice: z.coerce.number().int().min(0).max(1000000).default(1000000),
     minDiscount: z.coerce.number().int().min(0).max(100).default(0),
@@ -91,6 +93,7 @@ export function filterCatalog(
       (!f.sources.length || f.sources.includes(p.sourceId)) &&
       (!f.gender || p.gender === f.gender) &&
       (!f.category || p.category === f.category) &&
+      matchesCollection(p, f.collection) &&
       p.saleKzt >= f.minPrice &&
       p.saleKzt <= f.maxPrice &&
       p.discount >= f.minDiscount,

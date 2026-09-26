@@ -24,6 +24,7 @@ import { catalogBrands as brandNames } from '@/lib/catalog-policy';
 import { demoEnabled } from '@/lib/catalog-mode';
 import { formatKzt } from '@/lib/money';
 import { SizeFilter } from './size-filter';
+import { collections } from '@/lib/product-collections';
 export function Catalog({
   initial,
   initialMode,
@@ -170,6 +171,7 @@ export function Catalog({
     filters.sizes.length +
     Number(Boolean(filters.gender)) +
     Number(Boolean(filters.category)) +
+    Number(Boolean(filters.collection)) +
     Number(filters.minDiscount > 0) +
     Number(filters.minPrice > 0 || filters.maxPrice < 1000000);
   const controls = (
@@ -455,6 +457,22 @@ export function Catalog({
           >
             До 30 000 ₸ <Sparkles size={15} />
           </button>
+        </div>
+        <div className="scenario-collections" role="group" aria-label="Подборки кроссовок">
+          <span>Под твой день</span>
+          <button aria-pressed={!filters.collection} onClick={() => update('collection', '')}>
+            Все
+          </button>
+          {collections.map((item) => (
+            <button
+              key={item.id}
+              aria-pressed={filters.collection === item.id}
+              onClick={() => update('collection', filters.collection === item.id ? '' : item.id)}
+            >
+              {item.id === 'monochrome' && <span className="monochrome-dot" aria-hidden="true" />}
+              {item.label}
+            </button>
+          ))}
         </div>
         {mode === 'demo' && (
           <div className="demo-notice">

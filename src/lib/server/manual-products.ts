@@ -20,6 +20,9 @@ export const manualProductSchema = z.object({
   name: z.string().min(1).max(180),
   productUrl: z.string().url(),
   imageUrl: z.string().url().nullable(),
+  imageUrls: z.array(z.string().url().max(2000)).max(10).optional(),
+  color: z.string().max(300).optional(),
+  usage: z.string().max(500).optional(),
   sizes: z.array(z.string().max(20)).min(1).max(60),
   sizePrices: z
     .array(

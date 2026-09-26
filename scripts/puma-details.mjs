@@ -1,3 +1,4 @@
+import { pumaMedia } from './product-media.mjs';
 import { price } from './scraper-extract.mjs';
 const cookieHandlers = new WeakSet();
 
@@ -180,6 +181,7 @@ export async function collectPumaDetails(
       ...candidate,
       name: product.name,
       image_url: product.image?.[0] || candidate.image_url,
+      ...pumaMedia(state, candidate.sku),
       gender,
       size_price_verified: true,
       variants: embedded,
@@ -220,6 +222,7 @@ export async function collectPumaDetails(
     ...candidate,
     name: product.name,
     image_url: product.image?.[0] || candidate.image_url,
+    ...pumaMedia(state, candidate.sku),
     gender,
     size_price_verified: true,
     variants,

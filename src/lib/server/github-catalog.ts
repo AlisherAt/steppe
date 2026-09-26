@@ -3,6 +3,7 @@ import nike from '../../../data/catalog/nike-us.json';
 import puma from '../../../data/catalog/puma-us.json';
 import reebok from '../../../data/catalog/reebok-us.json';
 import overrides from '../../../data/catalog/overrides.json';
+import productMedia from '../../../data/catalog/product-media.json';
 import { manualProductSchema } from './manual-products';
 import { isCatalogBrand } from '../catalog-policy';
 import { offerVisible } from '../promotion';
@@ -16,7 +17,12 @@ const snapshots = [nike, puma, reebok];
 const hiddenIds = new Set<string>(overrides.hiddenIds);
 const hiddenUrls = new Set<string>(overrides.hiddenUrls);
 const rawProducts: Product[] = [...overrides.products, ...snapshots.flatMap((s) => s.products)].map(
-  (p) => manualProductSchema.parse(p),
+  (p) => {
+    const media = (
+      productMedia as Record<string, { imageUrls?: string[]; color?: string; usage?: string }>
+    )[p.id];
+    return manualProductSchema.parse({ ...media, ...p });
+  },
 );
 
 export function githubProducts(now = Date.now()): Product[] {

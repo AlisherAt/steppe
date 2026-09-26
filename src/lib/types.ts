@@ -14,6 +14,9 @@ export type Product = {
   brand: string;
   name: string;
   imageUrl: string | null;
+  imageUrls?: string[];
+  color?: string;
+  usage?: string;
   productUrl: string;
   sizePrices?: { size: string; salePrice: string; saleKzt: number }[];
   sizes: string[];
@@ -61,6 +64,7 @@ export type Filters = {
   sources: string[];
   gender: string;
   category: string;
+  collection?: '' | 'daily' | 'running' | 'training' | 'monochrome';
   minPrice: number;
   maxPrice: number;
   minDiscount: number;
@@ -90,6 +94,7 @@ export const defaultFilters: Filters = {
   sources: [],
   gender: '',
   category: '',
+  collection: '',
   minPrice: 0,
   maxPrice: 1000000,
   minDiscount: 0,

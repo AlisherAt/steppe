@@ -1,13 +1,13 @@
 'use client';
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Plus, X, ShoppingBag, Check } from 'lucide-react';
+import { Plus, X, Check } from 'lucide-react';
 import type { Product } from '@/lib/types';
 import { localSizeKey, localSizeLabel } from '@/lib/size-guide';
 import { formatKzt, formatDate, discountPercent } from '@/lib/money';
 import { useStore } from './store-provider';
 import { productDescription } from '@/lib/product-description';
 import { SizeGuide } from './size-guide';
+import { ProductGallery } from './product-gallery';
 const genders = { men: 'Мужские', women: 'Женские', unisex: 'Унисекс', kids: 'Детские' };
 export function ProductCard({
   product: p,
@@ -18,7 +18,7 @@ export function ProductCard({
 }) {
   const [size, setSize] = useState('');
   const [error, setError] = useState('');
-  const [imageError, setImageError] = useState(false);
+  const [detailsOpened, setDetailsOpened] = useState(false);
   const [added, setAdded] = useState(false);
   useEffect(() => {
     if (!added) return;
@@ -27,6 +27,10 @@ export function ProductCard({
   }, [added]);
   const details = useRef<HTMLDialogElement>(null);
   const { add } = useStore();
+  function openDetails() {
+    setDetailsOpened(true);
+    details.current?.showModal();
+  }
   const description = productDescription(p);
   const selectedPrice = p.sizePrices?.find((v) => v.size === size)?.saleKzt ?? p.saleKzt;
   const discount =
@@ -45,39 +49,16 @@ export function ProductCard({
   }
   return (
     <article className="product-card">
-      <button
-        className="product-image-button"
-        onClick={() => details.current?.showModal()}
-        aria-label={`Подробнее: ${p.name}`}
-      >
-        {p.imageUrl && !imageError ? (
-          <Image
-            src={p.imageUrl}
-            alt={p.demo ? `Иллюстрация кроссовок, демопример ${p.brand}` : `${p.brand} ${p.name}`}
-            fill
-            sizes="(max-width: 580px) 90vw, (max-width: 1000px) 43vw, 26vw"
-            className="product-image"
-            priority={priority}
-            onError={() => setImageError(true)}
-          />
-        ) : (
-          <span className="image-placeholder">
-            <ShoppingBag size={42} />
-            <span>Фото скоро появится</span>
-          </span>
-        )}
+      <ProductGallery product={p} priority={priority} onOpen={openDetails}>
         {discount > 0 && <span className="discount-badge">−{discount}%</span>}
         {p.demo && <span className="demo-badge">ДЕМО</span>}
-        <span className="image-open">
-          <ArrowUpRight size={18} />
-        </span>
-      </button>
+      </ProductGallery>
       <div className="product-info">
         <div className="product-meta">
           <span>{p.brand}</span>
           <span>{genders[p.gender]}</span>
         </div>
-        <button className="product-name" onClick={() => details.current?.showModal()}>
+        <button className="product-name" onClick={openDetails}>
           {p.name}
         </button>
         <p className="product-description">{description}</p>
@@ -181,6 +162,7 @@ export function ProductCard({
             <X />
           </button>
         </div>
+        {detailsOpened && <ProductGallery product={p} />}
         <h2 id={`title-${p.id}`}>{p.name}</h2>
         <p className="product-description">{description}</p>
         <div className="product-prices">
