@@ -2,7 +2,7 @@ import { spawn } from 'node:child_process';
 import { mkdir, readFile, writeFile, rename, appendFile, access } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve, dirname } from 'node:path';
-import { acquireLock, directScraperEnv, summarizeRefresh } from './local-refresh-lib.mjs';
+import { acquireLock, directScraperEnv } from './local-refresh-lib.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 process.chdir(root);
@@ -11,7 +11,6 @@ const directory = resolve(
   root,
   nikeOnly ? 'artifacts/local-nike-refresh' : 'artifacts/local-refresh',
 );
-const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function main() {
   await mkdir(directory, { recursive: true });
@@ -53,11 +52,6 @@ async function main() {
     delete process.env.NODE_USE_ENV_PROXY;
     // Отдельный кэш создаётся от имени пользователя Планировщика, а не среды разработки.
     process.env.PLAYWRIGHT_BROWSERS_PATH = resolve(root, 'artifacts/local-browsers');
-    const secret = process.env.CRON_SECRET;
-    if (!secret || secret.length < 32) throw Error('CRON_SECRET_MISSING');
-    const site = new URL(process.env.STEPPE_SITE_URL || 'https://steppe-gray.vercel.app');
-    if (site.protocol !== 'https:' || site.username || site.password)
-      throw Error('INVALID_SITE_URL');
     const permissions = JSON.parse(process.env.SCRAPER_PERMISSIONS_JSON || '{}');
     if (!Object.keys(permissions).length) throw Error('SCRAPER_PERMISSIONS_MISSING');
     // Только публичный сборщик получает отдельное окружение без ключей сайта.
@@ -151,72 +145,34 @@ async function main() {
     state.verified = report.products.filter((p) => p.size_price_verified).length;
     state.sources = report.reports;
     await writeFile(resolve(directory, `${stamp}.scrape.json`), raw);
-    state.stage = 'upload';
+    state.stage = 'github_publication';
     await save();
-    const post = (path, body, timeout) =>
-      fetch(new URL(path, site), {
-        method: 'POST',
-        redirect: 'error',
-        signal: AbortSignal.timeout(timeout),
-        headers: { Authorization: `Bearer ${secret}`, 'Content-Type': 'application/json' },
-        ...(body ? { body } : {}),
+    const { execFile } = await import('node:child_process');
+    const { promisify } = await import('node:util');
+    const publicationDirectory = resolve(directory, `${stamp}.catalog`);
+    const execute = async (args) => {
+      const { stdout } = await promisify(execFile)(process.execPath, args, {
+        cwd: root,
+        windowsHide: true,
+        timeout: 320000,
+        env: process.env,
       });
-    // Повторная отправка того же runId идемпотентна. Магазины повторно не опрашиваются.
-    if (nikeOnly) {
-      // Упаковка больших каталогов в gzip и идемпотентная отправка тем же uploader.
-      const { execFile } = await import('node:child_process');
-      const { promisify } = await import('node:util');
-      await promisify(execFile)(
-        process.execPath,
-        ['scripts/upload-scrape-report.mjs', 'artifacts/nike-report.json'],
-        {
-          cwd: root,
-          windowsHide: true,
-          timeout: 320000,
-          env: process.env,
-        },
-      );
-      state.uploaded = true;
-    }
-    for (let attempt = 1; !nikeOnly && attempt <= 3; attempt++) {
-      try {
-        const response = await post('/api/cron/scrape-report', raw, 65000);
-        if (!response.ok) throw Error(`UPLOAD_HTTP_${response.status}`);
-        if ((await response.json()).stored !== true) throw Error('UPLOAD_NOT_CONFIRMED');
-        state.uploaded = true;
-        break;
-      } catch (error) {
-        if (attempt === 3 || /UPLOAD_HTTP_4/.test(error.message)) throw error;
-        await log({ event: 'upload_retry', attempt });
-        await wait(5000 * attempt);
-      }
-    }
-    state.stage = 'refresh';
-    await save();
-    for (let attempt = 1; attempt <= 3; attempt++) {
-      const response = await post(
-        `/api/cron/refresh?sources=${nikeOnly ? 'nike-us' : 'puma-us,reebok-us'}`,
-        undefined,
-        310000,
-      );
-      const body = await response.json();
-      if (body.skipped && body.reason === 'already_running' && attempt < 3) {
-        await wait(10000);
-        continue;
-      }
-      state.refresh = summarizeRefresh(response.status, body);
-      break;
-    }
-    state.status =
-      state.refresh.failed ||
-      report.reports.some((r) => r.status === 'error' || r.status === 'time_limit')
-        ? 'partial'
-        : 'success';
-    if (state.status === 'partial' && !state.refresh.updated) {
-      state.status = 'error';
-      state.error = 'NO_SOURCES_UPDATED';
-      process.exitCode = 1;
-    }
+      await appendFile(logPath, stdout);
+      process.stdout.write(stdout);
+    };
+    await execute([
+      'node_modules/tsx/dist/cli.mjs',
+      'scripts/build-catalog.ts',
+      resolve(directory, `${stamp}.scrape.json`),
+      '--out',
+      publicationDirectory,
+    ]);
+    await execute(['scripts/publish-catalog.mjs', publicationDirectory]);
+    state.uploaded = true;
+    state.refresh = { updated: report.reports.filter((r) => r.count > 0).length };
+    state.status = report.reports.some((r) => ['error', 'time_limit', 'partial'].includes(r.status))
+      ? 'partial'
+      : 'success';
     state.stage = 'finished';
     await log({
       event: 'finished',

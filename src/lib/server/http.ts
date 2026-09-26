@@ -77,6 +77,13 @@ export async function fetchText(
         signal: AbortSignal.timeout(9000),
       });
       if (!response.ok) {
+        // SeaTable сообщает месячную квоту через reset, без Retry-After.
+        // Немедленные повторы при таком ответе не могут помочь.
+        if (response.status === 429 && response.headers.get('x-ratelimit-remaining') === '0') {
+          const resetMs = Number(response.headers.get('x-ratelimit-reset')) * 1000 - Date.now();
+          if (resetMs > 3600_000) throw new IntegrationError('UPSTREAM_QUOTA_EXHAUSTED');
+          if (resetMs > 3000) throw new IntegrationError('RATE_LIMITED');
+        }
         const rawRetry = response.headers.get('retry-after') || '0';
         const retryAfter = /^\d+$/.test(rawRetry)
           ? Number(rawRetry)

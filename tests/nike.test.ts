@@ -41,7 +41,7 @@ test('Nike: принимаются только загруженные InStock-�
       { currency: 'USD', value: '500', source: 'test', asOf: at, fetchedAt: at },
     ]),
   );
-  expect(converted.saleKzt).toBe(49500);
+  expect(converted.saleKzt).toBe(51000);
   expect(converted.sizes).toContain('EU 35.5');
 });
 

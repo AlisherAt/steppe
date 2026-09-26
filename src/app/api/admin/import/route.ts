@@ -1,3 +1,4 @@
+import { githubCatalogEnabled } from '@/lib/server/github-catalog';
 import type { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { requireAdmin } from '@/lib/server/admin-access';
@@ -12,6 +13,11 @@ export const maxDuration = 60;
 export async function POST(req: NextRequest) {
   try {
     const user = await requireAdmin(req, true);
+    if (githubCatalogEnabled())
+      throw new AuthError(
+        503,
+        'Каталог перенесён в GitHub. Изменения через SeaTable временно недоступны; редактируйте data/catalog/overrides.json в репозитории.',
+      );
     const { url } = z.object({ url: z.string().url().max(2000) }).parse(await adminBody(req));
     if (!isCatalogBrand(manualSource(url).brand))
       throw new AuthError(400, 'В каталоге доступны только Puma, Reebok и Nike.');

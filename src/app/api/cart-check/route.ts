@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { databaseConfigured } from '@/lib/server/db';
+import { githubCatalogEnabled } from '@/lib/server/github-catalog';
 import { publicProduct } from '@/lib/public-product';
 import { cartProducts } from '@/lib/server/cart-products';
 export async function POST(request: NextRequest) {
@@ -15,7 +16,7 @@ export async function POST(request: NextRequest) {
       .safeParse(JSON.parse(text));
     if (!parsed.success)
       return NextResponse.json({ error: 'Некорректная корзина' }, { status: 400 });
-    if (!databaseConfigured())
+    if (!githubCatalogEnabled() && !databaseConfigured())
       return NextResponse.json({ error: 'Каталог не подключён' }, { status: 503 });
     const products = await cartProducts(parsed.data.ids);
     return NextResponse.json(

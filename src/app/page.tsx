@@ -1,6 +1,7 @@
 import { Catalog } from '@/components/catalog';
 import { getCatalog } from '@/lib/server/repository';
 import { databaseConfigured } from '@/lib/server/db';
+import { githubCatalogEnabled } from '@/lib/server/github-catalog';
 import { defaultFilters, type CatalogResult } from '@/lib/types';
 import { demoEnabled } from '@/lib/catalog-mode';
 import { redirect } from 'next/navigation';
@@ -12,7 +13,7 @@ export default async function Home({
 }) {
   const params = await searchParams;
   if (!demoEnabled() && params.mode === 'demo') redirect('/?mode=live');
-  const mode = databaseConfigured() || !demoEnabled() ? 'live' : 'demo';
+  const mode = githubCatalogEnabled() || databaseConfigured() || !demoEnabled() ? 'live' : 'demo';
   const initial: CatalogResult = await getCatalog(defaultFilters, mode).catch(() => ({
     products: [],
     total: 0,

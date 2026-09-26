@@ -1,3 +1,4 @@
+import { githubCatalogEnabled } from '@/lib/server/github-catalog';
 import { NextRequest, NextResponse } from 'next/server';
 import { timingSafeEqual } from 'node:crypto';
 import { databaseConfigured } from '@/lib/server/db';
@@ -16,6 +17,11 @@ export async function POST(request: NextRequest) {
   const expected = Buffer.from(`Bearer ${secret}`);
   if (supplied.length !== expected.length || !timingSafeEqual(supplied, expected))
     return NextResponse.json({ error: 'Нет доступа.' }, { status: 401 });
+  if (githubCatalogEnabled())
+    return NextResponse.json(
+      { error: 'Каталог обновляется через GitHub: build-catalog.ts и publish-catalog.mjs.' },
+      { status: 409 },
+    );
   let sourceIds;
   try {
     sourceIds = parseRefreshScope(request.nextUrl.searchParams.get('sources'));

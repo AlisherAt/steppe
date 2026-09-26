@@ -1,3 +1,4 @@
+import { githubCatalogEnabled } from '@/lib/server/github-catalog';
 import type { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { requireAdmin } from '@/lib/server/admin-access';
@@ -13,6 +14,11 @@ export const dynamic = 'force-dynamic';
 export async function GET(req: NextRequest) {
   try {
     const user = await requireAdmin(req);
+    if (githubCatalogEnabled())
+      throw new AuthError(
+        503,
+        'Каталог перенесён в GitHub. Изменения через SeaTable временно недоступны; редактируйте data/catalog/overrides.json в репозитории.',
+      );
     const { products, records, hidden } = await manualProducts.combine(
       await seaStore.liveProducts(),
       true,
@@ -41,6 +47,11 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     await requireAdmin(req, true);
+    if (githubCatalogEnabled())
+      throw new AuthError(
+        503,
+        'Каталог перенесён в GitHub. Изменения через SeaTable временно недоступны; редактируйте data/catalog/overrides.json в репозитории.',
+      );
     const body = await adminBody(req);
     if (body.action === 'discard') {
       const id = z.string().uuid().parse(body.draftId);
@@ -59,6 +70,11 @@ export async function POST(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     const user = await requireAdmin(req, true);
+    if (githubCatalogEnabled())
+      throw new AuthError(
+        503,
+        'Каталог перенесён в GitHub. Изменения через SeaTable временно недоступны; редактируйте data/catalog/overrides.json в репозитории.',
+      );
     const { id, restore } = z
       .object({ id: z.string().regex(/^[a-f0-9]{64}$/), restore: z.boolean().default(false) })
       .parse(await adminBody(req));

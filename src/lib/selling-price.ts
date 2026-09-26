@@ -15,7 +15,7 @@ export function roundCustomerPrice(amount: number | Decimal): number {
 export function sellingPrice(costKzt: number): number {
   if (!Number.isSafeInteger(costKzt) || costKzt <= 0) throw Error('INVALID_COST');
   const cost = new Decimal(costKzt);
-  return roundCustomerPrice(cost.lt(20000) ? cost.plus(3000) : cost.mul('1.12'));
+  return roundCustomerPrice(cost.lt(20000) ? cost.plus(3000) : cost.mul('1.15'));
 }
 
 export function withSellingPrices(p: Product): Product {

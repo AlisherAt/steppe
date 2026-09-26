@@ -1,4 +1,5 @@
 import 'server-only';
+import { githubCatalogEnabled, githubProducts, githubSources } from './github-catalog';
 import { orderableProduct } from '../orderable';
 import { isCatalogBrand } from '../catalog-policy';
 import { publicProduct } from '../public-product';
@@ -42,6 +43,7 @@ export async function internalCatalog(
   mode: 'live' | 'demo',
 ): Promise<CatalogResult> {
   if (mode === 'demo') return filterCatalog(demoProducts, filters, 'demo');
+  if (githubCatalogEnabled()) return filterCatalog(githubProducts(), filters, 'live');
   if (!databaseConfigured())
     return {
       products: [],
@@ -85,6 +87,7 @@ export async function getCatalog(filters: Filters, mode: 'live' | 'demo'): Promi
   return { ...result, products: result.products.map(publicProduct) };
 }
 export async function getSources(): Promise<SourceStatus[]> {
+  if (githubCatalogEnabled()) return githubSources();
   const adapters = getAdapters();
   const defaults: SourceStatus[] = adapters.map((a) => ({
     id: a.id,

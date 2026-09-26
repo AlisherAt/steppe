@@ -1,4 +1,5 @@
 import { orderableProduct } from '../orderable';
+import { githubCatalogEnabled, githubProducts } from './github-catalog';
 import { isCatalogBrand } from '../catalog-policy';
 import { db, databaseConfigured, databaseProvider } from './db';
 import { seaStore } from './seatable-store';
@@ -7,6 +8,7 @@ import { withSellingPrices } from '../selling-price';
 import { offerVisible } from '../promotion';
 import type { Product } from '../types';
 export async function cartProducts(ids: string[]): Promise<Product[]> {
+  if (githubCatalogEnabled()) return githubProducts().filter(p => ids.includes(p.id));
   if (!databaseConfigured()) throw new Error('CATALOG_NOT_CONFIGURED');
   if (databaseProvider() === 'seatable')
     return (await manualProducts.combine(await seaStore.liveProducts())).products

@@ -68,7 +68,7 @@ const input = (draftId: string) => ({
 describe('selling prices', () => {
   it('applies the threshold then rounds upward to 500 tenge', () => {
     expect([15000, 19999, 20000, 25000, 20004, 20005].map(sellingPrice)).toEqual([
-      18000, 23000, 22500, 28000, 22500, 22500,
+      18000, 23000, 23000, 29000, 23500, 23500,
     ]);
     for (const cost of [0, -1, NaN, Infinity, 15.2, Number.MAX_SAFE_INTEGER])
       expect(() => sellingPrice(cost)).toThrow();
@@ -77,14 +77,14 @@ describe('selling prices', () => {
     const raw = product(),
       priced = withSellingPrices(raw);
     expect(priced.saleKzt).toBe(18000);
-    expect(priced.sizePrices![1].saleKzt).toBe(28000);
+    expect(priced.sizePrices![1].saleKzt).toBe(29000);
     expect(raw.sizePrices![1].saleKzt).toBe(25000);
     expect(priced.sizePrices![1].salePrice).toBe('50');
-    expect(addToCart([], priced, 'EU 42')[0].saleKzt).toBe(28000);
+    expect(addToCart([], priced, 'EU 42')[0].saleKzt).toBe(29000);
     const text = new URL(
       whatsappOrder('77001234567', [{ id: priced.id, size: 'EU 42' }], [priced]),
     ).searchParams.get('text')!;
-    expect(text.replace(/\s/g, '')).toContain('28000');
+    expect(text.replace(/\s/g, '')).toContain('29000');
     expect(text).not.toContain(raw.productUrl);
     expect(
       withSellingPrices({ ...raw, originalKzt: 19000, saleKzt: 19999, sizePrices: undefined })
@@ -174,7 +174,7 @@ describe('manual publication and deletion', () => {
     expect(result.name).toBe('Моя модель');
     expect(result.sizes).toEqual(['EU 42']);
     expect(result.saleKzt).toBe(30000);
-    expect(withSellingPrices(result).saleKzt).toBe(34000);
+    expect(withSellingPrices(result).saleKzt).toBe(34500);
   });
 });
 describe('link import', () => {

@@ -16,6 +16,7 @@ test('локальный сбор не наследует прокси и клю
     CRON_SECRET: 'secret',
     SEATABLE_API_TOKEN: 'secret',
     GITHUB_TOKEN: 'secret',
+    STEPPE_GITHUB_TOKEN: 'secret',
     PYTHON_EXECUTABLE: 'python',
     SCRAPER_PERMISSIONS_JSON: '{"nike":"permission"}',
   });

@@ -10,7 +10,7 @@ on:
         type: boolean
         default: false
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: steppe-nike-refresh
   cancel-in-progress: false
@@ -31,18 +31,14 @@ jobs:
           SCRAPER_PERMISSIONS_JSON: ${{ vars.SCRAPER_PERMISSIONS_JSON || '{}' }}
           NIKE_DETAIL_LIMIT: ${{ inputs.verify_only && '3' || '10000' }}
         run: node scripts/scrape-nike.mjs
-      - name: Передать проверенный снимок
+      - name: Подготовить подборку Nike по ценовым диапазонам
+        if: ${{ !inputs.verify_only }}
+        run: node node_modules/tsx/dist/cli.mjs scripts/build-catalog.ts artifacts/nike-report.json --out artifacts/publish-catalog
+      - name: Опубликовать каталог в GitHub
         if: ${{ !inputs.verify_only }}
         env:
-          STEPPE_SITE_URL: ${{ vars.STEPPE_SITE_URL || 'https://steppe-gray.vercel.app' }}
-          CRON_SECRET: ${{ secrets.CRON_SECRET }}
-        run: node scripts/upload-scrape-report.mjs artifacts/nike-report.json
-      - name: Обновить сайт
-        if: ${{ !inputs.verify_only }}
-        env:
-          STEPPE_SITE_URL: ${{ vars.STEPPE_SITE_URL || 'https://steppe-gray.vercel.app' }}
-          CRON_SECRET: ${{ secrets.CRON_SECRET }}
-        run: node scripts/refresh-site.mjs --sources=nike-us
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/publish-catalog.mjs artifacts/publish-catalog
       - uses: actions/upload-artifact@v4
         if: always()
         with:

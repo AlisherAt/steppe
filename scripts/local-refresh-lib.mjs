@@ -6,7 +6,7 @@ export function directScraperEnv(env) {
     if (
       /^(https?|all|no)_proxy$/i.test(key) ||
       /^SCRAPER_PROXY_/.test(key) ||
-      /^(CRON_SECRET|SEATABLE_|SUPABASE_|KICKS_API_KEY|GITHUB_TOKEN)/.test(key)
+      /^(CRON_SECRET|SEATABLE_|SUPABASE_|KICKS_API_KEY|GITHUB_TOKEN|STEPPE_GITHUB_TOKEN)/.test(key)
     )
       delete result[key];
   }
