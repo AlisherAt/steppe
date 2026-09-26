@@ -37,12 +37,18 @@ export const filtersSchema = z
   })
   .refine((v) => v.minPrice <= v.maxPrice, { message: 'Минимальная цена больше максимальной' });
 export const PAGE_SIZE = 12;
+const sizesFor = (products: Product[]) =>
+  [...new Set(products.flatMap((p) => p.sizes.map((s) => localSizeKey(p, s))))].sort((a, b) =>
+    a.localeCompare(b, 'en', { numeric: true }),
+  );
 export function facetsFor(products: Product[]): Facets {
   return {
     brands: [...new Set(products.map((p) => p.brand))].sort(),
-    sizes: [...new Set(products.flatMap((p) => p.sizes.map((s) => localSizeKey(p, s))))].sort(
-      (a, b) => a.localeCompare(b, 'en', { numeric: true }),
-    ),
+    sizes: sizesFor(products),
+    sizeGroups: {
+      adults: sizesFor(products.filter((p) => p.gender !== 'kids')),
+      kids: sizesFor(products.filter((p) => p.gender === 'kids')),
+    },
     sources: [
       ...new Map(
         products.map((p) => [p.sourceId, { id: p.sourceId, name: p.sourceName }]),

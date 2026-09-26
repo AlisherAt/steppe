@@ -23,7 +23,7 @@ import { ProductCard } from './product-card';
 import { catalogBrands as brandNames } from '@/lib/catalog-policy';
 import { demoEnabled } from '@/lib/catalog-mode';
 import { formatKzt } from '@/lib/money';
-import { sizeFilterLabel } from '@/lib/size-guide';
+import { SizeFilter } from './size-filter';
 export function Catalog({
   initial,
   initialMode,
@@ -241,30 +241,13 @@ export function Catalog({
           ))}
         </div>
       </fieldset>
-      <fieldset>
-        <legend>
-          Размер <span className="muted">EU</span>
-        </legend>
-        <div className="size-grid">
-          {(result.facets.sizes.length
-            ? result.facets.sizes
-            : ['36', '37', '38', '39', '40', '41', '42', '43', '44', '45']
-          ).map((size) => (
-            <button
-              key={size}
-              aria-pressed={filters.sizes.includes(size)}
-              className={filters.sizes.includes(size) ? 'selected' : ''}
-              onClick={() => toggle('sizes', size)}
-            >
-              {sizeFilterLabel(size)}
-            </button>
-          ))}
-        </div>
-        <p className="filter-hint">
-          Размеры переведены в EU по сетке бренда. US остаётся только там, где соответствие не
-          определено.
-        </p>
-      </fieldset>
+      <SizeFilter
+        sizes={result.facets.sizes}
+        groups={result.facets.sizeGroups}
+        selected={filters.sizes}
+        gender={filters.gender}
+        onChange={(sizes) => update('sizes', sizes)}
+      />
       <fieldset>
         <legend>Цена, ₸</legend>
         <div className="price-fields">

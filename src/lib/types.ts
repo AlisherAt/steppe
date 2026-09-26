@@ -70,6 +70,7 @@ export type Filters = {
 export type Facets = {
   brands: string[];
   sizes: string[];
+  sizeGroups?: { adults: string[]; kids: string[] };
   sources: { id: string; name: string }[];
   categories: string[];
 };
