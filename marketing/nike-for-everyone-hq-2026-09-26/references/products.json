@@ -1,0 +1,73 @@
+{
+  "source": "Исходные фотографии Nike из каталога STEPPE; расцветки сверены с приложенными скриншотами",
+  "products": [
+    {
+      "sku": "HM9697-100",
+      "file": "ava-x.png",
+      "name": "Nike Ava X Men's Shoes",
+      "category": "men",
+      "imageUrl": "https://static.nike.com/a/images/t_PDP_1728_v1/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/37c596b0-6034-40d6-8c66-addab593b8f9/NIKE+AVA+X.png",
+      "catalogImageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/37c596b0-6034-40d6-8c66-addab593b8f9/NIKE+AVA+X.png",
+      "verifiedAt": "2026-09-26T19:48:27.291Z",
+      "width": 1728,
+      "height": 1728,
+      "crop": [
+        0,
+        397,
+        1728,
+        1105
+      ]
+    },
+    {
+      "sku": "IR1847-103",
+      "file": "jordan-sixty.png",
+      "name": "Jordan Sixty Plus Low Women's Shoes",
+      "category": "women",
+      "imageUrl": "https://static.nike.com/a/images/t_PDP_1728_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/761f1530-64a9-412f-824d-a8a8a6cedb98/WMNS+JORDAN+SIXTY+PLUS+LOW.png",
+      "catalogImageUrl": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/761f1530-64a9-412f-824d-a8a8a6cedb98/WMNS+JORDAN+SIXTY+PLUS+LOW.png",
+      "verifiedAt": "2026-09-26T19:48:28.459Z",
+      "width": 1728,
+      "height": 1728,
+      "crop": [
+        0,
+        397,
+        1728,
+        1105
+      ]
+    },
+    {
+      "sku": "IB6687-700",
+      "file": "book-2.png",
+      "name": "Book 2 \"The Phoenix\" Basketball Shoes",
+      "category": "unisex",
+      "imageUrl": "https://static.nike.com/a/images/t_PDP_1728_v1/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/a0d18fb1-f675-4d63-9113-e7c629442f21/BOOK+2.png",
+      "catalogImageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/a0d18fb1-f675-4d63-9113-e7c629442f21/BOOK+2.png",
+      "verifiedAt": "2026-09-26T19:48:29.278Z",
+      "width": 1728,
+      "height": 1728,
+      "crop": [
+        0,
+        397,
+        1728,
+        1105
+      ]
+    },
+    {
+      "sku": "HF7310-016",
+      "file": "dn8-kids.png",
+      "name": "Nike Air Max Dn8 Big Kids' Shoes",
+      "category": "kids",
+      "imageUrl": "https://static.nike.com/a/images/t_PDP_1728_v1/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/5ba96168-d0b1-41c3-8ceb-caa8f1116130/AIR+MAX+DN8+%28GS%29.png",
+      "catalogImageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/5ba96168-d0b1-41c3-8ceb-caa8f1116130/AIR+MAX+DN8+%28GS%29.png",
+      "verifiedAt": "2026-09-26T19:48:30.300Z",
+      "width": 1728,
+      "height": 1728,
+      "crop": [
+        0,
+        397,
+        1728,
+        1105
+      ]
+    }
+  ]
+}
