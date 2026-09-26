@@ -222,7 +222,7 @@ export class SeaTableStore {
     return matching[0];
   }
   async commit(run: SeaRun, products: Product[], rates: Rate[]) {
-    if (products.length > 1000 || new Set(products.map((p) => p.id)).size !== products.length)
+    if (products.length > 10000 || new Set(products.map((p) => p.id)).size !== products.length)
       throw new IntegrationError('INVALID_BATCH');
     const clean: Product[] = products.map((p) => {
       const r = productSchema.safeParse(p);

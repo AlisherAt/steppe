@@ -1,0 +1,589 @@
+{
+  "nextData": {
+    "props": {
+      "pageProps": {
+        "selectedProduct": {
+          "styleColor": "CW0907-002",
+          "pdpUrl": {
+            "url": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206/CW0907-002",
+            "canonicalUrl": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206",
+            "path": "/t/air-jordan-og-womens-shoes-6JW206/CW0907-002"
+          },
+          "prices": {
+            "currency": "USD",
+            "currentPrice": 87.97,
+            "initialPrice": 155,
+            "employeePrice": 52.78,
+            "discountPercentage": 43,
+            "employeeDiscountPercentage": 66
+          },
+          "productType": "FOOTWEAR",
+          "sizes": [
+            {
+              "label": "5",
+              "localizedLabel": "W 5 / M 3.5",
+              "gtins": [
+                {
+                  "gtin": "00198729788023"
+                }
+              ],
+              "sortSequence": 125,
+              "status": "ACTIVE",
+              "merchSkuId": "d5f130b8-c4cb-5ba5-b03c-be9f1dc2d7b6"
+            },
+            {
+              "label": "5.5",
+              "localizedLabel": "W 5.5 / M 4",
+              "gtins": [
+                {
+                  "gtin": "00198729839237"
+                }
+              ],
+              "sortSequence": 130,
+              "status": "ACTIVE",
+              "merchSkuId": "7a0e80ca-db13-519c-91c2-8557d6c1bfc5"
+            },
+            {
+              "label": "6",
+              "localizedLabel": "W 6 / M 4.5",
+              "gtins": [
+                {
+                  "gtin": "00198729798183"
+                }
+              ],
+              "sortSequence": 135,
+              "status": "ACTIVE",
+              "merchSkuId": "7d796554-d27a-545d-a691-d1223a9ca131"
+            },
+            {
+              "label": "6.5",
+              "localizedLabel": "W 6.5 / M 5",
+              "gtins": [
+                {
+                  "gtin": "00198729698322"
+                }
+              ],
+              "sortSequence": 140,
+              "status": "ACTIVE",
+              "merchSkuId": "e259b4c8-b253-5a64-9ef7-73516303571e"
+            },
+            {
+              "label": "7",
+              "localizedLabel": "W 7 / M 5.5",
+              "gtins": [
+                {
+                  "gtin": "00198729876805"
+                }
+              ],
+              "sortSequence": 145,
+              "status": "ACTIVE",
+              "merchSkuId": "71495b22-1761-5961-8144-084b409fb5fe"
+            },
+            {
+              "label": "7.5",
+              "localizedLabel": "W 7.5 / M 6",
+              "gtins": [
+                {
+                  "gtin": "00198729776679"
+                }
+              ],
+              "sortSequence": 150,
+              "status": "ACTIVE",
+              "merchSkuId": "42936ccd-0ad1-56a7-bbb0-40105e50b26b"
+            },
+            {
+              "label": "8",
+              "localizedLabel": "W 8 / M 6.5",
+              "gtins": [
+                {
+                  "gtin": "00198729885562"
+                }
+              ],
+              "sortSequence": 155,
+              "status": "ACTIVE",
+              "merchSkuId": "cb9fa95c-616c-5448-bd50-0c216c2020ba"
+            },
+            {
+              "label": "8.5",
+              "localizedLabel": "W 8.5 / M 7",
+              "gtins": [
+                {
+                  "gtin": "00198729733740"
+                }
+              ],
+              "sortSequence": 160,
+              "status": "ACTIVE",
+              "merchSkuId": "22f4fb27-1dca-59bc-8f5b-6ae377ed4584"
+            },
+            {
+              "label": "9",
+              "localizedLabel": "W 9 / M 7.5",
+              "gtins": [
+                {
+                  "gtin": "00198729720504"
+                }
+              ],
+              "sortSequence": 165,
+              "status": "ACTIVE",
+              "merchSkuId": "62e2d4d3-7b2e-5d9a-ac72-dd4fe6c3524c"
+            },
+            {
+              "label": "9.5",
+              "localizedLabel": "W 9.5 / M 8",
+              "gtins": [
+                {
+                  "gtin": "00198729723758"
+                }
+              ],
+              "sortSequence": 170,
+              "status": "ACTIVE",
+              "merchSkuId": "eeb9ed1b-555e-5ab8-9d7e-c0212a6a47ca"
+            },
+            {
+              "label": "10",
+              "localizedLabel": "W 10 / M 8.5",
+              "gtins": [
+                {
+                  "gtin": "00198729866660"
+                }
+              ],
+              "sortSequence": 175,
+              "status": "ACTIVE",
+              "merchSkuId": "c1b377c3-273c-5ad7-a28b-31a0f94bc151"
+            },
+            {
+              "label": "10.5",
+              "localizedLabel": "W 10.5 / M 9",
+              "gtins": [
+                {
+                  "gtin": "00198729653666"
+                }
+              ],
+              "sortSequence": 180,
+              "status": "ACTIVE",
+              "merchSkuId": "33f15031-b43c-575a-8e32-cdea6e81e0a6"
+            },
+            {
+              "label": "11",
+              "localizedLabel": "W 11 / M 9.5",
+              "gtins": [
+                {
+                  "gtin": "00198729857491"
+                }
+              ],
+              "sortSequence": 185,
+              "status": "ACTIVE",
+              "merchSkuId": "4c4b42a5-f114-55f3-ae21-ec4438febff4"
+            },
+            {
+              "label": "11.5",
+              "localizedLabel": "W 11.5 / M 10",
+              "gtins": [
+                {
+                  "gtin": "00198729815286"
+                }
+              ],
+              "sortSequence": 190,
+              "status": "ACTIVE",
+              "merchSkuId": "a5042382-f6ea-5a04-8cee-21b4b1693223"
+            },
+            {
+              "label": "12",
+              "localizedLabel": "W 12 / M 10.5",
+              "gtins": [
+                {
+                  "gtin": "00198729825872"
+                }
+              ],
+              "sortSequence": 195,
+              "status": "ACTIVE",
+              "merchSkuId": "0efc9b95-9fa7-5806-ad59-26b3383cd9fc"
+            },
+            {
+              "label": "12.5",
+              "localizedLabel": "W 12.5 / M 11",
+              "gtins": [
+                {
+                  "gtin": "00198729855831"
+                }
+              ],
+              "sortSequence": 200,
+              "status": "ACTIVE",
+              "merchSkuId": "23dbd4b4-497f-586e-8f36-97d6de33f046"
+            },
+            {
+              "label": "13",
+              "localizedLabel": "W 13 / M 11.5",
+              "gtins": [
+                {
+                  "gtin": "00198729818201"
+                }
+              ],
+              "sortSequence": 205,
+              "status": "ACTIVE",
+              "merchSkuId": "db115b58-46c9-5608-8e4f-1fa56cf65574"
+            },
+            {
+              "label": "13.5",
+              "localizedLabel": "W 13.5 / M 12",
+              "gtins": [
+                {
+                  "gtin": "00198729729255"
+                }
+              ],
+              "sortSequence": 210,
+              "status": "ACTIVE",
+              "merchSkuId": "988bfdad-eec5-51b5-900a-101ae1c0a7ce"
+            },
+            {
+              "label": "14",
+              "localizedLabel": "W 14 / M 12.5",
+              "gtins": [
+                {
+                  "gtin": "00198729721570"
+                }
+              ],
+              "sortSequence": 215,
+              "status": "ACTIVE",
+              "merchSkuId": "1a08bec7-594e-5977-b845-2c93b0914cd9"
+            },
+            {
+              "label": "14.5",
+              "localizedLabel": "W 14.5 / M 13",
+              "gtins": [
+                {
+                  "gtin": "00198958699572"
+                }
+              ],
+              "sortSequence": 220,
+              "status": "ACTIVE",
+              "merchSkuId": "be5563ba-338e-5d79-8c03-53b23a7e0fec"
+            },
+            {
+              "label": "15.5",
+              "localizedLabel": "W 15.5 / M 14",
+              "gtins": [
+                {
+                  "gtin": "00198958702784"
+                }
+              ],
+              "sortSequence": 230,
+              "status": "ACTIVE",
+              "merchSkuId": "869d3711-f5fb-5773-aecb-583107212f3a"
+            }
+          ],
+          "isMemberProduct": false,
+          "isRestrictedAccess": false,
+          "isReservedForYou": false,
+          "isLaunchProduct": false,
+          "isNBY": false,
+          "productInfo": {
+            "title": "Air Jordan OG",
+            "subtitle": "Women's Shoes",
+            "fullTitle": "Air Jordan OG Women's Shoes"
+          }
+        },
+        "marketPlace": "US",
+        "locale": {
+          "country": "us"
+        }
+      }
+    }
+  },
+  "structuredData": [
+    {
+      "hasVariant": [
+        {
+          "mpn": "CW0907-002",
+          "size": "5",
+          "gtin": "00198729788023",
+          "image": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20db18e7-cc76-4af9-8c7a-fa170c40d385/WMNS+AIR+JORDAN+OG.png",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206/CW0907-002",
+            "price": 87.97,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+          }
+        },
+        {
+          "mpn": "CW0907-002",
+          "size": "5.5",
+          "gtin": "00198729839237",
+          "image": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20db18e7-cc76-4af9-8c7a-fa170c40d385/WMNS+AIR+JORDAN+OG.png",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206/CW0907-002",
+            "price": 87.97,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+          }
+        },
+        {
+          "mpn": "CW0907-002",
+          "size": "6",
+          "gtin": "00198729798183",
+          "image": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20db18e7-cc76-4af9-8c7a-fa170c40d385/WMNS+AIR+JORDAN+OG.png",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206/CW0907-002",
+            "price": 87.97,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+          }
+        },
+        {
+          "mpn": "CW0907-002",
+          "size": "6.5",
+          "gtin": "00198729698322",
+          "image": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20db18e7-cc76-4af9-8c7a-fa170c40d385/WMNS+AIR+JORDAN+OG.png",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206/CW0907-002",
+            "price": 87.97,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+          }
+        },
+        {
+          "mpn": "CW0907-002",
+          "size": "7",
+          "gtin": "00198729876805",
+          "image": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20db18e7-cc76-4af9-8c7a-fa170c40d385/WMNS+AIR+JORDAN+OG.png",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206/CW0907-002",
+            "price": 87.97,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+          }
+        },
+        {
+          "mpn": "CW0907-002",
+          "size": "7.5",
+          "gtin": "00198729776679",
+          "image": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20db18e7-cc76-4af9-8c7a-fa170c40d385/WMNS+AIR+JORDAN+OG.png",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206/CW0907-002",
+            "price": 87.97,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+          }
+        },
+        {
+          "mpn": "CW0907-002",
+          "size": "8",
+          "gtin": "00198729885562",
+          "image": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20db18e7-cc76-4af9-8c7a-fa170c40d385/WMNS+AIR+JORDAN+OG.png",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206/CW0907-002",
+            "price": 87.97,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+          }
+        },
+        {
+          "mpn": "CW0907-002",
+          "size": "8.5",
+          "gtin": "00198729733740",
+          "image": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20db18e7-cc76-4af9-8c7a-fa170c40d385/WMNS+AIR+JORDAN+OG.png",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206/CW0907-002",
+            "price": 87.97,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+          }
+        },
+        {
+          "mpn": "CW0907-002",
+          "size": "9",
+          "gtin": "00198729720504",
+          "image": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20db18e7-cc76-4af9-8c7a-fa170c40d385/WMNS+AIR+JORDAN+OG.png",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206/CW0907-002",
+            "price": 87.97,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+          }
+        },
+        {
+          "mpn": "CW0907-002",
+          "size": "9.5",
+          "gtin": "00198729723758",
+          "image": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20db18e7-cc76-4af9-8c7a-fa170c40d385/WMNS+AIR+JORDAN+OG.png",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206/CW0907-002",
+            "price": 87.97,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+          }
+        },
+        {
+          "mpn": "CW0907-002",
+          "size": "10",
+          "gtin": "00198729866660",
+          "image": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20db18e7-cc76-4af9-8c7a-fa170c40d385/WMNS+AIR+JORDAN+OG.png",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206/CW0907-002",
+            "price": 87.97,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+          }
+        },
+        {
+          "mpn": "CW0907-002",
+          "size": "11",
+          "gtin": "00198729857491",
+          "image": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20db18e7-cc76-4af9-8c7a-fa170c40d385/WMNS+AIR+JORDAN+OG.png",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206/CW0907-002",
+            "price": 87.97,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+          }
+        },
+        {
+          "mpn": "CW0907-002",
+          "size": "12",
+          "gtin": "00198729825872",
+          "image": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20db18e7-cc76-4af9-8c7a-fa170c40d385/WMNS+AIR+JORDAN+OG.png",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://www.nike.com/t/air-jordan-og-womens-shoes-6JW206/CW0907-002",
+            "price": 87.97,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+          }
+        }
+      ]
+    }
+  ],
+  "canAdd": true,
+  "sizes": [
+    {
+      "value": "5",
+      "disabled": false,
+      "ariaDisabled": false
+    },
+    {
+      "value": "5.5",
+      "disabled": false,
+      "ariaDisabled": false
+    },
+    {
+      "value": "6",
+      "disabled": false,
+      "ariaDisabled": false
+    },
+    {
+      "value": "6.5",
+      "disabled": false,
+      "ariaDisabled": false
+    },
+    {
+      "value": "7",
+      "disabled": false,
+      "ariaDisabled": false
+    },
+    {
+      "value": "7.5",
+      "disabled": false,
+      "ariaDisabled": false
+    },
+    {
+      "value": "8",
+      "disabled": false,
+      "ariaDisabled": false
+    },
+    {
+      "value": "8.5",
+      "disabled": false,
+      "ariaDisabled": false
+    },
+    {
+      "value": "9",
+      "disabled": false,
+      "ariaDisabled": false
+    },
+    {
+      "value": "9.5",
+      "disabled": false,
+      "ariaDisabled": false
+    },
+    {
+      "value": "10",
+      "disabled": false,
+      "ariaDisabled": false
+    },
+    {
+      "value": "10.5",
+      "disabled": false,
+      "ariaDisabled": true
+    },
+    {
+      "value": "11",
+      "disabled": false,
+      "ariaDisabled": false
+    },
+    {
+      "value": "11.5",
+      "disabled": false,
+      "ariaDisabled": true
+    },
+    {
+      "value": "12",
+      "disabled": false,
+      "ariaDisabled": false
+    },
+    {
+      "value": "12.5",
+      "disabled": false,
+      "ariaDisabled": true
+    },
+    {
+      "value": "13",
+      "disabled": false,
+      "ariaDisabled": true
+    },
+    {
+      "value": "13.5",
+      "disabled": false,
+      "ariaDisabled": true
+    },
+    {
+      "value": "14",
+      "disabled": false,
+      "ariaDisabled": true
+    },
+    {
+      "value": "14.5",
+      "disabled": false,
+      "ariaDisabled": true
+    },
+    {
+      "value": "15.5",
+      "disabled": false,
+      "ariaDisabled": true
+    }
+  ]
+}

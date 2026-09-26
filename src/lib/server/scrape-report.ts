@@ -19,7 +19,7 @@ export const scrapeReportSchema = z.object({
           'no_valid_products',
           'error',
         ]),
-        count: z.number().int().min(0).max(1500),
+        count: z.number().int().min(0).max(10000),
         error: z.string().max(200).optional(),
       }),
     )
@@ -42,7 +42,7 @@ export const scrapeReportSchema = z.object({
           size_candidates: z.array(z.string().min(1).max(40)).max(60).optional(),
           gender: z.enum(['men', 'women', 'kids', 'unisex']).optional(),
           variants: z
-            .array(z.union([pumaVariantSchema, retailVariantSchema]))
+            .array(z.union([retailVariantSchema, pumaVariantSchema]))
             .max(60)
             .optional(),
         })
@@ -54,7 +54,7 @@ export const scrapeReportSchema = z.object({
             retailScrapeSchema.safeParse(p).success,
         ),
     )
-    .max(1500),
+    .max(10000),
 });
 export function scrapeObservedAt(report: {
   checkedAt: string;
@@ -98,9 +98,7 @@ export async function storeScrapeReport(input: z.infer<typeof scrapeReportSchema
       }),
     },
   ]);
-  const expired = rows.filter(
-    (r) => Date.parse(String(r.checked_at)) < Date.now() - 30 * 86400_000,
-  );
+  const expired = rows.filter((r) => Date.parse(String(r.checked_at)) < Date.now() - 36 * 3600_000);
   if (expired.length)
     await seaClient.remove(
       'STEPPE_Scrapes',
@@ -116,8 +114,8 @@ export async function scrapeSummary() {
   if (!latest) return null;
   const parsed = scrapeReportSchema
     .extend({
-      collectedCount: z.number().int().min(0).max(1500).optional(),
-      verifiedCount: z.number().int().min(0).max(1500).optional(),
+      collectedCount: z.number().int().min(0).max(10000).optional(),
+      verifiedCount: z.number().int().min(0).max(10000).optional(),
     })
     .safeParse(JSON.parse(String(latest.payload)));
   if (!parsed.success) return null;

@@ -1,6 +1,7 @@
-param([Parameter(Mandatory = $true)][string]$NodePath)
+param([Parameter(Mandatory = $true)][string]$NodePath, [switch]$Nike)
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $projectRoot
-& $NodePath (Join-Path $PSScriptRoot 'local-refresh.mjs')
+if ($Nike) { & $NodePath (Join-Path $PSScriptRoot 'local-refresh.mjs') --nike }
+else { & $NodePath (Join-Path $PSScriptRoot 'local-refresh.mjs') }
 exit $LASTEXITCODE

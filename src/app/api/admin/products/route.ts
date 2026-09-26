@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     }
     const input = publishSchema.parse(body);
     if (!isCatalogBrand(input.brand))
-      throw new AuthError(400, 'В каталоге доступны только Puma и Reebok.');
+      throw new AuthError(400, 'В каталоге доступны только Puma, Reebok и Nike.');
     const product = await manualProducts.publish(input);
     return adminJson({ published: true, id: product.id });
   } catch (error) {

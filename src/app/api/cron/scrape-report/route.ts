@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { timingSafeEqual } from 'node:crypto';
 import { scrapeReportSchema, storeScrapeReport } from '@/lib/server/scrape-report';
+import { decodeScrapeBody, maxScrapeWireBytes } from '@/lib/scrape-transfer';
 export const runtime = 'nodejs';
-export const maxDuration = 60;
+export const maxDuration = 300;
 export async function POST(req: NextRequest) {
   const secret = process.env.CRON_SECRET;
   if (!secret || secret.length < 32)
@@ -11,12 +12,21 @@ export async function POST(req: NextRequest) {
     expected = Buffer.from(`Bearer ${secret}`);
   if (supplied.length !== expected.length || !timingSafeEqual(supplied, expected))
     return NextResponse.json({ error: 'Нет доступа' }, { status: 401 });
-  if (Number(req.headers.get('content-length')) > 3_000_000)
+  if (Number(req.headers.get('content-length')) > maxScrapeWireBytes)
     return NextResponse.json({ error: 'Слишком большой отчёт' }, { status: 413 });
   try {
-    const text = await req.text();
-    if (text.length > 3_000_000)
-      return NextResponse.json({ error: 'Слишком большой отчёт' }, { status: 413 });
+    let text;
+    try {
+      text = decodeScrapeBody(
+        new Uint8Array(await req.arrayBuffer()),
+        req.headers.get('content-encoding'),
+      );
+    } catch {
+      return NextResponse.json(
+        { error: 'Некорректный или слишком большой отчёт' },
+        { status: 413 },
+      );
+    }
     let body;
     try {
       body = JSON.parse(text);

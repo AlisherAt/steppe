@@ -1,0 +1,47 @@
+name: Обновить Nike STEPPE
+on:
+  schedule:
+    # 10:00 и 21:00 Москва, как локальный планировщик.
+    - cron: '0 7,18 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: steppe-nike-refresh
+  cancel-in-progress: false
+jobs:
+  nike:
+    runs-on: ubuntu-latest
+    timeout-minutes: 125
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Собрать скидки Nike и проверить размеры
+        env:
+          SCRAPER_PERMISSIONS_JSON: ${{ vars.SCRAPER_PERMISSIONS_JSON || '{}' }}
+        run: node scripts/scrape-nike.mjs
+      - name: Передать проверенный снимок
+        env:
+          STEPPE_SITE_URL: ${{ vars.STEPPE_SITE_URL || 'https://steppe-gray.vercel.app' }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: node scripts/upload-scrape-report.mjs artifacts/nike-report.json
+      - name: Обновить сайт
+        env:
+          STEPPE_SITE_URL: ${{ vars.STEPPE_SITE_URL || 'https://steppe-gray.vercel.app' }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: node scripts/refresh-site.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nike-report
+          path: |
+            artifacts/nike-report.json
+            artifacts/nike-live/progress.json
+            artifacts/nike-live/candidates.json
+            artifacts/nike-live/result.json
+          retention-days: 7

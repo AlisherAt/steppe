@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     const user = await requireAdmin(req, true);
     const { url } = z.object({ url: z.string().url().max(2000) }).parse(await adminBody(req));
     if (!isCatalogBrand(manualSource(url).brand))
-      throw new AuthError(400, 'В каталоге доступны только Puma и Reebok.');
+      throw new AuthError(400, 'В каталоге доступны только Puma, Reebok и Nike.');
     const { product, from } = await importProductLink(url);
     return adminJson({ ...(await manualProducts.createDraft(product, user.id)), from });
   } catch (error) {

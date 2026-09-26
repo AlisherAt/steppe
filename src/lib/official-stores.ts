@@ -1,4 +1,5 @@
 export const officialStores = {
+  'nike-us': { brand: 'Nike', origin: 'https://www.nike.com' },
   'adidas-us': { brand: 'Adidas', origin: 'https://www.adidas.com' },
   'puma-us': { brand: 'Puma', origin: 'https://us.puma.com' },
   'reebok-us': { brand: 'Reebok', origin: 'https://www.reebok.com' },
@@ -21,7 +22,9 @@ export function officialMarketUrl(value: string, market?: string) {
     return false;
   }
 }
-export function retailStoreId(source: 'adidas' | 'reebok' | 'on' | 'brooks' | 'skechers' | 'fila') {
+export function retailStoreId(
+  source: 'nike' | 'adidas' | 'reebok' | 'on' | 'brooks' | 'skechers' | 'fila',
+) {
   return source === 'fila' ? ('fila-eu' as const) : (`${source}-us` as const);
 }
 export function sizeLabel(size: string) {

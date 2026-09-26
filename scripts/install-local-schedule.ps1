@@ -1,4 +1,4 @@
-param([string]$TaskName = 'STEPPE-Catalog-Refresh')
+param([string]$TaskName = 'STEPPE-Catalog-Refresh', [switch]$Nike)
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $nodePath = (Get-Command node -ErrorAction Stop).Source
@@ -7,6 +7,7 @@ if (-not (Test-Path -LiteralPath (Join-Path $projectRoot '.env.scheduler.local')
     throw 'Missing .env.scheduler.local; see docs/local-scheduler.md'
 }
 $arguments = '-NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -File "{0}" -NodePath "{1}"' -f $runner, $nodePath
+if ($Nike) { $TaskName = 'STEPPE-Nike-Refresh'; $arguments += ' -Nike' }
 $action = New-ScheduledTaskAction -Execute (Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe') -Argument $arguments -WorkingDirectory $projectRoot
 $triggers = @(
     New-ScheduledTaskTrigger -Daily -At '10:00'

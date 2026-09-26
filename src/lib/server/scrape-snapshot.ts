@@ -18,7 +18,8 @@ export function selectScrapeSnapshot<T extends { id: string; sourceUpdatedAt?: s
       return [];
     }
   });
-  const candidates: { id: string; observedAt: number; products: T[] }[] = [];
+  const candidates: { id: string; observedAt: number; lastObservedAt: number; products: T[] }[] =
+    [];
   for (const { row, data } of decoded) {
     const id = String(row.id);
     if (id.includes(':') || !fresh(Date.parse(String(row.checked_at)))) continue;
@@ -36,8 +37,18 @@ export function selectScrapeSnapshot<T extends { id: string; sourceUpdatedAt?: s
       throw new IntegrationError('DUPLICATE_SCRAPE_SNAPSHOT');
     // Время цен, а не время загрузки отчёта: медленная отправка не делает данные новее.
     const observedAt = Math.min(...products.map((p) => Date.parse(p.sourceUpdatedAt || '')));
-    if (fresh(observedAt)) candidates.push({ id, observedAt, products });
+    const lastObservedAt = Math.max(...products.map((p) => Date.parse(p.sourceUpdatedAt || '')));
+    if (fresh(observedAt) && fresh(lastObservedAt))
+      candidates.push({ id, observedAt, lastObservedAt, products });
   }
-  candidates.sort((a, b) => b.observedAt - a.observedAt || a.id.localeCompare(b.id));
+  // Завершённый сбор должен заменить промежуточный снимок того же запуска:
+  // время первой пары у них одинаковое, но в полном снимке есть новые наблюдения.
+  candidates.sort(
+    (a, b) =>
+      b.observedAt - a.observedAt ||
+      b.lastObservedAt - a.lastObservedAt ||
+      b.products.length - a.products.length ||
+      a.id.localeCompare(b.id),
+  );
   return candidates[0]?.products ?? null;
 }

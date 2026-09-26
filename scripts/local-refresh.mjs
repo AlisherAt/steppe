@@ -6,7 +6,11 @@ import { acquireLock, directScraperEnv, summarizeRefresh } from './local-refresh
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 process.chdir(root);
-const directory = resolve(root, 'artifacts/local-refresh');
+const nikeOnly = process.argv.includes('--nike');
+const directory = resolve(
+  root,
+  nikeOnly ? 'artifacts/local-nike-refresh' : 'artifacts/local-refresh',
+);
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function main() {
@@ -49,7 +53,11 @@ async function main() {
     delete env.SCRAPER_SOURCE_IDS;
     state.stage = 'browser_setup';
     await save();
-    await log({ event: 'started', connection: 'direct', sources: ['puma', 'reebok'] });
+    await log({
+      event: 'started',
+      connection: 'direct',
+      sources: nikeOnly ? ['nike'] : ['puma', 'reebok'],
+    });
     const runChild = (args, timeoutMs) =>
       new Promise((resolveRun, reject) => {
         const child = spawn(process.execPath, args, {
@@ -101,17 +109,24 @@ async function main() {
     // Если браузер недоступен, старый/пустой отчёт на сайт не отправляется.
     const browser = await chromium.launch({ headless: true });
     await browser.close();
-    await runChild(
-      [
-        '-e',
-        "require('node:child_process').execFileSync(process.env.PYTHON_EXECUTABLE || 'python', ['-c', 'import bs4, soupsieve'], {stdio:'inherit'})",
-      ],
-      20000,
-    );
+    if (!nikeOnly)
+      await runChild(
+        [
+          '-e',
+          "require('node:child_process').execFileSync(process.env.PYTHON_EXECUTABLE || 'python', ['-c', 'import bs4, soupsieve'], {stdio:'inherit'})",
+        ],
+        20000,
+      );
     state.stage = 'scraping';
     await save();
-    await runChild(['scripts/scrape-sales.mjs'], 115 * 60_000);
-    const raw = await readFile(resolve(root, 'artifacts/scraper.json'), 'utf8');
+    await runChild(
+      [nikeOnly ? 'scripts/scrape-nike.mjs' : 'scripts/scrape-sales.mjs'],
+      115 * 60_000,
+    );
+    const raw = await readFile(
+      resolve(root, nikeOnly ? 'artifacts/nike-report.json' : 'artifacts/scraper.json'),
+      'utf8',
+    );
     const report = JSON.parse(raw);
     if (
       Date.parse(report.checkedAt) < Date.parse(state.startedAt) ||
@@ -134,7 +149,23 @@ async function main() {
         ...(body ? { body } : {}),
       });
     // Повторная отправка того же runId идемпотентна. Магазины повторно не опрашиваются.
-    for (let attempt = 1; attempt <= 3; attempt++) {
+    if (nikeOnly) {
+      // Упаковка больших каталогов в gzip и идемпотентная отправка тем же uploader.
+      const { execFile } = await import('node:child_process');
+      const { promisify } = await import('node:util');
+      await promisify(execFile)(
+        process.execPath,
+        ['scripts/upload-scrape-report.mjs', 'artifacts/nike-report.json'],
+        {
+          cwd: root,
+          windowsHide: true,
+          timeout: 320000,
+          env: process.env,
+        },
+      );
+      state.uploaded = true;
+    }
+    for (let attempt = 1; !nikeOnly && attempt <= 3; attempt++) {
       try {
         const response = await post('/api/cron/scrape-report', raw, 65000);
         if (!response.ok) throw Error(`UPLOAD_HTTP_${response.status}`);

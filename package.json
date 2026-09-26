@@ -19,7 +19,8 @@
     "admin:grant": "tsx scripts/admin-grant.ts",
     "reach:install": "node scripts/agent-reach/runtime.mjs install",
     "reach:doctor": "node scripts/agent-reach/runtime.mjs doctor",
-    "scrape:reach": "node scripts/agent-reach/scrape.mjs"
+    "scrape:reach": "node scripts/agent-reach/scrape.mjs",
+    "scrape:nike": "node scripts/scrape-nike.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.0",

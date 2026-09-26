@@ -26,6 +26,18 @@ function snapshot(
 }
 const convert = (raw: unknown) => raw as { id: string; sourceUpdatedAt: string };
 
+it('полный снимок заменяет промежуточную публикацию того же сбора', () => {
+  const first = { id: 'first', sourceUpdatedAt: iso(60000) };
+  const rows = [
+    ...snapshot('a-partial', 'partial', 30000, [first]),
+    ...snapshot('z-completed', 'partial', 0, [first, { id: 'second' }]),
+  ];
+  expect(selectScrapeSnapshot(rows, 'puma', convert, now)?.map((p) => p.id)).toEqual([
+    'first',
+    'second',
+  ]);
+});
+
 it('ошибка облачного сборщика не перекрывает подтверждённый локальный снимок', () => {
   const rows = [
     ...snapshot('local', 'partial', 60000, [{ id: 'shoe' }]),

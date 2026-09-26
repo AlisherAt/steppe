@@ -319,6 +319,7 @@ export function Catalog({
           : [
               { id: 'puma-us', name: 'Puma US' },
               { id: 'reebok-us', name: 'Reebok US' },
+              { id: 'nike-us', name: 'Nike US' },
             ]
         ).map((s) => (
           <label className="check-label" key={s.id}>
@@ -389,7 +390,7 @@ export function Catalog({
           {heroProduct?.imageUrl && !heroImageFailed && (
             <Image
               src={heroProduct.imageUrl}
-              alt="Кроссовки из коллекции Puma и Reebok"
+              alt="Кроссовки из коллекции Puma, Reebok и Nike"
               fill
               priority
               sizes="(max-width: 700px) 100vw, 48vw"
@@ -418,7 +419,7 @@ export function Catalog({
       <div className="benefits">
         <span>
           <Search size={17} />
-          Puma + Reebok
+          Puma + Reebok + Nike
         </span>
         <span>
           <Clock3 size={17} />

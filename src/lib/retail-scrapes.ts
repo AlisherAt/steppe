@@ -8,6 +8,7 @@ export const retailVariantSchema = z
   .object({
     id: z.string().min(1).max(100),
     size: z.string().min(1).max(20),
+    sourceSize: z.string().min(1).max(40).optional(),
     salePrice: amount,
     originalPrice: amount,
     available: z.literal(true),
@@ -16,7 +17,7 @@ export const retailVariantSchema = z
   .refine((v) => Number(v.salePrice) < Number(v.originalPrice));
 export const retailScrapeSchema = z
   .object({
-    source: z.enum(['adidas', 'reebok', 'on', 'brooks', 'skechers', 'fila']),
+    source: z.enum(['nike', 'adidas', 'reebok', 'on', 'brooks', 'skechers', 'fila']),
     brand: z.string(),
     sku: z.string().min(1).max(160),
     name: z.string().min(1).max(180),
@@ -34,15 +35,17 @@ export const retailScrapeSchema = z
       img = new URL(p.image_url);
     const images = [
       s.origin,
-      ...(p.source === 'adidas'
-        ? ['https://assets.adidas.com']
-        : p.source === 'reebok'
-          ? ['https://cdn.shopify.com']
-          : p.source === 'on'
-            ? ['https://images.ctfassets.net']
-            : p.source === 'skechers'
-              ? ['https://images.skechers.com']
-              : []),
+      ...(p.source === 'nike'
+        ? ['https://static.nike.com']
+        : p.source === 'adidas'
+          ? ['https://assets.adidas.com']
+          : p.source === 'reebok'
+            ? ['https://cdn.shopify.com']
+            : p.source === 'on'
+              ? ['https://images.ctfassets.net']
+              : p.source === 'skechers'
+                ? ['https://images.skechers.com']
+                : []),
     ];
     if (
       url.origin !== s.origin ||
@@ -55,6 +58,13 @@ export const retailScrapeSchema = z
       !images.includes(img.origin)
     )
       ctx.addIssue({ code: 'custom', message: 'RETAIL_ORIGIN_MISMATCH' });
+    if (
+      p.source === 'nike' &&
+      (!/^[A-Z0-9]{6}-\d{3}$/.test(p.sku) ||
+        !/^\/t\/[^/]+\/[A-Z0-9]{6}-\d{3}$/.test(url.pathname) ||
+        !url.pathname.endsWith(`/${p.sku}`))
+    )
+      ctx.addIssue({ code: 'custom', message: 'NIKE_SKU_MISMATCH' });
     if (
       p.source === 'adidas' &&
       (!/^[A-Z0-9]{6}$/.test(p.sku) ||
@@ -71,7 +81,9 @@ export const retailScrapeSchema = z
       p.variants.some(
         (v) =>
           !(
-            p.source === 'fila' ? /^EU \d+(?:\.\d+)?$/ : /^US [MWK]? ?\d+(?:\.\d+)?(?: [A-Z0-9]+)?$/
+            p.source === 'fila' || p.source === 'nike'
+              ? /^EU \d+(?:\.\d+)?$/
+              : /^US [MWK]? ?\d+(?:\.\d+)?(?: [A-Z0-9]+)?$/
           ).test(v.size),
       )
     )
