@@ -1,0 +1,344 @@
+{
+  "checkedAt": "2026-09-26T07:10:55.597Z",
+  "products": [
+    {
+      "id": "0aff2874a015da1ce6d763c0bfe722c13055ce1033a3b2fb8de886c4f150c466",
+      "externalId": "",
+      "sourceId": "puma-us",
+      "sourceName": "Puma US",
+      "brand": "Puma",
+      "name": "Softride Enzo 5 Men's Wide Shoes",
+      "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/311947/01/sv01/fnd/PNA/fmt/png/Softride-Enzo-5-Men's-Wide-Shoes",
+      "productUrl": "",
+      "sizes": [
+        "39",
+        "40",
+        "40.5",
+        "41",
+        "42",
+        "42.5",
+        "43",
+        "44",
+        "44.5",
+        "45",
+        "46",
+        "47",
+        "48.5"
+      ],
+      "sizePrices": [
+        {
+          "size": "39",
+          "salePrice": "55.99",
+          "saleKzt": 28000
+        },
+        {
+          "size": "40",
+          "salePrice": "55.99",
+          "saleKzt": 28000
+        },
+        {
+          "size": "40.5",
+          "salePrice": "55.99",
+          "saleKzt": 28000
+        },
+        {
+          "size": "41",
+          "salePrice": "55.99",
+          "saleKzt": 28000
+        },
+        {
+          "size": "42",
+          "salePrice": "55.99",
+          "saleKzt": 28000
+        },
+        {
+          "size": "42.5",
+          "salePrice": "55.99",
+          "saleKzt": 28000
+        },
+        {
+          "size": "43",
+          "salePrice": "55.99",
+          "saleKzt": 28000
+        },
+        {
+          "size": "44",
+          "salePrice": "55.99",
+          "saleKzt": 28000
+        },
+        {
+          "size": "44.5",
+          "salePrice": "55.99",
+          "saleKzt": 28000
+        },
+        {
+          "size": "45",
+          "salePrice": "55.99",
+          "saleKzt": 28000
+        },
+        {
+          "size": "46",
+          "salePrice": "55.99",
+          "saleKzt": 28000
+        },
+        {
+          "size": "47",
+          "salePrice": "55.99",
+          "saleKzt": 28000
+        },
+        {
+          "size": "48.5",
+          "salePrice": "55.99",
+          "saleKzt": 28000
+        }
+      ],
+      "gender": "men",
+      "category": "Кроссовки",
+      "offerKind": "retail",
+      "purchaseType": "fixed",
+      "market": "US",
+      "sku": "311947_01",
+      "sourceUpdatedAt": "2026-09-25T21:40:48.021Z",
+      "originalPrice": "78.00",
+      "salePrice": "55.99",
+      "currency": "USD",
+      "originalKzt": 39000,
+      "saleKzt": 28000,
+      "discount": 28,
+      "demo": false,
+      "updatedAt": "2026-09-25T21:57:35.914Z",
+      "firstSeenAt": "2026-09-25T13:10:16.964Z",
+      "rate": {
+        "currency": "USD",
+        "value": "441.880000000000",
+        "source": "Национальный Банк Казахстана",
+        "asOf": "2026-09-25T19:00:00.000Z",
+        "fetchedAt": "2026-09-25T21:57:32.732Z"
+      }
+    },
+    {
+      "id": "9921999faa84b25e01c66bdc9ac8b805722b44c8b6054095ac04092a43b2fc19",
+      "externalId": "",
+      "sourceId": "puma-us",
+      "sourceName": "Puma US",
+      "brand": "Puma",
+      "name": "Magnetic Men's Shoes",
+      "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/310783/02/sv01/fnd/PNA/fmt/png/Magnetic-Men's-Shoes",
+      "productUrl": "",
+      "sizes": [
+        "39",
+        "40",
+        "40.5",
+        "41",
+        "42",
+        "42.5",
+        "43",
+        "44",
+        "44.5",
+        "45",
+        "46",
+        "47",
+        "48.5"
+      ],
+      "sizePrices": [
+        {
+          "size": "39",
+          "salePrice": "54.99",
+          "saleKzt": 27500
+        },
+        {
+          "size": "40",
+          "salePrice": "54.99",
+          "saleKzt": 27500
+        },
+        {
+          "size": "40.5",
+          "salePrice": "54.99",
+          "saleKzt": 27500
+        },
+        {
+          "size": "41",
+          "salePrice": "54.99",
+          "saleKzt": 27500
+        },
+        {
+          "size": "42",
+          "salePrice": "54.99",
+          "saleKzt": 27500
+        },
+        {
+          "size": "42.5",
+          "salePrice": "54.99",
+          "saleKzt": 27500
+        },
+        {
+          "size": "43",
+          "salePrice": "54.99",
+          "saleKzt": 27500
+        },
+        {
+          "size": "44",
+          "salePrice": "54.99",
+          "saleKzt": 27500
+        },
+        {
+          "size": "44.5",
+          "salePrice": "54.99",
+          "saleKzt": 27500
+        },
+        {
+          "size": "45",
+          "salePrice": "54.99",
+          "saleKzt": 27500
+        },
+        {
+          "size": "46",
+          "salePrice": "54.99",
+          "saleKzt": 27500
+        },
+        {
+          "size": "47",
+          "salePrice": "54.99",
+          "saleKzt": 27500
+        },
+        {
+          "size": "48.5",
+          "salePrice": "54.99",
+          "saleKzt": 27500
+        }
+      ],
+      "gender": "men",
+      "category": "Кроссовки",
+      "offerKind": "retail",
+      "purchaseType": "fixed",
+      "market": "US",
+      "sku": "310783_02",
+      "sourceUpdatedAt": "2026-09-25T21:40:22.746Z",
+      "originalPrice": "73.00",
+      "salePrice": "54.99",
+      "currency": "USD",
+      "originalKzt": 36500,
+      "saleKzt": 27500,
+      "discount": 24,
+      "demo": false,
+      "updatedAt": "2026-09-25T21:57:35.914Z",
+      "firstSeenAt": "2026-09-25T13:10:16.964Z",
+      "rate": {
+        "currency": "USD",
+        "value": "441.880000000000",
+        "source": "Национальный Банк Казахстана",
+        "asOf": "2026-09-25T19:00:00.000Z",
+        "fetchedAt": "2026-09-25T21:57:32.732Z"
+      }
+    },
+    {
+      "id": "3dccf10c3ad6e4b81929aad8a56ff15f047f3d67ee7c24d8576859a22dd560bb",
+      "externalId": "",
+      "sourceId": "reebok-us",
+      "sourceName": "Reebok US",
+      "brand": "Reebok",
+      "name": "Men's Viva Speed Shoes",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100272598_SLC_eCom.jpg?v=1781178465",
+      "productUrl": "",
+      "sizes": [
+        "US M 7",
+        "US M 7.5",
+        "US M 8",
+        "US M 8.5",
+        "US M 9",
+        "US M 9.5",
+        "US M 10",
+        "US M 10.5",
+        "US M 11",
+        "US M 11.5",
+        "US M 12",
+        "US M 13"
+      ],
+      "sizePrices": [
+        {
+          "size": "US M 7",
+          "salePrice": "39.99",
+          "saleKzt": 21000
+        },
+        {
+          "size": "US M 7.5",
+          "salePrice": "39.99",
+          "saleKzt": 21000
+        },
+        {
+          "size": "US M 8",
+          "salePrice": "39.99",
+          "saleKzt": 21000
+        },
+        {
+          "size": "US M 8.5",
+          "salePrice": "39.99",
+          "saleKzt": 21000
+        },
+        {
+          "size": "US M 9",
+          "salePrice": "39.99",
+          "saleKzt": 21000
+        },
+        {
+          "size": "US M 9.5",
+          "salePrice": "39.99",
+          "saleKzt": 21000
+        },
+        {
+          "size": "US M 10",
+          "salePrice": "39.99",
+          "saleKzt": 21000
+        },
+        {
+          "size": "US M 10.5",
+          "salePrice": "39.99",
+          "saleKzt": 21000
+        },
+        {
+          "size": "US M 11",
+          "salePrice": "39.99",
+          "saleKzt": 21000
+        },
+        {
+          "size": "US M 11.5",
+          "salePrice": "39.99",
+          "saleKzt": 21000
+        },
+        {
+          "size": "US M 12",
+          "salePrice": "39.99",
+          "saleKzt": 21000
+        },
+        {
+          "size": "US M 13",
+          "salePrice": "39.99",
+          "saleKzt": 21000
+        }
+      ],
+      "gender": "men",
+      "category": "Кроссовки",
+      "offerKind": "retail",
+      "purchaseType": "fixed",
+      "market": "US",
+      "sku": "100272598",
+      "sourceUpdatedAt": "2026-09-25T21:57:17.841Z",
+      "originalPrice": "60.00",
+      "salePrice": "39.99",
+      "currency": "USD",
+      "originalKzt": 30000,
+      "saleKzt": 21000,
+      "discount": 33,
+      "demo": false,
+      "updatedAt": "2026-09-25T21:57:33.630Z",
+      "firstSeenAt": "2026-09-25T12:59:18.187Z",
+      "rate": {
+        "currency": "USD",
+        "value": "441.880000000000",
+        "source": "Национальный Банк Казахстана",
+        "asOf": "2026-09-25T19:00:00.000Z",
+        "fetchedAt": "2026-09-25T21:57:32.732Z"
+      }
+    }
+  ]
+}
