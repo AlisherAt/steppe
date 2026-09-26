@@ -5,6 +5,8 @@ const url = new URL(
   process.env.STEPPE_SITE_URL || 'https://steppe-gray.vercel.app',
 );
 if (url.protocol !== 'https:') throw Error('HTTPS_REQUIRED');
+const sources = process.argv.find((arg) => arg.startsWith('--sources='))?.slice(10);
+if (sources) url.searchParams.set('sources', sources);
 for (let attempt = 0; attempt < 3; attempt++) {
   const response = await fetch(url, {
     method: 'POST',

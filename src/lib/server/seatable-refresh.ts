@@ -6,18 +6,21 @@ import { getAdapters } from './sources';
 import { toProduct } from './adapters';
 import { loadRates, nativeRate } from './rates';
 import { safeCode } from './http';
-let running: Promise<Awaited<ReturnType<typeof performRefresh>>> | undefined;
-export function refreshSeaTable() {
-  if (running) return running;
-  running = performRefresh().finally(() => {
-    running = undefined;
+const running = new Map<string, Promise<Awaited<ReturnType<typeof performRefresh>>>>();
+export function refreshSeaTable(sourceIds?: string[]) {
+  const key = sourceIds ? [...sourceIds].sort().join(',') : '*';
+  const existing = running.get(key);
+  if (existing) return existing;
+  const task = performRefresh(sourceIds).finally(() => {
+    running.delete(key);
   });
-  return running;
+  running.set(key, task);
+  return task;
 }
-async function performRefresh() {
+async function performRefresh(sourceIds?: string[]) {
   const deadline = Date.now() + 220000;
   await seaClient.ensureSchema();
-  const adapters = getAdapters();
+  const adapters = getAdapters().filter((a) => !sourceIds || sourceIds.includes(a.id));
   const sources = await seaStore.ensureSources(adapters);
   await seaStore
     .prune()

@@ -6,10 +6,10 @@ import { toProduct } from './adapters';
 import { getAdapters } from './sources';
 import { loadRates, nativeRate } from './rates';
 import { IntegrationError, safeCode } from './http';
-export async function refreshSources() {
-  if (databaseProvider() === 'seatable') return refreshSeaTable();
+export async function refreshSources(sourceIds?: string[]) {
+  if (databaseProvider() === 'seatable') return refreshSeaTable(sourceIds);
   const client = db();
-  const adapters = getAdapters();
+  const adapters = getAdapters().filter((a) => !sourceIds || sourceIds.includes(a.id));
   const deadline = Date.now() + 220_000;
   const owner = randomUUID();
   const { data: locked, error: lockError } = await client.rpc('acquire_refresh_lock', {

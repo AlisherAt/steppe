@@ -42,7 +42,7 @@ npm run scrape:nike -- --authorized
 
 ```sh
 node --env-file=.env.scheduler.local scripts/upload-scrape-report.mjs artifacts/nike-report.json
-node --env-file=.env.scheduler.local scripts/refresh-site.mjs
+node --env-file=.env.scheduler.local scripts/refresh-site.mjs --sources=nike-us
 ```
 
 Большие отчёты отправляются в gzip: до 3 MB по сети и до 24 MB распакованного JSON. Сервер проверяет источник, SKU, домены изображений, свежесть, размеры и цены. Лимит — 10 000 товаров за проход. В SeaTable исходный отчёт хранится блоками до 48 KB, ниже [лимита Long Text в 100 000 символов](https://seatable.com/help/long-text-column/). Завершающая запись содержит количество блоков и SHA-256 всех товаров; незавершённая или повреждённая загрузка не публикуется. Старый формат с одной карточкой на строку поддерживается. Отчёты старше 36 часов удаляются — импорт всё равно не принимает такие цены. Ключи хранятся только в окружении.
@@ -52,6 +52,8 @@ node --env-file=.env.scheduler.local scripts/refresh-site.mjs
 GitHub Actions: `.github/workflows/nike-refresh.yml`, «Обновить Nike STEPPE», каждый день в 07:00 и 18:00 UTC (10:00 и 21:00 Москва). Нужны существующие `CRON_SECRET`, `STEPPE_SITE_URL` и разрешение `SCRAPER_PERMISSIONS_JSON.nike`. Пробный ручной запуск доступен через Run workflow.
 
 Параметр `verify_only` проверяет каталог и три карточки без загрузки в базу. Для обычного полного обновления оставьте его выключенным. Большой серверный каталог хранится в сжатом виде в Next Data Cache, чтобы варианты размеров не превысили лимит 2 MB на запись.
+
+Планировщик Nike вызывает обновление только `nike-us`, а существующий сборщик Puma/Reebok — только `puma-us,reebok-us`. Это исключает повторное копирование неизменившихся каталогов остальных магазинов. Ручной вызов `/api/cron/refresh` без параметра по-прежнему обновляет все подключённые источники.
 
 Windows, отдельная задача без пересечения с Puma/Reebok:
 

@@ -4,6 +4,7 @@ import { databaseConfigured } from '@/lib/server/db';
 import { refreshSources } from '@/lib/server/refresh';
 import { safeCode } from '@/lib/server/http';
 import { revalidateTag } from 'next/cache';
+import { parseRefreshScope } from '@/lib/refresh-scope';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 300;
@@ -15,10 +16,16 @@ export async function POST(request: NextRequest) {
   const expected = Buffer.from(`Bearer ${secret}`);
   if (supplied.length !== expected.length || !timingSafeEqual(supplied, expected))
     return NextResponse.json({ error: 'Нет доступа.' }, { status: 401 });
+  let sourceIds;
+  try {
+    sourceIds = parseRefreshScope(request.nextUrl.searchParams.get('sources'));
+  } catch {
+    return NextResponse.json({ error: 'Неизвестный источник обновления.' }, { status: 400 });
+  }
   if (!databaseConfigured())
     return NextResponse.json({ error: 'База данных не подключена.' }, { status: 503 });
   try {
-    const result = await refreshSources();
+    const result = await refreshSources(sourceIds);
     // После публикации посетитель должен сразу получить новый снимок каталога.
     revalidateTag('steppe:catalog', { expire: 0 });
     revalidateTag('steppe:sources', { expire: 0 });

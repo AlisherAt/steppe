@@ -194,7 +194,11 @@ async function main() {
     state.stage = 'refresh';
     await save();
     for (let attempt = 1; attempt <= 3; attempt++) {
-      const response = await post('/api/cron/refresh', undefined, 310000);
+      const response = await post(
+        `/api/cron/refresh?sources=${nikeOnly ? 'nike-us' : 'puma-us,reebok-us'}`,
+        undefined,
+        310000,
+      );
       const body = await response.json();
       if (body.skipped && body.reason === 'already_running' && attempt < 3) {
         await wait(10000);

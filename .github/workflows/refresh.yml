@@ -70,7 +70,7 @@ jobs:
           (async () => {
             const secret = process.env.CRON_SECRET;
             if (!secret || secret.length < 32) throw new Error('Добавьте CRON_SECRET в GitHub Actions Secrets и Vercel.');
-            const url = new URL('/api/cron/refresh', process.env.SITE_URL);
+            const url = new URL('/api/cron/refresh?sources=puma-us,reebok-us', process.env.SITE_URL);
             if (url.protocol !== 'https:') throw new Error('SITE_URL должен использовать HTTPS.');
             const response = await fetch(url, {
               method: 'POST', redirect: 'error',

@@ -42,7 +42,7 @@ jobs:
         env:
           STEPPE_SITE_URL: ${{ vars.STEPPE_SITE_URL || 'https://steppe-gray.vercel.app' }}
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
-        run: node scripts/refresh-site.mjs
+        run: node scripts/refresh-site.mjs --sources=nike-us
       - uses: actions/upload-artifact@v4
         if: always()
         with:
