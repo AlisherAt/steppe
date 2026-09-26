@@ -151,3 +151,7 @@ KicksDB импортирует реальные модели и цены рын�
 
 Регистрация и вход по логину и паролю: [настройка и ограничения](docs/authentication.md).
 
+## Agent Reach: проверка Nike и Adidas
+
+`npm run reach:install` устанавливает закреплённый Agent Reach в отдельное Python-окружение; `npm run scrape:reach -- --authorized` читает разрешённые публичные страницы через его WebChannel/Jina Reader. Результаты сохраняются в JSON/CSV отдельно от рабочего каталога. [Установка, результаты живой проверки и ограничения публикации](docs/agent-reach.md).
+

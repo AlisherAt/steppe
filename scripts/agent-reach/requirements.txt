@@ -1,0 +1,2 @@
+# Фиксируем проверенный код GitHub, не одноимённый пакет PyPI.
+agent-reach @ https://github.com/Panniantong/Agent-Reach/archive/a19a171fa980a0785849596492e0af4db800c82f.zip
