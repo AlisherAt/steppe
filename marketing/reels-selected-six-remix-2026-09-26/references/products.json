@@ -1,0 +1,53 @@
+{
+  "checkedAt": "2026-09-26T04:44:33.988Z",
+  "products": [
+    {
+      "sku": "377718_03",
+      "name": "Starla Women's Training Shoes",
+      "brand": "Puma",
+      "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/377718/03/sv01/fnd/PNA/fmt/png/Starla-Women's-Training-Shoes",
+      "sourceUpdatedAt": "2026-09-25T21:43:47.685Z",
+      "downloadMethod": "STEPPE /_next/image w=1080 q=75"
+    },
+    {
+      "sku": "311947_01",
+      "name": "Softride Enzo 5 Men's Wide Shoes",
+      "brand": "Puma",
+      "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/311947/01/sv01/fnd/PNA/fmt/png/Softride-Enzo-5-Men's-Wide-Shoes",
+      "sourceUpdatedAt": "2026-09-25T21:40:48.021Z",
+      "downloadMethod": "STEPPE /_next/image w=1080 q=75"
+    },
+    {
+      "sku": "310168_20",
+      "name": "Cell Thrill Men's Shoes",
+      "brand": "Puma",
+      "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/310168/20/sv01/fnd/PNA/fmt/png/Cell-Thrill-Men's-Shoes",
+      "sourceUpdatedAt": "2026-09-25T21:41:05.281Z",
+      "downloadMethod": "STEPPE /_next/image w=1080 q=75"
+    },
+    {
+      "sku": "310783_02",
+      "name": "Magnetic Men's Shoes",
+      "brand": "Puma",
+      "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/310783/02/sv01/fnd/PNA/fmt/png/Magnetic-Men's-Shoes",
+      "sourceUpdatedAt": "2026-09-25T21:40:22.746Z",
+      "downloadMethod": "STEPPE /_next/image w=1080 q=75"
+    },
+    {
+      "sku": "100272598",
+      "name": "Men's Viva Speed Shoes",
+      "brand": "Reebok",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100272598_SLC_eCom.jpg?v=1781178465",
+      "sourceUpdatedAt": "2026-09-25T21:57:17.841Z",
+      "downloadMethod": "Source imageUrl"
+    },
+    {
+      "sku": "100209953",
+      "name": "Men's Energen Run 4 Running Shoes",
+      "brand": "Reebok",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100209953_SLC_eCom.jpg?v=1764595831",
+      "sourceUpdatedAt": "2026-09-25T21:57:17.838Z",
+      "downloadMethod": "Source imageUrl"
+    }
+  ]
+}
