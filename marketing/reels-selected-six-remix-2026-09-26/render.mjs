@@ -51,22 +51,21 @@ try{
   function header(){text('STEPPE',73,161,47,cream,440,'Arial',900);box(872,174,126,14,lime);}
   function grain(){c.save();c.globalAlpha=.1;c.fillStyle=cream;for(let y=0;y<1920;y+=32)for(let x=(y%64?15:0);x<1080;x+=32){c.beginPath();c.arc(x,y,1.2,0,7);c.fill();}c.restore();}
   function sticker(s,x,y,w,color,angle=0){c.save();c.translate(x+w/2,y+36);c.rotate(angle);box(-w/2,-36,w,72,color);text(s,-w/2+19,-18,31,ink,w-38);c.restore();}
-  function photoCard(i,x,y,w,h,angle=0,macro=false){c.save();c.translate(x+w/2,y+h/2);c.rotate(angle);c.shadowColor='rgba(0,0,0,.38)';c.shadowBlur=25;c.shadowOffsetY=14;box(-w/2,-h/2,w,h,backs[keys[i]],5);c.shadowBlur=c.shadowOffsetY=0;c.beginPath();c.rect(-w/2,-h/2,w,h);c.clip();if(macro)shoe(i,-w*.78,-h*.6,w*1.6,h*1.6);else shoe(i,-w/2+12,-h/2+22,w-24,h-44);c.restore();}
-  function ribbon(t,y){c.save();c.translate(540,y);c.rotate(-.065);c.translate(-540,-y);const sh=(t*160)%340;for(let j=-1;j<5;j++){const i=((j+Math.floor(t*160/340))%6+6)%6;photoCard(i,j*340-sh,y,320,224,0);}c.restore();}
-  window.draw=t=>{
+  function photoCard(i,x,y,w,h,angle=0){c.save();c.translate(x+w/2,y+h/2);c.rotate(angle);c.shadowColor='rgba(0,0,0,.38)';c.shadowBlur=25;c.shadowOffsetY=14;box(-w/2,-h/2,w,h,backs[keys[i]],5);c.shadowBlur=c.shadowOffsetY=0;c.beginPath();c.rect(-w/2,-h/2,w,h);c.clip();shoe(i,-w/2+12,-h/2+22,w-24,h-44);c.restore();}
+  function ribbon(t,y){c.save();c.translate(540,y);c.rotate(-.065);c.translate(-540,-y);const sh=(t*65)%340;for(let j=-1;j<5;j++){const i=((j+Math.floor(t*65/340))%6+6)%6;photoCard(i,j*340-sh,y,320,224,0);}c.restore();}
+  function drawScene(t){
    box(0,0,1080,1920,ink);grain();header();
    if(t<1.875){
-    const pulse=Math.exp(-12*(t%beat));text('КАКАЯ',72,293,191,cream,920,'Impact');text('ТВОЯ?',72,492,216,lime,915,'Impact');
-    // Первая модель видна сразу, затем два разных цветовых акцента на долях.
-    const i=t<beat*2?3:t<beat*3?1:5;photoCard(i,87,835,901,557,-.055+.014*pulse);
+    text('КАКАЯ',72,293,191,cream,920,'Impact');text('ТВОЯ?',72,492,216,lime,915,'Impact');
+    // Заставка удерживает один неподвижный план.
+    photoCard(3,87,835,901,557,-.055);
     sticker('6 ПАР. ОДИН ВАЙБ.',115,1439,575,violet,.045);
     text('ВЫБИРАЙ ПО СВОЕМУ ВКУСУ',80,1586,36,cream,920);
    }else if(t<7.5){
-    const i=Math.min(5,Math.floor((t-1.875)/(beat*2))),u=(t-1.875)%(beat*2),p=ease(u/.16),color=tones[i];
+    const i=Math.min(5,Math.floor((t-1.875)/(beat*2))),color=tones[i];
     text(moods[i][0],74,319,133,cream,920,'Impact');text(moods[i][1],74,462,161,color,920,'Impact');
-    // Два плана на пару: целый силуэт и короткая деталь на второй доле.
-    const macro=u>beat*1.36&&u<beat*1.8,dx=(1-p)*470*(i%2?1:-1);
-    photoCard(i,65+dx,779,950,614,(i%2?.045:-.045)*(1-u*.25),macro);
+    // Карточка неподвижна: один масштаб и положение на протяжении всего плана.
+    photoCard(i,65,779,950,614,-.03);
     sticker(String(i+1).padStart(2,'0'),70,701,118,color,-.07);
     sticker(i<4?'PUMA':'REEBOK',721,1391,274,color,.06);
     text(names[i],76,1517,68,cream,920,'Impact');
@@ -74,7 +73,7 @@ try{
    }else if(t<11.25){
     const u=t-7.5;sticker('ПАУЗА — И ВЫБИРАЙ',76,282,609,lime,-.028);
     text('ТВОЙ НОМЕР?',76,415,131,cream,920,'Impact');
-    const active=Math.floor(u/beat)%6;
+    const active=-1;
     for(let i=0;i<6;i++){const x=76+(i%2)*474,y=658+Math.floor(i/2)*275,w=450,h=243;photoCard(i,x,y,w,h,0);box(x+12,y+11,66,56,i===active?lime:ink);text(String(i+1),x+29,y+15,42,i===active?ink:cream,55,'Impact');if(i===active){c.strokeStyle=lime;c.lineWidth=5;c.strokeRect(x-5,y-5,w+10,h+10);}}
     text('НАПИШИ ЕГО В КОММЕНТАРИЯХ',77,1530,42,cream,923);
     text('ИЛИ ОТПРАВЬ ТОМУ, КТО ВЫБИРАЕТ ДОЛГО',77,1604,27,violet,923);
@@ -85,11 +84,28 @@ try{
     box(74,1480,931,104,lime,12);text('steppe-gray.vercel.app',99,1507,60,ink,881);
     text('Заказываем после оплаты',77,1620,38,cream,924);
    }
+  }
+  // Мягкое наложение соседних сцен за 0,32 с. Геометрия товара не меняется.
+  const previous=document.createElement('canvas');previous.width=1080;previous.height=1920;
+  const pc=previous.getContext('2d');let cachedBoundary=-1;
+  const boundaries=[1.875,2.8125,3.75,4.6875,5.625,6.5625,7.5,11.25];
+  window.draw=t=>{
+   const boundary=boundaries.find(b=>t>=b&&t<b+.32);
+   if(boundary!==undefined){
+    if(cachedBoundary!==boundary){drawScene(boundary-.0001);pc.clearRect(0,0,1080,1920);pc.drawImage(c.canvas,0,0);cachedBoundary=boundary;}
+    drawScene(t);const u=clamp((t-boundary)/.32),alpha=u*u*(3-2*u);
+    c.save();c.globalAlpha=1-alpha;c.drawImage(previous,0,0);c.restore();
+   }else drawScene(t);
+  };
+  window.verifyStableCards=()=>{
+   for(let i=0;i<6;i++){const start=1.875+i*.9375;window.draw(start+.38);const a=c.canvas.toDataURL();window.draw(start+.78);if(a!==c.canvas.toDataURL())throw new Error('Карточка меняет масштаб или положение: '+i);}
+   return 'Все 6 отдельных карточек неподвижны после появления';
   };
  },assets);
 
 
- for(const[i,t]of[.3,1.5,2.2,3.1,4,4.7,6,7.2,8.5,12.7].entries()){await page.evaluate(t=>window.draw(t),t);await page.screenshot({path:`${tmp}/frame-${i}.jpg`,type:'jpeg',quality:94});}
+ console.log(await page.evaluate(()=>window.verifyStableCards()));
+ for(const[i,t]of[.3,1.5,2.3,3.2,4.1,5.1,6.1,7.1,8.5,12.7].entries()){await page.evaluate(t=>window.draw(t),t);await page.screenshot({path:`${tmp}/frame-${i}.jpg`,type:'jpeg',quality:94});}
  await page.evaluate(()=>window.draw(8.5));await page.screenshot({path:`${out}/cover.png`});
  if(!process.argv.includes('--preview')){
   const clean=false,name='steppe-your-vibe.mp4';
