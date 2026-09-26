@@ -1,0 +1,35 @@
+{
+  "verifiedAt": "2026-09-26T19:18:57.362Z",
+  "catalogUrl": "https://steppe-gray.vercel.app/?brands=Nike&mode=live",
+  "total": 500,
+  "products": [
+    {
+      "sku": "IM4415-200",
+      "name": "Nike Dunk Low Retro Men's Shoes",
+      "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/66c81abb-4c71-4c13-9a3a-5923736ec015/NIKE+DUNK+LOW+RETRO.png",
+      "gender": "men",
+      "sourceUpdatedAt": "2026-09-26T17:27:02.589Z"
+    },
+    {
+      "sku": "IV6425-060",
+      "name": "Nike Air Max 95 Big Bubble Premium Men's Shoes",
+      "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/3a67b0e9-2b9c-4966-a061-98d45ca407e6/NIKE+AIR+MAX+95+BIG+BUBBLE+PRM.png",
+      "gender": "men",
+      "sourceUpdatedAt": "2026-09-26T17:37:29.762Z"
+    },
+    {
+      "sku": "IV5197-201",
+      "name": "Nike Air Force 1 '07  Women's Shoes",
+      "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/876d07eb-1588-46e4-8376-666814f27d5e/W+AIR+FORCE+1+%2707+LOW+CRSNT.png",
+      "gender": "women",
+      "sourceUpdatedAt": "2026-09-26T17:34:16.862Z"
+    },
+    {
+      "sku": "IQ9603-133",
+      "name": "Nike Zoom Vomero 5 \"Rose Gold\" Women's Shoes",
+      "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/17183aa1-c1b4-48f8-bf8d-145534f1c7d3/W+NIKE+ZOOM+VOMERO+5.png",
+      "gender": "women",
+      "sourceUpdatedAt": "2026-09-26T17:27:40.906Z"
+    }
+  ]
+}
