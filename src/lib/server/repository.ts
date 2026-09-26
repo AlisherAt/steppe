@@ -8,21 +8,30 @@ import { manualProducts } from './manual-products';
 import { withSellingPrices } from '../selling-price';
 import { unstable_cache } from 'next/cache';
 import { createHash } from 'node:crypto';
+import { gzipSync, gunzipSync } from 'node:zlib';
 import { getAdapters } from './sources';
 import { offerVisible } from '../promotion';
 import { demoProducts } from '../demo';
 import { filterCatalog } from '../catalog';
-import type { CatalogResult, Filters, SourceStatus } from '../types';
+import type { CatalogResult, Filters, SourceStatus, Product } from '../types';
 const seaCacheKey = createHash('sha256')
   .update(
     `${process.env.SEATABLE_SERVER_URL}|${process.env.SEATABLE_API_TOKEN}|${process.env.SEATABLE_BASE_NAME}|${process.env.SEATABLE_WORKSPACE_ID}`,
   )
   .digest('hex');
-const cachedSeaProducts = unstable_cache(
-  () => seaStore.liveProducts(),
-  ['seatable-live-v4', seaCacheKey],
+// Большой каталог с вариантами превышает лимит 2 MB на запись Next Data Cache.
+// Сжатие сохраняет общий снимок и прежнюю инвалидацию после публикации.
+const cachedSeaProductsArchive = unstable_cache(
+  async () => gzipSync(JSON.stringify(await seaStore.liveProducts())).toString('base64'),
+  ['seatable-live-v5-gzip', seaCacheKey],
   { revalidate: 60, tags: ['steppe:catalog'] },
 );
+async function cachedSeaProducts(): Promise<Product[]> {
+  const archive = await cachedSeaProductsArchive();
+  return JSON.parse(
+    gunzipSync(Buffer.from(archive, 'base64'), { maxOutputLength: 64_000_000 }).toString('utf8'),
+  );
+}
 const cachedSeaStatuses = unstable_cache(
   () => seaStore.sourceStatuses(),
   ['seatable-sources-v2', seaCacheKey],

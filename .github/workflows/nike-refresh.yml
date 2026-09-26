@@ -4,6 +4,11 @@ on:
     # 10:00 и 21:00 Москва, как локальный планировщик.
     - cron: '0 7,18 * * *'
   workflow_dispatch:
+    inputs:
+      verify_only:
+        description: 'Проверить доступ и 3 карточки без публикации на сайт'
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -24,13 +29,16 @@ jobs:
       - name: Собрать скидки Nike и проверить размеры
         env:
           SCRAPER_PERMISSIONS_JSON: ${{ vars.SCRAPER_PERMISSIONS_JSON || '{}' }}
+          NIKE_DETAIL_LIMIT: ${{ inputs.verify_only && '3' || '10000' }}
         run: node scripts/scrape-nike.mjs
       - name: Передать проверенный снимок
+        if: ${{ !inputs.verify_only }}
         env:
           STEPPE_SITE_URL: ${{ vars.STEPPE_SITE_URL || 'https://steppe-gray.vercel.app' }}
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: node scripts/upload-scrape-report.mjs artifacts/nike-report.json
       - name: Обновить сайт
+        if: ${{ !inputs.verify_only }}
         env:
           STEPPE_SITE_URL: ${{ vars.STEPPE_SITE_URL || 'https://steppe-gray.vercel.app' }}
           CRON_SECRET: ${{ secrets.CRON_SECRET }}

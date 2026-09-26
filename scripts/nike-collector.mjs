@@ -13,8 +13,10 @@ import {
 export async function collectNike({
   deadline = Date.now() + 110 * 60_000,
   checkpoint = async () => {},
+  discoveryOnly = false,
+  outputDirectory = 'artifacts/nike-live',
 } = {}) {
-  const out = 'artifacts/nike-live';
+  const out = outputDirectory;
   await mkdir(out, { recursive: true });
   const robotResponse = await fetchRobots('https://www.nike.com/robots.txt');
   if (
@@ -45,6 +47,8 @@ export async function collectNike({
     excluded: 0,
     failures: [],
     discoveryComplete: false,
+    loadedAnchors: [0],
+    lastPageSeen: false,
     startedAt: new Date().toISOString(),
   };
   const loadedAnchors = new Set([0]);
@@ -139,6 +143,8 @@ export async function collectNike({
             recordGroups(data.productGroupings || data.objects || []);
             loadedAnchors.add(Number(new URL(response.url()).searchParams.get('anchor') || 0));
             if (data.pages?.next === '') lastPageSeen = true;
+            state.loadedAnchors = [...loadedAnchors].sort((a, b) => a - b);
+            state.lastPageSeen = lastPageSeen;
             const required = Math.ceil(state.expectedGroups / 24);
             state.discoveryComplete =
               lastPageSeen &&
@@ -207,6 +213,11 @@ export async function collectNike({
       await listing.close();
     }
     if (blocked) throw Error(blocked);
+    if (discoveryOnly) {
+      state.finishedAt = new Date().toISOString();
+      await save();
+      return { products: [], candidates: [...candidates.values()], status: 'partial', state };
+    }
     console.log(
       JSON.stringify({
         source: 'nike',
