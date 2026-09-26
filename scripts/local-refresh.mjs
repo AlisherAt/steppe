@@ -33,6 +33,19 @@ async function main() {
     console.log(line);
   };
   try {
+    if (nikeOnly) {
+      // Ручной сбор и задача Планировщика используют один файл результатов.
+      // Если ручной сбор уже идёт, плановый запуск спокойно пропускается.
+      await mkdir(resolve(root, 'artifacts/nike-live'), { recursive: true });
+      const slot = await acquireLock(resolve(root, 'artifacts/nike-live/collector.lock'));
+      if (!slot) {
+        state.status = 'skipped';
+        state.reason = 'nike_collector_running';
+        await log({ event: 'skipped', reason: state.reason });
+        return;
+      }
+      await slot();
+    }
     process.loadEnvFile(resolve(root, '.env.scheduler.local'));
     for (const key of Object.keys(process.env)) {
       if (/^(https?|all|no)_proxy$/i.test(key)) delete process.env[key];
