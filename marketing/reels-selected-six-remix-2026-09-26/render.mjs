@@ -4,13 +4,13 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { spawn, execFileSync } from 'node:child_process';
 import { once } from 'node:events';
 const out='marketing/reels-selected-six-remix-2026-09-26',tmp='artifacts/reels-selected-six-remix-render';
-const fps=30,duration=15;
+const fps=30,duration=24;
 await mkdir(tmp,{recursive:true});
 const ffmpeg=process.env.FFMPEG_PATH||execFileSync('python',['-c','import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())'],{encoding:'utf8'}).trim();
 const assets={};
 for(const p of JSON.parse(await readFile(out+'/references/products.json','utf8')).products)assets[p.sku]='data:image/jpeg;base64,'+(await readFile(out+'/references/'+p.sku+'.jpg')).toString('base64');
-// 128 BPM: ровно 32 доли на 15 секунд. Оригинальный синтезированный garage-бит.
-const beat=60/128,sr=48000,count=sr*duration,wav=Buffer.alloc(44+count*4);let seed=82341;
+// 120 BPM: 48 долей на 24 секунды. Каждая карточка занимает четыре доли.
+const beat=60/120,sr=48000,count=sr*duration,wav=Buffer.alloc(44+count*4);let seed=82341;
 const noise=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/2147483648-1;};
 wav.write('RIFF');wav.writeUInt32LE(wav.length-8,4);wav.write('WAVEfmt ',8);wav.writeUInt32LE(16,16);wav.writeUInt16LE(1,20);wav.writeUInt16LE(2,22);wav.writeUInt32LE(sr,24);wav.writeUInt32LE(sr*4,28);wav.writeUInt16LE(4,32);wav.writeUInt16LE(16,34);wav.write('data',36);wav.writeUInt32LE(count*4,40);
 for(let i=0;i<count;i++){
@@ -21,8 +21,8 @@ for(let i=0;i<count;i++){
  const bass=(Math.sin(2*Math.PI*root*t)+.3*Math.sin(2*Math.PI*root*2*t))*Math.exp(-11*half)*.23;
  const note=[440,0,523.25,659.25,0,587.33,523.25,0][st%8];
  const lead=note?Math.sin(2*Math.PI*note*t)*Math.exp(-42*six)*.047:0;
- const chime=(n===16||n===24)?Math.sin(2*Math.PI*1046.5*t)*Math.exp(-9*b)*.045:0;
- const whoosh=[1.875,7.5,11.25].reduce((v,cut)=>{const d=cut-t;return v+(d>0&&d<.18?noise()*(1-d/.18)*.09:0);},0);
+ const chime=(n===30||n===39)?Math.sin(2*Math.PI*1046.5*t)*Math.exp(-9*b)*.045:0;
+ const whoosh=[3,15,19.5].reduce((v,cut)=>{const d=cut-t;return v+(d>0&&d<.18?noise()*(1-d/.18)*.09:0);},0);
  const fade=Math.min(1,t/.008,(duration-t)/.1),v=(kick+clap+hat+bass+lead+chime+whoosh)*fade;
  for(let ch=0;ch<2;ch++)wav.writeInt16LE(Math.round(Math.tanh(v*1.05+lead*Math.sin(t*3)*(ch?.25:-.25))*.8*32767),44+i*4+ch*2);
 }
@@ -43,8 +43,8 @@ try{
   const keys=['377718_03','311947_01','310168_20','310783_02','100272598','100209953'],c=document.querySelector('canvas').getContext('2d'),ink='#151515',cream='#f4f0e6',lime='#d0ff43',violet='#bfa4ff',pink='#ff87b8';
   const names=['STARLA','SOFTRIDE ENZO 5','CELL THRILL','MAGNETIC','VIVA SPEED','ENERGEN RUN 4'];
   const moods=[['МЯГКИЙ','АКЦЕНТ.'],['ЧЁРНЫЙ','РЕЖИМ.'],['СВЕТЛАЯ','СТОРОНА.'],['ДОБАВЬ','КРАСНОГО.'],['СПОКОЙНЫЙ','ТОН.'],['ЯРКИЙ','ФИНИШ.']];
-  const tones=[pink,lime,violet,pink,violet,lime],beat=60/128;
-  const clamp=x=>Math.max(0,Math.min(1,x)),ease=x=>1-(1-clamp(x))**3;
+  const tones=[pink,lime,violet,pink,violet,lime];
+  const clamp=x=>Math.max(0,Math.min(1,x));
   function box(x,y,w,h,col,r=0){c.fillStyle=col;c.beginPath();c.roundRect(x,y,w,h,r);c.fill();}
   function text(s,x,y,size,col=cream,max=924,font='Arial',weight=800){c.textAlign='left';c.textBaseline='top';c.font=`${weight} ${size}px ${font}`;const w=c.measureText(s).width;if(w>max)c.font=`${weight} ${size*max/w}px ${font}`;c.fillStyle=col;c.fillText(s,x,y);}
   function shoe(i,x,y,w,h){const k=keys[i],q=crops[k],s=Math.min(w/q[2],h/q[3]),dw=q[2]*s,dh=q[3]*s;c.drawImage(images[k],...q,x+(w-dw)/2,y+(h-dh)/2,dw,dh);}
@@ -55,14 +55,14 @@ try{
   function ribbon(t,y){c.save();c.translate(540,y);c.rotate(-.065);c.translate(-540,-y);const sh=(t*65)%340;for(let j=-1;j<5;j++){const i=((j+Math.floor(t*65/340))%6+6)%6;photoCard(i,j*340-sh,y,320,224,0);}c.restore();}
   function drawScene(t){
    box(0,0,1080,1920,ink);grain();header();
-   if(t<1.875){
+   if(t<3){
     text('КАКАЯ',72,293,191,cream,920,'Impact');text('ТВОЯ?',72,492,216,lime,915,'Impact');
     // Заставка удерживает один неподвижный план.
     photoCard(3,87,835,901,557,-.055);
     sticker('6 ПАР. ОДИН ВАЙБ.',115,1439,575,violet,.045);
     text('ВЫБИРАЙ ПО СВОЕМУ ВКУСУ',80,1586,36,cream,920);
-   }else if(t<7.5){
-    const i=Math.min(5,Math.floor((t-1.875)/(beat*2))),color=tones[i];
+   }else if(t<15){
+    const i=Math.min(5,Math.floor((t-3)/2)),color=tones[i];
     text(moods[i][0],74,319,133,cream,920,'Impact');text(moods[i][1],74,462,161,color,920,'Impact');
     // Карточка неподвижна: один масштаб и положение на протяжении всего плана.
     photoCard(i,65,779,950,614,-.03);
@@ -70,15 +70,15 @@ try{
     sticker(i<4?'PUMA':'REEBOK',721,1391,274,color,.06);
     text(names[i],76,1517,68,cream,920,'Impact');
     for(let j=0;j<6;j++)box(76+j*156,1651,133,5,j<=i?color:'#44433f');
-   }else if(t<11.25){
-    const u=t-7.5;sticker('ПАУЗА — И ВЫБИРАЙ',76,282,609,lime,-.028);
+   }else if(t<19.5){
+    sticker('ПАУЗА — И ВЫБИРАЙ',76,282,609,lime,-.028);
     text('ТВОЙ НОМЕР?',76,415,131,cream,920,'Impact');
     const active=-1;
     for(let i=0;i<6;i++){const x=76+(i%2)*474,y=658+Math.floor(i/2)*275,w=450,h=243;photoCard(i,x,y,w,h,0);box(x+12,y+11,66,56,i===active?lime:ink);text(String(i+1),x+29,y+15,42,i===active?ink:cream,55,'Impact');if(i===active){c.strokeStyle=lime;c.lineWidth=5;c.strokeRect(x-5,y-5,w+10,h+10);}}
     text('НАПИШИ ЕГО В КОММЕНТАРИЯХ',77,1530,42,cream,923);
     text('ИЛИ ОТПРАВЬ ТОМУ, КТО ВЫБИРАЕТ ДОЛГО',77,1604,27,violet,923);
    }else{
-    const u=t-11.25;sticker('ВЫБРАЛ?',76,285,280,violet,-.035);
+    const u=t-19.5;sticker('ВЫБРАЛ?',76,285,280,violet,-.035);
     text('ОТКРОЙ',75,405,181,cream,927,'Impact');text('КАТАЛОГ.',75,601,181,lime,927,'Impact');
     ribbon(u,881);ribbon(u+.7,1168);
     box(74,1480,931,104,lime,12);text('steppe-gray.vercel.app',99,1507,60,ink,881);
@@ -88,7 +88,7 @@ try{
   // Мягкое наложение соседних сцен за 0,32 с. Геометрия товара не меняется.
   const previous=document.createElement('canvas');previous.width=1080;previous.height=1920;
   const pc=previous.getContext('2d');let cachedBoundary=-1;
-  const boundaries=[1.875,2.8125,3.75,4.6875,5.625,6.5625,7.5,11.25];
+  const boundaries=[3,5,7,9,11,13,15,19.5];
   window.draw=t=>{
    const boundary=boundaries.find(b=>t>=b&&t<b+.32);
    if(boundary!==undefined){
@@ -98,15 +98,15 @@ try{
    }else drawScene(t);
   };
   window.verifyStableCards=()=>{
-   for(let i=0;i<6;i++){const start=1.875+i*.9375;window.draw(start+.38);const a=c.canvas.toDataURL();window.draw(start+.78);if(a!==c.canvas.toDataURL())throw new Error('Карточка меняет масштаб или положение: '+i);}
+   for(let i=0;i<6;i++){const start=3+i*2;window.draw(start+.38);const a=c.canvas.toDataURL();window.draw(start+1.8);if(a!==c.canvas.toDataURL())throw new Error('Карточка меняет масштаб или положение: '+i);}
    return 'Все 6 отдельных карточек неподвижны после появления';
   };
  },assets);
 
 
  console.log(await page.evaluate(()=>window.verifyStableCards()));
- for(const[i,t]of[.3,1.5,2.3,3.2,4.1,5.1,6.1,7.1,8.5,12.7].entries()){await page.evaluate(t=>window.draw(t),t);await page.screenshot({path:`${tmp}/frame-${i}.jpg`,type:'jpeg',quality:94});}
- await page.evaluate(()=>window.draw(8.5));await page.screenshot({path:`${out}/cover.png`});
+ for(const[i,t]of[.3,2,4,6,8,10,12,14,17,22].entries()){await page.evaluate(t=>window.draw(t),t);await page.screenshot({path:`${tmp}/frame-${i}.jpg`,type:'jpeg',quality:94});}
+ await page.evaluate(()=>window.draw(17));await page.screenshot({path:`${out}/cover.png`});
  if(!process.argv.includes('--preview')){
   const clean=false,name='steppe-your-vibe.mp4';
   const enc=spawn(ffmpeg,['-hide_banner','-loglevel','warning','-y','-f','image2pipe','-framerate',String(fps),'-vcodec','mjpeg','-i','pipe:0','-i',`${out}/instrumental.wav`,'-map','0:v:0','-map','1:a:0','-vf','scale=in_range=pc:out_range=tv:in_color_matrix=bt601:out_color_matrix=bt709,format=yuv420p','-c:v','libx264','-preset','fast','-crf','18','-color_range','tv','-colorspace','bt709','-color_primaries','bt709','-color_trc','bt709','-c:a','aac','-b:a','192k','-t',String(duration),'-movflags','+faststart',`${out}/${name}`],{stdio:['pipe','ignore','pipe']});
