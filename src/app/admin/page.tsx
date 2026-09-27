@@ -178,6 +178,32 @@ export default function AdminPage() {
         </div>
       </main>
     );
+  if (!provider && error)
+    return (
+      <main id="main-content" className="admin-page">
+        <div className="admin-empty">
+          <Package size={38} />
+          <h1>Не удалось открыть панель</h1>
+          <p role="alert">{error}</p>
+          <button
+            className="button outline"
+            onClick={() => {
+              setError('');
+              setReady(false);
+              reload().catch((e) => {
+                setError(e.message);
+                setReady(true);
+              });
+            }}
+          >
+            Повторить проверку
+          </button>
+          <Link href={loginHref} className="button dark">
+            Перейти к входу
+          </Link>
+        </div>
+      </main>
+    );
   if (provider === 'github') return <AdminProcurement />;
   const list = entries.filter(
     (e) =>
