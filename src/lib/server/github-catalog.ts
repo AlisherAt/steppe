@@ -1,3 +1,4 @@
+import { uniqloName } from '../uniqlo-labels.mjs';
 import 'server-only';
 import nike from '../../../data/catalog/nike-us.json';
 import puma from '../../../data/catalog/puma-us.json';
@@ -23,17 +24,54 @@ const snapshots: {
   sourceName: string;
   checkedAt: string | null;
   products: unknown[];
+  archivedProducts?: unknown[];
 }[] = [nike, puma, reebok, clothing0, clothing1, clothing2, clothing3, clothing4];
 const hiddenIds = new Set<string>(overrides.hiddenIds);
 const hiddenUrls = new Set<string>(overrides.hiddenUrls);
-const rawProducts: Product[] = [...overrides.products, ...snapshots.flatMap((s) => s.products)].map(
-  (p) => {
-    const media = (
-      productMedia as Record<string, { imageUrls?: string[]; color?: string; usage?: string }>
-    )[(p as Product).id];
-    return manualProductSchema.parse({ ...media, ...(p as object) });
-  },
+const normalizeProduct = (p: unknown): Product => {
+  const media = (
+    productMedia as Record<string, { imageUrls?: string[]; color?: string; usage?: string }>
+  )[(p as Product).id];
+  const parsed = manualProductSchema.parse({ ...media, ...(p as object) });
+  if (parsed.brand === 'Uniqlo' && parsed.usage && /Uniqlo \d{6}-\d{3}/.test(parsed.name)) {
+    const length = parsed.sku?.match(/-\d{2}-\d{2}-(.+)$/)?.[1];
+    Object.assign(
+      parsed,
+      uniqloName(parsed.usage, '', length === 'standard' ? '' : length, parsed.sku),
+    );
+  }
+  return parsed;
+};
+const rawProducts = [...overrides.products, ...snapshots.flatMap((s) => s.products)].map(
+  normalizeProduct,
 );
+export function githubProcurement() {
+  const seen = new Set<string>();
+  return [
+    ...rawProducts.map((product) => ({ product, archived: false })),
+    ...snapshots.flatMap((s) =>
+      (s.archivedProducts || []).flatMap((raw) => {
+        try {
+          return [{ product: normalizeProduct(raw), archived: true }];
+        } catch {
+          return [];
+        }
+      }),
+    ),
+  ]
+    .filter(({ product: p }) => {
+      if (seen.has(p.id)) return false;
+      seen.add(p.id);
+      return !p.demo && isCatalogBrand(p.brand);
+    })
+    .map(({ product, archived }) => ({
+      product,
+      selling: withSellingPrices(product),
+      archived,
+      hidden: hiddenIds.has(product.id) || hiddenUrls.has(product.productUrl),
+      stale: archived || !offerVisible(product),
+    }));
+}
 
 export function githubProducts(now = Date.now()): Product[] {
   const seen = new Set<string>();

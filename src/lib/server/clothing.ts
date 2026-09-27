@@ -78,14 +78,19 @@ export function clothingProduct(
     now - Date.parse(d) <= 36 * 3600000;
   if (!fresh(p.checked_at) || p.variants.some((v) => !fresh(v.checkedAt)))
     throw Error('STALE_CLOTHING_PRODUCT');
+  const uniqlo = key.startsWith('uniqlo-');
   if (
-    p.variants.some((v) =>
-      v.originalPrice === null
-        ? !(key.startsWith('uniqlo-') && p.discount_verified && v.discountEvidence)
-        : Number(v.salePrice) >= Number(v.originalPrice),
+    p.variants.some(
+      (v) => v.originalPrice !== null && Number(v.salePrice) >= Number(v.originalPrice),
     )
   )
+    throw Error('CLOTHING_INVALID_OLD_PRICE');
+  if (!uniqlo && p.variants.some((v) => v.originalPrice === null))
     throw Error('CLOTHING_NOT_DISCOUNTED');
+  const verified = p.variants.every(
+    (v) => v.originalPrice !== null || Boolean(p.discount_verified && v.discountEvidence),
+  );
+  if (p.discount_verified && !verified) throw Error('CLOTHING_DISCOUNT_EVIDENCE_REQUIRED');
   if (
     new Set(p.variants.map((v) => v.size)).size !== p.variants.length ||
     new Set(p.variants.map((v) => v.id)).size !== p.variants.length
@@ -105,7 +110,7 @@ export function clothingProduct(
     color: p.color,
     usage: p.usage,
     department: s.department,
-    discountVerified: true,
+    discountVerified: verified,
     saleStartsAt: p.sale_starts_at,
     saleEndsAt: p.sale_ends_at,
     market: s.market,

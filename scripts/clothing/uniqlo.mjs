@@ -1,3 +1,4 @@
+import { uniqloName } from '../../src/lib/uniqlo-labels.mjs';
 import { request } from '@playwright/test';
 import robotsParser from 'robots-parser';
 import {
@@ -31,16 +32,13 @@ export function uniqloProducts(detail, stocks, source, expected, now = Date.now(
   const purpose = Object.values(p.breadcrumbs || {})
     .map((v) => v.name)
     .join(' ');
-  // Не добавляем обувь, сумки и аксессуары в повседневную одежду.
-  if (/accessories|goods|socks|shoes|bags|glasses|umbrella|belt/i.test(purpose)) return [];
   const groups = new Map();
   for (const v of p.l2s) {
     const stock = stocks.result[v.l2Id];
     const flag = activeUniqloDiscount(flagsFor(v), now);
-    const sale = v.prices?.promo || v.prices?.base,
+    const sale = (flag ? v.prices?.promo : null) || v.prices?.base,
       base = v.prices?.base;
     if (
-      !flag ||
       v.sales !== true ||
       v.salesType !== 'NORMAL' ||
       stock?.statusCode !== 'IN_STOCK' ||
@@ -56,7 +54,7 @@ export function uniqloProducts(detail, stocks, source, expected, now = Date.now(
     if (!/^\d{2}$/.test(color || '')) continue;
     const pl = v.pld?.display?.showFlag ? v.pld.name : '';
     const key = color + '-' + (pl || 'standard');
-    const old = Number(base.value) > Number(sale.value) ? String(base.value) : null;
+    const old = flag && Number(base.value) > Number(sale.value) ? String(base.value) : null;
     const image = p.images?.main?.[color]?.image;
     if (!image) continue;
     const g = groups.get(key) || {
@@ -74,14 +72,14 @@ export function uniqloProducts(detail, stocks, source, expected, now = Date.now(
       salePrice: String(sale.value),
       originalPrice: old,
       available: true,
-      discountEvidence: flag.code,
+      discountEvidence: flag?.code,
       checkedAt: new Date(now).toISOString(),
     });
-    if (flag.effectiveTime?.end) g.ends.push(flag.effectiveTime.end * 1000);
-    if (flag.effectiveTime?.start) g.starts.push(flag.effectiveTime.start * 1000);
+    if (flag?.effectiveTime?.end) g.ends.push(flag.effectiveTime.end * 1000);
+    if (flag?.effectiveTime?.start) g.starts.push(flag.effectiveTime.start * 1000);
     g.evidence.push({
       id: v.l2Id,
-      flag: flag.code,
+      flag: flag?.code || null,
       stock: stock.statusCode,
       quantity: stock.quantity,
     });
@@ -89,24 +87,16 @@ export function uniqloProducts(detail, stocks, source, expected, now = Date.now(
   }
   return [...groups.entries()].flatMap(([key, g]) => {
     if (new Set(g.variants.map((v) => v.size)).size !== g.variants.length) return [];
-    const color = key.slice(0, 2),
-      category = clothingCategory(purpose + ' ' + p.name);
-    const singular =
-      {
-        'Куртки и верхняя одежда': 'Куртка',
-        'Футболки и рубашки': 'Футболка / рубашка',
-        'Свитшоты и трикотаж': 'Трикотаж',
-        'Брюки и джинсы': 'Брюки',
-        'Платья и юбки': 'Платье / юбка',
-      }[category] || category;
+    const color = key.slice(0, 2);
+    const label = uniqloName(p.name, purpose, g.pl, p.productId);
     return [
       {
         source,
         brand: 'Uniqlo',
         sku: `${p.productId}-${p.priceGroup}-${key}`,
-        name: `${singular} Uniqlo ${p.productId.slice(1)}${g.pl ? ' · ' + g.pl : ''}`,
+        name: label.name,
         usage: p.name.slice(0, 500),
-        category,
+        category: label.category,
         color: g.color,
         image_url: g.image,
         image_urls: [
@@ -121,7 +111,7 @@ export function uniqloProducts(detail, stocks, source, expected, now = Date.now(
         gender: clothingGender(p.genderName),
         checked_at: new Date(now).toISOString(),
         variants: g.variants,
-        discount_verified: true,
+        discount_verified: g.variants.every((v) => Boolean(v.discountEvidence)),
         ...(g.ends.length ? { sale_ends_at: new Date(Math.min(...g.ends)).toISOString() } : {}),
         ...(g.starts.length
           ? { sale_starts_at: new Date(Math.max(...g.starts)).toISOString() }
@@ -133,7 +123,7 @@ export function uniqloProducts(detail, stocks, source, expected, now = Date.now(
 }
 export async function collectUniqlo(
   source,
-  { deadline = Date.now() + 100 * 60000, limit = 10000, checkpoint = async () => {} } = {},
+  { deadline = Date.now() + 175 * 60000, limit = 10000, checkpoint = async () => {} } = {},
 ) {
   const region = source === 'uniqlo-jp' ? 'jp' : 'kr',
     lang = region === 'jp' ? 'ja' : 'ko',
@@ -211,11 +201,7 @@ export async function collectUniqlo(
         if (result.items.length && seenPages.has(fingerprint)) throw Error('UNIQLO_REPEATED_PAGE');
         seenPages.add(fingerprint);
         for (const p of result.items)
-          if (
-            /^E\d{6}-\d{3}$/.test(p.productId) &&
-            /^\d{2}$/.test(p.priceGroup) &&
-            activeUniqloDiscount(flagsFor(p.representative || {}))
-          )
+          if (/^E\d{6}-\d{3}$/.test(p.productId) && /^\d{2}$/.test(p.priceGroup))
             candidates.set(p.productId + '-' + p.priceGroup, {
               productId: p.productId,
               priceGroup: p.priceGroup,

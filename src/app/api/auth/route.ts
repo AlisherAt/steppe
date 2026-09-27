@@ -1,5 +1,12 @@
+import {
+  ownerSession,
+  ownerConfigured,
+  ownerAttempt,
+  issueOwnerSession,
+  OWNER_SESSION_SECONDS,
+} from '@/lib/server/owner-auth';
 import { NextRequest, NextResponse } from 'next/server';
-import { auth, AuthError, credentials } from '@/lib/server/auth';
+import { auth, AuthError, credentials, verifyPassword } from '@/lib/server/auth';
 import { administrator } from '@/lib/server/admin-access';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -8,6 +15,8 @@ const json = (body: unknown, status = 200) =>
   NextResponse.json(body, { status, headers: { 'Cache-Control': 'no-store' } });
 export async function GET(req: NextRequest) {
   try {
+    const owner = ownerSession(req.cookies.get(cookie)?.value);
+    if (owner) return json({ user: { ...owner, isAdmin: true } });
     const user = await auth.user(req.cookies.get(cookie)?.value);
     return json({
       user: user ? { ...user, isAdmin: Boolean(await administrator(user.username)) } : null,
@@ -34,7 +43,8 @@ export async function POST(req: NextRequest) {
     if (!body || !['login', 'register', 'logout'].includes(body.action))
       return json({ error: 'Некорректный запрос.' }, 400);
     if (body.action === 'logout') {
-      await auth.logout(req.cookies.get(cookie)?.value);
+      if (!req.cookies.get(cookie)?.value.startsWith('owner.v1.'))
+        await auth.logout(req.cookies.get(cookie)?.value);
       const res = json({ user: null });
       res.cookies.set(cookie, '', {
         httpOnly: true,
@@ -55,6 +65,23 @@ export async function POST(req: NextRequest) {
     const ip = process.env.VERCEL
       ? req.headers.get('x-vercel-forwarded-for') || 'unknown'
       : 'local';
+    if (parsed.data.username === process.env.OWNER_ADMIN_USERNAME) {
+      if (body.action !== 'login') throw new AuthError(409, 'Этот логин недоступен.');
+      if (!ownerConfigured()) throw new AuthError(503, 'Вход владельца ещё не настроен.');
+      if (!ownerAttempt(ip))
+        throw new AuthError(429, 'Слишком много попыток. Попробуйте через 15 минут.');
+      if (!(await verifyPassword(parsed.data.password, process.env.OWNER_ADMIN_PASSWORD_HASH!)))
+        throw new AuthError(401, 'Неверный логин или пароль.');
+      const res = json({ user: { username: parsed.data.username, isAdmin: true } });
+      res.cookies.set(cookie, issueOwnerSession(), {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/',
+        maxAge: OWNER_SESSION_SECONDS,
+      });
+      return res;
+    }
     await auth.attempt(parsed.data.username, ip);
     const result = await auth.authenticate(
       parsed.data.username,

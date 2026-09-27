@@ -1,3 +1,4 @@
+import { procurementArchive } from './procurement-archive.mjs';
 import { execFileSync } from 'node:child_process';
 import { readFile, readdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -75,6 +76,11 @@ for (let attempt = 0; attempt < 5; attempt++) {
     if (entry) {
       const blob = await api(`git/blobs/${entry.sha}`);
       const existing = JSON.parse(Buffer.from(blob.content, 'base64').toString('utf8'));
+      candidate.snapshot.archivedProducts = procurementArchive(
+        existing,
+        candidate.snapshot.products,
+      );
+      candidate.content = JSON.stringify(candidate.snapshot) + '\n';
       // Поздно завершившийся сбор не заменяет более свежие наблюдения.
       if (Date.parse(existing.checkedAt) > Date.parse(candidate.snapshot.checkedAt)) continue;
       if (

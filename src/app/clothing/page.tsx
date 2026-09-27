@@ -3,7 +3,7 @@ import { getCatalog } from '@/lib/server/repository';
 import { defaultFilters, type CatalogResult } from '@/lib/types';
 export const dynamic = 'force-dynamic';
 export const metadata = {
-  title: 'Одежда со скидками — STEPPE',
+  title: 'Одежда — STEPPE',
   description:
     'Спортивная одежда Nike, Puma, Reebok и повседневная одежда Uniqlo. Цены в тенге, заказ через WhatsApp.',
 };

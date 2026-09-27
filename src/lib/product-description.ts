@@ -7,7 +7,7 @@ export function productDescription(
     Partial<Pick<Product, 'category' | 'usage' | 'department'>>,
 ): string {
   if (p.department && p.department !== 'sneakers') {
-    return `${p.category || 'Одежда'} ${p.brand}. Размеры: ${p.sizes.join(', ')}.`;
+    return `${p.category || 'Одежда'} ${p.brand}. Размеры производителя — выбери подходящий вариант.`;
   }
   const name = p.name.toLowerCase();
   const audience = { men: 'Мужские', women: 'Женские', kids: 'Детские', unisex: 'Унисекс' }[

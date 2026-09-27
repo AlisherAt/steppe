@@ -1,3 +1,4 @@
+import { procurementQuery } from './procurement';
 import { orderableProduct } from './orderable';
 import type { Product } from './types';
 import { formatKzt } from './money';
@@ -41,7 +42,7 @@ export function whatsappOrder(
         : '';
     return `${index + 1}. ${clean(product.brand)} — ${clean(product.name)}\nРазмер: ${size} · 1 шт.${sourceSize}\nЦена: ${formatKzt(price)}\nКод товара: ${product.id}`;
   });
-  const text = `Здравствуйте! Хочу оформить заказ в STEPPE.\n\n${lines.join('\n\n')}\n\nВсего товаров: ${selection.length}\nОриентировочная сумма: ${formatKzt(total)}\n\nПодтвердите, пожалуйста, наличие, окончательную стоимость и способ оплаты.`;
+  const text = `Здравствуйте! Хочу оформить заказ в STEPPE.\n\n${lines.join('\n\n')}\n\nЗаказ в STEPPE: https://steppe-gray.vercel.app/admin?items=${encodeURIComponent(procurementQuery(selection))}\n\nВсего товаров: ${selection.length}\nОриентировочная сумма: ${formatKzt(total)}\n\nПодтвердите, пожалуйста, наличие, окончательную стоимость и способ оплаты.`;
   const url = `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
   if (url.length > 16000)
     throw new CheckoutError(

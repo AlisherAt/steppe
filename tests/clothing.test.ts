@@ -110,15 +110,16 @@ describe('проверка настоящих скидок Uniqlo', () => {
       v.guestFlags.priceFlags = [];
       v.flags.priceFlags = [];
     }
-    expect(
-      uniqloProducts(
-        g.detail,
-        g.stocks,
-        'uniqlo-kr',
-        { productId: g.detail.result.productId, priceGroup: '00' },
-        now,
-      ),
-    ).toEqual([]);
+    const regular = uniqloProducts(
+      g.detail,
+      g.stocks,
+      'uniqlo-kr',
+      { productId: g.detail.result.productId, priceGroup: '00' },
+      now,
+    );
+    expect(regular.length).toBeGreaterThan(0);
+    expect(regular[0].discount_verified).toBe(false);
+    expect(clothingProduct(regular[0], 'uniqlo-kr', rates, now).discountVerified).toBe(false);
     expect(
       activeUniqloDiscount(
         [{ code: 'limitedOffer', effectiveTime: { start: 0, end: now / 1000 - 1 } }],
@@ -142,7 +143,7 @@ describe('проверка настоящих скидок Uniqlo', () => {
     expect(() => clothingProduct(p, 'uniqlo-kr', rates, now)).toThrow();
     const q = raw();
     q.discount_verified = false;
-    expect(() => clothingProduct(q, 'uniqlo-kr', rates, now)).toThrow();
+    expect(clothingProduct(q, 'uniqlo-kr', rates, now).discountVerified).toBe(false);
   });
 });
 it('Reebok оставляет только скидочные доступные размеры и разделяет цвета', () => {

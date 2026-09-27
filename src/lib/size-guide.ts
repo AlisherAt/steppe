@@ -1,3 +1,4 @@
+import { uniqloSizeLabel } from './uniqlo-labels.mjs';
 import type { Product } from './types';
 
 // Проверено 25.09.2026. Источники и ограничения: docs/size-guide.md.
@@ -227,7 +228,8 @@ export function sizeFilterLabel(key: string): string {
 }
 
 export function localSizeLabel(product: SizeContext, size: string): string {
-  if (product.department && product.department !== 'sneakers') return size;
+  if (product.department && product.department !== 'sneakers')
+    return product.brand === 'Uniqlo' ? uniqloSizeLabel(size) : size;
   return sizeFilterLabel(localSizeKey(product, size));
 }
 

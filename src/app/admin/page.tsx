@@ -7,6 +7,7 @@ import type { Product } from '@/lib/types';
 import { formatDate, formatKzt } from '@/lib/money';
 import { localSizeLabel } from '@/lib/size-guide';
 import './admin.css';
+import { AdminProcurement } from '@/components/admin-procurement';
 
 type Draft = { draftId: string; product: Product; selling: Product; from?: string };
 type Entry = {
@@ -18,6 +19,8 @@ type Entry = {
 };
 export default function AdminPage() {
   const [ready, setReady] = useState(false);
+  const [provider, setProvider] = useState('');
+  const [loginHref, setLoginHref] = useState('/login?next=/admin');
   const [denied, setDenied] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -52,11 +55,13 @@ export default function AdminPage() {
   }
   async function reload() {
     const data = await api('/api/admin/products');
+    setProvider(data.provider || 'seatable');
     setEntries(data.products);
     setDrafts(data.drafts);
     setReady(true);
   }
   useEffect(() => {
+    setLoginHref('/login?next=' + encodeURIComponent('/admin' + location.search));
     reload().catch((e) => {
       setError(e.message);
       setReady(true);
@@ -167,12 +172,13 @@ export default function AdminPage() {
           <Package size={38} />
           <h1>Управление каталогом</h1>
           <p>{denied}</p>
-          <Link href="/login" className="button dark">
+          <Link href={loginHref} className="button dark">
             Перейти к входу
           </Link>
         </div>
       </main>
     );
+  if (provider === 'github') return <AdminProcurement />;
   const list = entries.filter(
     (e) =>
       e.hidden === showHidden &&
@@ -199,7 +205,8 @@ export default function AdminPage() {
         <strong>До 20 000 ₸: +3 000 ₸</strong>
         <strong>От 20 000 ₸: +15%</strong>
         <small>
-          Для каждого размера после перевода закупочной цены в тенге. Округление вверх до ближайших 500 ₸.
+          Для каждого размера после перевода закупочной цены в тенге. Округление вверх до ближайших
+          500 ₸.
         </small>
       </div>
       {error && (

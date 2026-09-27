@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useId, useRef, useState } from 'react';
 import { ChevronDown, Search, X } from 'lucide-react';
+import { uniqloSizeLabel } from '@/lib/uniqlo-labels.mjs';
 import { sizeFilterLabel } from '@/lib/size-guide';
 
 type Props = {
@@ -12,7 +13,7 @@ type Props = {
   onChange: (sizes: string[]) => void;
 };
 export function SizeFilter({ sizes, groups, selected, gender, onChange, clothing = false }: Props) {
-  const label = (s: string) => (clothing ? s : sizeFilterLabel(s));
+  const label = (s: string) => (clothing ? uniqloSizeLabel(s) : sizeFilterLabel(s));
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [group, setGroup] = useState<'adults' | 'kids' | 'all'>('adults');

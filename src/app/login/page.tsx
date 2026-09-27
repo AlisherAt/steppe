@@ -40,6 +40,8 @@ export default function LoginPage() {
       const result = await response.json();
       if (!response.ok) throw new Error(result.error);
       setUser(result.user);
+      const next = new URLSearchParams(location.search).get('next');
+      if (result.user?.isAdmin && next && /^\/admin(?:\?|$)/.test(next)) location.assign(next);
       window.dispatchEvent(new Event('steppe-auth'));
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Не удалось связаться с сервером.');

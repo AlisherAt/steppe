@@ -1,3 +1,4 @@
+import { ownerSession } from './owner-auth';
 import type { NextRequest } from 'next/server';
 import { auth, AuthError } from './auth';
 import { seaClient } from './seatable-client';
@@ -17,6 +18,8 @@ export async function requireAdmin(req: NextRequest, write = false) {
   )
     throw new AuthError(403, 'Недопустимый запрос.');
   const cookie = process.env.NODE_ENV === 'production' ? '__Host-steppe_session' : 'steppe_session';
+  const owner = ownerSession(req.cookies.get(cookie)?.value);
+  if (owner) return { id: 'owner:' + owner.username, username: owner.username };
   const user = await auth.user(req.cookies.get(cookie)?.value);
   if (!user) throw new AuthError(401, 'Войдите в аккаунт администратора.');
   const id = await administrator(user.username);

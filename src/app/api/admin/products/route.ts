@@ -15,10 +15,7 @@ export async function GET(req: NextRequest) {
   try {
     const user = await requireAdmin(req);
     if (githubCatalogEnabled())
-      throw new AuthError(
-        503,
-        'Каталог перенесён в GitHub. Изменения через SeaTable временно недоступны; редактируйте data/catalog/overrides.json в репозитории.',
-      );
+      return adminJson({ user: user.username, provider: 'github', products: [], drafts: [] });
     const { products, records, hidden } = await manualProducts.combine(
       await seaStore.liveProducts(),
       true,

@@ -26,7 +26,7 @@ jobs:
       matrix:
         source: [nike, puma, reebok, uniqlo-jp, uniqlo-kr]
     runs-on: ubuntu-latest
-    timeout-minutes: 125
+    timeout-minutes: 205
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -38,7 +38,7 @@ jobs:
         run: |
           npm ci
           npx playwright install --with-deps chromium
-      - name: Собрать подтверждённые скидки на одежду
+      - name: Собрать товары и проверить наличие
         if: ${{ !inputs.source || inputs.source == 'all' || inputs.source == matrix.source }}
         env:
           CLOTHING_DETAIL_LIMIT: ${{ inputs.verify_only && '3' || '10000' }}
