@@ -1,0 +1,131 @@
+{
+  "api": "https://steppe-gray.vercel.app/api/catalog?mode=live&q=312060_11",
+  "checkedAt": "2026-09-27T13:36:12.458Z",
+  "products": [
+    {
+      "id": "334d09d84764bd320f9d5995b54b63e31876d6bfae46e6e62011ef961f2c7ef2",
+      "externalId": "",
+      "sourceId": "puma-us",
+      "sourceName": "Puma US",
+      "brand": "Puma",
+      "name": "FAST-R NITRO™ Elite 3 Men's Road Running Shoes",
+      "productUrl": "",
+      "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/312060/11/sv01/fnd/PNA/fmt/png/FAST-R-NITRO™-Elite-3-Men's-Road-Running-Shoes",
+      "imageUrls": [
+        "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/312060/11/sv01/fnd/PNA/fmt/png/FAST-R-NITRO™-Elite-3-Men's-Road-Running-Shoes",
+        "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/312060/11/fnd/PNA/fmt/png/FAST-R-NITRO™-Elite-3-Men's-Road-Running-Shoes",
+        "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/312060/11/bv/fnd/PNA/fmt/png/FAST-R-NITRO™-Elite-3-Men's-Road-Running-Shoes",
+        "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/312060/11/sv02/fnd/PNA/fmt/png/FAST-R-NITRO™-Elite-3-Men's-Road-Running-Shoes",
+        "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/312060/11/sv03/fnd/PNA/fmt/png/FAST-R-NITRO™-Elite-3-Men's-Road-Running-Shoes",
+        "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/312060/11/sv04/fnd/PNA/fmt/png/FAST-R-NITRO™-Elite-3-Men's-Road-Running-Shoes"
+      ],
+      "color": "Ultra Red-Inky Depths",
+      "usage": "mens-shoes",
+      "sizes": [
+        "39",
+        "40",
+        "40.5",
+        "41",
+        "42",
+        "42.5",
+        "43",
+        "44",
+        "44.5",
+        "45",
+        "46",
+        "47",
+        "48.5"
+      ],
+      "sizePrices": [
+        {
+          "size": "39",
+          "salePrice": "199.99",
+          "saleKzt": 102000
+        },
+        {
+          "size": "40",
+          "salePrice": "199.99",
+          "saleKzt": 102000
+        },
+        {
+          "size": "40.5",
+          "salePrice": "199.99",
+          "saleKzt": 102000
+        },
+        {
+          "size": "41",
+          "salePrice": "199.99",
+          "saleKzt": 102000
+        },
+        {
+          "size": "42",
+          "salePrice": "199.99",
+          "saleKzt": 102000
+        },
+        {
+          "size": "42.5",
+          "salePrice": "199.99",
+          "saleKzt": 102000
+        },
+        {
+          "size": "43",
+          "salePrice": "199.99",
+          "saleKzt": 102000
+        },
+        {
+          "size": "44",
+          "salePrice": "199.99",
+          "saleKzt": 102000
+        },
+        {
+          "size": "44.5",
+          "salePrice": "199.99",
+          "saleKzt": 102000
+        },
+        {
+          "size": "45",
+          "salePrice": "199.99",
+          "saleKzt": 102000
+        },
+        {
+          "size": "46",
+          "salePrice": "199.99",
+          "saleKzt": 102000
+        },
+        {
+          "size": "47",
+          "salePrice": "199.99",
+          "saleKzt": 102000
+        },
+        {
+          "size": "48.5",
+          "salePrice": "199.99",
+          "saleKzt": 102000
+        }
+      ],
+      "gender": "men",
+      "category": "Кроссовки",
+      "offerKind": "retail",
+      "purchaseType": "fixed",
+      "market": "US",
+      "sku": "312060_11",
+      "sourceUpdatedAt": "2026-09-27T12:59:29.734Z",
+      "originalPrice": "300.00",
+      "salePrice": "199.99",
+      "currency": "USD",
+      "originalKzt": 152500,
+      "saleKzt": 102000,
+      "discount": 33,
+      "updatedAt": "2026-09-27T12:59:29.734Z",
+      "firstSeenAt": "2026-09-27T12:59:29.734Z",
+      "demo": false,
+      "rate": {
+        "currency": "USD",
+        "value": "441.880000000000",
+        "source": "Национальный Банк Казахстана",
+        "asOf": "2026-09-26T19:00:00.000Z",
+        "fetchedAt": "2026-09-27T13:26:13.615Z"
+      }
+    }
+  ]
+}

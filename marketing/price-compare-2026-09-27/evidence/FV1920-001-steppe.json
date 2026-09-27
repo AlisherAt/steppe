@@ -1,0 +1,181 @@
+{
+  "api": "https://steppe-gray.vercel.app/api/catalog?mode=live&q=FV1920-001",
+  "checkedAt": "2026-09-27T13:36:12.151Z",
+  "products": [
+    {
+      "id": "287d6dab3fcbd001f1e9912d6acc9cd0c9becb22834b22f0b9331fa53ca6d00d",
+      "externalId": "",
+      "sourceId": "nike-us",
+      "sourceName": "Nike US",
+      "brand": "Nike",
+      "name": "Nike Air Max Muse Women's Shoes",
+      "productUrl": "",
+      "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/9cb44d8d-b86f-4a4c-806e-06571cc1a9aa/WMNS+NIKE+AIR+MAX+MUSE.png",
+      "imageUrls": [
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/9cb44d8d-b86f-4a4c-806e-06571cc1a9aa/WMNS+NIKE+AIR+MAX+MUSE.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b6a4d350-9215-4b18-8a05-af1d720a2c03/WMNS+NIKE+AIR+MAX+MUSE.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/a8184286-4231-41f1-ae2d-733e942e5802/WMNS+NIKE+AIR+MAX+MUSE.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/6875fc79-23b2-419e-895c-28fb9032fcaa/WMNS+NIKE+AIR+MAX+MUSE.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d6ca6b8e-1601-485e-96ed-6a132aa0aa41/WMNS+NIKE+AIR+MAX+MUSE.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/f470e3a0-be3b-4464-a6b4-f8a80de8a8cb/WMNS+NIKE+AIR+MAX+MUSE.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/faf79cfc-169e-47f8-a787-b384c6e2c7ba/WMNS+NIKE+AIR+MAX+MUSE.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/262cd4c9-bd30-401d-8b6e-49f22be91516/WMNS+NIKE+AIR+MAX+MUSE.png"
+      ],
+      "color": "Black/Metallic Silver",
+      "usage": "Women's Shoes Lifestyle Nike Nike Sportswear Women Lifestyle Air Max Platforms",
+      "sizes": [
+        "EU 35.5",
+        "EU 36",
+        "EU 36.5",
+        "EU 37.5",
+        "EU 38",
+        "EU 38.5",
+        "EU 39",
+        "EU 40",
+        "EU 40.5",
+        "EU 41",
+        "EU 42",
+        "EU 42.5",
+        "EU 43",
+        "EU 44",
+        "EU 44.5",
+        "EU 45",
+        "EU 45.5",
+        "EU 47",
+        "EU 47.5",
+        "EU 48.5",
+        "EU 50"
+      ],
+      "sizePrices": [
+        {
+          "size": "EU 35.5",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 36",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 36.5",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 37.5",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 38",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 38.5",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 39",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 40",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 40.5",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 41",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 42",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 42.5",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 43",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 44",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 44.5",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 45",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 45.5",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 47",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 47.5",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 48.5",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        },
+        {
+          "size": "EU 50",
+          "salePrice": "102.97",
+          "saleKzt": 52500
+        }
+      ],
+      "gender": "women",
+      "category": "Кроссовки",
+      "offerKind": "retail",
+      "purchaseType": "fixed",
+      "market": "US",
+      "sku": "FV1920-001",
+      "sourceUpdatedAt": "2026-09-26T21:49:29.881Z",
+      "originalPrice": "170.00",
+      "salePrice": "102.97",
+      "currency": "USD",
+      "originalKzt": 86500,
+      "saleKzt": 52500,
+      "discount": 39,
+      "updatedAt": "2026-09-26T21:49:29.881Z",
+      "firstSeenAt": "2026-09-26T21:49:29.881Z",
+      "demo": false,
+      "rate": {
+        "currency": "USD",
+        "value": "441.880000000000",
+        "source": "Национальный Банк Казахстана",
+        "asOf": "2026-09-26T19:00:00.000Z",
+        "fetchedAt": "2026-09-26T21:59:17.864Z"
+      }
+    }
+  ]
+}

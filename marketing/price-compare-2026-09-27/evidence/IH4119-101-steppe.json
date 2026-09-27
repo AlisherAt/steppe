@@ -1,0 +1,133 @@
+{
+  "api": "https://steppe-gray.vercel.app/api/catalog?mode=live&q=IH4119-101",
+  "checkedAt": "2026-09-27T13:36:11.070Z",
+  "products": [
+    {
+      "id": "bd573a915ef4acec41d14eaa61dd9db4c2b00d7ad7828713dc409ef127070b9e",
+      "externalId": "",
+      "sourceId": "nike-us",
+      "sourceName": "Nike US",
+      "brand": "Nike",
+      "name": "Nike Air Max Dn8 Men's Shoes",
+      "productUrl": "",
+      "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e1f20e3b-4cac-4e81-8e40-583c92f23e25/AIR+MAX+DN8.png",
+      "imageUrls": [
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e1f20e3b-4cac-4e81-8e40-583c92f23e25/AIR+MAX+DN8.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e307e165-3d1b-4ff3-9598-254956cb61c8/AIR+MAX+DN8.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/82dbd149-0fec-4b13-9575-afce5ad28c7d/AIR+MAX+DN8.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/076e89c6-c153-45f6-bba9-c701f0d4aa0b/AIR+MAX+DN8.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/72cfbbcf-dbbe-4bfa-af3d-b98028ad7e24/AIR+MAX+DN8.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/5c695740-fa0a-4098-864f-e56104659ff3/AIR+MAX+DN8.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e2d914a1-2e37-424e-831a-25b75c9786da/AIR+MAX+DN8.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e89a43f4-efc2-49a9-8d12-8559d18ef195/AIR+MAX+DN8.png"
+      ],
+      "color": "Light Orewood Brown/Moon Particle/Volt Ice/Black",
+      "usage": "Men's Shoes Lifestyle Nike Nike Sportswear NikeLab Men Unisex Lifestyle Air Max Shoes",
+      "sizes": [
+        "EU 40.5",
+        "EU 41",
+        "EU 42",
+        "EU 42.5",
+        "EU 43",
+        "EU 44",
+        "EU 44.5",
+        "EU 45",
+        "EU 45.5",
+        "EU 46",
+        "EU 47",
+        "EU 47.5",
+        "EU 48.5"
+      ],
+      "sizePrices": [
+        {
+          "size": "EU 40.5",
+          "salePrice": "110.97",
+          "saleKzt": 56500
+        },
+        {
+          "size": "EU 41",
+          "salePrice": "110.97",
+          "saleKzt": 56500
+        },
+        {
+          "size": "EU 42",
+          "salePrice": "110.97",
+          "saleKzt": 56500
+        },
+        {
+          "size": "EU 42.5",
+          "salePrice": "110.97",
+          "saleKzt": 56500
+        },
+        {
+          "size": "EU 43",
+          "salePrice": "110.97",
+          "saleKzt": 56500
+        },
+        {
+          "size": "EU 44",
+          "salePrice": "110.97",
+          "saleKzt": 56500
+        },
+        {
+          "size": "EU 44.5",
+          "salePrice": "110.97",
+          "saleKzt": 56500
+        },
+        {
+          "size": "EU 45",
+          "salePrice": "110.97",
+          "saleKzt": 56500
+        },
+        {
+          "size": "EU 45.5",
+          "salePrice": "110.97",
+          "saleKzt": 56500
+        },
+        {
+          "size": "EU 46",
+          "salePrice": "110.97",
+          "saleKzt": 56500
+        },
+        {
+          "size": "EU 47",
+          "salePrice": "110.97",
+          "saleKzt": 56500
+        },
+        {
+          "size": "EU 47.5",
+          "salePrice": "110.97",
+          "saleKzt": 56500
+        },
+        {
+          "size": "EU 48.5",
+          "salePrice": "110.97",
+          "saleKzt": 56500
+        }
+      ],
+      "gender": "men",
+      "category": "Кроссовки",
+      "offerKind": "retail",
+      "purchaseType": "fixed",
+      "market": "US",
+      "sku": "IH4119-101",
+      "sourceUpdatedAt": "2026-09-26T21:29:15.027Z",
+      "originalPrice": "200.00",
+      "salePrice": "110.97",
+      "currency": "USD",
+      "originalKzt": 102000,
+      "saleKzt": 56500,
+      "discount": 44,
+      "updatedAt": "2026-09-26T21:29:15.027Z",
+      "firstSeenAt": "2026-09-26T21:29:15.027Z",
+      "demo": false,
+      "rate": {
+        "currency": "USD",
+        "value": "441.880000000000",
+        "source": "Национальный Банк Казахстана",
+        "asOf": "2026-09-26T19:00:00.000Z",
+        "fetchedAt": "2026-09-26T21:59:17.864Z"
+      }
+    }
+  ]
+}

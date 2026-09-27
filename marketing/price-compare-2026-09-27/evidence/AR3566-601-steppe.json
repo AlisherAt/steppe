@@ -1,0 +1,145 @@
+{
+  "api": "https://steppe-gray.vercel.app/api/catalog?mode=live&q=AR3566-601",
+  "checkedAt": "2026-09-27T13:36:11.656Z",
+  "products": [
+    {
+      "id": "ada3ab4f308ae0a6c51b9c2575403431c8c24c768025c6e04c044eb847d724b7",
+      "externalId": "",
+      "sourceId": "nike-us",
+      "sourceName": "Nike US",
+      "brand": "Nike",
+      "name": "Nike Shox TL Women's Shoes",
+      "productUrl": "",
+      "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/5870189a-c774-4234-9025-403e0d3d062c/W+NIKE+SHOX+TL.png",
+      "imageUrls": [
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/5870189a-c774-4234-9025-403e0d3d062c/W+NIKE+SHOX+TL.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/500ab4e0-1c81-49f2-97db-35524a618eb3/W+NIKE+SHOX+TL.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/750676d8-be65-43db-a15a-eaecc9f84d0f/W+NIKE+SHOX+TL.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/fe195aad-d1bf-4c20-9eed-e36037a072c9/W+NIKE+SHOX+TL.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/938a5a29-f9fe-4a16-950b-aa5d8375c8e6/W+NIKE+SHOX+TL.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/3de77d06-4c78-41dc-882c-ad56cd566135/W+NIKE+SHOX+TL.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/f45aa999-1922-48a2-94cf-ee64f3a5ca06/W+NIKE+SHOX+TL.png",
+        "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/bacc06f1-43d8-4e62-a3d0-ce1b7f821505/W+NIKE+SHOX+TL.png"
+      ],
+      "color": "Particle Rose/Metallic Silver/Particle Rose",
+      "usage": "Women's Shoes Lifestyle Nike Nike Sportswear Women Lifestyle Nike Shox TL Shoes",
+      "sizes": [
+        "EU 35.5",
+        "EU 36",
+        "EU 36.5",
+        "EU 37.5",
+        "EU 38",
+        "EU 38.5",
+        "EU 39",
+        "EU 40",
+        "EU 40.5",
+        "EU 41",
+        "EU 42",
+        "EU 42.5",
+        "EU 43",
+        "EU 44",
+        "EU 44.5"
+      ],
+      "sizePrices": [
+        {
+          "size": "EU 35.5",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        },
+        {
+          "size": "EU 36",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        },
+        {
+          "size": "EU 36.5",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        },
+        {
+          "size": "EU 37.5",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        },
+        {
+          "size": "EU 38",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        },
+        {
+          "size": "EU 38.5",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        },
+        {
+          "size": "EU 39",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        },
+        {
+          "size": "EU 40",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        },
+        {
+          "size": "EU 40.5",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        },
+        {
+          "size": "EU 41",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        },
+        {
+          "size": "EU 42",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        },
+        {
+          "size": "EU 42.5",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        },
+        {
+          "size": "EU 43",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        },
+        {
+          "size": "EU 44",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        },
+        {
+          "size": "EU 44.5",
+          "salePrice": "100.97",
+          "saleKzt": 51500
+        }
+      ],
+      "gender": "women",
+      "category": "Кроссовки",
+      "offerKind": "retail",
+      "purchaseType": "fixed",
+      "market": "US",
+      "sku": "AR3566-601",
+      "sourceUpdatedAt": "2026-09-26T21:34:39.012Z",
+      "originalPrice": "180.00",
+      "salePrice": "100.97",
+      "currency": "USD",
+      "originalKzt": 91500,
+      "saleKzt": 51500,
+      "discount": 43,
+      "updatedAt": "2026-09-26T21:34:39.012Z",
+      "firstSeenAt": "2026-09-26T21:34:39.012Z",
+      "demo": false,
+      "rate": {
+        "currency": "USD",
+        "value": "441.880000000000",
+        "source": "Национальный Банк Казахстана",
+        "asOf": "2026-09-26T19:00:00.000Z",
+        "fetchedAt": "2026-09-26T21:59:17.864Z"
+      }
+    }
+  ]
+}

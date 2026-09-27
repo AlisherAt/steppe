@@ -1,0 +1,26 @@
+[
+  {
+    "sku": "IH4119-101",
+    "size": "EU 41",
+    "sourceUrl": "https://superstep.kz/product/NKIH4119_101/",
+    "domExcerpt": "<div class=\"size_it js-product-click-action checked\"><input type=\"radio\" name=\"size-radio\" id=\"size_8\" data-color=\"101\" data-online-quantity=\"0\" data-offline-quantity=\"1\" value=\"8\" class=\"hidden\" checked=\"checked\" style=\"\"><label for=\"size_8\"><span class=\"p\">8</span><span class=\"eur\" data-availability=\"Y\">41</span></label></div>"
+  },
+  {
+    "sku": "AR3566-601",
+    "size": "EU 38",
+    "sourceUrl": "https://superstep.kz/product/NKAR3566_601/",
+    "domExcerpt": "<div class=\"size_it js-product-click-action\"><input type=\"radio\" name=\"size-radio\" id=\"size_7\" data-color=\"601\" data-online-quantity=\"0\" data-offline-quantity=\"2\" value=\"7\" class=\"hidden\" style=\"\"><label for=\"size_7\"><span class=\"p\">7</span><span class=\"eur\" data-availability=\"Y\">38</span></label></div>"
+  },
+  {
+    "sku": "FV1920-001",
+    "size": "EU 38",
+    "sourceUrl": "https://superstep.kz/product/NKFV1920_001/",
+    "domExcerpt": "<div class=\"size_it js-product-click-action checked\"><input type=\"radio\" name=\"size-radio\" id=\"size_7\" data-color=\"001\" data-online-quantity=\"0\" data-offline-quantity=\"2\" value=\"7\" class=\"hidden\" checked=\"checked\" style=\"\"><label for=\"size_7\"><span class=\"p\">7</span><span class=\"eur\" data-availability=\"Y\">38</span></label></div>"
+  },
+  {
+    "sku": "312060_11",
+    "size": "EU 42",
+    "sourceUrl": "https://puma.kz/krossovki-fast-r-nitro-elite-3-running-shoes-men-312060-11",
+    "domExcerpt": "<li class=\"product__sizes--item\" data-v-898d0996=\"\"><div class=\"size no-hint\" data-v-898d0996=\"\" data-v-812baf26=\"\"><div class=\"size__name\" data-v-812baf26=\"\"><div class=\"product-size-icon\" data-v-812baf26=\"\"><svg width=\"15\" height=\"14\" viewBox=\"0 0 15 14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M15.0001 4.57381C14.6636 2.83688 13.7384 1.30948 12.4426 0.207764L11.582 1.21991C12.6551 2.13227 13.4184 3.39482 13.6958 4.82647L15.0001 4.57381ZM0 4.57394C0.336491 2.83685 1.26246 1.30957 2.55731 0.208004L3.41817 1.21991C2.34554 2.13242 1.5816 3.39509 1.3043 4.82659L0 4.57394ZM7.49974 0.7146C4.56472 0.7146 2.18555 3.09456 2.18555 6.02879V10.6787H0.857207V12.0073H4.92646C5.22139 13.1534 6.26167 14.0001 7.49987 14.0001C8.7374 14.0001 9.77816 13.1534 10.0732 12.0073H14.1427V10.6787H12.8139V6.02879C12.8139 3.0945 10.434 0.7146 7.49974 0.7146ZM3.51409 6.02879C3.51409 3.82818 5.29858 2.04315 7.49974 2.04315C9.70028 2.04315 11.4854 3.82824 11.4854 6.02879V10.6787H3.51409V6.02879ZM6.349 12.0073H8.65059C8.42078 12.4044 7.99133 12.6716 7.49987 12.6716C7.00803 12.6716 6.57868 12.4044 6.349 12.0073Z\" fill=\"#767677\"></path>\n</svg>\n</div> 42</div><!----></div></li>"
+  }
+]
