@@ -9,7 +9,7 @@ export function Header() {
   return (
     <>
       <div className="topline">
-        <span>Хорошие кроссовки. Хорошая цена.</span>
+        <span>Твой стиль. Хорошая цена.</span>
         <span>
           Заказывай в WhatsApp <ArrowUpRight size={13} />
         </span>
@@ -21,7 +21,13 @@ export function Header() {
         </Link>
         <nav aria-label="Основная навигация">
           <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>
-            Каталог
+            Кроссовки
+          </Link>
+          <Link
+            href="/clothing"
+            aria-current={pathname.startsWith('/clothing') ? 'page' : undefined}
+          >
+            Одежда
           </Link>
         </nav>
         <div className="header-right">

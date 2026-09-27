@@ -4,7 +4,7 @@ test('Бренды ведут в реальный каталог, источни
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/brands');
-  await expect(page.locator('.brand-tile')).toHaveCount(3);
+  await expect(page.locator('.brand-tile')).toHaveCount(4);
   await page.getByRole('textbox', { name: 'Поиск бренда' }).fill('puma');
   await expect(page.locator('.brand-tile')).toHaveCount(1);
   await expect(page.locator('.brand-tile')).toContainText('Пока нет предложений');
@@ -46,7 +46,7 @@ test('Русский каталог: фильтры, размер, корзин�
   await expect(cart).not.toBeVisible();
   await page.getByRole('button', { name: 'Открыть корзину, товаров: 1' }).click();
   await page.getByRole('button', { name: 'Удалить Air Max — городской ритм' }).click();
-  await expect(page.getByText('Хорошая пара ещё найдётся')).toBeVisible();
+  await expect(page.getByText('Твоя находка ещё впереди')).toBeVisible();
 });
 test('Реальный каталог отделён от демо, неверные параметры отклоняются', async ({
   page,

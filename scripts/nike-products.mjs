@@ -18,7 +18,7 @@ export function nikeProductUrl(value) {
     return null;
   }
 }
-export function nikeSaleCandidates(groups) {
+export function nikeSaleCandidates(groups, type = 'FOOTWEAR') {
   const candidates = new Map();
   for (const group of groups || [])
     for (const p of group.products || []) {
@@ -26,9 +26,10 @@ export function nikeSaleCandidates(groups) {
       const text = `${p.copy?.title || ''} ${p.copy?.subTitle || ''}`;
       if (
         !url ||
-        p.productType !== 'FOOTWEAR' ||
-        !/shoes|sneakers/i.test(text) ||
-        /cleats?|sandals?|slides?|boots?|spikes?|slippers?|mules?/i.test(text) ||
+        p.productType !== type ||
+        (type === 'FOOTWEAR' &&
+          (!/shoes|sneakers/i.test(text) ||
+            /cleats?|sandals?|slides?|boots?|spikes?|slippers?|mules?/i.test(text))) ||
         p.prices?.currency !== 'USD' ||
         !(p.prices.currentPrice > 0 && p.prices.currentPrice < p.prices.initialPrice)
       )
@@ -40,7 +41,12 @@ export function nikeSaleCandidates(groups) {
 
 // Серверный HTML Nike содержит ВСЕ размеры без остатков. Принимаем только JSON-LD,
 // обновлённый страницей после загрузки: отдельный Offer/InStock с GTIN и ценой.
-export function verifiedNikeProduct(snapshot, url, checkedAt = new Date().toISOString()) {
+export function verifiedNikeProduct(
+  snapshot,
+  url,
+  checkedAt = new Date().toISOString(),
+  type = 'FOOTWEAR',
+) {
   if (!nikeProductUrl(url)) throw Error('NIKE_PRODUCT_URL_INVALID');
   const page = snapshot.nextData?.props?.pageProps;
   const p = page?.selectedProduct;
@@ -51,9 +57,10 @@ export function verifiedNikeProduct(snapshot, url, checkedAt = new Date().toISOS
   const name =
     p.productInfo?.fullTitle || `${p.productInfo?.title || ''} ${p.productInfo?.subtitle || ''}`;
   if (
-    p.productType !== 'FOOTWEAR' ||
-    !/shoes|sneakers/i.test(name) ||
-    /cleats?|sandals?|slides?|boots?|spikes?|slippers?|mules?/i.test(name)
+    p.productType !== type ||
+    (type === 'FOOTWEAR' &&
+      (!/shoes|sneakers/i.test(name) ||
+        /cleats?|sandals?|slides?|boots?|spikes?|slippers?|mules?/i.test(name)))
   )
     return null;
   if (
@@ -104,7 +111,8 @@ export function verifiedNikeProduct(snapshot, url, checkedAt = new Date().toISOS
       const eu = nikeEuSize(native.localizedLabel || native.label, p.productInfo?.subtitle);
       const sale = Number(offer.price),
         old = Number(p.prices.initialPrice);
-      if (!eu || !Number.isFinite(sale) || sale <= 0 || sale >= old) continue;
+      if ((type === 'FOOTWEAR' && !eu) || !Number.isFinite(sale) || sale <= 0 || sale >= old)
+        continue;
       try {
         if (new URL(variant.image).origin !== 'https://static.nike.com') continue;
       } catch {
@@ -113,7 +121,7 @@ export function verifiedNikeProduct(snapshot, url, checkedAt = new Date().toISOS
       image ||= variant.image;
       variants.push({
         id: String(variant.gtin),
-        size: `EU ${eu}`,
+        size: type === 'APPAREL' ? String(native.label) : `EU ${eu}`,
         sourceSize: String(native.localizedLabel || native.label),
         salePrice: sale.toFixed(2),
         originalPrice: old.toFixed(2),

@@ -1,0 +1,69 @@
+name: Обновить одежду STEPPE
+on:
+  schedule:
+    # 10:00 и 21:00 Москва, как существующее обновление кроссовок.
+    - cron: '0 7,18 * * *'
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Источник или all'
+        type: choice
+        options: [all, nike, puma, reebok, uniqlo-jp, uniqlo-kr]
+        default: all
+      verify_only:
+        description: 'Короткая проверка (до 3 моделей, сохраняет остальные свежие товары)'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: steppe-clothing-refresh
+  cancel-in-progress: false
+jobs:
+  collect:
+    strategy:
+      fail-fast: false
+      matrix:
+        source: [nike, puma, reebok, uniqlo-jp, uniqlo-kr]
+    runs-on: ubuntu-latest
+    timeout-minutes: 125
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Установить зависимости
+        if: ${{ !inputs.source || inputs.source == 'all' || inputs.source == matrix.source }}
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Собрать подтверждённые скидки на одежду
+        if: ${{ !inputs.source || inputs.source == 'all' || inputs.source == matrix.source }}
+        env:
+          CLOTHING_DETAIL_LIMIT: ${{ inputs.verify_only && '3' || '10000' }}
+          NIKE_DETAIL_LIMIT: ${{ inputs.verify_only && '3' || '10000' }}
+          UNIQLO_JP_FEED_URL: ${{ secrets.UNIQLO_JP_FEED_URL }}
+          UNIQLO_JP_FEED_TOKEN: ${{ secrets.UNIQLO_JP_FEED_TOKEN }}
+          UNIQLO_JP_FEED_HOSTS: ${{ vars.UNIQLO_JP_FEED_HOSTS }}
+          UNIQLO_JP_FEED_PERMISSION: ${{ vars.UNIQLO_JP_FEED_PERMISSION }}
+          UNIQLO_KR_FEED_URL: ${{ secrets.UNIQLO_KR_FEED_URL }}
+          UNIQLO_KR_FEED_TOKEN: ${{ secrets.UNIQLO_KR_FEED_TOKEN }}
+          UNIQLO_KR_FEED_HOSTS: ${{ vars.UNIQLO_KR_FEED_HOSTS }}
+          UNIQLO_KR_FEED_PERMISSION: ${{ vars.UNIQLO_KR_FEED_PERMISSION }}
+        run: node scripts/clothing/collect.mjs '${{ matrix.source }}'
+      - name: Пересчитать в тенге и подготовить снимок
+        if: ${{ !inputs.source || inputs.source == 'all' || inputs.source == matrix.source }}
+        run: node node_modules/tsx/dist/cli.mjs scripts/build-clothing.ts 'artifacts/clothing-${{ matrix.source }}/report.json'
+      - name: Опубликовать снимок в GitHub
+        if: ${{ !inputs.source || inputs.source == 'all' || inputs.source == matrix.source }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/publish-catalog.mjs artifacts/publish-clothing
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: clothing-${{ matrix.source }}
+          path: artifacts/clothing-${{ matrix.source }}/
+          retention-days: 7
+          if-no-files-found: ignore

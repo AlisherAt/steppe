@@ -50,7 +50,11 @@ export function ProductCard({
   return (
     <article className="product-card">
       <ProductGallery product={p} priority={priority} onOpen={openDetails}>
-        {discount > 0 && <span className="discount-badge">−{discount}%</span>}
+        {discount > 0 ? (
+          <span className="discount-badge">−{discount}%</span>
+        ) : p.discountVerified ? (
+          <span className="discount-badge">Скидка</span>
+        ) : null}
         {p.demo && <span className="demo-badge">ДЕМО</span>}
       </ProductGallery>
       <div className="product-info">
@@ -73,21 +77,32 @@ export function ProductCard({
         </div>
         {p.offerKind === 'retail' && (
           <p className="product-updated">
-            Покупка без торгов · магазин {p.market === 'US' ? 'США' : 'Европы'} · цена выбранного
-            размера
+            Покупка без торгов · магазин{' '}
+            {p.market === 'JP'
+              ? 'Японии'
+              : p.market === 'KR'
+                ? 'Кореи'
+                : p.market === 'US'
+                  ? 'США'
+                  : 'Европы'}{' '}
+            · цена выбранного размера
           </p>
         )}
         {p.offerKind === 'market' && (
           <p className="product-updated">Рынок США · цена зависит от размера</p>
         )}
-        <SizeGuide
-          product={p}
-          selected={size}
-          onSelect={(value) => {
-            setSize(value);
-            setError('');
-          }}
-        />
+        {!p.department || p.department === 'sneakers' ? (
+          <SizeGuide
+            product={p}
+            selected={size}
+            onSelect={(value) => {
+              setSize(value);
+              setError('');
+            }}
+          />
+        ) : (
+          <p className="small muted">Размеры производителя · выбери свой вариант</p>
+        )}
         <div className="size-row">
           <label className="sr-only" htmlFor={`size-${p.id}`}>
             Размер {p.name}

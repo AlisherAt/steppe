@@ -34,7 +34,8 @@ describe('Бренды и полные партнёрские фиды', () => {
   });
 
   it('распознаёт марки и сохраняет новые без изменения кода', () => {
-    expect(brandNames).toHaveLength(78);
+    expect(brandNames).toContain('Uniqlo');
+    expect(normalizeBrand('UNIQLO')).toBe('Uniqlo');
     expect(normalizeBrand(' HOKA ONE ONE ')).toBe('HOKA');
     expect(normalizeBrand('adidas Originals')).toBe('Adidas');
     expect(normalizeBrand('New Independent Brand')).toBe('New Independent Brand');

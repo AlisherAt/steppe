@@ -11,12 +11,16 @@ import {
 } from './nike-products.mjs';
 
 export async function collectNike({
+  productType = 'FOOTWEAR',
+  discoveryLimit = Infinity,
   deadline = Date.now() + 110 * 60_000,
   checkpoint = async () => {},
   discoveryOnly = false,
   outputDirectory = 'artifacts/nike-live',
 } = {}) {
   const out = outputDirectory;
+  const saleUrl =
+    productType === 'APPAREL' ? 'https://www.nike.com/w/sale-clothing-3yaepz6ymx6' : nikeSaleUrl;
   await mkdir(out, { recursive: true });
   const robotResponse = await fetchRobots('https://www.nike.com/robots.txt');
   if (
@@ -31,7 +35,7 @@ export async function collectNike({
   const allowed = (url) =>
     new URL(url).origin === 'https://www.nike.com' &&
     robots.isAllowed(url, 'SteppeSaleCollector') !== false;
-  if (!allowed(nikeSaleUrl)) throw Error('NIKE_ROBOTS_DISALLOWED');
+  if (!allowed(saleUrl)) throw Error('NIKE_ROBOTS_DISALLOWED');
   const delay = Math.max(1200, Number(robots.getCrawlDelay('SteppeSaleCollector') || 0) * 1000);
   if (delay > 60_000) throw Error('NIKE_CRAWL_DELAY_TOO_LONG');
   const browser = await chromium.launch({ headless: true });
@@ -60,7 +64,7 @@ export async function collectNike({
       const key = g.products?.map((p) => p.groupKey).filter(Boolean)[0];
       if (key) groups.add(key);
     }
-    for (const item of nikeSaleCandidates(list)) candidates.set(item.sku, item);
+    for (const item of nikeSaleCandidates(list, productType)) candidates.set(item.sku, item);
     state.observedGroups = groups.size;
     state.discovered = candidates.size;
   };
@@ -154,14 +158,14 @@ export async function collectNike({
             state.failures.push({ stage: 'catalog', code: 'NIKE_PAGE_RESPONSE_INVALID' });
           });
       });
-      await visit(listing, nikeSaleUrl);
+      await visit(listing, saleUrl);
       await listing.waitForTimeout(2000);
       // Штатный выбор страны; авторизация/корзина Nike не используются.
       const us = listing.getByRole('dialog').locator('a').filter({ hasText: 'United States' });
       if ((await us.count()) && (await us.first().isVisible())) {
         await us.first().click();
         await listing.waitForTimeout(1500);
-        await visit(listing, nikeSaleUrl);
+        await visit(listing, saleUrl);
       }
       const initial = await listing.locator('#__NEXT_DATA__').textContent();
       const wall = JSON.parse(initial).props.pageProps.initialState.Wall;
@@ -169,7 +173,11 @@ export async function collectNike({
       recordGroups(wall.productGroupings);
       let idle = 0,
         last = 0;
-      for (let step = 0; step < 1200 && Date.now() < deadline && !blocked; step++) {
+      for (
+        let step = 0;
+        step < 1200 && Date.now() < deadline && !blocked && candidates.size < discoveryLimit;
+        step++
+      ) {
         await listing.evaluate(() => window.scrollBy(0, 700));
         await listing.waitForTimeout(Math.max(600, delay / 2));
         await pending;
@@ -261,7 +269,12 @@ export async function collectNike({
               )
               .catch(() => {});
             const snapshot = await nikeSnapshot(page);
-            const product = verifiedNikeProduct(snapshot, candidate.product_url);
+            const product = verifiedNikeProduct(
+              snapshot,
+              candidate.product_url,
+              new Date().toISOString(),
+              productType,
+            );
             if (product) {
               products.set(product.sku, product);
               await writeFile(`${out}/${product.sku}.json`, JSON.stringify(snapshot));

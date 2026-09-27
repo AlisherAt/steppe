@@ -41,7 +41,7 @@ describe('WhatsApp orders', () => {
     expect(text).toContain('2. Reebok — Вторая пара');
     expect(text).toContain('EU 42');
     expect(text).toContain('US W 7');
-    expect(text).toContain('Всего пар: 2');
+    expect(text).toContain('Всего товаров: 2');
     expect(text).toMatch(/40\s000 ₸/);
     expect(text).toMatch(/27\s000 ₸/);
     expect(text).toMatch(/67\s000 ₸/);
@@ -61,7 +61,7 @@ describe('WhatsApp orders', () => {
     expect(text).toContain('EU 42');
     expect(text).not.toContain(product.productUrl);
     expect(text).toContain(product.id);
-    expect(text).toContain('Всего пар: 1');
+    expect(text).toContain('Всего товаров: 1');
     expect(text).toContain('₸');
   });
   it('rejects demo, missing items, unavailable sizes, duplicates and empty carts', () => {

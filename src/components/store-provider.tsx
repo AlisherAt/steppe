@@ -73,7 +73,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [toast]);
   const add = useCallback((product: Product, size: string) => {
     setItems((prev) => addToCart(prev, product, size));
-    setToast('Пара добавлена в корзину');
+    setToast('Товар добавлен в корзину');
   }, []);
   async function openCart() {
     setOrderError('');
@@ -112,6 +112,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                 updatedAt: p.updatedAt,
                 brand: p.brand,
                 gender: p.gender,
+                department: p.department,
                 name: p.name,
               }
             : i;
@@ -178,8 +179,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             </button>
           </div>
           <p className="cart-explainer">
-            Собери понравившиеся пары и оформи заказ в WhatsApp. В чат подставится список товаров с
-            размерами и ценами. Условия и оплату согласуете в переписке.
+            Собери понравившиеся товары и оформи заказ в WhatsApp. В чат подставится список товаров
+            с размерами и ценами. Условия и оплату согласуете в переписке.
           </p>
           {storageError && (
             <p role="alert" className="notice warning">
@@ -195,8 +196,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           {!items.length ? (
             <div className="cart-empty">
               <ShoppingBag size={48} strokeWidth={1} />
-              <h3>Хорошая пара ещё найдётся</h3>
-              <p>Добавляй кроссовки из каталога — они будут ждать здесь.</p>
+              <h3>Твоя находка ещё впереди</h3>
+              <p>Добавляй кроссовки и одежду из каталога — они будут ждать здесь.</p>
               <button className="button dark" onClick={() => dialog.current?.close()}>
                 Вернуться к выбору
               </button>

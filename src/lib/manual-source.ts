@@ -1,4 +1,6 @@
 export const manualSources = [
+  { host: 'www.uniqlo.com', prefix: '/jp/ja/products/', brand: 'Uniqlo', market: 'JP' },
+  { host: 'www.uniqlo.com', prefix: '/kr/ko/products/', brand: 'Uniqlo', market: 'KR' },
   { host: 'us.puma.com', prefix: '/us/', brand: 'Puma', market: 'US' },
   { host: 'www.reebok.com', prefix: '/products/', brand: 'Reebok', market: 'US' },
   { host: 'www.fila.de', prefix: '/', brand: 'Fila', market: 'EU' },
@@ -37,6 +39,7 @@ export function canonicalProductUrl(value: string): string {
 }
 
 export const productImageHosts = [
+  'image.uniqlo.com',
   'images.unsplash.com',
   'i.ebayimg.com',
   'images.stockx.com',

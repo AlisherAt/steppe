@@ -4,13 +4,15 @@ import { ChevronDown, Search, X } from 'lucide-react';
 import { sizeFilterLabel } from '@/lib/size-guide';
 
 type Props = {
+  clothing?: boolean;
   sizes: string[];
   groups?: { adults: string[]; kids: string[] };
   selected: string[];
   gender: string;
   onChange: (sizes: string[]) => void;
 };
-export function SizeFilter({ sizes, groups, selected, gender, onChange }: Props) {
+export function SizeFilter({ sizes, groups, selected, gender, onChange, clothing = false }: Props) {
+  const label = (s: string) => (clothing ? s : sizeFilterLabel(s));
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [group, setGroup] = useState<'adults' | 'kids' | 'all'>('adults');
@@ -35,9 +37,7 @@ export function SizeFilter({ sizes, groups, selected, gender, onChange }: Props)
     onChange(selected.includes(size) ? selected.filter((s) => s !== size) : [...selected, size]);
   return (
     <fieldset className="compact-size-filter">
-      <legend>
-        Размер <span className="muted">EU</span>
-      </legend>
+      <legend>Размер {!clothing && <span className="muted">EU</span>}</legend>
       <button
         ref={trigger}
         type="button"
@@ -56,9 +56,9 @@ export function SizeFilter({ sizes, groups, selected, gender, onChange }: Props)
               type="button"
               key={size}
               onClick={() => toggle(size)}
-              aria-label={`Убрать размер ${sizeFilterLabel(size)}`}
+              aria-label={`Убрать размер ${label(size)}`}
             >
-              {sizeFilterLabel(size).replace(/^EU /, '')}
+              {label(size).replace(/^EU /, '')}
               <X size={13} aria-hidden="true" />
             </button>
           ))}
@@ -85,8 +85,8 @@ export function SizeFilter({ sizes, groups, selected, gender, onChange }: Props)
           <input
             ref={search}
             type="search"
-            aria-label="Найти размер EU"
-            placeholder="Например, 38,5"
+            aria-label={clothing ? 'Найти размер одежды' : 'Найти размер EU'}
+            placeholder={clothing ? 'Например, M или 32' : 'Например, 38,5'}
             value={query}
             maxLength={20}
             onChange={(event) => {
@@ -112,16 +112,20 @@ export function SizeFilter({ sizes, groups, selected, gender, onChange }: Props)
             ))}
           </div>
         )}
-        <div className="size-filter-options" role="group" aria-label="Доступные размеры EU">
+        <div
+          className="size-filter-options"
+          role="group"
+          aria-label={clothing ? 'Доступные размеры одежды' : 'Доступные размеры EU'}
+        >
           {shown.map((size) => (
             <button
               type="button"
               key={size}
-              aria-label={sizeFilterLabel(size)}
+              aria-label={label(size)}
               aria-pressed={selected.includes(size)}
               onClick={() => toggle(size)}
             >
-              {sizeFilterLabel(size).replace(/^EU /, '')}
+              {label(size).replace(/^EU /, '')}
             </button>
           ))}
         </div>

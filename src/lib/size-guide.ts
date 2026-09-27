@@ -166,7 +166,8 @@ export type SizeGuideRow = {
   us?: string;
   cm?: number;
 };
-export type SizeContext = Pick<Product, 'brand'> & Partial<Pick<Product, 'gender' | 'name'>>;
+export type SizeContext = Pick<Product, 'brand'> &
+  Partial<Pick<Product, 'gender' | 'name' | 'department'>>;
 type SizingProduct = SizeContext & Pick<Product, 'sizes'>;
 
 export function sizeGuideRows(product: SizingProduct): SizeGuideRow[] {
@@ -215,6 +216,7 @@ export function sizeGuideRows(product: SizingProduct): SizeGuideRow[] {
 
 // Единые подписи и ключи фильтров. Исходные SKU/размеры не изменяются.
 export function localSizeKey(product: SizeContext, size: string): string {
+  if (product.department && product.department !== 'sneakers') return size;
   const row = sizeGuideRows({ ...product, sizes: [size] })[0];
   return row.eu === undefined ? size : String(row.eu);
 }
@@ -225,10 +227,12 @@ export function sizeFilterLabel(key: string): string {
 }
 
 export function localSizeLabel(product: SizeContext, size: string): string {
+  if (product.department && product.department !== 'sneakers') return size;
   return sizeFilterLabel(localSizeKey(product, size));
 }
 
 export function matchesSize(product: SizeContext, native: string, filters: string[]): boolean {
+  if (product.department && product.department !== 'sneakers') return filters.includes(native);
   const key = localSizeKey(product, native);
   return filters.some((filter) => {
     const eu = /^(?:EU\s*)?(\d+(?:[.,]\d+)?)$/i.exec(filter);

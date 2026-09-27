@@ -10,6 +10,7 @@ const httpsUrl = z
     return u.protocol === 'https:' && !u.username && !u.password;
   });
 const itemSchema = z.object({
+  department: z.enum(['sneakers', 'sportswear', 'casual']).optional(),
   id: z.string().min(1).max(160),
   name: z.string().max(180),
   brand: z.string().max(80),
@@ -32,6 +33,7 @@ export function addToCart(items: CartItem[], product: Product, size: string): Ca
     name: product.name,
     brand: product.brand,
     gender: product.gender,
+    department: product.department,
     sourceName: product.sourceName,
     productUrl: '',
     imageUrl: product.imageUrl,

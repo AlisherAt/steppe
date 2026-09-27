@@ -4,8 +4,11 @@ import { productPurpose } from './product-collections';
 /** Краткое описание по данным карточки, без выдуманных материалов и технологий. */
 export function productDescription(
   p: Pick<Product, 'name' | 'brand' | 'gender' | 'sizes'> &
-    Partial<Pick<Product, 'category' | 'usage'>>,
+    Partial<Pick<Product, 'category' | 'usage' | 'department'>>,
 ): string {
+  if (p.department && p.department !== 'sneakers') {
+    return `${p.category || 'Одежда'} ${p.brand}. Размеры: ${p.sizes.join(', ')}.`;
+  }
   const name = p.name.toLowerCase();
   const audience = { men: 'Мужские', women: 'Женские', kids: 'Детские', unisex: 'Унисекс' }[
     p.gender

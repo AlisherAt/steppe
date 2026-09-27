@@ -1,0 +1,1105 @@
+{
+  "detail": {
+    "status": "ok",
+    "result": {
+      "productId": "E487962-000",
+      "priceGroup": "00",
+      "name": "박시크롭T",
+      "breadcrumbs": {
+        "gender": {
+          "id": "57893",
+          "level": 1,
+          "name": "men",
+          "locale": "MEN"
+        },
+        "class": {
+          "id": "57967",
+          "level": 2,
+          "name": "tops",
+          "locale": "티셔츠 & 스웨트셔츠 & 후리스"
+        },
+        "category": {
+          "id": "58039",
+          "level": 3,
+          "name": "t shirts",
+          "locale": "티셔츠 (긴팔 & 반팔)"
+        },
+        "subcategory": {
+          "id": "58395",
+          "level": 4,
+          "name": "short sleeve",
+          "locale": "반팔"
+        }
+      },
+      "genderName": "UNISEX",
+      "l2s": [
+        {
+          "color": {
+            "code": "COL00",
+            "displayCode": "00",
+            "name": "WHITE",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            },
+            "filterCode": "WHITE"
+          },
+          "communicationCode": "487962-00-002-000",
+          "flags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "2026/09/15부터 가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": "",
+                "nameWording": {
+                  "flagWithTime": "text_product_display_markdown",
+                  "substitutions": {
+                    "flagName": "가격인하",
+                    "startDate": "2026/09/15"
+                  }
+                }
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "guestFlags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "l2Id": "09479957",
+          "pld": {
+            "code": "PTB000",
+            "displayCode": "000",
+            "name": "-",
+            "display": {
+              "showFlag": false,
+              "chipType": 0
+            }
+          },
+          "prices": {
+            "base": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "promo": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "isDualPrice": false,
+            "taxPolicy": "INCLUSIVE"
+          },
+          "sales": true,
+          "salesType": "NORMAL",
+          "searchInStoresAvailable": true,
+          "size": {
+            "code": "SMA002",
+            "displayCode": "002",
+            "name": "XS",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            }
+          },
+          "alterations": {}
+        },
+        {
+          "color": {
+            "code": "COL00",
+            "displayCode": "00",
+            "name": "WHITE",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            },
+            "filterCode": "WHITE"
+          },
+          "communicationCode": "487962-00-003-000",
+          "flags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "2026/09/15부터 가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": "",
+                "nameWording": {
+                  "flagWithTime": "text_product_display_markdown",
+                  "substitutions": {
+                    "flagName": "가격인하",
+                    "startDate": "2026/09/15"
+                  }
+                }
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "guestFlags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "l2Id": "09479958",
+          "pld": {
+            "code": "PTB000",
+            "displayCode": "000",
+            "name": "-",
+            "display": {
+              "showFlag": false,
+              "chipType": 0
+            }
+          },
+          "prices": {
+            "base": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "promo": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "isDualPrice": false,
+            "taxPolicy": "INCLUSIVE"
+          },
+          "sales": true,
+          "salesType": "NORMAL",
+          "searchInStoresAvailable": true,
+          "size": {
+            "code": "SMA003",
+            "displayCode": "003",
+            "name": "S",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            }
+          },
+          "alterations": {}
+        },
+        {
+          "color": {
+            "code": "COL00",
+            "displayCode": "00",
+            "name": "WHITE",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            },
+            "filterCode": "WHITE"
+          },
+          "communicationCode": "487962-00-004-000",
+          "flags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "2026/09/15부터 가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": "",
+                "nameWording": {
+                  "flagWithTime": "text_product_display_markdown",
+                  "substitutions": {
+                    "flagName": "가격인하",
+                    "startDate": "2026/09/15"
+                  }
+                }
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "guestFlags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "l2Id": "09479959",
+          "pld": {
+            "code": "PTB000",
+            "displayCode": "000",
+            "name": "-",
+            "display": {
+              "showFlag": false,
+              "chipType": 0
+            }
+          },
+          "prices": {
+            "base": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "promo": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "isDualPrice": false,
+            "taxPolicy": "INCLUSIVE"
+          },
+          "sales": true,
+          "salesType": "NORMAL",
+          "searchInStoresAvailable": true,
+          "size": {
+            "code": "SMA004",
+            "displayCode": "004",
+            "name": "M",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            }
+          },
+          "alterations": {}
+        },
+        {
+          "color": {
+            "code": "COL00",
+            "displayCode": "00",
+            "name": "WHITE",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            },
+            "filterCode": "WHITE"
+          },
+          "communicationCode": "487962-00-005-000",
+          "flags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "2026/09/15부터 가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": "",
+                "nameWording": {
+                  "flagWithTime": "text_product_display_markdown",
+                  "substitutions": {
+                    "flagName": "가격인하",
+                    "startDate": "2026/09/15"
+                  }
+                }
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "guestFlags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "l2Id": "09479960",
+          "pld": {
+            "code": "PTB000",
+            "displayCode": "000",
+            "name": "-",
+            "display": {
+              "showFlag": false,
+              "chipType": 0
+            }
+          },
+          "prices": {
+            "base": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "promo": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "isDualPrice": false,
+            "taxPolicy": "INCLUSIVE"
+          },
+          "sales": true,
+          "salesType": "NORMAL",
+          "searchInStoresAvailable": true,
+          "size": {
+            "code": "SMA005",
+            "displayCode": "005",
+            "name": "L",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            }
+          },
+          "alterations": {}
+        },
+        {
+          "color": {
+            "code": "COL00",
+            "displayCode": "00",
+            "name": "WHITE",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            },
+            "filterCode": "WHITE"
+          },
+          "communicationCode": "487962-00-006-000",
+          "flags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "2026/09/15부터 가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": "",
+                "nameWording": {
+                  "flagWithTime": "text_product_display_markdown",
+                  "substitutions": {
+                    "flagName": "가격인하",
+                    "startDate": "2026/09/15"
+                  }
+                }
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "guestFlags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "l2Id": "09479961",
+          "pld": {
+            "code": "PTB000",
+            "displayCode": "000",
+            "name": "-",
+            "display": {
+              "showFlag": false,
+              "chipType": 0
+            }
+          },
+          "prices": {
+            "base": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "promo": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "isDualPrice": false,
+            "taxPolicy": "INCLUSIVE"
+          },
+          "sales": true,
+          "salesType": "NORMAL",
+          "searchInStoresAvailable": true,
+          "size": {
+            "code": "SMA006",
+            "displayCode": "006",
+            "name": "XL",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            }
+          },
+          "alterations": {}
+        },
+        {
+          "color": {
+            "code": "COL00",
+            "displayCode": "00",
+            "name": "WHITE",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            },
+            "filterCode": "WHITE"
+          },
+          "communicationCode": "487962-00-007-000",
+          "flags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "2026/09/15부터 가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": "",
+                "nameWording": {
+                  "flagWithTime": "text_product_display_markdown",
+                  "substitutions": {
+                    "flagName": "가격인하",
+                    "startDate": "2026/09/15"
+                  }
+                }
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "guestFlags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "l2Id": "09479962",
+          "pld": {
+            "code": "PTB000",
+            "displayCode": "000",
+            "name": "-",
+            "display": {
+              "showFlag": false,
+              "chipType": 0
+            }
+          },
+          "prices": {
+            "base": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "promo": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "isDualPrice": false,
+            "taxPolicy": "INCLUSIVE"
+          },
+          "sales": true,
+          "salesType": "NORMAL",
+          "searchInStoresAvailable": true,
+          "size": {
+            "code": "SMA007",
+            "displayCode": "007",
+            "name": "XXL",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            }
+          },
+          "alterations": {}
+        },
+        {
+          "color": {
+            "code": "COL00",
+            "displayCode": "00",
+            "name": "WHITE",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            },
+            "filterCode": "WHITE"
+          },
+          "communicationCode": "487962-00-008-000",
+          "flags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "2026/09/15부터 가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": "",
+                "nameWording": {
+                  "flagWithTime": "text_product_display_markdown",
+                  "substitutions": {
+                    "flagName": "가격인하",
+                    "startDate": "2026/09/15"
+                  }
+                }
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "guestFlags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "l2Id": "09479963",
+          "pld": {
+            "code": "PTB000",
+            "displayCode": "000",
+            "name": "-",
+            "display": {
+              "showFlag": false,
+              "chipType": 0
+            }
+          },
+          "prices": {
+            "base": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "promo": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "isDualPrice": false,
+            "taxPolicy": "INCLUSIVE"
+          },
+          "sales": true,
+          "salesType": "NORMAL",
+          "searchInStoresAvailable": true,
+          "size": {
+            "code": "SMA008",
+            "displayCode": "008",
+            "name": "3XL",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            }
+          },
+          "alterations": {}
+        },
+        {
+          "color": {
+            "code": "COL00",
+            "displayCode": "00",
+            "name": "WHITE",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            },
+            "filterCode": "WHITE"
+          },
+          "communicationCode": "487962-00-009-000",
+          "flags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "2026/09/15부터 가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": "",
+                "nameWording": {
+                  "flagWithTime": "text_product_display_markdown",
+                  "substitutions": {
+                    "flagName": "가격인하",
+                    "startDate": "2026/09/15"
+                  }
+                }
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "guestFlags": {
+            "priceFlags": [
+              {
+                "id": 12,
+                "code": "discount",
+                "name": "가격인하",
+                "type": "price_flag",
+                "effectiveTime": {
+                  "start": 1789405200,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ],
+            "productFlags": [
+              {
+                "id": 135,
+                "code": "unisex",
+                "name": "UNISEX",
+                "type": "product_flag",
+                "effectiveTime": {
+                  "start": 0,
+                  "end": 0
+                },
+                "detail": ""
+              }
+            ]
+          },
+          "l2Id": "09479964",
+          "pld": {
+            "code": "PTB000",
+            "displayCode": "000",
+            "name": "-",
+            "display": {
+              "showFlag": false,
+              "chipType": 0
+            }
+          },
+          "prices": {
+            "base": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "promo": {
+              "currency": {
+                "code": "KRW",
+                "symbol": "₩"
+              },
+              "value": 12900
+            },
+            "isDualPrice": false,
+            "taxPolicy": "INCLUSIVE"
+          },
+          "sales": true,
+          "salesType": "NORMAL",
+          "searchInStoresAvailable": true,
+          "size": {
+            "code": "SMA009",
+            "displayCode": "009",
+            "name": "4XL",
+            "display": {
+              "showFlag": true,
+              "chipType": 0
+            }
+          },
+          "alterations": {}
+        }
+      ],
+      "images": {
+        "main": {
+          "00": {
+            "image": "https://image.uniqlo.com/UQ/ST3/kr/imagesgoods/487962/item/krgoods_00_487962_3x4.jpg",
+            "model": [
+              {
+                "modelId": "558",
+                "modelGender": "Men",
+                "modelSize": {
+                  "universal": {
+                    "height": "178"
+                  },
+                  "us": {
+                    "height": "70.1"
+                  }
+                },
+                "modelExpirationDate": {
+                  "nh": "",
+                  "sh": ""
+                },
+                "products": [
+                  {
+                    "itemId": "487962",
+                    "sampleCode": "346N575A",
+                    "colorCode": "00",
+                    "sizeCode": "SMA005"
+                  },
+                  {
+                    "itemId": "482868",
+                    "sampleCode": "326H002D",
+                    "colorCode": "08",
+                    "sizeCode": "INS031"
+                  }
+                ]
+              }
+            ],
+            "gender": [
+              "Men"
+            ],
+            "productCombinations": [],
+            "showProductsInImageLink": true
+          }
+        },
+        "sub": []
+      }
+    }
+  },
+  "stocks": {
+    "status": "ok",
+    "result": {
+      "09479957": {
+        "statusCode": "IN_STOCK",
+        "quantity": 46,
+        "transitStatus": "NO_TRANSIT",
+        "backInStock": false,
+        "disableSizeChip": false,
+        "transitLocalized": "",
+        "statusLocalized": "재고 있음",
+        "isDCStock": false
+      },
+      "09479958": {
+        "statusCode": "IN_STOCK",
+        "quantity": 24,
+        "transitStatus": "NO_TRANSIT",
+        "backInStock": false,
+        "disableSizeChip": false,
+        "transitLocalized": "",
+        "statusLocalized": "재고 있음",
+        "isDCStock": false
+      },
+      "09479959": {
+        "statusCode": "IN_STOCK",
+        "quantity": 51,
+        "transitStatus": "NO_TRANSIT",
+        "backInStock": false,
+        "disableSizeChip": false,
+        "transitLocalized": "",
+        "statusLocalized": "재고 있음",
+        "isDCStock": false
+      },
+      "09479960": {
+        "statusCode": "IN_STOCK",
+        "quantity": 224,
+        "transitStatus": "NO_TRANSIT",
+        "backInStock": false,
+        "disableSizeChip": false,
+        "transitLocalized": "",
+        "statusLocalized": "재고 있음",
+        "isDCStock": false
+      },
+      "09479961": {
+        "statusCode": "IN_STOCK",
+        "quantity": 127,
+        "transitStatus": "NO_TRANSIT",
+        "backInStock": false,
+        "disableSizeChip": false,
+        "transitLocalized": "",
+        "statusLocalized": "재고 있음",
+        "isDCStock": false
+      },
+      "09479962": {
+        "statusCode": "STOCK_OUT",
+        "quantity": 0,
+        "transitStatus": "NO_TRANSIT",
+        "backInStock": false,
+        "disableSizeChip": true,
+        "transitLocalized": "",
+        "statusLocalized": "품절",
+        "isDCStock": false
+      },
+      "09479963": {
+        "statusCode": "IN_STOCK",
+        "quantity": 106,
+        "transitStatus": "NO_TRANSIT",
+        "backInStock": false,
+        "disableSizeChip": false,
+        "transitLocalized": "",
+        "statusLocalized": "재고 있음",
+        "isDCStock": false
+      },
+      "09479964": {
+        "statusCode": "LOW_STOCK",
+        "quantity": 2,
+        "transitStatus": "NO_TRANSIT",
+        "backInStock": false,
+        "disableSizeChip": false,
+        "transitLocalized": "",
+        "statusLocalized": "재고 적음",
+        "isDCStock": false
+      }
+    }
+  }
+}

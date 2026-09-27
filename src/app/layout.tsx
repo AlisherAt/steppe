@@ -6,9 +6,9 @@ import { Header } from '@/components/header';
 import './globals.css';
 import './storefront.css';
 export const metadata: Metadata = {
-  title: 'STEPPE — цены на кроссовки магазинов США и Европы',
+  title: 'STEPPE — кроссовки и одежда со скидками',
   description:
-    'Находи кроссовки любимых брендов, сравнивай цены в тенге и оформляй заказ в WhatsApp. Демоданные отмечены отдельно.',
+    'Находи кроссовки и одежду любимых брендов, сравнивай цены в тенге и оформляй заказ в WhatsApp. Демоданные отмечены отдельно.',
   icons: { icon: '/favicon.svg' },
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -27,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link className="wordmark" href="/">
                   STEPPE<span className="brand-star">✳</span>.
                 </Link>
-                <p>Своя пара. Свой ритм.</p>
+                <p>Твой стиль. Твои правила.</p>
               </div>
               <div className="footer-links">
                 <Link href="/about">
@@ -36,8 +36,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <span>Казахстан · Все цены в ₸</span>
               </div>
               <p className="footer-note">
-                STEPPE — каталог кроссовок. Условия заказа и оплату согласуйте в WhatsApp. ©{' '}
-                {new Date().getFullYear()} STEPPE
+                STEPPE — каталог кроссовок и одежды. Условия заказа и оплату согласуйте в WhatsApp.
+                © {new Date().getFullYear()} STEPPE
               </p>
             </footer>
           </div>

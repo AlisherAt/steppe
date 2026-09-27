@@ -7,6 +7,7 @@ export type Rate = {
   fetchedAt: string;
 };
 export type Product = {
+  department?: 'sneakers' | 'sportswear' | 'casual';
   id: string;
   externalId: string;
   sourceId: string;
@@ -25,7 +26,7 @@ export type Product = {
   offerKind?: 'market' | 'retail';
   purchaseType?: 'fixed';
   warehouseCountry?: string;
-  market?: 'US' | 'EU';
+  market?: 'US' | 'EU' | 'JP' | 'KR';
   sku?: string;
   sourceUpdatedAt?: string;
   originalPrice: string | null;
@@ -34,6 +35,7 @@ export type Product = {
   originalKzt: number | null;
   saleKzt: number;
   discount: number;
+  discountVerified?: boolean;
   rate: Rate;
   saleStartsAt?: string;
   saleEndsAt?: string;
@@ -58,6 +60,7 @@ export type SourceStatus = {
   offerCount: number;
 };
 export type Filters = {
+  department?: 'sneakers' | 'sportswear' | 'casual';
   q: string;
   brands: string[];
   sizes: string[];
@@ -88,6 +91,7 @@ export type CatalogResult = {
   error?: string;
 };
 export const defaultFilters: Filters = {
+  department: 'sneakers',
   q: '',
   brands: [],
   sizes: [],

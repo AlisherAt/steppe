@@ -68,7 +68,18 @@ export function ProductGallery({
             >
               {Math.abs(i - current) <= 1 && (
                 <Image
-                  src={url}
+                  src={
+                    product.department &&
+                    product.department !== 'sneakers' &&
+                    product.brand === 'Puma'
+                      ? url.replace(/w_2000,h_2000/, 'w_600,h_600')
+                      : url
+                  }
+                  unoptimized={Boolean(
+                    product.department &&
+                    product.department !== 'sneakers' &&
+                    product.brand === 'Puma',
+                  )}
                   alt={`${product.name} — фото ${i + 1}`}
                   fill
                   sizes="(max-width: 580px) 90vw, (max-width: 1000px) 43vw, 400px"

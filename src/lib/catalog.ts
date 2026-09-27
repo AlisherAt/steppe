@@ -24,6 +24,7 @@ const list = z
   .default([]);
 export const filtersSchema = z
   .object({
+    department: z.enum(['sneakers', 'sportswear', 'casual']).default('sneakers'),
     q: z.string().trim().max(100).default(''),
     brands: list,
     sizes: list,
@@ -65,6 +66,7 @@ export function filterCatalog(
   mode: 'live' | 'demo' = 'demo',
 ): CatalogResult {
   const f = filters;
+  products = products.filter((p) => (p.department || 'sneakers') === (f.department || 'sneakers'));
   const priced = products.map((p) => {
     if (!p.sizePrices?.length) return p;
     const eligible = p.sizePrices.filter(

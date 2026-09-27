@@ -1,4 +1,6 @@
 export const officialStores = {
+  'uniqlo-jp': { brand: 'Uniqlo', origin: 'https://www.uniqlo.com' },
+  'uniqlo-kr': { brand: 'Uniqlo', origin: 'https://www.uniqlo.com' },
   'nike-us': { brand: 'Nike', origin: 'https://www.nike.com' },
   'adidas-us': { brand: 'Adidas', origin: 'https://www.adidas.com' },
   'puma-us': { brand: 'Puma', origin: 'https://us.puma.com' },
@@ -15,7 +17,11 @@ export function officialMarketUrl(value: string, market?: string) {
       !u.username &&
       !u.password &&
       Object.entries(officialStores).some(
-        ([id, s]) => s.origin === u.origin && id.endsWith(`-${market?.toLowerCase()}`),
+        ([id, s]) =>
+          s.origin === u.origin &&
+          id.endsWith(`-${market?.toLowerCase()}`) &&
+          (!id.startsWith('uniqlo-') ||
+            u.pathname.startsWith(market === 'JP' ? '/jp/ja/' : '/kr/ko/')),
       )
     );
   } catch {

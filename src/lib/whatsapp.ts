@@ -34,12 +34,14 @@ export function whatsappOrder(
     const clean = (s: string) => s.replace(/[\r\n\t]+/g, ' ');
     const size = item.size ? clean(localSizeLabel(product, item.size)) : 'уточнить';
     const sourceSize =
-      item.size && size !== sizeLabel(clean(item.size))
+      (!product.department || product.department === 'sneakers') &&
+      item.size &&
+      size !== sizeLabel(clean(item.size))
         ? `\nРазмер для выкупа: ${sizeLabel(clean(item.size))}`
         : '';
-    return `${index + 1}. ${clean(product.brand)} — ${clean(product.name)}\nРазмер: ${size} · 1 пара${sourceSize}\nЦена: ${formatKzt(price)}\nКод товара: ${product.id}`;
+    return `${index + 1}. ${clean(product.brand)} — ${clean(product.name)}\nРазмер: ${size} · 1 шт.${sourceSize}\nЦена: ${formatKzt(price)}\nКод товара: ${product.id}`;
   });
-  const text = `Здравствуйте! Хочу оформить заказ в STEPPE.\n\n${lines.join('\n\n')}\n\nВсего пар: ${selection.length}\nОриентировочная сумма: ${formatKzt(total)}\n\nПодтвердите, пожалуйста, наличие, окончательную стоимость и способ оплаты.`;
+  const text = `Здравствуйте! Хочу оформить заказ в STEPPE.\n\n${lines.join('\n\n')}\n\nВсего товаров: ${selection.length}\nОриентировочная сумма: ${formatKzt(total)}\n\nПодтвердите, пожалуйста, наличие, окончательную стоимость и способ оплаты.`;
   const url = `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
   if (url.length > 16000)
     throw new CheckoutError(

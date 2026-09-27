@@ -1,5 +1,6 @@
 // Справочник распознавания, а не утверждение о партнёрстве или наличии товаров.
 export const brandNames = [
+  'Uniqlo',
   'Nike',
   'Adidas',
   'Jordan',

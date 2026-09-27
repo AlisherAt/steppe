@@ -2,7 +2,7 @@ import { expect, it } from 'vitest';
 import { catalogBrands, isCatalogBrand } from '../src/lib/catalog-policy';
 import { getAdapters } from '../src/lib/server/sources';
 it('Puma, Reebok and Nike are available for publication and scheduled refresh', () => {
-  expect(catalogBrands).toEqual(['Puma', 'Reebok', 'Nike']);
+  expect(catalogBrands).toEqual(['Puma', 'Reebok', 'Nike', 'Uniqlo']);
   expect(
     getAdapters()
       .map((s) => s.id)

@@ -20,7 +20,8 @@
     "reach:install": "node scripts/agent-reach/runtime.mjs install",
     "reach:doctor": "node scripts/agent-reach/runtime.mjs doctor",
     "scrape:reach": "node scripts/agent-reach/scrape.mjs",
-    "scrape:nike": "node scripts/scrape-nike.mjs"
+    "scrape:nike": "node scripts/scrape-nike.mjs",
+    "scrape:clothing": "node scripts/clothing/collect.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.0",

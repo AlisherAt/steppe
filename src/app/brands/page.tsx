@@ -4,9 +4,14 @@ import { BrandDirectory } from '@/components/brand-directory';
 import { getCatalog } from '@/lib/server/repository';
 import { defaultFilters } from '@/lib/types';
 export const dynamic = 'force-dynamic';
-export const metadata = { title: 'Все бренды кроссовок — STEPPE' };
+export const metadata = { title: 'Бренды кроссовок и одежды — STEPPE' };
 export default async function BrandsPage() {
-  const result = await getCatalog(defaultFilters, 'live').catch(() => null);
+  const results = await Promise.all(
+    (['sneakers', 'sportswear', 'casual'] as const).map((department) =>
+      getCatalog({ ...defaultFilters, department }, 'live').catch(() => null),
+    ),
+  );
+  const available = [...new Set(results.flatMap((r) => r?.facets.brands || []))];
   return (
     <main id="main-content" className="page-content">
       <Link className="text-link" href="/">
@@ -14,7 +19,7 @@ export default async function BrandsPage() {
       </Link>
       <div className="page-heading">
         <span className="eyebrow" style={{ marginTop: 30 }}>
-          PUMA И REEBOK
+          NIKE · PUMA · REEBOK · UNIQLO
         </span>
         <h1>
           Больше брендов.
@@ -22,15 +27,15 @@ export default async function BrandsPage() {
           Больше твоего.
         </h1>
         <p>
-          Кроссовки Puma, Reebok и Nike: повседневные модели, бег и тренировки. Подтверждённые скидки и
-          доступные размеры в одном каталоге.
+          Кроссовки и спортивная одежда Nike, Puma, Reebok. Повседневная одежда Uniqlo из Японии и
+          Кореи. Подтверждённые скидки и доступные размеры в одном каталоге.
         </p>
         <p className="small muted">
           Это справочник для поиска, а не список официальных партнёров. Предложения появляются
           только после получения реальных данных магазина.
         </p>
       </div>
-      <BrandDirectory available={result?.facets.brands || []} error={!result} />
+      <BrandDirectory available={available} error={results.some((r) => !r)} />
     </main>
   );
 }

@@ -10,6 +10,8 @@ import { parseYml, parseCsvFeed, parseGoogleXml, type FeedFormat } from './feed-
 const amount = z.string().regex(/^\d{1,9}(\.\d{1,4})?$/);
 export const feedProductSchema = z
   .object({
+    discountVerified: z.boolean().optional(),
+    department: z.enum(['sneakers', 'sportswear', 'casual']).optional(),
     id: z.string().trim().min(1).max(160),
     brand: z.string().trim().min(1).max(80),
     name: z.string().trim().min(1).max(180),
@@ -23,7 +25,7 @@ export const feedProductSchema = z
     offerKind: z.enum(['market', 'retail']).optional(),
     purchaseType: z.literal('fixed').optional(),
     warehouseCountry: z.string().length(2).optional(),
-    market: z.enum(['US', 'EU']).optional(),
+    market: z.enum(['US', 'EU', 'JP', 'KR']).optional(),
     sku: z.string().max(160).optional(),
     sourceUpdatedAt: z.string().datetime({ offset: true }).optional(),
     originalPrice: amount.nullable(),
@@ -257,6 +259,8 @@ export function toProduct(
       : {}),
     gender: p.gender,
     category: p.category,
+    department: p.department,
+    discountVerified: p.discountVerified,
     originalPrice: p.originalPrice,
     salePrice: p.salePrice,
     currency: p.currency,

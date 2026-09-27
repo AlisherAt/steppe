@@ -12,6 +12,8 @@ export const urlKey = (url: string) =>
   createHash('sha256').update(canonicalProductUrl(url)).digest('hex');
 const money = z.number().int().positive().max(100_000_000);
 export const manualProductSchema = z.object({
+  discountVerified: z.boolean().optional(),
+  department: z.enum(['sneakers', 'sportswear', 'casual']).optional(),
   id: z.string().regex(/^[a-f0-9]{64}$/),
   externalId: z.string().min(1),
   sourceId: z.string(),
@@ -38,7 +40,7 @@ export const manualProductSchema = z.object({
   category: z.string(),
   offerKind: z.literal('retail'),
   purchaseType: z.literal('fixed'),
-  market: z.enum(['US', 'EU']),
+  market: z.enum(['US', 'EU', 'JP', 'KR']),
   sku: z.string().max(160).optional(),
   sourceUpdatedAt: z.string().datetime(),
   saleStartsAt: z.string().datetime().optional(),

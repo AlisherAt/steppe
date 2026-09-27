@@ -40,15 +40,21 @@ async function api(path, method = 'GET', body) {
 }
 const candidates = [];
 for (const name of await readdir(directory)) {
-  if (!/^(nike|puma|reebok)-us\.json$/.test(name)) continue;
+  const clothing = /^clothing-(?:(?:nike|puma|reebok)-us|uniqlo-(?:jp|kr))\.json$/.test(name);
+  if (!clothing && !/^(nike|puma|reebok)-us\.json$/.test(name)) continue;
   const content = await readFile(resolve(directory, name), 'utf8');
   const snapshot = JSON.parse(content);
   if (
     snapshot.version !== 1 ||
-    `${snapshot.sourceId}.json` !== name ||
+    `${clothing ? 'clothing-' : ''}${snapshot.sourceId}.json` !== name ||
     !Array.isArray(snapshot.products) ||
-    !snapshot.products.length ||
-    snapshot.products.some((p) => p.demo || p.sourceId !== snapshot.sourceId) ||
+    (!snapshot.products.length && !(clothing && snapshot.complete === true)) ||
+    snapshot.products.some(
+      (p) =>
+        p.demo ||
+        p.sourceId !== snapshot.sourceId ||
+        (clothing && !['sportswear', 'casual'].includes(p.department)),
+    ) ||
     !Number.isFinite(Date.parse(snapshot.checkedAt)) ||
     Date.now() - Date.parse(snapshot.checkedAt) > 36 * 3600000 ||
     Date.parse(snapshot.checkedAt) > Date.now() + 60000

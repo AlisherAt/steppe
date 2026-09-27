@@ -2288,3 +2288,59 @@ legend {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* Одежда: две самостоятельные подборки с общими поиском и корзиной. */
+.clothing-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 22px 0;
+}
+.clothing-tabs a {
+  border: 1px solid var(--line, #dce0d3);
+  border-radius: 18px;
+  padding: 20px 24px;
+  background: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.clothing-tabs a span {
+  display: block;
+  margin-top: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.clothing-tabs a[aria-current='page'] {
+  background: #e5efcf;
+  border-color: #778464;
+}
+.clothing-tabs a:hover {
+  border-color: var(--purple);
+}
+.clothing-hero .hero-visual {
+  background: #e6dfed;
+}
+.clothing-hero .hero-visual img {
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transform: none;
+  animation: none;
+  padding: 38px 60px 78px;
+}
+@media (max-width: 600px) {
+  .clothing-tabs {
+    gap: 8px;
+  }
+  .clothing-tabs a {
+    padding: 16px 12px;
+    font-size: 15px;
+  }
+  .clothing-tabs a span {
+    font-size: 11px;
+  }
+}

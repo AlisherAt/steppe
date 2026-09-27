@@ -29,7 +29,7 @@ export function BrandDirectory({ available, error }: { available: string[]; erro
         {brands.map((b) => (
           <Link
             className="brand-tile"
-            href={`/?mode=live&brands=${encodeURIComponent(b)}#catalog`}
+            href={`${b === 'Uniqlo' ? '/clothing?department=casual&' : '/?'}mode=live&brands=${encodeURIComponent(b)}#catalog`}
             key={b}
           >
             <span className="brand-tile-name">{b}</span>
