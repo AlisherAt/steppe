@@ -1,0 +1,38 @@
+[
+  {
+    "id": "dunk",
+    "prompt": "Use case: ads-marketing. Create one premium photoreal fashion editorial flat-lay outfit board for a sneaker styling video. Portrait 1024x1536 composition. Transparent background with genuine alpha. ONLY clothing and accessories, NO shoes, NO feet, NO people, NO mannequins, NO text, NO letters, NO logos, NO prices. Arrange complete garments separated and fully visible without overlaps, beautifully balanced magazine stylist composition, realistic fabric textures, soft studio light and subtle natural shadows. Keep a 6% transparent margin on all sides. Objects should occupy most of the portrait so garments are recognizable in a mobile video. Youthful men's outfit to complement caramel brown Nike Dunk Low (DO NOT render shoes): short oversized dark olive suede bomber jacket with plain zipper and ribbed waist, crisp off-white heavyweight crewneck T-shirt, relaxed straight dark indigo jeans (no rips), chocolate leather belt with simple brushed metal buckle, dark tortoiseshell sunglasses. Outfit looks contemporary and effortless, not formal. Jacket and tee in top half, full-length jeans lower left, belt and glasses lower right.",
+    "mode": "built-in image_gen",
+    "transparent_background": true
+  },
+  {
+    "id": "shox",
+    "prompt": "Use case: ads-marketing. Create one premium photoreal fashion editorial flat-lay outfit board for a sneaker styling video. Portrait 1024x1536 composition. Transparent background with genuine alpha. ONLY clothing and accessories, NO shoes, NO feet, NO people, NO mannequins, NO text, NO letters, NO logos, NO prices. Arrange complete garments separated and fully visible without overlaps, beautifully balanced magazine stylist composition, realistic fabric textures, soft studio light and subtle natural shadows. Keep a 6% transparent margin on all sides. Objects should occupy most of the portrait so garments are recognizable in a mobile video. Youthful men's monochrome night-city outfit to complement black/silver Nike Shox TL (DO NOT render shoes): boxy black leather zip jacket, charcoal oversized zip hoodie with no drawstring print, washed black extra-wide straight jeans (no rips), slim black crossbody nylon bag with plain strap, a simple silver chain accessory. Jacket top left, hoodie upper right, full-length jeans lower left, accessories right. Restrained black/charcoal/silver palette.",
+    "mode": "built-in image_gen",
+    "transparent_background": true
+  },
+  {
+    "id": "airmax",
+    "prompt": "Use case: ads-marketing. Create one premium photoreal fashion editorial flat-lay outfit board for a sneaker styling video. Portrait 1024x1536 composition. Transparent background with genuine alpha. ONLY clothing and accessories, NO shoes, NO feet, NO people, NO mannequins, NO text, NO letters, NO logos, NO prices. Arrange complete garments separated and fully visible without overlaps, beautifully balanced magazine stylist composition, realistic fabric textures, soft studio light and subtle natural shadows. Keep a 6% transparent margin on all sides. Objects should occupy most of the portrait so garments are recognizable in a mobile video. Youthful men's contemporary urban outfit to complement anthracite/red Nike Air Max 95 (DO NOT render shoes): boxy charcoal technical jacket with red-free plain zipper, pale grey heavyweight T-shirt, loose pale ice-blue wide-leg denim jeans (no rips), deep burgundy red plain baseball cap with no text or logo, compact black nylon sling bag. Full jeans lower left, layers upper half, accessories on right. Ice blue, grey, one restrained burgundy accent.",
+    "mode": "built-in image_gen",
+    "transparent_background": true
+  },
+  {
+    "id": "airforce",
+    "prompt": "Use case: ads-marketing. One premium photoreal fashion editorial flat-lay outfit board for a sneaker styling video. Portrait 1024x1536, genuine transparent alpha background. ONLY clothing and accessories. NO shoes, NO feet, NO people, NO mannequins, NO text, NO labels, NO logos or brand monograms. Complete garments fully visible, separate from one another, no overlapping objects, meticulous clean magazine fashion styling, beautiful realistic fabrics, soft studio lighting, subtle shadows. Six percent transparent margin. Garments large and readable on a phone. Women's contemporary neutral autumn city outfit complementing tan/white Nike Air Force 1 (DO NOT draw shoes): oversized light-beige cropped trench jacket with belt, cream ribbed fitted tank top, relaxed full-length chocolate brown tailored trousers with pleats, small deep burgundy smooth-leather shoulder bag with plain gold clasp, delicate gold hoop earrings. Outerwear and top in upper half, trousers lower left, bag lower right. Youthful proportions, sophisticated not corporate.",
+    "mode": "built-in image_gen",
+    "transparent_background": true
+  },
+  {
+    "id": "vomero",
+    "prompt": "Use case: ads-marketing. One premium photoreal fashion editorial flat-lay outfit board for a sneaker styling video. Portrait 1024x1536, genuine transparent alpha background. ONLY clothing and accessories. NO shoes, NO feet, NO people, NO mannequins, NO text, NO labels, NO logos or brand monograms. Complete garments fully visible, separate from one another, no overlapping objects, meticulous clean magazine fashion styling, beautiful realistic fabrics, soft studio lighting, subtle shadows. Six percent transparent margin. Garments large and readable on a phone. Women's modern sporty-tailoring outfit complementing cream/rose-gold Nike Vomero 5 (DO NOT draw shoes): a boxy oversized charcoal-grey blazer, crisp white crewneck tee, ivory satin bias-cut midi skirt with realistic folds, a small metallic silver shoulder bag without logo, simple narrow black sunglasses. Blazer upper left, tee upper right, full skirt lower left, accessories lower right. Sophisticated editorial high-low styling, grey/ivory/silver.",
+    "mode": "built-in image_gen",
+    "transparent_background": true
+  },
+  {
+    "id": "astro",
+    "prompt": "Use case: ads-marketing. One premium photoreal fashion editorial flat-lay outfit board for a sneaker styling video. Portrait 1024x1536, genuine transparent alpha background. ONLY clothing and accessories. NO shoes, NO feet, NO people, NO mannequins, NO text, NO labels, NO logos or brand monograms. Complete garments fully visible, separate from one another, no overlapping objects, meticulous clean magazine fashion styling, beautiful realistic fabrics, soft studio lighting, subtle shadows. Six percent transparent margin. Garments large and readable on a phone. Women's contemporary fashion-editor outfit complementing black/cream Nike Astrograbber (DO NOT render footwear): an oversized deep navy crewneck wool sweater, clean white shirt with sharp collar, charcoal-grey pleated midi skirt with a neat waistband, compact deep burgundy leather shoulder bag with no logo, fine silver hoop earrings. Sweater and white shirt separate in upper half, skirt fully visible lower left, bag and earrings lower right. Relaxed preppy city aesthetic, precise navy/grey/white/burgundy palette.",
+    "mode": "built-in image_gen",
+    "transparent_background": true
+  }
+]

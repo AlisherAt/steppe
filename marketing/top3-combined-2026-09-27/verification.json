@@ -1,0 +1,101 @@
+{
+  "checkedAt": "2026-09-27T19:42:38.419Z",
+  "files": [
+    {
+      "file": "combined-top3-outfits.mp4",
+      "bytes": 8540674,
+      "decodeExit": 0,
+      "info": [
+        "  Duration: 00:01:27.00, start: 0.000000, bitrate: 785 kb/s\r",
+        "  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709/unknown/unknown, progressive), 1080x1920 [SAR 1:1 DAR 9:16], 583 kb/s, 30 fps, 30 tbr, 15360 tbn (default)\r",
+        "  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 193 kb/s (default)\r",
+        "  Stream #0:0 -> #0:0 (h264 (native) -> wrapped_avframe (native))\r",
+        "  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))\r",
+        "  Stream #0:0(und): Video: wrapped_avframe, yuv420p(tv, bt709/unknown/unknown, progressive), 1080x1920 [SAR 1:1 DAR 9:16], q=2-31, 200 kb/s, 30 fps, 30 tbn (default)\r",
+        "  Stream #0:1(und): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)\r",
+        "[Parsed_volumedetect_0 @ 0000026aac4b0280] mean_volume: -20.5 dB\r",
+        "[Parsed_volumedetect_0 @ 0000026aac4b0280] max_volume: -1.3 dB\r"
+      ]
+    },
+    {
+      "file": "combined-top3-outfits-music.mp4",
+      "bytes": 8535845,
+      "decodeExit": 0,
+      "info": [
+        "  Duration: 00:01:27.00, start: 0.000000, bitrate: 784 kb/s\r",
+        "  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709/unknown/unknown, progressive), 1080x1920 [SAR 1:1 DAR 9:16], 583 kb/s, 30 fps, 30 tbr, 15360 tbn (default)\r",
+        "  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)\r",
+        "  Stream #0:0 -> #0:0 (h264 (native) -> wrapped_avframe (native))\r",
+        "  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))\r",
+        "  Stream #0:0(und): Video: wrapped_avframe, yuv420p(tv, bt709/unknown/unknown, progressive), 1080x1920 [SAR 1:1 DAR 9:16], q=2-31, 200 kb/s, 30 fps, 30 tbn (default)\r",
+        "  Stream #0:1(und): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)\r",
+        "[Parsed_volumedetect_0 @ 0000011a20046240] mean_volume: -19.7 dB\r",
+        "[Parsed_volumedetect_0 @ 0000011a20046240] max_volume: -2.1 dB\r"
+      ]
+    },
+    {
+      "file": "men-top3-outfits.mp4",
+      "bytes": 4422472,
+      "decodeExit": 0,
+      "info": [
+        "  Duration: 00:00:46.00, start: 0.000000, bitrate: 769 kb/s\r",
+        "  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709/unknown/unknown, progressive), 1080x1920 [SAR 1:1 DAR 9:16], 566 kb/s, 30 fps, 30 tbr, 15360 tbn (default)\r",
+        "  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 193 kb/s (default)\r",
+        "  Stream #0:0 -> #0:0 (h264 (native) -> wrapped_avframe (native))\r",
+        "  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))\r",
+        "  Stream #0:0(und): Video: wrapped_avframe, yuv420p(tv, bt709/unknown/unknown, progressive), 1080x1920 [SAR 1:1 DAR 9:16], q=2-31, 200 kb/s, 30 fps, 30 tbn (default)\r",
+        "  Stream #0:1(und): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)\r",
+        "[Parsed_volumedetect_0 @ 000002bc8dcb0580] mean_volume: -20.5 dB\r",
+        "[Parsed_volumedetect_0 @ 000002bc8dcb0580] max_volume: -1.2 dB\r"
+      ]
+    },
+    {
+      "file": "men-top3-outfits-music.mp4",
+      "bytes": 4420845,
+      "decodeExit": 0,
+      "info": [
+        "  Duration: 00:00:46.00, start: 0.000000, bitrate: 768 kb/s\r",
+        "  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709/unknown/unknown, progressive), 1080x1920 [SAR 1:1 DAR 9:16], 566 kb/s, 30 fps, 30 tbr, 15360 tbn (default)\r",
+        "  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)\r",
+        "  Stream #0:0 -> #0:0 (h264 (native) -> wrapped_avframe (native))\r",
+        "  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))\r",
+        "  Stream #0:0(und): Video: wrapped_avframe, yuv420p(tv, bt709/unknown/unknown, progressive), 1080x1920 [SAR 1:1 DAR 9:16], q=2-31, 200 kb/s, 30 fps, 30 tbn (default)\r",
+        "  Stream #0:1(und): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)\r",
+        "[Parsed_volumedetect_0 @ 000002551cf0cf80] mean_volume: -19.7 dB\r",
+        "[Parsed_volumedetect_0 @ 000002551cf0cf80] max_volume: -2.1 dB\r"
+      ]
+    },
+    {
+      "file": "women-top3-outfits.mp4",
+      "bytes": 3965088,
+      "decodeExit": 0,
+      "info": [
+        "  Duration: 00:00:45.00, start: 0.000000, bitrate: 704 kb/s\r",
+        "  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709/unknown/unknown, progressive), 1080x1920 [SAR 1:1 DAR 9:16], 502 kb/s, 30 fps, 30 tbr, 15360 tbn (default)\r",
+        "  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 193 kb/s (default)\r",
+        "  Stream #0:0 -> #0:0 (h264 (native) -> wrapped_avframe (native))\r",
+        "  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))\r",
+        "  Stream #0:0(und): Video: wrapped_avframe, yuv420p(tv, bt709/unknown/unknown, progressive), 1080x1920 [SAR 1:1 DAR 9:16], q=2-31, 200 kb/s, 30 fps, 30 tbn (default)\r",
+        "  Stream #0:1(und): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)\r",
+        "[Parsed_volumedetect_0 @ 00000261d93023c0] mean_volume: -21.0 dB\r",
+        "[Parsed_volumedetect_0 @ 00000261d93023c0] max_volume: -1.3 dB\r"
+      ]
+    },
+    {
+      "file": "women-top3-outfits-music.mp4",
+      "bytes": 3964025,
+      "decodeExit": 0,
+      "info": [
+        "  Duration: 00:00:45.00, start: 0.000000, bitrate: 704 kb/s\r",
+        "  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709/unknown/unknown, progressive), 1080x1920 [SAR 1:1 DAR 9:16], 502 kb/s, 30 fps, 30 tbr, 15360 tbn (default)\r",
+        "  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)\r",
+        "  Stream #0:0 -> #0:0 (h264 (native) -> wrapped_avframe (native))\r",
+        "  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))\r",
+        "  Stream #0:0(und): Video: wrapped_avframe, yuv420p(tv, bt709/unknown/unknown, progressive), 1080x1920 [SAR 1:1 DAR 9:16], q=2-31, 200 kb/s, 30 fps, 30 tbn (default)\r",
+        "  Stream #0:1(und): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)\r",
+        "[Parsed_volumedetect_0 @ 0000021cd5fbdf40] mean_volume: -19.7 dB\r",
+        "[Parsed_volumedetect_0 @ 0000021cd5fbdf40] max_volume: -2.1 dB\r"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1021 @@
+[
+  {
+    "id": "e9b15078f53053b9a8049330f327307b0f5206b93177ac993338cc45d3ba8ee3",
+    "externalId": "",
+    "sourceId": "nike-us",
+    "sourceName": "Nike US",
+    "brand": "Nike",
+    "name": "Nike Dunk Low Retro Men's Shoes",
+    "productUrl": "",
+    "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/66c81abb-4c71-4c13-9a3a-5923736ec015/NIKE+DUNK+LOW+RETRO.png",
+    "imageUrls": [
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/66c81abb-4c71-4c13-9a3a-5923736ec015/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d22f11ee-b52f-4572-b79e-597c7dd1c650/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/92f570fb-a4c2-4899-abb4-0897f7defe61/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e989ef33-95f1-48f8-8fa1-c81248109434/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7f793910-ff05-4806-a164-05f23fb67899/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/239a07eb-9c6c-415d-a273-49ba15bd5b05/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e686fe35-555d-4940-9b9a-c6f2b997aae8/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d0b110f7-2ae3-492f-9443-e5f637a1af40/NIKE+DUNK+LOW+RETRO.png"
+    ],
+    "color": "Tawny/Flax/Twine/Sesame",
+    "usage": "Men's Shoes Lifestyle Men Lifestyle Nike Dunk Nike Nike Sportswear Shoes",
+    "sizes": [
+      "EU 38.5",
+      "EU 39",
+      "EU 40",
+      "EU 40.5",
+      "EU 41",
+      "EU 42",
+      "EU 42.5",
+      "EU 43",
+      "EU 44",
+      "EU 44.5",
+      "EU 45",
+      "EU 45.5",
+      "EU 46",
+      "EU 47",
+      "EU 47.5",
+      "EU 48.5",
+      "EU 49.5"
+    ],
+    "sizePrices": [
+      {
+        "size": "EU 38.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 39",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 40",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 40.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 41",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 42",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 42.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 43",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 44",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 44.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 45",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 45.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 46",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 47",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 47.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 48.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 49.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      }
+    ],
+    "gender": "men",
+    "category": "men",
+    "offerKind": "retail",
+    "purchaseType": "fixed",
+    "market": "US",
+    "sku": "IM4415-200",
+    "sourceUpdatedAt": "2026-09-27T13:01:40.606Z",
+    "originalPrice": "120.00",
+    "salePrice": "69.97",
+    "currency": "USD",
+    "originalKzt": 61000,
+    "saleKzt": 36000,
+    "discount": 41,
+    "updatedAt": "2026-09-27T13:01:40.606Z",
+    "firstSeenAt": "2026-09-27T13:01:40.606Z",
+    "demo": false,
+    "rate": {
+      "currency": "USD",
+      "value": "441.880000000000",
+      "source": "Национальный Банк Казахстана",
+      "asOf": "2026-09-26T19:00:00.000Z",
+      "fetchedAt": "2026-09-27T13:57:10.746Z"
+    },
+    "rank": 3,
+    "title": "NIKE DUNK LOW RETRO",
+    "tag": "ТЁПЛЫЙ АКЦЕНТ",
+    "detail": "Карамель + олива",
+    "outfit": [
+      "Оливковый бомбер",
+      "Белая футболка",
+      "Тёмный деним",
+      "Коричневый ремень"
+    ],
+    "palette": [
+      "#575943",
+      "#eee9df",
+      "#253649"
+    ],
+    "files": [
+      "IM4415-200.png"
+    ],
+    "catalogUrl": "https://steppe-gray.vercel.app/?mode=live&q=IM4415-200#catalog",
+    "officialUrl": "https://www.nike.com/t/dunk-low-retro-mens-shoes-5FQWGR/IM4415-200",
+    "checkedAt": "2026-09-27T19:27:02.123Z",
+    "cardText": "−40%\n1 / 8\nNIKE\nМужские\nNike Dunk Low Retro Men's Shoes\n\nМужские кроссовки на каждый день. Дизайн в стиле ретро.\n\n36 000 ₸\n61 000 ₸\n\nПокупка без торгов · магазин США · цена выбранного размера\n\nТаблица размеров\nРазмер Nike Dunk Low Retro Men's Shoes\nВыберите размер\nEU 38,5 · 36 000 ₸\nEU 39 · 36 000 ₸\nEU 40 · 36 000 ₸\nEU 40,5 · 36 000 ₸\nEU 41 · 36 000 ₸\nEU 42 · 36 000 ₸\nEU 42,5 · 36 000 ₸\nEU 43 · 36 000 ₸\nEU 44 · 36 000 ₸\nEU 44,5 · 36 000 ₸\nEU 45 · 36 000 ₸\nEU 45,5 · 36 000 ₸\nEU 46 · 36 000 ₸\nEU 47 · 36 000 ₸\nEU 47,5 · 36 000 ₸\nEU 48,5 · 36 000 ₸\nEU 49,5 · 36 000 ₸\nВ корзину\nNike US",
+    "detailText": "Nike\n1 / 8\nNike Dunk Low Retro Men's Shoes\n\nМужские кроссовки на каждый день. Дизайн в стиле ретро.\n\n36 000 ₸\n61 000 ₸\n−40%\n\nМужские · Кроссовки · Nike US\n\nВыбрать размер в карточке",
+    "visibleSizeOptions": [
+      "Выберите размер",
+      "EU 38,5 · 36 000 ₸",
+      "EU 39 · 36 000 ₸",
+      "EU 40 · 36 000 ₸",
+      "EU 40,5 · 36 000 ₸",
+      "EU 41 · 36 000 ₸",
+      "EU 42 · 36 000 ₸",
+      "EU 42,5 · 36 000 ₸",
+      "EU 43 · 36 000 ₸",
+      "EU 44 · 36 000 ₸",
+      "EU 44,5 · 36 000 ₸",
+      "EU 45 · 36 000 ₸",
+      "EU 45,5 · 36 000 ₸",
+      "EU 46 · 36 000 ₸",
+      "EU 47 · 36 000 ₸",
+      "EU 47,5 · 36 000 ₸",
+      "EU 48,5 · 36 000 ₸",
+      "EU 49,5 · 36 000 ₸"
+    ],
+    "look": "dunk"
+  },
+  {
+    "id": "db6f63acacd3e8d3b5507d9bd717ca6ffc6077fcc53d69573e3a732b2b44a970",
+    "externalId": "",
+    "sourceId": "nike-us",
+    "sourceName": "Nike US",
+    "brand": "Nike",
+    "name": "Nike Shox TL Men's Shoes",
+    "productUrl": "",
+    "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/5f3beba9-e10d-4ef6-ac2c-14b87a2b3fa2/NIKE+SHOX+TL.png",
+    "imageUrls": [
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/5f3beba9-e10d-4ef6-ac2c-14b87a2b3fa2/NIKE+SHOX+TL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d5bdb9e5-6825-4441-a736-22fe51c3a324/NIKE+SHOX+TL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b39f0c40-bfaf-4692-bbde-cb4e29594fb6/NIKE+SHOX+TL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/2bef6c50-fc55-4282-8756-2382e4b9bd09/NIKE+SHOX+TL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/68f2ccbc-349a-4f1f-a91c-812e4cb7a370/NIKE+SHOX+TL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/ce1ea15e-94d0-413f-b630-3ac335cb73f1/NIKE+SHOX+TL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/1a66ba26-bb5f-4eab-bc27-de7dcf7c9fd9/NIKE+SHOX+TL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7cbe4eb6-9b66-4016-b22a-378fdd80fa4c/NIKE+SHOX+TL.png"
+    ],
+    "color": "Black/Pure Platinum/White",
+    "usage": "Men's Shoes Lifestyle Men Lifestyle Nike Shox TL Nike Nike Sportswear Shoes",
+    "sizes": [
+      "EU 38.5",
+      "EU 42",
+      "EU 44",
+      "EU 45"
+    ],
+    "sizePrices": [
+      {
+        "size": "EU 38.5",
+        "salePrice": "109.97",
+        "saleKzt": 56000
+      },
+      {
+        "size": "EU 42",
+        "salePrice": "109.97",
+        "saleKzt": 56000
+      },
+      {
+        "size": "EU 44",
+        "salePrice": "109.97",
+        "saleKzt": 56000
+      },
+      {
+        "size": "EU 45",
+        "salePrice": "109.97",
+        "saleKzt": 56000
+      }
+    ],
+    "gender": "men",
+    "category": "men",
+    "offerKind": "retail",
+    "purchaseType": "fixed",
+    "market": "US",
+    "sku": "AV3595-017",
+    "sourceUpdatedAt": "2026-09-27T12:59:20.478Z",
+    "originalPrice": "180.00",
+    "salePrice": "109.97",
+    "currency": "USD",
+    "originalKzt": 91500,
+    "saleKzt": 56000,
+    "discount": 38,
+    "updatedAt": "2026-09-27T12:59:20.478Z",
+    "firstSeenAt": "2026-09-27T12:59:20.478Z",
+    "demo": false,
+    "rate": {
+      "currency": "USD",
+      "value": "441.880000000000",
+      "source": "Национальный Банк Казахстана",
+      "asOf": "2026-09-26T19:00:00.000Z",
+      "fetchedAt": "2026-09-27T13:57:10.746Z"
+    },
+    "rank": 2,
+    "title": "NIKE SHOX TL",
+    "tag": "ГОРОДСКОЙ ХАРАКТЕР",
+    "detail": "Чёрный + серебро",
+    "outfit": [
+      "Кожаная куртка",
+      "Серое худи",
+      "Широкие джинсы",
+      "Серебряная цепь"
+    ],
+    "palette": [
+      "#232323",
+      "#535359",
+      "#c6c8c9"
+    ],
+    "files": [
+      "AV3595-017.png"
+    ],
+    "catalogUrl": "https://steppe-gray.vercel.app/?mode=live&q=AV3595-017#catalog",
+    "officialUrl": "https://www.nike.com/t/shox-tl-mens-shoes-QVMnuDoH/AV3595-017",
+    "checkedAt": "2026-09-27T19:27:02.500Z",
+    "cardText": "−38%\n1 / 8\nNIKE\nМужские\nNike Shox TL Men's Shoes\n\nМужские кроссовки на каждый день.\n\n56 000 ₸\n91 500 ₸\n\nПокупка без торгов · магазин США · цена выбранного размера\n\nТаблица размеров\nРазмер Nike Shox TL Men's Shoes\nВыберите размер\nEU 38,5 · 56 000 ₸\nEU 42 · 56 000 ₸\nEU 44 · 56 000 ₸\nEU 45 · 56 000 ₸\nВ корзину\nNike US",
+    "detailText": "Nike\n1 / 8\nNike Shox TL Men's Shoes\n\nМужские кроссовки на каждый день.\n\n56 000 ₸\n91 500 ₸\n−38%\n\nМужские · Кроссовки · Nike US\n\nВыбрать размер в карточке",
+    "visibleSizeOptions": [
+      "Выберите размер",
+      "EU 38,5 · 56 000 ₸",
+      "EU 42 · 56 000 ₸",
+      "EU 44 · 56 000 ₸",
+      "EU 45 · 56 000 ₸"
+    ],
+    "look": "shox"
+  },
+  {
+    "id": "93ebeb0581c3e5886d19088a56dff768ed4fe02baf90e0ebc2c0ccf3817fc2f3",
+    "externalId": "",
+    "sourceId": "nike-us",
+    "sourceName": "Nike US",
+    "brand": "Nike",
+    "name": "Nike Air Max 95 Big Bubble Premium Men's Shoes",
+    "productUrl": "",
+    "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/3a67b0e9-2b9c-4966-a061-98d45ca407e6/NIKE+AIR+MAX+95+BIG+BUBBLE+PRM.png",
+    "imageUrls": [
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/3a67b0e9-2b9c-4966-a061-98d45ca407e6/NIKE+AIR+MAX+95+BIG+BUBBLE+PRM.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/2853914d-7a6f-4e70-8a2f-d3bf8cc14349/NIKE+AIR+MAX+95+BIG+BUBBLE+PRM.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/821f20b0-3901-42a7-8bd6-c5dee6b9137b/NIKE+AIR+MAX+95+BIG+BUBBLE+PRM.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/f19959db-135d-4a60-94b4-d05abb8cd497/NIKE+AIR+MAX+95+BIG+BUBBLE+PRM.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/5ec72c1d-1ded-4294-97bd-758997633eaf/NIKE+AIR+MAX+95+BIG+BUBBLE+PRM.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/918b1c83-ed45-4e22-81d0-ee609147d0bd/NIKE+AIR+MAX+95+BIG+BUBBLE+PRM.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d7af1a91-0994-426d-8493-561820c7f1dc/NIKE+AIR+MAX+95+BIG+BUBBLE+PRM.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8848d338-5ab7-4c18-a7e2-1a6e571a8fda/NIKE+AIR+MAX+95+BIG+BUBBLE+PRM.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/85efa8de-f15e-46aa-acfd-12e684b2a114/NIKE+AIR+MAX+95+BIG+BUBBLE+PRM.png"
+    ],
+    "color": "Anthracite/Light Graphite/Light Charcoal/Solar Red",
+    "usage": "Men's Shoes Lifestyle Men Lifestyle Air Max Nike Nike Sportswear Shoes",
+    "sizes": [
+      "EU 38.5",
+      "EU 39",
+      "EU 40",
+      "EU 40.5",
+      "EU 41",
+      "EU 42",
+      "EU 42.5",
+      "EU 43",
+      "EU 44",
+      "EU 44.5",
+      "EU 45",
+      "EU 45.5",
+      "EU 46",
+      "EU 47",
+      "EU 47.5",
+      "EU 48.5",
+      "EU 49.5"
+    ],
+    "sizePrices": [
+      {
+        "size": "EU 38.5",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 39",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 40",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 40.5",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 41",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 42",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 42.5",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 43",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 44",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 44.5",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 45",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 45.5",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 46",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 47",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 47.5",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 48.5",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      },
+      {
+        "size": "EU 49.5",
+        "salePrice": "104.97",
+        "saleKzt": 53500
+      }
+    ],
+    "gender": "men",
+    "category": "men",
+    "offerKind": "retail",
+    "purchaseType": "fixed",
+    "market": "US",
+    "sku": "IV6425-060",
+    "sourceUpdatedAt": "2026-09-27T13:09:08.150Z",
+    "originalPrice": "190.00",
+    "salePrice": "104.97",
+    "currency": "USD",
+    "originalKzt": 97000,
+    "saleKzt": 53500,
+    "discount": 44,
+    "updatedAt": "2026-09-27T13:09:08.150Z",
+    "firstSeenAt": "2026-09-27T13:09:08.150Z",
+    "demo": false,
+    "rate": {
+      "currency": "USD",
+      "value": "441.880000000000",
+      "source": "Национальный Банк Казахстана",
+      "asOf": "2026-09-26T19:00:00.000Z",
+      "fetchedAt": "2026-09-27T13:57:10.746Z"
+    },
+    "rank": 1,
+    "title": "NIKE AIR MAX 95",
+    "tag": "НАШ ФАВОРИТ",
+    "detail": "Графит + красный",
+    "outfit": [
+      "Графитовая куртка",
+      "Серая футболка",
+      "Светлый деним",
+      "Бордовая кепка"
+    ],
+    "palette": [
+      "#48494b",
+      "#abc3d5",
+      "#732b37"
+    ],
+    "files": [
+      "IV6425-060.png"
+    ],
+    "catalogUrl": "https://steppe-gray.vercel.app/?mode=live&q=IV6425-060#catalog",
+    "officialUrl": "https://www.nike.com/t/air-max-95-big-bubble-premium-mens-shoes-RrmHX5n7/IV6425-060",
+    "checkedAt": "2026-09-27T19:27:45.110Z",
+    "cardText": "−44%\n1 / 9\nNIKE\nМужские\nNike Air Max 95 Big Bubble Premium Men's Shoes\n\nМужские кроссовки на каждый день.\n\n53 500 ₸\n97 000 ₸\n\nПокупка без торгов · магазин США · цена выбранного размера\n\nТаблица размеров\nРазмер Nike Air Max 95 Big Bubble Premium Men's Shoes\nВыберите размер\nEU 38,5 · 53 500 ₸\nEU 39 · 53 500 ₸\nEU 40 · 53 500 ₸\nEU 40,5 · 53 500 ₸\nEU 41 · 53 500 ₸\nEU 42 · 53 500 ₸\nEU 42,5 · 53 500 ₸\nEU 43 · 53 500 ₸\nEU 44 · 53 500 ₸\nEU 44,5 · 53 500 ₸\nEU 45 · 53 500 ₸\nEU 45,5 · 53 500 ₸\nEU 46 · 53 500 ₸\nEU 47 · 53 500 ₸\nEU 47,5 · 53 500 ₸\nEU 48,5 · 53 500 ₸\nEU 49,5 · 53 500 ₸\nВ корзину\nNike US",
+    "detailText": "Nike\n1 / 9\nNike Air Max 95 Big Bubble Premium Men's Shoes\n\nМужские кроссовки на каждый день.\n\n53 500 ₸\n97 000 ₸\n−44%\n\nМужские · Кроссовки · Nike US\n\nВыбрать размер в карточке",
+    "visibleSizeOptions": [
+      "Выберите размер",
+      "EU 38,5 · 53 500 ₸",
+      "EU 39 · 53 500 ₸",
+      "EU 40 · 53 500 ₸",
+      "EU 40,5 · 53 500 ₸",
+      "EU 41 · 53 500 ₸",
+      "EU 42 · 53 500 ₸",
+      "EU 42,5 · 53 500 ₸",
+      "EU 43 · 53 500 ₸",
+      "EU 44 · 53 500 ₸",
+      "EU 44,5 · 53 500 ₸",
+      "EU 45 · 53 500 ₸",
+      "EU 45,5 · 53 500 ₸",
+      "EU 46 · 53 500 ₸",
+      "EU 47 · 53 500 ₸",
+      "EU 47,5 · 53 500 ₸",
+      "EU 48,5 · 53 500 ₸",
+      "EU 49,5 · 53 500 ₸"
+    ],
+    "look": "airmax"
+  },
+  {
+    "id": "846bb707e077603b2d621b9788e6d35ba0f1845924ac502fc54432a0697eba99",
+    "externalId": "",
+    "sourceId": "nike-us",
+    "sourceName": "Nike US",
+    "brand": "Nike",
+    "name": "Nike Air Force 1 '07  Women's Shoes",
+    "productUrl": "",
+    "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/876d07eb-1588-46e4-8376-666814f27d5e/W+AIR+FORCE+1+%2707+LOW+CRSNT.png",
+    "imageUrls": [
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/876d07eb-1588-46e4-8376-666814f27d5e/W+AIR+FORCE+1+%2707+LOW+CRSNT.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/9dc682d5-ac25-4ad4-9d08-4a0d5d20212b/W+AIR+FORCE+1+%2707+LOW+CRSNT.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8b1950d6-4f7b-4ce5-94c4-309d62cd4fa7/W+AIR+FORCE+1+%2707+LOW+CRSNT.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8b53d18c-8225-4988-82ab-46f84fc1a076/W+AIR+FORCE+1+%2707+LOW+CRSNT.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/850a56f5-2b88-43b7-a8b4-4cad1fb63023/W+AIR+FORCE+1+%2707+LOW+CRSNT.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/df90a917-cf42-4606-8898-713159dfd1c9/W+AIR+FORCE+1+%2707+LOW+CRSNT.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/4bc204bb-5163-4544-813c-7af45f7f551b/W+AIR+FORCE+1+%2707+LOW+CRSNT.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/49971b8f-13be-422e-b938-e310a44dbbba/W+AIR+FORCE+1+%2707+LOW+CRSNT.png"
+    ],
+    "color": "Light British Tan/Hemp/Metallic Gold/Sail",
+    "usage": "Women's Shoes Lifestyle Women Lifestyle Air Force 1 Nike Nike Sportswear Shoes",
+    "sizes": [
+      "EU 35.5",
+      "EU 36",
+      "EU 36.5",
+      "EU 37.5",
+      "EU 38",
+      "EU 38.5",
+      "EU 39",
+      "EU 40",
+      "EU 40.5",
+      "EU 41",
+      "EU 42",
+      "EU 42.5",
+      "EU 43",
+      "EU 44",
+      "EU 44.5"
+    ],
+    "sizePrices": [
+      {
+        "size": "EU 35.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 36",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 36.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 37.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 38",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 38.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 39",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 40",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 40.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 41",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 42",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 42.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 43",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 44",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 44.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      }
+    ],
+    "gender": "women",
+    "category": "women",
+    "offerKind": "retail",
+    "purchaseType": "fixed",
+    "market": "US",
+    "sku": "IV5197-201",
+    "sourceUpdatedAt": "2026-09-27T13:07:23.872Z",
+    "originalPrice": "115.00",
+    "salePrice": "67.97",
+    "currency": "USD",
+    "originalKzt": 58500,
+    "saleKzt": 35000,
+    "discount": 40,
+    "updatedAt": "2026-09-27T13:07:23.872Z",
+    "firstSeenAt": "2026-09-27T13:07:23.872Z",
+    "demo": false,
+    "rate": {
+      "currency": "USD",
+      "value": "441.880000000000",
+      "source": "Национальный Банк Казахстана",
+      "asOf": "2026-09-26T19:00:00.000Z",
+      "fetchedAt": "2026-09-27T13:57:10.746Z"
+    },
+    "rank": 3,
+    "title": "NIKE AIR FORCE 1 ’07",
+    "tag": "СПОКОЙНОЕ РЕТРО",
+    "detail": "Кофе + молочный",
+    "outfit": [
+      "Короткий тренч",
+      "Молочный топ",
+      "Шоколадные брюки",
+      "Бордовая сумка"
+    ],
+    "palette": [
+      "#b39b7b",
+      "#eae3d0",
+      "#5d4036"
+    ],
+    "files": [
+      "IV5197-201.png"
+    ],
+    "catalogUrl": "https://steppe-gray.vercel.app/?mode=live&q=IV5197-201#catalog",
+    "officialUrl": "https://www.nike.com/t/air-force-1-07-womens-shoes-En74ter5/IV5197-201",
+    "checkedAt": "2026-09-27T19:27:49.675Z",
+    "cardText": "−40%\n1 / 8\nNIKE\nЖенские\nNike Air Force 1 '07 Women's Shoes\n\nЖенские кроссовки на каждый день.\n\n35 000 ₸\n58 500 ₸\n\nПокупка без торгов · магазин США · цена выбранного размера\n\nТаблица размеров\nРазмер Nike Air Force 1 '07 Women's Shoes\nВыберите размер\nEU 35,5 · 35 000 ₸\nEU 36 · 35 000 ₸\nEU 36,5 · 35 000 ₸\nEU 37,5 · 35 000 ₸\nEU 38 · 35 000 ₸\nEU 38,5 · 35 000 ₸\nEU 39 · 35 000 ₸\nEU 40 · 35 000 ₸\nEU 40,5 · 35 000 ₸\nEU 41 · 35 000 ₸\nEU 42 · 35 000 ₸\nEU 42,5 · 35 000 ₸\nEU 43 · 35 000 ₸\nEU 44 · 35 000 ₸\nEU 44,5 · 35 000 ₸\nВ корзину\nNike US",
+    "detailText": "Nike\n1 / 8\nNike Air Force 1 '07 Women's Shoes\n\nЖенские кроссовки на каждый день.\n\n35 000 ₸\n58 500 ₸\n−40%\n\nЖенские · Кроссовки · Nike US\n\nВыбрать размер в карточке",
+    "visibleSizeOptions": [
+      "Выберите размер",
+      "EU 35,5 · 35 000 ₸",
+      "EU 36 · 35 000 ₸",
+      "EU 36,5 · 35 000 ₸",
+      "EU 37,5 · 35 000 ₸",
+      "EU 38 · 35 000 ₸",
+      "EU 38,5 · 35 000 ₸",
+      "EU 39 · 35 000 ₸",
+      "EU 40 · 35 000 ₸",
+      "EU 40,5 · 35 000 ₸",
+      "EU 41 · 35 000 ₸",
+      "EU 42 · 35 000 ₸",
+      "EU 42,5 · 35 000 ₸",
+      "EU 43 · 35 000 ₸",
+      "EU 44 · 35 000 ₸",
+      "EU 44,5 · 35 000 ₸"
+    ],
+    "look": "airforce"
+  },
+  {
+    "id": "47ec07632166a0b6774a6df6eaf43e44cef422d9c2216994d902060d1b786a5e",
+    "externalId": "",
+    "sourceId": "nike-us",
+    "sourceName": "Nike US",
+    "brand": "Nike",
+    "name": "Nike Zoom Vomero 5 \"Rose Gold\" Women's Shoes",
+    "productUrl": "",
+    "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/17183aa1-c1b4-48f8-bf8d-145534f1c7d3/W+NIKE+ZOOM+VOMERO+5.png",
+    "imageUrls": [
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/17183aa1-c1b4-48f8-bf8d-145534f1c7d3/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/67565b2b-d1ef-43b2-87d6-b810c51cde3d/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/1b451475-5014-42ee-82e3-ee90f0b38d79/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/46521c34-3535-43fd-8793-c57ed02cca6c/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/616efb17-51db-4e3e-b3b0-6cc877f4f8c2/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/edef65cf-417f-4020-a298-e0287aebd277/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e89ae2fa-5588-40f5-9a55-3ae0cf7f9157/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/0a4f02bb-2ed0-4f7f-a57f-1260a0a85533/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/6cade268-a5b7-4dde-ac9e-55d6755a2c23/W+NIKE+ZOOM+VOMERO+5.png"
+    ],
+    "color": "Sail/Rose Gold/Rose Gold",
+    "usage": "Women's Shoes Lifestyle Nike Nike Sportswear Women Lifestyle Nike Vomero Shoes",
+    "sizes": [
+      "EU 35.5",
+      "EU 36",
+      "EU 36.5",
+      "EU 37.5",
+      "EU 38",
+      "EU 38.5",
+      "EU 39",
+      "EU 40",
+      "EU 40.5",
+      "EU 41",
+      "EU 44",
+      "EU 44.5"
+    ],
+    "sizePrices": [
+      {
+        "size": "EU 35.5",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 36",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 36.5",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 37.5",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 38",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 38.5",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 39",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 40",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 40.5",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 41",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 44",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 44.5",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      }
+    ],
+    "gender": "women",
+    "category": "women",
+    "offerKind": "retail",
+    "purchaseType": "fixed",
+    "market": "US",
+    "sku": "IQ9603-133",
+    "sourceUpdatedAt": "2026-09-27T13:02:18.239Z",
+    "originalPrice": "170.00",
+    "salePrice": "94.97",
+    "currency": "USD",
+    "originalKzt": 86500,
+    "saleKzt": 48500,
+    "discount": 44,
+    "updatedAt": "2026-09-27T13:02:18.239Z",
+    "firstSeenAt": "2026-09-27T13:02:18.239Z",
+    "demo": false,
+    "rate": {
+      "currency": "USD",
+      "value": "441.880000000000",
+      "source": "Национальный Банк Казахстана",
+      "asOf": "2026-09-26T19:00:00.000Z",
+      "fetchedAt": "2026-09-27T13:57:10.746Z"
+    },
+    "rank": 2,
+    "title": "NIKE ZOOM VOMERO 5",
+    "tag": "ROSE GOLD",
+    "detail": "Rose Gold + сатин",
+    "outfit": [
+      "Серый жакет",
+      "Белая футболка",
+      "Атласная юбка",
+      "Серебристая сумка"
+    ],
+    "palette": [
+      "#6b6d72",
+      "#ebe6d9",
+      "#c4a297"
+    ],
+    "files": [
+      "IQ9603-133.png"
+    ],
+    "catalogUrl": "https://steppe-gray.vercel.app/?mode=live&q=IQ9603-133#catalog",
+    "officialUrl": "https://www.nike.com/t/zoom-vomero-5-rose-gold-womens-shoes-81TPKW/IQ9603-133",
+    "checkedAt": "2026-09-27T19:27:03.477Z",
+    "cardText": "−43%\n1 / 9\nNIKE\nЖенские\nNike Zoom Vomero 5 \"Rose Gold\" Women's Shoes\n\nЖенские кроссовки на каждый день.\n\n48 500 ₸\n86 500 ₸\n\nПокупка без торгов · магазин США · цена выбранного размера\n\nТаблица размеров\nРазмер Nike Zoom Vomero 5 \"Rose Gold\" Women's Shoes\nВыберите размер\nEU 35,5 · 48 500 ₸\nEU 36 · 48 500 ₸\nEU 36,5 · 48 500 ₸\nEU 37,5 · 48 500 ₸\nEU 38 · 48 500 ₸\nEU 38,5 · 48 500 ₸\nEU 39 · 48 500 ₸\nEU 40 · 48 500 ₸\nEU 40,5 · 48 500 ₸\nEU 41 · 48 500 ₸\nEU 44 · 48 500 ₸\nEU 44,5 · 48 500 ₸\nВ корзину\nNike US",
+    "detailText": "Nike\n1 / 9\nNike Zoom Vomero 5 \"Rose Gold\" Women's Shoes\n\nЖенские кроссовки на каждый день.\n\n48 500 ₸\n86 500 ₸\n−43%\n\nЖенские · Кроссовки · Nike US\n\nВыбрать размер в карточке",
+    "visibleSizeOptions": [
+      "Выберите размер",
+      "EU 35,5 · 48 500 ₸",
+      "EU 36 · 48 500 ₸",
+      "EU 36,5 · 48 500 ₸",
+      "EU 37,5 · 48 500 ₸",
+      "EU 38 · 48 500 ₸",
+      "EU 38,5 · 48 500 ₸",
+      "EU 39 · 48 500 ₸",
+      "EU 40 · 48 500 ₸",
+      "EU 40,5 · 48 500 ₸",
+      "EU 41 · 48 500 ₸",
+      "EU 44 · 48 500 ₸",
+      "EU 44,5 · 48 500 ₸"
+    ],
+    "look": "vomero"
+  },
+  {
+    "id": "bc7a4a5f58ad16fbfdbf079260bb2a0f8e001ce5f6bc829fb097d1edfa975be6",
+    "externalId": "",
+    "sourceId": "nike-us",
+    "sourceName": "Nike US",
+    "brand": "Nike",
+    "name": "Nike Astrograbber Suede Women's Shoes",
+    "productUrl": "",
+    "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/55013253-3f46-4756-a3fc-7d3477a539db/W+NIKE+ASTROGRABBER+SUEDE.png",
+    "imageUrls": [
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/55013253-3f46-4756-a3fc-7d3477a539db/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/364af32c-a1ae-4772-a86a-e1a4d9a7038f/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/fe48c3d6-61e3-4f66-87e8-f0e2427f1fba/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/4e4ddf60-c889-4753-8e88-1439d445af92/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/eb920c99-71e4-4f59-ab85-783378bda977/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/f1ed8894-393d-4de8-84bd-52ad3cb786b7/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/bc9450f0-e1be-4bf1-8928-d73b68058fc2/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/18c4854e-3557-401a-b79e-82c4f94436c0/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/a65f5545-6573-4747-8d19-40c0a2049039/W+NIKE+ASTROGRABBER+SUEDE.png"
+    ],
+    "color": "Black/Muslin",
+    "usage": "Women's Shoes Lifestyle Women Lifestyle Nike Astrograbber Nike Nike Sportswear Shoes",
+    "sizes": [
+      "EU 35.5",
+      "EU 36",
+      "EU 36.5",
+      "EU 37.5",
+      "EU 38",
+      "EU 38.5",
+      "EU 39",
+      "EU 40",
+      "EU 40.5",
+      "EU 41",
+      "EU 42",
+      "EU 42.5",
+      "EU 43",
+      "EU 44",
+      "EU 44.5"
+    ],
+    "sizePrices": [
+      {
+        "size": "EU 35.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 36",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 36.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 37.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 38",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 38.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 39",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 40",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 40.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 41",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 42",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 42.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 43",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 44",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 44.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      }
+    ],
+    "gender": "women",
+    "category": "women",
+    "offerKind": "retail",
+    "purchaseType": "fixed",
+    "market": "US",
+    "sku": "IQ7611-001",
+    "sourceUpdatedAt": "2026-09-27T13:51:21.939Z",
+    "originalPrice": "115.00",
+    "salePrice": "67.97",
+    "currency": "USD",
+    "originalKzt": 58500,
+    "saleKzt": 35000,
+    "discount": 40,
+    "updatedAt": "2026-09-27T13:51:21.939Z",
+    "firstSeenAt": "2026-09-27T13:51:21.939Z",
+    "demo": false,
+    "rate": {
+      "currency": "USD",
+      "value": "441.880000000000",
+      "source": "Национальный Банк Казахстана",
+      "asOf": "2026-09-26T19:00:00.000Z",
+      "fetchedAt": "2026-09-27T13:57:10.746Z"
+    },
+    "rank": 1,
+    "title": "NIKE ASTROGRABBER",
+    "tag": "НАШ ФАВОРИТ",
+    "detail": "Тёмно-синий + бордо",
+    "outfit": [
+      "Объёмный свитер",
+      "Белая рубашка",
+      "Юбка плиссе",
+      "Бордовая сумка"
+    ],
+    "palette": [
+      "#1c293f",
+      "#757879",
+      "#6c2734"
+    ],
+    "files": [
+      "IQ7611-001.png"
+    ],
+    "catalogUrl": "https://steppe-gray.vercel.app/?mode=live&q=IQ7611-001#catalog",
+    "officialUrl": "https://www.nike.com/t/astrograbber-suede-womens-shoes-8c3U2aoG/IQ7611-001",
+    "checkedAt": "2026-09-27T19:27:03.832Z",
+    "cardText": "−40%\n1 / 9\nNIKE\nЖенские\nNike Astrograbber Suede Women's Shoes\n\nЖенские кроссовки на каждый день.\n\n35 000 ₸\n58 500 ₸\n\nПокупка без торгов · магазин США · цена выбранного размера\n\nТаблица размеров\nРазмер Nike Astrograbber Suede Women's Shoes\nВыберите размер\nEU 35,5 · 35 000 ₸\nEU 36 · 35 000 ₸\nEU 36,5 · 35 000 ₸\nEU 37,5 · 35 000 ₸\nEU 38 · 35 000 ₸\nEU 38,5 · 35 000 ₸\nEU 39 · 35 000 ₸\nEU 40 · 35 000 ₸\nEU 40,5 · 35 000 ₸\nEU 41 · 35 000 ₸\nEU 42 · 35 000 ₸\nEU 42,5 · 35 000 ₸\nEU 43 · 35 000 ₸\nEU 44 · 35 000 ₸\nEU 44,5 · 35 000 ₸\nВ корзину\nNike US",
+    "detailText": "Nike\n1 / 9\nNike Astrograbber Suede Women's Shoes\n\nЖенские кроссовки на каждый день.\n\n35 000 ₸\n58 500 ₸\n−40%\n\nЖенские · Кроссовки · Nike US\n\nВыбрать размер в карточке",
+    "visibleSizeOptions": [
+      "Выберите размер",
+      "EU 35,5 · 35 000 ₸",
+      "EU 36 · 35 000 ₸",
+      "EU 36,5 · 35 000 ₸",
+      "EU 37,5 · 35 000 ₸",
+      "EU 38 · 35 000 ₸",
+      "EU 38,5 · 35 000 ₸",
+      "EU 39 · 35 000 ₸",
+      "EU 40 · 35 000 ₸",
+      "EU 40,5 · 35 000 ₸",
+      "EU 41 · 35 000 ₸",
+      "EU 42 · 35 000 ₸",
+      "EU 42,5 · 35 000 ₸",
+      "EU 43 · 35 000 ₸",
+      "EU 44 · 35 000 ₸",
+      "EU 44,5 · 35 000 ₸"
+    ],
+    "look": "astro"
+  }
+]
