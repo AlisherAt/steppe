@@ -1,0 +1,448 @@
+[
+  {
+    "id": "6d694fc434e9f499f542eec1affbc6dadc0f33cc2637902cce3b7057840582f8",
+    "externalId": "",
+    "sourceId": "reebok-us",
+    "sourceName": "Reebok US",
+    "brand": "Reebok",
+    "name": "Women's Club C Grounds UK Shoes",
+    "productUrl": "",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100246127_SLC_eCom.jpg?v=1769554207",
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100246127_SLC_eCom.jpg?v=1769554207",
+      "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100246127_TPP_eCom.jpg?v=1769554207",
+      "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100246127_BLT_eCom.jpg?v=1769554207",
+      "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100246127_FLT_eCom.jpg?v=1769554207",
+      "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100246127_BT_eCom.jpg?v=1769554207"
+    ],
+    "color": "Still Grey/Chalk/Escape Grey",
+    "usage": "",
+    "sizes": [
+      "US W 5",
+      "US W 5.5",
+      "US W 6",
+      "US W 6.5",
+      "US W 7",
+      "US W 7.5",
+      "US W 8",
+      "US W 8.5",
+      "US W 9",
+      "US W 9.5",
+      "US W 10",
+      "US W 10.5",
+      "US W 11"
+    ],
+    "sizePrices": [
+      {
+        "size": "US W 5",
+        "salePrice": "39.97",
+        "saleKzt": 21000
+      },
+      {
+        "size": "US W 5.5",
+        "salePrice": "39.97",
+        "saleKzt": 21000
+      },
+      {
+        "size": "US W 6",
+        "salePrice": "39.97",
+        "saleKzt": 21000
+      },
+      {
+        "size": "US W 6.5",
+        "salePrice": "39.97",
+        "saleKzt": 21000
+      },
+      {
+        "size": "US W 7",
+        "salePrice": "39.97",
+        "saleKzt": 21000
+      },
+      {
+        "size": "US W 7.5",
+        "salePrice": "39.97",
+        "saleKzt": 21000
+      },
+      {
+        "size": "US W 8",
+        "salePrice": "39.97",
+        "saleKzt": 21000
+      },
+      {
+        "size": "US W 8.5",
+        "salePrice": "39.97",
+        "saleKzt": 21000
+      },
+      {
+        "size": "US W 9",
+        "salePrice": "39.97",
+        "saleKzt": 21000
+      },
+      {
+        "size": "US W 9.5",
+        "salePrice": "39.97",
+        "saleKzt": 21000
+      },
+      {
+        "size": "US W 10",
+        "salePrice": "39.97",
+        "saleKzt": 21000
+      },
+      {
+        "size": "US W 10.5",
+        "salePrice": "39.97",
+        "saleKzt": 21000
+      },
+      {
+        "size": "US W 11",
+        "salePrice": "39.97",
+        "saleKzt": 21000
+      }
+    ],
+    "gender": "women",
+    "category": "Кроссовки",
+    "offerKind": "retail",
+    "purchaseType": "fixed",
+    "market": "US",
+    "sku": "100246127",
+    "sourceUpdatedAt": "2026-09-27T13:26:08.871Z",
+    "originalPrice": "75.00",
+    "salePrice": "39.97",
+    "currency": "USD",
+    "originalKzt": 38500,
+    "saleKzt": 21000,
+    "discount": 46,
+    "updatedAt": "2026-09-27T13:26:08.871Z",
+    "firstSeenAt": "2026-09-27T13:26:08.871Z",
+    "demo": false,
+    "rate": {
+      "currency": "USD",
+      "value": "441.880000000000",
+      "source": "Национальный Банк Казахстана",
+      "asOf": "2026-09-26T19:00:00.000Z",
+      "fetchedAt": "2026-09-27T13:26:13.615Z"
+    },
+    "rank": 3,
+    "title": "REEBOK CLUB C GROUNDS",
+    "tag": "СПОКОЙНОЕ РЕТРО",
+    "detail": "Серый оттенок + светлая подошва",
+    "outfit": [
+      "Прямые джинсы",
+      "Кардиган",
+      "Тренч"
+    ],
+    "palette": [
+      "#929a92",
+      "#e2dfd1",
+      "#ab9477"
+    ],
+    "files": [
+      "100246127.png"
+    ],
+    "catalogUrl": "https://steppe-gray.vercel.app/?mode=live&q=100246127",
+    "officialUrl": "https://www.reebok.com/products/reebok-womens-club-c-grounds-uk-shoes-still-grey-chalk-escape-grey-147819",
+    "checkedAt": "2026-09-27T19:02:50.949Z"
+  },
+  {
+    "id": "47ec07632166a0b6774a6df6eaf43e44cef422d9c2216994d902060d1b786a5e",
+    "externalId": "",
+    "sourceId": "nike-us",
+    "sourceName": "Nike US",
+    "brand": "Nike",
+    "name": "Nike Zoom Vomero 5 \"Rose Gold\" Women's Shoes",
+    "productUrl": "",
+    "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/17183aa1-c1b4-48f8-bf8d-145534f1c7d3/W+NIKE+ZOOM+VOMERO+5.png",
+    "imageUrls": [
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/17183aa1-c1b4-48f8-bf8d-145534f1c7d3/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/67565b2b-d1ef-43b2-87d6-b810c51cde3d/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/1b451475-5014-42ee-82e3-ee90f0b38d79/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/46521c34-3535-43fd-8793-c57ed02cca6c/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/616efb17-51db-4e3e-b3b0-6cc877f4f8c2/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/edef65cf-417f-4020-a298-e0287aebd277/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e89ae2fa-5588-40f5-9a55-3ae0cf7f9157/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/0a4f02bb-2ed0-4f7f-a57f-1260a0a85533/W+NIKE+ZOOM+VOMERO+5.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/6cade268-a5b7-4dde-ac9e-55d6755a2c23/W+NIKE+ZOOM+VOMERO+5.png"
+    ],
+    "color": "Sail/Rose Gold/Rose Gold",
+    "usage": "Women's Shoes Lifestyle Nike Nike Sportswear Women Lifestyle Nike Vomero Shoes",
+    "sizes": [
+      "EU 35.5",
+      "EU 36",
+      "EU 36.5",
+      "EU 37.5",
+      "EU 38",
+      "EU 38.5",
+      "EU 39",
+      "EU 40",
+      "EU 40.5",
+      "EU 41",
+      "EU 44",
+      "EU 44.5"
+    ],
+    "sizePrices": [
+      {
+        "size": "EU 35.5",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 36",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 36.5",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 37.5",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 38",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 38.5",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 39",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 40",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 40.5",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 41",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 44",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      },
+      {
+        "size": "EU 44.5",
+        "salePrice": "94.97",
+        "saleKzt": 48500
+      }
+    ],
+    "gender": "women",
+    "category": "Кроссовки",
+    "offerKind": "retail",
+    "purchaseType": "fixed",
+    "market": "US",
+    "sku": "IQ9603-133",
+    "sourceUpdatedAt": "2026-09-27T13:02:18.239Z",
+    "originalPrice": "170.00",
+    "salePrice": "94.97",
+    "currency": "USD",
+    "originalKzt": 86500,
+    "saleKzt": 48500,
+    "discount": 44,
+    "updatedAt": "2026-09-27T13:02:18.239Z",
+    "firstSeenAt": "2026-09-27T13:02:18.239Z",
+    "demo": false,
+    "rate": {
+      "currency": "USD",
+      "value": "441.880000000000",
+      "source": "Национальный Банк Казахстана",
+      "asOf": "2026-09-26T19:00:00.000Z",
+      "fetchedAt": "2026-09-27T13:57:10.746Z"
+    },
+    "rank": 2,
+    "title": "NIKE ZOOM VOMERO 5",
+    "tag": "ROSE GOLD",
+    "detail": "Металлический акцент",
+    "outfit": [
+      "Широкие джинсы",
+      "Белый топ",
+      "Жакет"
+    ],
+    "palette": [
+      "#d2a192",
+      "#eee8da",
+      "#91a4b0"
+    ],
+    "files": [
+      "IQ9603-133.png"
+    ],
+    "catalogUrl": "https://steppe-gray.vercel.app/?mode=live&q=IQ9603-133",
+    "officialUrl": "https://www.nike.com/t/zoom-vomero-5-rose-gold-womens-shoes-81TPKW/IQ9603-133",
+    "checkedAt": "2026-09-27T19:02:48.786Z"
+  },
+  {
+    "id": "bc7a4a5f58ad16fbfdbf079260bb2a0f8e001ce5f6bc829fb097d1edfa975be6",
+    "externalId": "",
+    "sourceId": "nike-us",
+    "sourceName": "Nike US",
+    "brand": "Nike",
+    "name": "Nike Astrograbber Suede Women's Shoes",
+    "productUrl": "",
+    "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/55013253-3f46-4756-a3fc-7d3477a539db/W+NIKE+ASTROGRABBER+SUEDE.png",
+    "imageUrls": [
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/55013253-3f46-4756-a3fc-7d3477a539db/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/364af32c-a1ae-4772-a86a-e1a4d9a7038f/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/fe48c3d6-61e3-4f66-87e8-f0e2427f1fba/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/4e4ddf60-c889-4753-8e88-1439d445af92/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/eb920c99-71e4-4f59-ab85-783378bda977/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/f1ed8894-393d-4de8-84bd-52ad3cb786b7/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/bc9450f0-e1be-4bf1-8928-d73b68058fc2/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/18c4854e-3557-401a-b79e-82c4f94436c0/W+NIKE+ASTROGRABBER+SUEDE.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/a65f5545-6573-4747-8d19-40c0a2049039/W+NIKE+ASTROGRABBER+SUEDE.png"
+    ],
+    "color": "Black/Muslin",
+    "usage": "Women's Shoes Lifestyle Women Lifestyle Nike Astrograbber Nike Nike Sportswear Shoes",
+    "sizes": [
+      "EU 35.5",
+      "EU 36",
+      "EU 36.5",
+      "EU 37.5",
+      "EU 38",
+      "EU 38.5",
+      "EU 39",
+      "EU 40",
+      "EU 40.5",
+      "EU 41",
+      "EU 42",
+      "EU 42.5",
+      "EU 43",
+      "EU 44",
+      "EU 44.5"
+    ],
+    "sizePrices": [
+      {
+        "size": "EU 35.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 36",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 36.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 37.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 38",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 38.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 39",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 40",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 40.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 41",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 42",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 42.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 43",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 44",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      },
+      {
+        "size": "EU 44.5",
+        "salePrice": "67.97",
+        "saleKzt": 35000
+      }
+    ],
+    "gender": "women",
+    "category": "Кроссовки",
+    "offerKind": "retail",
+    "purchaseType": "fixed",
+    "market": "US",
+    "sku": "IQ7611-001",
+    "sourceUpdatedAt": "2026-09-27T13:51:21.939Z",
+    "originalPrice": "115.00",
+    "salePrice": "67.97",
+    "currency": "USD",
+    "originalKzt": 58500,
+    "saleKzt": 35000,
+    "discount": 40,
+    "updatedAt": "2026-09-27T13:51:21.939Z",
+    "firstSeenAt": "2026-09-27T13:51:21.939Z",
+    "demo": false,
+    "rate": {
+      "currency": "USD",
+      "value": "441.880000000000",
+      "source": "Национальный Банк Казахстана",
+      "asOf": "2026-09-26T19:00:00.000Z",
+      "fetchedAt": "2026-09-27T13:57:10.746Z"
+    },
+    "rank": 1,
+    "title": "NIKE ASTROGRABBER",
+    "tag": "НАШ ФАВОРИТ",
+    "detail": "Тонкий ретро-силуэт",
+    "outfit": [
+      "Брюки",
+      "Юбка миди",
+      "Объёмный свитер"
+    ],
+    "palette": [
+      "#232320",
+      "#e2d9c5",
+      "#897568"
+    ],
+    "files": [
+      "IQ7611-001.png"
+    ],
+    "catalogUrl": "https://steppe-gray.vercel.app/?mode=live&q=IQ7611-001",
+    "officialUrl": "https://www.nike.com/t/astrograbber-suede-womens-shoes-8c3U2aoG/IQ7611-001",
+    "checkedAt": "2026-09-27T19:02:50.251Z"
+  }
+]

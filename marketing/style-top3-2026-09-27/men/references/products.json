@@ -1,0 +1,408 @@
+[
+  {
+    "id": "e9b15078f53053b9a8049330f327307b0f5206b93177ac993338cc45d3ba8ee3",
+    "externalId": "",
+    "sourceId": "nike-us",
+    "sourceName": "Nike US",
+    "brand": "Nike",
+    "name": "Nike Dunk Low Retro Men's Shoes",
+    "productUrl": "",
+    "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/66c81abb-4c71-4c13-9a3a-5923736ec015/NIKE+DUNK+LOW+RETRO.png",
+    "imageUrls": [
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/66c81abb-4c71-4c13-9a3a-5923736ec015/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d22f11ee-b52f-4572-b79e-597c7dd1c650/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/92f570fb-a4c2-4899-abb4-0897f7defe61/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e989ef33-95f1-48f8-8fa1-c81248109434/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7f793910-ff05-4806-a164-05f23fb67899/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/239a07eb-9c6c-415d-a273-49ba15bd5b05/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e686fe35-555d-4940-9b9a-c6f2b997aae8/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d0b110f7-2ae3-492f-9443-e5f637a1af40/NIKE+DUNK+LOW+RETRO.png"
+    ],
+    "color": "Tawny/Flax/Twine/Sesame",
+    "usage": "Men's Shoes Lifestyle Men Lifestyle Nike Dunk Nike Nike Sportswear Shoes",
+    "sizes": [
+      "EU 38.5",
+      "EU 39",
+      "EU 40",
+      "EU 40.5",
+      "EU 41",
+      "EU 42",
+      "EU 42.5",
+      "EU 43",
+      "EU 44",
+      "EU 44.5",
+      "EU 45",
+      "EU 45.5",
+      "EU 46",
+      "EU 47",
+      "EU 47.5",
+      "EU 48.5",
+      "EU 49.5"
+    ],
+    "sizePrices": [
+      {
+        "size": "EU 38.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 39",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 40",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 40.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 41",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 42",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 42.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 43",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 44",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 44.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 45",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 45.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 46",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 47",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 47.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 48.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      },
+      {
+        "size": "EU 49.5",
+        "salePrice": "69.97",
+        "saleKzt": 36000
+      }
+    ],
+    "gender": "men",
+    "category": "Кроссовки",
+    "offerKind": "retail",
+    "purchaseType": "fixed",
+    "market": "US",
+    "sku": "IM4415-200",
+    "sourceUpdatedAt": "2026-09-27T13:01:40.606Z",
+    "originalPrice": "120.00",
+    "salePrice": "69.97",
+    "currency": "USD",
+    "originalKzt": 61000,
+    "saleKzt": 36000,
+    "discount": 41,
+    "updatedAt": "2026-09-27T13:01:40.606Z",
+    "firstSeenAt": "2026-09-27T13:01:40.606Z",
+    "demo": false,
+    "rate": {
+      "currency": "USD",
+      "value": "441.880000000000",
+      "source": "Национальный Банк Казахстана",
+      "asOf": "2026-09-26T19:00:00.000Z",
+      "fetchedAt": "2026-09-27T13:57:10.746Z"
+    },
+    "rank": 3,
+    "title": "NIKE DUNK LOW RETRO",
+    "tag": "ТЁПЛЫЙ АКЦЕНТ",
+    "detail": "Карамельная палитра",
+    "outfit": [
+      "Синий деним",
+      "Белая футболка",
+      "Бомбер"
+    ],
+    "palette": [
+      "#9b633b",
+      "#344d68",
+      "#ebe6dc"
+    ],
+    "files": [
+      "IM4415-200.png"
+    ],
+    "catalogUrl": "https://steppe-gray.vercel.app/?mode=live&q=IM4415-200",
+    "officialUrl": "https://www.nike.com/t/dunk-low-retro-mens-shoes-5FQWGR/IM4415-200",
+    "checkedAt": "2026-09-27T19:02:04.179Z"
+  },
+  {
+    "id": "db6f63acacd3e8d3b5507d9bd717ca6ffc6077fcc53d69573e3a732b2b44a970",
+    "externalId": "",
+    "sourceId": "nike-us",
+    "sourceName": "Nike US",
+    "brand": "Nike",
+    "name": "Nike Shox TL Men's Shoes",
+    "productUrl": "",
+    "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/5f3beba9-e10d-4ef6-ac2c-14b87a2b3fa2/NIKE+SHOX+TL.png",
+    "imageUrls": [
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/5f3beba9-e10d-4ef6-ac2c-14b87a2b3fa2/NIKE+SHOX+TL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d5bdb9e5-6825-4441-a736-22fe51c3a324/NIKE+SHOX+TL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b39f0c40-bfaf-4692-bbde-cb4e29594fb6/NIKE+SHOX+TL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/2bef6c50-fc55-4282-8756-2382e4b9bd09/NIKE+SHOX+TL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/68f2ccbc-349a-4f1f-a91c-812e4cb7a370/NIKE+SHOX+TL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/ce1ea15e-94d0-413f-b630-3ac335cb73f1/NIKE+SHOX+TL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/1a66ba26-bb5f-4eab-bc27-de7dcf7c9fd9/NIKE+SHOX+TL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7cbe4eb6-9b66-4016-b22a-378fdd80fa4c/NIKE+SHOX+TL.png"
+    ],
+    "color": "Black/Pure Platinum/White",
+    "usage": "Men's Shoes Lifestyle Men Lifestyle Nike Shox TL Nike Nike Sportswear Shoes",
+    "sizes": [
+      "EU 38.5",
+      "EU 42",
+      "EU 44",
+      "EU 45"
+    ],
+    "sizePrices": [
+      {
+        "size": "EU 38.5",
+        "salePrice": "109.97",
+        "saleKzt": 56000
+      },
+      {
+        "size": "EU 42",
+        "salePrice": "109.97",
+        "saleKzt": 56000
+      },
+      {
+        "size": "EU 44",
+        "salePrice": "109.97",
+        "saleKzt": 56000
+      },
+      {
+        "size": "EU 45",
+        "salePrice": "109.97",
+        "saleKzt": 56000
+      }
+    ],
+    "gender": "men",
+    "category": "Кроссовки",
+    "offerKind": "retail",
+    "purchaseType": "fixed",
+    "market": "US",
+    "sku": "AV3595-017",
+    "sourceUpdatedAt": "2026-09-27T12:59:20.478Z",
+    "originalPrice": "180.00",
+    "salePrice": "109.97",
+    "currency": "USD",
+    "originalKzt": 91500,
+    "saleKzt": 56000,
+    "discount": 38,
+    "updatedAt": "2026-09-27T12:59:20.478Z",
+    "firstSeenAt": "2026-09-27T12:59:20.478Z",
+    "demo": false,
+    "rate": {
+      "currency": "USD",
+      "value": "441.880000000000",
+      "source": "Национальный Банк Казахстана",
+      "asOf": "2026-09-26T19:00:00.000Z",
+      "fetchedAt": "2026-09-27T13:57:10.746Z"
+    },
+    "rank": 2,
+    "title": "NIKE SHOX TL",
+    "tag": "ГОРОДСКОЙ ХАРАКТЕР",
+    "detail": "Чёрный + серебристые детали",
+    "outfit": [
+      "Широкие джинсы",
+      "Худи",
+      "Куртка"
+    ],
+    "palette": [
+      "#303033",
+      "#969d9f",
+      "#eceae4"
+    ],
+    "files": [
+      "AV3595-017.png"
+    ],
+    "catalogUrl": "https://steppe-gray.vercel.app/?mode=live&q=AV3595-017",
+    "officialUrl": "https://www.nike.com/t/shox-tl-mens-shoes-QVMnuDoH/AV3595-017",
+    "checkedAt": "2026-09-27T19:02:45.134Z"
+  },
+  {
+    "id": "50ba5186b3107576a241841e3b5cc28aa9bc91f3f28213c8c62dce034b72ead1",
+    "externalId": "",
+    "sourceId": "nike-us",
+    "sourceName": "Nike US",
+    "brand": "Nike",
+    "name": "Nike Field General Suede Men's Shoes",
+    "productUrl": "",
+    "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/66176125-919c-4d1e-98be-f96a2e064d00/NIKE+FIELD+GENERAL.png",
+    "imageUrls": [
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/66176125-919c-4d1e-98be-f96a2e064d00/NIKE+FIELD+GENERAL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/936133b9-7627-423a-acb4-0fbd6fe26cce/NIKE+FIELD+GENERAL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/5c54d65d-a0ce-4252-a2ca-55b37ee7400b/NIKE+FIELD+GENERAL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/19e85382-17cc-4de6-b362-cde73baf67a3/NIKE+FIELD+GENERAL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/62331083-677f-428c-a7a7-0ccf0eb38bc4/NIKE+FIELD+GENERAL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/921919a0-4fab-440b-88bd-cc9d23ff1eab/NIKE+FIELD+GENERAL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/97999aed-f6d3-46d2-b8a9-2046d3aa8739/NIKE+FIELD+GENERAL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/63c50977-eea1-46f6-98c7-95574321bd2d/NIKE+FIELD+GENERAL.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/0f30dcae-d10a-4fd4-a246-83cd51e42705/NIKE+FIELD+GENERAL.png"
+    ],
+    "color": "Light Orewood Brown/Black",
+    "usage": "Men's Shoes Lifestyle Men Unisex Lifestyle Nike Field General Nike Nike Sportswear Shoes",
+    "sizes": [
+      "EU 40",
+      "EU 40.5",
+      "EU 41",
+      "EU 42",
+      "EU 42.5",
+      "EU 43",
+      "EU 44",
+      "EU 44.5",
+      "EU 45",
+      "EU 45.5",
+      "EU 46",
+      "EU 47.5"
+    ],
+    "sizePrices": [
+      {
+        "size": "EU 40",
+        "salePrice": "62.97",
+        "saleKzt": 32000
+      },
+      {
+        "size": "EU 40.5",
+        "salePrice": "62.97",
+        "saleKzt": 32000
+      },
+      {
+        "size": "EU 41",
+        "salePrice": "62.97",
+        "saleKzt": 32000
+      },
+      {
+        "size": "EU 42",
+        "salePrice": "62.97",
+        "saleKzt": 32000
+      },
+      {
+        "size": "EU 42.5",
+        "salePrice": "62.97",
+        "saleKzt": 32000
+      },
+      {
+        "size": "EU 43",
+        "salePrice": "62.97",
+        "saleKzt": 32000
+      },
+      {
+        "size": "EU 44",
+        "salePrice": "62.97",
+        "saleKzt": 32000
+      },
+      {
+        "size": "EU 44.5",
+        "salePrice": "62.97",
+        "saleKzt": 32000
+      },
+      {
+        "size": "EU 45",
+        "salePrice": "62.97",
+        "saleKzt": 32000
+      },
+      {
+        "size": "EU 45.5",
+        "salePrice": "62.97",
+        "saleKzt": 32000
+      },
+      {
+        "size": "EU 46",
+        "salePrice": "62.97",
+        "saleKzt": 32000
+      },
+      {
+        "size": "EU 47.5",
+        "salePrice": "62.97",
+        "saleKzt": 32000
+      }
+    ],
+    "gender": "men",
+    "category": "Кроссовки",
+    "offerKind": "retail",
+    "purchaseType": "fixed",
+    "market": "US",
+    "sku": "IF0666-100",
+    "sourceUpdatedAt": "2026-09-27T13:32:20.906Z",
+    "originalPrice": "105.00",
+    "salePrice": "62.97",
+    "currency": "USD",
+    "originalKzt": 53500,
+    "saleKzt": 32000,
+    "discount": 40,
+    "updatedAt": "2026-09-27T13:32:20.906Z",
+    "firstSeenAt": "2026-09-27T13:32:20.906Z",
+    "demo": false,
+    "rate": {
+      "currency": "USD",
+      "value": "441.880000000000",
+      "source": "Национальный Банк Казахстана",
+      "asOf": "2026-09-26T19:00:00.000Z",
+      "fetchedAt": "2026-09-27T13:57:10.746Z"
+    },
+    "rank": 1,
+    "title": "NIKE FIELD GENERAL",
+    "tag": "НАШ ФАВОРИТ",
+    "detail": "Светлая база с чёрным акцентом",
+    "outfit": [
+      "Прямые брюки",
+      "Трикотаж",
+      "Рубашка"
+    ],
+    "palette": [
+      "#d1c5ae",
+      "#242825",
+      "#9a967e"
+    ],
+    "files": [
+      "IF0666-100.png"
+    ],
+    "catalogUrl": "https://steppe-gray.vercel.app/?mode=live&q=IF0666-100",
+    "officialUrl": "https://www.nike.com/t/field-general-suede-mens-shoes-MMjfAd3J/IF0666-100",
+    "checkedAt": "2026-09-27T19:02:23.035Z"
+  }
+]
