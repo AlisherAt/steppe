@@ -1,0 +1,118 @@
+[
+  {
+    "sku": "IM4415-200",
+    "name": "Nike Dunk Low Retro Men's Shoes",
+    "brand": "Nike",
+    "color": "Tawny/Flax/Twine/Sesame",
+    "productUrl": "https://www.nike.com/t/dunk-low-retro-mens-shoes-5FQWGR/IM4415-200",
+    "catalogUrl": "https://steppe-gray.vercel.app/?q=IM4415-200",
+    "saleKzt": 36000,
+    "sizes": [
+      "EU 38.5",
+      "EU 39",
+      "EU 40",
+      "EU 40.5",
+      "EU 41",
+      "EU 42",
+      "EU 42.5",
+      "EU 43",
+      "EU 44",
+      "EU 44.5",
+      "EU 45",
+      "EU 45.5",
+      "EU 46",
+      "EU 47",
+      "EU 47.5",
+      "EU 48.5",
+      "EU 49.5"
+    ],
+    "images": [
+      "https://static.nike.com/a/images/t_PDP_1728_v1/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/66c81abb-4c71-4c13-9a3a-5923736ec015/NIKE+DUNK+LOW+RETRO.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d22f11ee-b52f-4572-b79e-597c7dd1c650/NIKE+DUNK+LOW+RETRO.png"
+    ],
+    "files": [
+      "IM4415-200-0.png",
+      "IM4415-200-1.png"
+    ],
+    "checkedAt": "2026-09-27T12:41:46.108Z"
+  },
+  {
+    "sku": "100256877",
+    "name": "Club C Grounds UK Shoes",
+    "brand": "Reebok",
+    "color": "Campus Brown/Campus Brown/Vintage Chalk",
+    "productUrl": "https://www.reebok.com/products/reebok-club-c-grounds-uk-shoes-campus-brown-campus-brown-vintage-chalk-156468",
+    "catalogUrl": "https://steppe-gray.vercel.app/?q=100256877",
+    "saleKzt": 21000,
+    "sizes": [
+      "US M 7.5",
+      "US M 8",
+      "US M 8.5",
+      "US M 9",
+      "US M 11"
+    ],
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100256877_SLC_eCom.jpg?v=1764594758",
+      "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100256877_TPP_eCom.jpg?v=1764594758"
+    ],
+    "files": [
+      "100256877-0.png",
+      "100256877-1.png"
+    ],
+    "checkedAt": "2026-09-27T12:41:46.650Z"
+  },
+  {
+    "sku": "IF0666-100",
+    "name": "Nike Field General Suede Men's Shoes",
+    "brand": "Nike",
+    "color": "Light Orewood Brown/Black",
+    "productUrl": "https://www.nike.com/t/field-general-suede-mens-shoes-MMjfAd3J/IF0666-100",
+    "catalogUrl": "https://steppe-gray.vercel.app/?q=IF0666-100",
+    "saleKzt": 32000,
+    "sizes": [
+      "EU 40",
+      "EU 40.5",
+      "EU 41",
+      "EU 42",
+      "EU 42.5",
+      "EU 43",
+      "EU 44",
+      "EU 44.5",
+      "EU 45",
+      "EU 45.5",
+      "EU 46",
+      "EU 47.5"
+    ],
+    "images": [
+      "https://static.nike.com/a/images/t_PDP_1728_v1/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/66176125-919c-4d1e-98be-f96a2e064d00/NIKE+FIELD+GENERAL.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/936133b9-7627-423a-acb4-0fbd6fe26cce/NIKE+FIELD+GENERAL.png"
+    ],
+    "files": [
+      "IF0666-100-0.png",
+      "IF0666-100-1.png"
+    ],
+    "checkedAt": "2026-09-27T12:41:47.231Z"
+  },
+  {
+    "sku": "100008790",
+    "name": "Classic Leather Shoes",
+    "brand": "Reebok",
+    "color": "Pure Grey 5/Ftwr White/Gum",
+    "productUrl": "https://www.reebok.com/products/reebok-classic-leather-shoes-pure-grey-5-ftwr-white-reebok-rubber-gum-03-107421",
+    "catalogUrl": "https://steppe-gray.vercel.app/?q=100008790",
+    "saleKzt": 23000,
+    "sizes": [
+      "US M 14",
+      "US M 15"
+    ],
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100008790_SLC_eCom.jpg?v=1764595160",
+      "https://cdn.shopify.com/s/files/1/0862/7834/0912/files/100008790_TPP_eCom.jpg?v=1764595160"
+    ],
+    "files": [
+      "100008790-0.png",
+      "100008790-1.png"
+    ],
+    "checkedAt": "2026-09-27T12:41:48.071Z"
+  }
+]
