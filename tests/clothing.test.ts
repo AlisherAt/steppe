@@ -74,9 +74,9 @@ describe('раздельный ассортимент одежды', () => {
     const kr = shirt();
     expect(kr.saleKzt).toBe(4515);
     expect(withSellingPrices(kr).saleKzt).toBe(8000);
-    expect(sellingPrice(19999)).toBe(23000);
-    expect(sellingPrice(20000)).toBe(23000);
-    expect(sellingPrice(21000)).toBe(24500);
+    expect(sellingPrice(19999)).toBe(24000);
+    expect(sellingPrice(20000)).toBe(24000);
+    expect(sellingPrice(21000)).toBe(25000);
     expect(officialMarketUrl('https://www.uniqlo.com/jp/ja/products/E123456-000/00', 'JP')).toBe(
       true,
     );
