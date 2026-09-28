@@ -3,6 +3,7 @@ import { clothingProduct, type ClothingSource } from '../src/lib/server/clothing
 import { clothingSources } from './clothing/products.mjs';
 import { loadRates } from '../src/lib/server/rates';
 import { offerVisible } from '../src/lib/promotion';
+import { isAllowedUniqloProduct } from '../src/lib/uniqlo-labels.mjs';
 import type { Product } from '../src/lib/types';
 async function main() {
   const file = process.argv[2],
@@ -31,7 +32,8 @@ async function main() {
   const products = new Map<string, Product>();
   // Неполный обход не удаляет недавно проверенные товары; срок их проверки не продлевается.
   if (!report.complete)
-    for (const p of previous.products) if (offerVisible(p)) products.set(p.id, p);
+    for (const p of previous.products)
+      if (offerVisible(p) && isAllowedUniqloProduct(p)) products.set(p.id, p);
   let accepted = 0,
     rejected = 0;
   for (const raw of report.products) {

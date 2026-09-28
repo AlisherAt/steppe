@@ -1,5 +1,6 @@
 import type { Product } from './types';
 import { officialStores } from './official-stores';
+import { isAllowedUniqloProduct } from './uniqlo-labels.mjs';
 export const EUROPE_COUNTRIES = [
   'AT',
   'BE',
@@ -36,6 +37,7 @@ export const EUROPE_COUNTRIES = [
 ];
 export function orderableProduct(p: Product) {
   return (
+    isAllowedUniqloProduct(p) &&
     p.offerKind === 'retail' &&
     p.purchaseType === 'fixed' &&
     (p.market === 'US'

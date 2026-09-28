@@ -1,4 +1,4 @@
-import { uniqloName } from '../uniqlo-labels.mjs';
+import { uniqloName, isAllowedUniqloProduct } from '../uniqlo-labels.mjs';
 import 'server-only';
 import nike from '../../../data/catalog/nike-us.json';
 import puma from '../../../data/catalog/puma-us.json';
@@ -33,12 +33,10 @@ const normalizeProduct = (p: unknown): Product => {
     productMedia as Record<string, { imageUrls?: string[]; color?: string; usage?: string }>
   )[(p as Product).id];
   const parsed = manualProductSchema.parse({ ...media, ...(p as object) });
-  if (parsed.brand === 'Uniqlo' && parsed.usage && /Uniqlo \d{6}-\d{3}/.test(parsed.name)) {
+  if (parsed.brand === 'Uniqlo' && parsed.usage) {
     const length = parsed.sku?.match(/-\d{2}-\d{2}-(.+)$/)?.[1];
-    Object.assign(
-      parsed,
-      uniqloName(parsed.usage, '', length === 'standard' ? '' : length, parsed.sku),
-    );
+    const label = uniqloName(parsed.usage, '', length === 'standard' ? '' : length, parsed.sku);
+    if (label.allowed) Object.assign(parsed, { name: label.name, category: label.category });
   }
   return parsed;
 };
@@ -68,7 +66,10 @@ export function githubProcurement() {
       product,
       selling: withSellingPrices(product),
       archived,
-      hidden: hiddenIds.has(product.id) || hiddenUrls.has(product.productUrl),
+      hidden:
+        hiddenIds.has(product.id) ||
+        hiddenUrls.has(product.productUrl) ||
+        !isAllowedUniqloProduct(product),
       stale: archived || !offerVisible(product),
     }));
 }
@@ -83,6 +84,7 @@ export function githubProducts(now = Date.now()): Product[] {
         !hiddenIds.has(p.id) &&
         !hiddenUrls.has(p.productUrl) &&
         isCatalogBrand(p.brand) &&
+        isAllowedUniqloProduct(p) &&
         offerVisible(p, now) &&
         orderableProduct(p)
       );

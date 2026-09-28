@@ -29,9 +29,7 @@ export function uniqloProducts(detail, stocks, source, expected, now = Date.now(
     p.priceGroup !== expected.priceGroup
   )
     throw Error('UNIQLO_DETAIL_MISMATCH');
-  const purpose = Object.values(p.breadcrumbs || {})
-    .map((v) => v.name)
-    .join(' ');
+  if (!uniqloName(p.name).allowed) return [];
   const groups = new Map();
   for (const v of p.l2s) {
     const stock = stocks.result[v.l2Id];
@@ -88,7 +86,7 @@ export function uniqloProducts(detail, stocks, source, expected, now = Date.now(
   return [...groups.entries()].flatMap(([key, g]) => {
     if (new Set(g.variants.map((v) => v.size)).size !== g.variants.length) return [];
     const color = key.slice(0, 2);
-    const label = uniqloName(p.name, purpose, g.pl, p.productId);
+    const label = uniqloName(p.name, '', g.pl, p.productId);
     return [
       {
         source,

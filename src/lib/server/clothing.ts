@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { uniqloName } from '../uniqlo-labels.mjs';
 import { feedProductSchema, toProduct } from './adapters';
 import { manualProductSchema } from './manual-products';
 import { publicHttps } from './http';
@@ -79,6 +80,13 @@ export function clothingProduct(
   if (!fresh(p.checked_at) || p.variants.some((v) => !fresh(v.checkedAt)))
     throw Error('STALE_CLOTHING_PRODUCT');
   const uniqlo = key.startsWith('uniqlo-');
+  if (uniqlo) {
+    const length = p.sku.match(/-\d{2}-\d{2}-(.+)$/)?.[1];
+    const label = uniqloName(p.usage || '', '', length === 'standard' ? '' : length, p.sku);
+    if (!label.allowed) throw Error('UNIQLO_NOT_RECOGNIZED_CLOTHING');
+    p.name = label.name;
+    p.category = label.category;
+  }
   if (
     p.variants.some(
       (v) => v.originalPrice !== null && Number(v.salePrice) >= Number(v.originalPrice),

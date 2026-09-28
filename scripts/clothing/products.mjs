@@ -1,5 +1,6 @@
 import { reebokMedia, pumaMedia } from '../product-media.mjs';
 import { pumaEmbeddedVariants } from '../puma-details.mjs';
+import { uniqloName } from '../../src/lib/uniqlo-labels.mjs';
 
 export const clothingSources = {
   nike: {
@@ -200,12 +201,15 @@ export function uniqloFeedProducts(data, source, now = Date.now()) {
     Date.parse(data.generatedAt) > now + 60000
   )
     throw Error('UNIQLO_INVALID_FEED');
-  return data.products.map((p) => ({
-    ...p,
-    source,
-    brand: 'Uniqlo',
-    currency: config.currency,
-    checked_at: p.checked_at || data.generatedAt,
-    category: clothingCategory(p.name),
-  }));
+  return data.products
+    .filter((p) => uniqloName(p.usage || p.name || '').allowed)
+    .map((p) => ({
+      ...p,
+      source,
+      brand: 'Uniqlo',
+      currency: config.currency,
+      checked_at: p.checked_at || data.generatedAt,
+      usage: p.usage || p.name,
+      category: uniqloName(p.usage || p.name).category,
+    }));
 }
