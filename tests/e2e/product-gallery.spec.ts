@@ -32,16 +32,18 @@ test('Галерея: стрелки, клавиатура, детали и по
   await expect(card.locator('.product-dialog')).toBeVisible();
   await expect(card.locator('.product-dialog .gallery-count')).toHaveText('1 / 3');
   await page.keyboard.press('Escape');
-  await page.getByRole('button', { name: 'Для бега', exact: true }).click();
+  await page
+    .locator('.scenario-collections')
+    .getByRole('button', { name: 'Для бега', exact: true })
+    .click();
   await expect(page).toHaveURL(/collection=running/);
   await page.reload();
-  await expect(page.getByRole('button', { name: 'Для бега', exact: true })).toHaveAttribute(
-    'aria-pressed',
-    'true',
-  );
+  await expect(
+    page.locator('.scenario-collections').getByRole('button', { name: 'Для бега', exact: true }),
+  ).toHaveAttribute('aria-pressed', 'true');
   await expect(card).toBeVisible();
   await page.getByRole('button', { name: 'Для тренировок', exact: true }).click();
-  await expect(page.getByText('Эта пара пока не нашлась')).toBeVisible();
+  await expect(page.getByText('Пока ничего не нашлось')).toBeVisible();
   await page.getByRole('button', { name: 'Чёрные и белые', exact: true }).click();
   await expect(card).toBeVisible();
 });

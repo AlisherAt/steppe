@@ -9,14 +9,27 @@ import {
   type ReactNode,
 } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { FAVORITES_KEY, FAVORITES_LIMIT, readFavorites } from '@/lib/favorites';
 import { ArrowUpRight, Check, ShoppingBag, Trash2, X } from 'lucide-react';
-import { addToCart, cartItemKey, CART_KEY, readCart, writeCart, type CartItem } from '@/lib/cart';
+import {
+  addToCart,
+  changeCartSize,
+  cartItemKey,
+  CART_KEY,
+  readCart,
+  writeCart,
+  type CartItem,
+} from '@/lib/cart';
 import type { Product } from '@/lib/types';
 import { localSizeLabel } from '@/lib/size-guide';
 import { formatKzt } from '@/lib/money';
 import { orderPhone, orderPhoneLabel } from '@/lib/store-contact';
 type Store = {
   items: CartItem[];
+  favorites: string[];
+  favoritesReady: boolean;
+  toggleFavorite: (id: string) => void;
   add: (product: Product, size: string) => void;
   openCart: () => void;
 };
@@ -29,6 +42,9 @@ export function useStore() {
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [ready, setReady] = useState(false);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [favoriteStorageError, setFavoriteStorageError] = useState(false);
+  const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
   const [toast, setToast] = useState('');
   const [storageError, setStorageError] = useState(false);
   const [checking, setChecking] = useState(false);
@@ -43,9 +59,21 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     } catch {
       setStorageError(true);
     }
+    try {
+      setFavorites(readFavorites(localStorage));
+    } catch {
+      setFavoriteStorageError(true);
+    }
     setReady(true);
     const sync = (e: StorageEvent) => {
-      if (e.key === CART_KEY) {
+      if (e.key === FAVORITES_KEY || e.key === null) {
+        try {
+          setFavorites(readFavorites(localStorage));
+        } catch {
+          setFavoriteStorageError(true);
+        }
+      }
+      if (e.key === CART_KEY || e.key === null) {
         try {
           setItems(readCart(localStorage));
         } catch {
@@ -67,6 +95,30 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     }
   }, [items, ready]);
   useEffect(() => {
+    if (!ready) return;
+    try {
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+      setFavoriteStorageError(false);
+    } catch {
+      setFavoriteStorageError(true);
+    }
+  }, [favorites, ready]);
+  function toggleFavorite(id: string) {
+    if (!/^[a-f0-9]{64}$/.test(id)) return;
+    if (!favorites.includes(id) && favorites.length >= FAVORITES_LIMIT) {
+      setToast('В избранном уже 50 товаров. Убери один, чтобы сохранить новый.');
+      return;
+    }
+    setFavorites((prev) =>
+      prev.includes(id) ? prev.filter((v) => v !== id) : [...prev, id].slice(0, FAVORITES_LIMIT),
+    );
+  }
+  function resizeItem(key: string, product: Product, size: string) {
+    setItems((prev) => changeCartSize(prev, key, product, size));
+    setChecked((prev) => ({ ...prev, [cartItemKey({ id: product.id, size })]: true }));
+    setOrderError('');
+  }
+  useEffect(() => {
     if (!toast) return;
     const timer = setTimeout(() => setToast(''), 3000);
     return () => clearTimeout(timer);
@@ -79,6 +131,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setOrderError('');
     dialog.current?.showModal();
     setChecked({});
+    setCurrentProducts([]);
     setCheckError(false);
     const ids = [...new Set(items.filter((i) => !i.demo).map((i) => i.id))];
     if (!ids.length) return;
@@ -91,6 +144,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       });
       if (!response.ok) throw new Error();
       const { products } = (await response.json()) as { products: Product[] };
+      setCurrentProducts(products);
       setChecked(
         Object.fromEntries(
           items
@@ -114,6 +168,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                 gender: p.gender,
                 department: p.department,
                 name: p.name,
+                imageUrl: p.imageUrl,
               }
             : i;
         }),
@@ -146,8 +201,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     }
   }
   return (
-    <Context.Provider value={{ items, add, openCart }}>
+    <Context.Provider
+      value={{ items, add, openCart, favorites, favoritesReady: ready, toggleFavorite }}
+    >
       {children}
+      {favoriteStorageError && (
+        <p className="favorite-storage-warning" role="alert">
+          Браузер не разрешил сохранить избранное. После перезагрузки оно может исчезнуть.
+        </p>
+      )}
       {toast && (
         <div className="toast" role="status">
           <Check size={18} />
@@ -179,8 +241,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             </button>
           </div>
           <p className="cart-explainer">
-            Собери понравившиеся товары и оформи заказ в WhatsApp. В чат подставится список товаров
-            с размерами и ценами. Условия и оплату согласуете в переписке.
+            Всё для твоего следующего образа. Проверь размеры — список товаров и цены отправим в
+            WhatsApp.
           </p>
           {storageError && (
             <p role="alert" className="notice warning">
@@ -205,75 +267,125 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           ) : (
             <>
               <div className="cart-items">
-                {items.map((item) => (
-                  <article className="cart-item" key={cartItemKey(item)}>
-                    <div className="cart-item-info">
-                      <span className="eyebrow">
-                        {item.brand}
-                        {item.demo ? ' · ДЕМО' : ''}
-                      </span>
-                      <h3>{item.name}</h3>
-                      <p>
-                        {item.sourceName} ·{' '}
-                        {item.size
-                          ? `Размер ${localSizeLabel(item, item.size)}`
-                          : 'Размер уточняйте в магазине'}
-                      </p>
-                      <strong>{formatKzt(item.saleKzt)}</strong>
-                      {!item.demo && checked[cartItemKey(item)] === false && (
-                        <p className="error-text">Предложение или размер больше не доступны.</p>
-                      )}
-                      {item.demo ? (
-                        <span className="demo-cart-note">Демонстрация, покупка недоступна</span>
-                      ) : null}
-                    </div>
-                    <button
-                      className="icon-button remove-button"
-                      disabled={ordering}
-                      onClick={() =>
-                        setItems((prev) => prev.filter((i) => cartItemKey(i) !== cartItemKey(item)))
-                      }
-                      aria-label={`Удалить ${item.name}`}
-                    >
-                      <Trash2 size={19} />
-                    </button>
-                  </article>
-                ))}
+                {items.map((item) => {
+                  const product = currentProducts.find((p) => p.id === item.id);
+                  return (
+                    <article className="cart-item" key={cartItemKey(item)}>
+                      <div className="cart-thumbnail">
+                        {item.imageUrl ? (
+                          <Image
+                            src={item.imageUrl}
+                            alt={item.name}
+                            fill
+                            sizes="100px"
+                            onError={(e) => {
+                              e.currentTarget.style.visibility = 'hidden';
+                            }}
+                          />
+                        ) : (
+                          <ShoppingBag size={28} />
+                        )}
+                      </div>
+                      <div className="cart-item-info">
+                        <span className="eyebrow">
+                          {item.brand}
+                          {item.demo ? ' · ДЕМО' : ''}
+                        </span>
+                        <h3>{item.name}</h3>
+                        {product?.sizes.length ? (
+                          <label className="cart-size-label">
+                            Размер
+                            <select
+                              aria-label={`Размер в корзине: ${item.name}`}
+                              value={item.size}
+                              disabled={checking || ordering}
+                              onChange={(e) =>
+                                resizeItem(cartItemKey(item), product, e.target.value)
+                              }
+                            >
+                              {!product.sizes.includes(item.size) && (
+                                <option value={item.size}>
+                                  {localSizeLabel(item, item.size)} · недоступен
+                                </option>
+                              )}
+                              {product.sizes.map((size) => (
+                                <option key={size} value={size}>
+                                  {localSizeLabel(product, size)} ·{' '}
+                                  {formatKzt(
+                                    product.sizePrices?.find((v) => v.size === size)?.saleKzt ??
+                                      product.saleKzt,
+                                  )}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                        ) : (
+                          <p>
+                            {item.size
+                              ? `Размер ${localSizeLabel(item, item.size)}`
+                              : 'Размер не выбран'}
+                          </p>
+                        )}
+                        <strong>{formatKzt(item.saleKzt)}</strong>
+                        {!item.demo && checked[cartItemKey(item)] === false && (
+                          <p className="error-text">Предложение или размер больше не доступны.</p>
+                        )}
+                        {item.demo ? (
+                          <span className="demo-cart-note">Демонстрация, покупка недоступна</span>
+                        ) : null}
+                      </div>
+                      <button
+                        className="icon-button remove-button"
+                        disabled={ordering}
+                        onClick={() =>
+                          setItems((prev) =>
+                            prev.filter((i) => cartItemKey(i) !== cartItemKey(item)),
+                          )
+                        }
+                        aria-label={`Удалить ${item.name}`}
+                      >
+                        <Trash2 size={19} />
+                      </button>
+                    </article>
+                  );
+                })}
               </div>
-              <div className="cart-total">
-                <span>
-                  Ориентировочная сумма{items.some((i) => i.demo) ? ' · включая демо' : ''}
-                </span>
-                <strong>{formatKzt(items.reduce((s, i) => s + i.saleKzt, 0))}</strong>
-              </div>
-              <p className="small muted">
-                Без дополнительных сборов площадки и комиссии конвертации. Окончательные условия
-                уточняйте у продавца. Корзина хранится только в этом браузере.
-              </p>
-              <button
-                className="button dark whatsapp-checkout"
-                onClick={checkout}
-                disabled={
-                  ordering ||
-                  checking ||
-                  checkError ||
-                  items.some((i) => i.demo || !checked[cartItemKey(i)])
-                }
-              >
-                {ordering ? 'Готовим заказ…' : 'Оформить в WhatsApp'} <ArrowUpRight size={18} />
-              </button>
-              {items.some((i) => i.demo) && (
-                <p className="small muted">Удалите демотовары, чтобы оформить заказ.</p>
-              )}
-              {orderError && (
-                <p role="alert" className="error-text">
-                  {orderError}
+              <div className="cart-checkout-panel">
+                <div className="cart-total">
+                  <span>
+                    Ориентировочная сумма{items.some((i) => i.demo) ? ' · включая демо' : ''}
+                  </span>
+                  <strong>{formatKzt(items.reduce((s, i) => s + i.saleKzt, 0))}</strong>
+                </div>
+                <p className="small muted">
+                  Условия доставки и окончательную сумму согласуем в переписке.
                 </p>
-              )}
-              <p className="small muted">
-                Откроется WhatsApp на номер {orderPhoneLabel}. Проверьте список и нажмите
-                «Отправить» в чате. На сайте деньги не списываются.
-              </p>
+                <button
+                  className="button dark whatsapp-checkout"
+                  onClick={checkout}
+                  disabled={
+                    ordering ||
+                    checking ||
+                    checkError ||
+                    items.some((i) => i.demo || !checked[cartItemKey(i)])
+                  }
+                >
+                  {ordering ? 'Готовим заказ…' : 'Отправить заказ в WhatsApp'}{' '}
+                  <ArrowUpRight size={18} />
+                </button>
+                {items.some((i) => i.demo) && (
+                  <p className="small muted">Удалите демотовары, чтобы оформить заказ.</p>
+                )}
+                {orderError && (
+                  <p role="alert" className="error-text">
+                    {orderError}
+                  </p>
+                )}
+                <p className="small muted">
+                  Откроется WhatsApp на номер {orderPhoneLabel}. Проверьте список и нажмите
+                  «Отправить» в чате. На сайте деньги не списываются.
+                </p>
+              </div>
             </>
           )}
           <Link className="text-link" href="/about" onClick={() => dialog.current?.close()}>

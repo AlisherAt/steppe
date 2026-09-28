@@ -5,6 +5,7 @@ import { StoreProvider } from '@/components/store-provider';
 import { Header } from '@/components/header';
 import './globals.css';
 import './storefront.css';
+import './shopping.css';
 export const metadata: Metadata = {
   title: 'STEPPE — кроссовки и одежда со скидками',
   description:

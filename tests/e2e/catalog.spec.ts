@@ -32,9 +32,12 @@ test('Русский каталог: фильтры, размер, корзин�
   expect(brandInput!.x + brandInput!.width).toBeLessThanOrEqual(sidebar!.x + sidebar!.width);
   await page.getByRole('textbox', { name: 'Поиск кроссовок' }).fill('городской');
   await expect(page.locator('.product-card')).toHaveCount(1);
+  await page.locator('.product-card .choose-size-button').click();
   await page.getByRole('button', { name: 'Добавить Air Max — городской ритм в корзину' }).click();
-  await expect(page.locator('#error-demo-1')).toHaveText('Сначала выбери размер');
-  await page.locator('#size-demo-1').selectOption('42');
+  await expect(page.locator('.product-detail[open] [role=alert]')).toHaveText(
+    'Выбери доступный размер',
+  );
+  await page.locator('.detail-sizes button').filter({ hasText: 'EU 42' }).click();
   await page.getByRole('button', { name: 'Добавить Air Max — городской ритм в корзину' }).click();
   await page.reload();
   await page.getByRole('button', { name: 'Открыть корзину, товаров: 1' }).click();
@@ -89,11 +92,11 @@ test('Пустое состояние, сортировка, ошибка API и
     .getByRole('button', { name: 'Подробнее: Junior — больше движения' })
     .click();
   await expect(
-    page.getByRole('dialog').getByText('Это пример интерфейса.', { exact: false }),
+    page.getByRole('dialog').getByText('Это демонстрация интерфейса.', { exact: false }),
   ).toBeVisible();
   await page.keyboard.press('Escape');
   await page.getByRole('textbox', { name: 'Поиск кроссовок' }).fill('отсутствующий');
-  await expect(page.getByRole('heading', { name: 'Эта пара пока не нашлась' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Пока ничего не нашлось' })).toBeVisible();
   await page.route('**/api/catalog?**', (route) =>
     route.fulfill({
       status: 503,

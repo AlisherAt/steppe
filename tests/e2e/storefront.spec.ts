@@ -5,15 +5,15 @@ test('быстрый бюджет, мобильные фильтры, Escape и 
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/?mode=demo');
   await expect(page.locator('.product-grid .product-card')).toHaveCount(8);
-  await page.getByRole('button', { name: 'До 30 000 ₸' }).click();
-  await expect(page.getByRole('button', { name: 'До 30 000 ₸' })).toHaveAttribute(
+  await page.getByRole('button', { name: 'До 30 000 ₸', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'До 30 000 ₸', exact: true })).toHaveAttribute(
     'aria-pressed',
     'true',
   );
   await expect(page.locator('.product-grid .product-card')).toHaveCount(2);
   const toggle = page.getByRole('button', { name: /^Фильтры/ });
   await toggle.click();
-  const dialog = page.getByRole('dialog', { name: 'Твоя идеальная пара' });
+  const dialog = page.getByRole('dialog', { name: 'Фильтры каталога' });
   await expect(dialog).toBeVisible();
   await dialog.getByRole('button', { name: 'Сбросить все' }).click();
   await expect(page.locator('.product-grid .product-card')).toHaveCount(8);

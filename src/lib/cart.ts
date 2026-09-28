@@ -63,3 +63,18 @@ export function writeCart(storage: Pick<Storage, 'setItem'>, items: CartItem[]) 
     JSON.stringify({ version: 1, items: z.array(itemSchema).max(50).parse(items) }),
   );
 }
+
+/** Смена размера использует свежую карточку и объединяет совпадающие позиции. */
+export function changeCartSize(
+  items: CartItem[],
+  key: string,
+  product: Product,
+  size: string,
+): CartItem[] {
+  if (!items.some((item) => cartItemKey(item) === key && item.id === product.id)) return items;
+  return addToCart(
+    items.filter((item) => cartItemKey(item) !== key),
+    product,
+    size,
+  );
+}

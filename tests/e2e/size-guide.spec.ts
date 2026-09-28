@@ -26,6 +26,7 @@ test('таблица: родной размер, цена, корзина, мо�
   });
   await page.goto('/?mode=demo');
   const card = page.locator('.product-card').filter({ hasText: product.name });
+  await card.getByRole('button', { name: 'Выбрать размер', exact: true }).click();
   const trigger = card.getByRole('button', { name: 'Таблица размеров' });
   await trigger.click();
   const dialog = page.getByRole('dialog', { name: 'Твой размер — без путаницы' });
@@ -42,11 +43,13 @@ test('таблица: родной размер, цена, корзина, мо�
   await trigger.click();
   await dialog.getByRole('button', { name: 'Выбрать EU 45,5', exact: true }).click();
   await expect(dialog).not.toBeVisible();
-  await expect(card.getByRole('combobox')).toHaveValue('US M 12');
-  await expect(card.locator('.product-info .product-prices strong')).toContainText(/31\s*000/);
+  await expect(card.locator('.detail-sizes button[aria-pressed=true]')).toContainText('EU 45,5');
+  await expect(card.locator('.product-detail-copy > .product-prices strong')).toContainText(
+    /31\s*000/,
+  );
   await card.getByRole('button', { name: /Добавить .* в корзину/ }).click();
   await page.reload();
-  await page.getByRole('button', { name: 'Открыть корзину, товаров: 1' }).click();
+  await page.getByRole('button', { name: 'Корзина, товаров: 1', exact: true }).click();
   await expect(page.getByRole('dialog', { name: 'Корзина 1' })).toContainText('EU 45,5');
 });
 
@@ -71,20 +74,25 @@ test('детские US K автоматически видны и фильтр�
   );
   await page.goto('/?mode=demo');
   const card = page.locator('.product-card').filter({ hasText: product.name });
-  await expect(card.locator('option[value="US K 3.5"]')).toHaveText('EU 34,5');
-  await expect(card.locator('option[value="US K 5"]')).toHaveText('EU 36,5');
+  await card.getByRole('button', { name: 'Выбрать размер', exact: true }).click();
+  await expect(card.locator('.detail-sizes')).toContainText('EU 34,5');
+  await expect(card.locator('.detail-sizes')).toContainText('EU 36,5');
+  await page.keyboard.press('Escape');
   await page.getByRole('button', { name: /^Фильтры/ }).click();
   const filters = page.locator('#mobile-filters');
+  await filters.getByRole('button', { name: 'Выбрать размер', exact: true }).click();
+  await filters.getByRole('searchbox', { name: 'Найти размер EU' }).fill('34,5');
   await filters.getByRole('button', { name: 'EU 34,5', exact: true }).click();
   await filters.getByRole('button', { name: 'Показать результаты' }).click();
   await expect(page.locator('.product-card')).toHaveCount(1);
+  await card.getByRole('button', { name: 'Выбрать размер', exact: true }).click();
   await card.getByRole('button', { name: 'Таблица размеров' }).click();
   const guide = page.getByRole('dialog', { name: 'Твой размер — без путаницы' });
   await expect(guide.locator('tbody tr').first().locator('td').first()).toHaveText('34,5');
   await guide.getByRole('button', { name: 'Выбрать EU 36,5', exact: true }).click();
-  await expect(card.locator('select')).toHaveValue('US K 5');
+  await expect(card.locator('.detail-sizes button[aria-pressed=true]')).toContainText('EU 36,5');
   await card.getByRole('button', { name: /Добавить .* в корзину/ }).click();
   await page.reload();
-  await page.getByRole('button', { name: 'Открыть корзину, товаров: 1' }).click();
+  await page.getByRole('button', { name: 'Корзина, товаров: 1', exact: true }).click();
   await expect(page.getByRole('dialog', { name: 'Корзина 1' })).toContainText('Размер EU 36,5');
 });

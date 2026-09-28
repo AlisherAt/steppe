@@ -54,15 +54,17 @@ test('Рынок США: текущая цена без фиктивной ск�
   await expect(card).toHaveCount(1);
   await expect(card.locator('del')).toHaveCount(0);
   await expect(card.locator('.discount-badge')).toHaveCount(0);
-  await expect(card).toContainText('Покупка без торгов');
+  await expect(card.locator('.product-info .product-prices')).toContainText(/40\s*000/);
   await expect(card).not.toContainText('Доставка');
-  await card.locator('select').selectOption('42');
+  await card.getByRole('button', { name: 'Выбрать размер', exact: true }).click();
+  await card.locator('.detail-sizes button').filter({ hasText: 'EU 42' }).click();
   await card.getByRole('button', { name: /Добавить/ }).click();
+  await page.keyboard.press('Escape');
   await page.getByRole('button', { name: 'Открыть корзину, товаров: 1' }).click();
   await expect(
     page.getByRole('link', { name: /Перейти в магазин|В магазин|Перейти к предложению/ }),
   ).toHaveCount(0);
-  const checkout = page.getByRole('button', { name: 'Оформить в WhatsApp' });
+  const checkout = page.getByRole('button', { name: 'Отправить заказ в WhatsApp' });
   await expect(checkout).toBeEnabled();
   await expect(page.getByRole('dialog')).toContainText('+7 707 922 3074');
   await page.route('**/api/checkout/whatsapp', (route) =>

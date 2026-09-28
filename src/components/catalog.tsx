@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
-  ArrowDown,
   ArrowRight,
   ArrowUpRight,
   Search,
@@ -25,6 +24,7 @@ import { demoEnabled } from '@/lib/catalog-mode';
 import { formatKzt } from '@/lib/money';
 import { SizeFilter } from './size-filter';
 import { collections } from '@/lib/product-collections';
+import { OutfitCollections } from './outfit-collections';
 export function Catalog({
   initial,
   initialMode,
@@ -63,7 +63,10 @@ export function Catalog({
     );
   const section = useRef<HTMLElement>(null);
   const filterDialog = useRef<HTMLDialogElement>(null);
-  const heroProduct = initial.products.find((p) => brandNames.includes(p.brand) && p.imageUrl);
+  const heroProduct =
+    initial.products.find(
+      (p) => p.gender !== 'kids' && brandNames.includes(p.brand) && p.imageUrl,
+    ) || initial.products.find((p) => p.imageUrl);
   useEffect(() => {
     const dialog = filterDialog.current;
     if (mobileFilters && dialog && !dialog.open) dialog.showModal();
@@ -326,7 +329,7 @@ export function Catalog({
         <p>
           Выбираешь здесь.
           <br />
-          Покупаешь у магазина.
+          Заказываешь в WhatsApp.
         </p>
         <Link href="/about">
           Подробнее <ArrowUpRight size={14} />
@@ -336,40 +339,33 @@ export function Catalog({
   );
   return (
     <main id="main-content" className="storefront">
-      <section className={`hero ${clothing ? 'clothing-hero' : ''}`}>
-        <div className="hero-copy">
-          <span className="eyebrow">
-            <span className="hero-status-dot" />{' '}
-            {clothing
-              ? department === 'casual'
-                ? 'UNIQLO / ЯПОНИЯ + КОРЕЯ'
-                : 'NIKE + PUMA + REEBOK / СПОРТИВНАЯ ОДЕЖДА'
-              : 'NIKE + PUMA + REEBOK / КРОССОВКИ'}
-          </span>
+      <section className={`edit-hero ${clothing ? 'edit-hero-clothing' : ''}`}>
+        <div className="edit-hero-copy">
+          <span className="eyebrow">STEPPE / ВЫБОР НА КАЖДЫЙ ДЕНЬ</span>
           <h1>
-            {clothing ? 'Твой стиль.' : 'Твой ритм.'}
-            <br />
-            <span>{clothing ? 'Твои правила.' : 'Твоя пара.'}</span>
+            {clothing ? 'Носи по-своему' : 'В твоём ритме'}
+            <span>.</span>
           </h1>
           <p>
             {clothing
-              ? 'Для движения, города и твоих планов.'
-              : 'На пробежку, тренировку и просто по своим делам.'}
-            <br />
-            {clothing ? 'Собирай образ по приятной цене.' : 'Находи свою пару по приятной цене.'}
+              ? 'Спортивная и повседневная одежда для твоих сочетаний.'
+              : 'Кроссовки Nike, Puma и Reebok. Найди пару под свои планы.'}
           </p>
-          <a href="#catalog" className="hero-link">
-            {clothing ? 'Смотреть одежду' : 'Смотреть кроссовки'} <ArrowUpRight size={20} />
-          </a>
-          <div className="hero-footnote">
-            <span>STEPPE / SELECT</span> Сотни способов быть собой.
+          <div className="edit-hero-actions">
+            <a href="#catalog" className="button dark">
+              {clothing ? 'Смотреть одежду' : 'Смотреть кроссовки'} <ArrowUpRight size={18} />
+            </a>
+            {mode === 'live' && (
+              <a href="#outfits" className="text-link">
+                Готовые образы <ArrowRight size={16} />
+              </a>
+            )}
           </div>
         </div>
-        <div className="hero-visual">
-          <span className="hero-outline" aria-hidden="true">
-            STEPPE
+        <div className="edit-hero-media">
+          <span className="edit-hero-word" aria-hidden="true">
+            {clothing ? 'WEAR' : 'MOVE'}
           </span>
-          <span className="hero-orbit" aria-hidden="true" />
           {heroProduct?.imageUrl && !heroImageFailed && (
             <Image
               src={
@@ -380,28 +376,15 @@ export function Catalog({
               unoptimized={clothing && heroProduct.brand === 'Puma'}
               alt={heroProduct.name}
               fill
-              priority
-              sizes="(max-width: 700px) 100vw, 48vw"
+              preload
+              sizes="(max-width: 760px) 40vw, 420px"
               onError={() => setHeroImageFailed(true)}
             />
           )}
-          <div className="hero-image-label">
-            <Sparkles size={16} /> ВЫБИРАЙ СВОЙ РИТМ
-          </div>
-          <span className="hero-sticker" aria-hidden="true">
-            ХОРОШИЙ
-            <br />
-            <strong>ХОД ↗</strong>
+          <span className="edit-hero-tag">
+            {clothing ? 'СОБЕРИ СВОЙ ОБРАЗ' : 'ТВОЙ СЛЕДУЮЩИЙ ШАГ'}{' '}
+            <span aria-hidden="true">✳</span>
           </span>
-          {heroProduct && (
-            <a className="hero-product-note" href="#catalog">
-              <span>
-                {heroProduct.brand} / {heroProduct.name}
-              </span>
-              <strong>от {formatKzt(heroProduct.saleKzt)}</strong>
-              <ArrowDown size={18} />
-            </a>
-          )}
         </div>
       </section>
       <div className="benefits">
@@ -549,7 +532,7 @@ export function Catalog({
             aria-controls="mobile-filters"
           >
             <SlidersHorizontal size={18} />
-            Фильтры{activeCount ? ` (${activeCount})` : ''}
+            Фильтры{activeCount ? ` · ${activeCount}` : ''}
           </button>
           <label className="sort-control">
             <span>Сначала</span>
@@ -565,6 +548,62 @@ export function Catalog({
             </select>
           </label>
         </div>
+        {(activeCount > 0 || filters.q) && (
+          <div className="active-filter-chips" aria-label="Выбранные фильтры">
+            {filters.q && (
+              <button onClick={() => update('q', '')}>
+                Поиск: {filters.q} <X size={14} />
+              </button>
+            )}
+            {filters.brands.map((v) => (
+              <button key={v} onClick={() => toggle('brands', v)}>
+                {v} <X size={14} />
+              </button>
+            ))}
+            {filters.sizes.map((v) => (
+              <button key={v} onClick={() => toggle('sizes', v)}>
+                {clothing ? v : `EU ${v.replace(/^EU /, '')}`} <X size={14} />
+              </button>
+            ))}
+            {filters.gender && (
+              <button onClick={() => update('gender', '')}>
+                {{ men: 'Мужские', women: 'Женские', unisex: 'Унисекс', kids: 'Детские' }[
+                  filters.gender
+                ] || filters.gender}{' '}
+                <X size={14} />
+              </button>
+            )}
+            {filters.category && (
+              <button onClick={() => update('category', '')}>
+                {filters.category} <X size={14} />
+              </button>
+            )}
+            {filters.collection && (
+              <button onClick={() => update('collection', '')}>
+                {collections.find((c) => c.id === filters.collection)?.label} <X size={14} />
+              </button>
+            )}
+            {filters.minDiscount > 0 && (
+              <button onClick={() => update('minDiscount', 0)}>
+                Скидка от {filters.minDiscount}% <X size={14} />
+              </button>
+            )}
+            {(filters.minPrice > 0 || filters.maxPrice < 1000000) && (
+              <button
+                onClick={() =>
+                  setFilters((f) => ({ ...f, minPrice: 0, maxPrice: 1000000, page: 1 }))
+                }
+              >
+                {filters.minPrice > 0 ? `От ${formatKzt(filters.minPrice)}` : ''}
+                {filters.maxPrice < 1000000 ? ` до ${formatKzt(filters.maxPrice)}` : ''}{' '}
+                <X size={14} />
+              </button>
+            )}
+            <button className="clear-chips" onClick={() => setFilters(defaults)}>
+              Сбросить всё
+            </button>
+          </div>
+        )}
         <div className="catalog-layout">
           <aside className="filters" aria-label="Фильтры каталога">
             {controls}
@@ -665,6 +704,7 @@ export function Catalog({
           </div>
         </div>
       </section>
+      {mode === 'live' && <OutfitCollections />}
       <dialog
         id="mobile-filters"
         ref={filterDialog}
